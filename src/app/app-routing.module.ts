@@ -10,22 +10,25 @@ import { MantenimientosComponent } from './mantenimientos/mantenimientos.compone
 import { LoginComponent } from './auth/login/login.component';
 import { KardexComponent } from './kardex/kardex.component';
 import { KardexRoutingModule } from './kardex/kardex-routing.module';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 
 
 
 const routes: Routes =[
-  {path:'', redirectTo:'/dashboard', pathMatch:'full'},  
+  // {path:'', redirectTo:'/dashboard', pathMatch:'full'},  
   {path:'login', component:LoginComponent},
+  {path:'dashboard', component:DashboardComponent},
   {path:'mantenimientos',  component: MantenimientosComponent},
   {path:'kardex',  component: KardexComponent},
- {path:'auth',component: LoginComponent },
+  {path:'auth',component: LoginComponent },
+  { path: '**', pathMatch: 'full', redirectTo: 'login' }
 ];
 
 @NgModule({
   declarations: [],
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes,{useHash:true})
   ],
   exports:[
     RouterModule,

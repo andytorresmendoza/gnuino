@@ -22,6 +22,22 @@ name="idProducto"
 />
 
   <div class="form-row">
+    <!-- <div class="form-group col-md-6">
+      <label>PRODUCTO</label>
+      <select
+        name="idProducto"
+        #idProducto="ngModel"
+        [(ngModel)]="formData.idProducto"
+        class="form-control"
+        (change)="UpdateNombre($event.target)"
+        [class.is-invalid]="!isValid && formData.idProducto == 0"
+      >
+        <option value="0">-Select-</option>
+        <option *ngFor="let producto of productos" value="{{ producto.id }}">
+          {{ producto.nombre_producto }}
+        </option>
+      </select>
+    </div> -->
     <div class="form-group col-md-6">
       <label>PRODUCTO</label>
       <select

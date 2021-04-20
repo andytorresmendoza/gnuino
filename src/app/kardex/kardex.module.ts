@@ -21,6 +21,8 @@ import { OrdencompraComponent } from './ordencompra/ordencompra/ordencompra.comp
 import { ListarordencompraComponent } from './ordencompra/listarordencompra/listarordencompra.component';
   // import { ToastrModule } from 'ngx-toastr';
 
+  import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
 
 @NgModule({
   declarations: 
@@ -40,7 +42,8 @@ import { ListarordencompraComponent } from './ordencompra/listarordencompra/list
      ReactiveFormsModule,
      MatDialogModule,
      MatDatepickerModule,
-     MatNativeDateModule  
+     MatNativeDateModule,
+     MatAutocompleteModule  
    
 
   ],

@@ -9,3 +9,6 @@ git push -u origin main
 
 ng add @angular/material
 npm install moment --save
+
+
+ng build --prod

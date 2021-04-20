@@ -5,7 +5,7 @@ import { MantenimientosComponent } from './mantenimientos.component';
 import { RouterModule } from '@angular/router';
  import { HomeComponent } from './home/home.component'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import{AutocompleteLibModule} from 'angular-ng-autocomplete'
 
 //nuevos
@@ -58,6 +58,7 @@ import { AddProveedorComponent } from './proveedor/add-proveedor/add-proveedor.c
 import { ListarEmpleadoComponent } from './empleado/listar-empleado/listar-empleado.component';
 import { EditarEmpleadoComponent } from './empleado/editar-empleado/editar-empleado.component';
 import { AddEmpleadoComponent } from './empleado/add-empleado/add-empleado.component';
+import { AuthInterceptorService } from '../services/token/auth-interceptor.service';
 
 
 
@@ -85,6 +86,6 @@ import { AddEmpleadoComponent } from './empleado/add-empleado/add-empleado.compo
   exports:[
     HomeComponent,
     MantenimientosComponent, 
-  ]
+  ], 
 })
 export class MantenimientosModule { }
