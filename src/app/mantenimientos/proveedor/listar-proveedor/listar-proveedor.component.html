@@ -1,0 +1,72 @@
+<h1>Listado Proveedor</h1>
+<hr />
+<div class="row">
+  <div class="col text-right">
+    <button routerLink="/mantenimientos/addproveedor" class="btn btn-primary">
+      <i class="fa fa-plus"> Agregar </i>
+    </button>
+  </div>
+</div>
+<table
+  *ngIf="!cargando && proveedores.length > 0"
+  class="table mt-3 animated fadeIn faster animated fadeIn faster"
+>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre Proveedor</th>
+      <th scope="col">RUC</th>
+      <th scope="col">EMAIL</th>
+      <th scope="col">TELEFONO</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let proveedor of proveedores; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ proveedor.nombre_proovedor }}</td>
+      <td>{{ proveedor.ruc_proovedor}}</td>
+      <td>{{ proveedor.email_proovedor}}</td>
+      <td>{{ proveedor.telefono_proovedor}}</td>
+      <td>
+        <label *ngIf="proveedor.estado" class="badge badge-success"
+          >Activo</label
+        >
+        <label *ngIf="!proveedor.estado" class="badge badge-danger"
+          >Inactivo</label
+        >
+      </td>
+
+      <td>
+        <button class="btn btn-info mr-1" (click)="Editar(proveedor, i)">
+          <!--" la ruta seria producto/nuevo pero la transfomamos a producto/id"--><!-- Mndando un id en la ruta la ruta se manda en [] porque es una ruta dinamica cuando no se envia con llaves es una ruta dinamica como la que esta arriba-->
+          <i class="fa fa-pen"></i>
+        </button>
+        <!-- <button class="btn btn-danger" (click)="Delete(nrocuenta, i)">
+          <i class="fa fa-trash"></i> 
+        </button> -->
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div
+  *ngIf="!cargando && proveedores.length === 0"
+  class="alert alert-warning text-center mt-3 animated fadeIn faster"
+>
+  <h4 class="alert-heading">No hay registros</h4>
+  <p>
+    <i class="fa fa-exclamation fa-2px"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+</div>
+<div
+  *ngIf="cargando"
+  class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+  <h4 class="alert-heading">Cargando</h4>
+  <p>
+    <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+</div>

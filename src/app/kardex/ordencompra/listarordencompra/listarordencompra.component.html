@@ -1,0 +1,41 @@
+<h1>Listado Ordenes Compra </h1>
+<hr />
+<div class="row">
+  <div class="col text-right">
+    <button routerLink="/kardex/ordencompra/nuevo" class="btn btn-primary">
+      <i class="fa fa-plus"> Agregar </i>
+    </button>
+  </div>
+</div>
+<table class="table table-hover">
+  <thead class="thead-dark">
+      <th scope="col">#Orden Nro</th>
+      <th scope="col">Empleado</th>
+      <th scope="col">Proveedor</th> 
+      <th scope="col">Estado</th>
+    
+  </thead>
+  <tbody>
+      <tr *ngFor="let item of Ordenes; let i = index" >
+        <th (click)="openForEdit(item.id)">{{item.codigo_orden_num}}</th>
+        <td (click)="openForEdit(item.id)">{{item.detalleProovedor[0].nombre_proovedor}}</td>
+        <td (click)="openForEdit(item.id)">{{item.detalleEmpleado[0].nombre_empleado}}</td>
+        <!-- <td (click)="openForEdit(item.id)">{{item.detalleCotizacion[0].precio_total}}</td>   -->
+        <!-- <td (click)="openForEdit(item.id)">{{item.idEstadoFlujo}}</td> -->
+        <td>
+          <label *ngIf="item.idEstadoFlujo == 2" class="badge bg-success"
+            >
+
+            Cerrado</label
+          >
+          <label *ngIf="item.idEstadoFlujo == 1" class="badge bg-warning text-dark"
+            >Pendiente</label
+          >
+        </td>
+         <!-- <td> <button class="btn btn-info mr-1" (click)="openForEdit(item.id)">            
+        <i class="fa fa-pen"></i> 
+        </button>
+      </td> -  -->
+      </tr>
+    </tbody>
+</table>

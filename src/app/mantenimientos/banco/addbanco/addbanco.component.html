@@ -1,0 +1,51 @@
+<h1><small>Agregar Banco</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../listarbanco">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<div class="row animated fadeIn faster">
+  <div class="col">
+    <form [formGroup]="loginForm" (ngSubmit)="AddBanco(loginForm.value)">
+      <div class="form-group">
+        <label for="">Nombre Banco</label>  
+        <div class="mb-3">
+          <input
+            type="text"
+            id="descripcion_banco"
+            class="form-control"
+            placeholder="Nombre Banco"
+            formControlName="descripcion_banco"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="">Nro Cuenta</label>  
+          <select
+            class="form-control"
+            id="idNroCuenta"
+            formControlName="idNroCuenta" 
+            class="form-control"
+          >
+          <option value="">---Seleccione Nro cuenta---</option>
+          <option *ngFor="let nrocuenta of nrocuentas" [ngValue]="nrocuenta.id">{{ nrocuenta.descripcion_cuenta }}  </option>
+          </select>
+        </div>
+
+        </div>
+    
+      <br />
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary w-25">
+          <i class="fa fa-save"></i>
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<h1>Listado Cotización </h1>
+<hr />
+<div class="row">
+  <div class="col text-right">
+    <button routerLink="/kardex/cotizacion/nuevo" class="btn btn-primary">
+      <i class="fa fa-plus"> Agregar </i>
+    </button>
+  </div>
+</div>
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <th scope="col">#Cotizacion Nro</th>
+        <th scope="col">Proveedor</th>
+        <th scope="col">Empleado</th>
+        <th scope="col">Total</th>
+        <th scope="col">Estado</th>
+      
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of cotizaciones; let i = index" >
+          <th (click)="openForEdit(item.id)">{{item.codigo_cotizacion_num}}</th>
+          <td (click)="openForEdit(item.id)">{{item.detalleProovedor[0].nombre_proovedor}}</td>
+          <td (click)="openForEdit(item.id)">{{item.detalleEmpleado[0].nombre_empleado}}</td>
+          <td (click)="openForEdit(item.id)">{{item.total_costo}}</td>
+          <!-- <td (click)="openForEdit(item.id)">{{item.idEstadoFlujo}}</td> -->
+          <td>
+            <label *ngIf="item.idEstadoFlujo == 2" class="badge bg-success"
+              >
+ 
+              Cerrado</label
+            >
+            <label *ngIf="item.idEstadoFlujo == 1" class="badge bg-warning text-dark"
+              >Pendiente</label
+            >
+            <label *ngIf="item.idEstadoFlujo == 3" class="badge badge-danger"
+            >Anulado</label
+          >
+          </td>
+       <!-- <td>
+            <button class="btn btn-outline-dark" (click)="EstadoCotizacionAnular(item, i)">
+                 <i class="far fa-times-circle"></i>
+         </button>  </td> -->
+          <td>
+           <button class="btn btn-outline-dark" (click)="borrarCotizacion(item, i)">
+            <i class="fa fa-trash"></i> 
+                <!-- <i class="far fa-times-circle"></i> -->
+        </button>  </td>  
+           <!-- <td> <button class="btn btn-info mr-1" (click)="openForEdit(item.id)">            
+          <i class="fa fa-pen"></i> 
+          </button>
+        </td> -  -->
+        </tr>
+      </tbody>
+</table>
+<div
+  *ngIf="!cargando && cotizaciones.length === 0"
+  class="alert alert-warning text-center mt-3 animated fadeIn faster"
+>
+  <h4 class="alert-heading">No hay registros</h4>
+  <p>
+    <i class="fa fa-exclamation fa-2px"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+</div>
+<div
+  *ngIf="cargando"
+  class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+  <h4 class="alert-heading">Cargando</h4>
+  <p>
+    <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+</div>

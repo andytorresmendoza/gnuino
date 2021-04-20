@@ -1,0 +1,35 @@
+<h1><small>Agregar Tipo documento</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../listartipodocumento">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<div class="row animated fadeIn faster">
+  <div class="col">
+    <form [formGroup]="loginForm" (ngSubmit)="AddTipodocumento(loginForm.value)">
+      <div class="form-group">
+        <label  class="form-label">Tipo Documento</label>
+        <input
+          type="text"
+          id="tipo_documento"
+          class="form-control"
+          placeholder="Nombre Tipo Documento"
+          formControlName="tipo_documento"
+        />
+      </div>
+      <!-- <input type="password" id="password" class="fadeIn third"  placeholder="password" formControlName="password"> -->
+      <br />
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary w-25">
+          <i class="fa fa-save"></i>
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

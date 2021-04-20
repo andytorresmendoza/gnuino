@@ -1,0 +1,208 @@
+<h1><small>Editar Empleado</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../listarempleado">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<div class="row animated fadeIn faster" mb-3 row>
+  <div class="col">
+    <form  [formGroup]="loginForm" action="">
+        <form class="row g-3" [formGroup]="loginForm">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="inputEmail4" class="form-label">Nombre Empleado</label>
+                <input 
+               
+                type="text"
+                [(ngModel)]="empleados[0].nombre_empleado"
+                name="nombre_empleado"
+                class="form-control"
+                formControlName="nombre_empleado"
+                id="nombre_empleado"
+                
+                />
+            </div>
+            <div class="form-group">
+                <label for="inputAddress" class="form-label">Dirección</label>
+                <input
+            
+                type="text"
+                [(ngModel)]="empleados[0].direccion_empleado"
+                name="direccion_empleado"
+                class="form-control"
+                formControlName="direccion_empleado"
+                id="direccion_empleado"
+                />
+            </div>
+            <div class="form-group">
+                <label for="inputAddress" class="form-label">Tipo Documento</label>
+                <select 
+                type="text"
+                [(ngModel)]="empleados[0].idTipoDocumento"
+                name="id"
+                class="form-control"
+                formControlName="idTipoDocumento"
+                id="idTipoDocumento" 
+              > 
+                  <option *ngFor="let documento of tipodocumentos" [ngValue]="documento.id">
+                    {{ documento.tipo_documento }}
+                  </option>
+                </select>
+              </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="inputPassword4" class="form-label">Apellido Paterno</label>
+              <input 
+              type="text"
+              [(ngModel)]="empleados[0].apellidos_pat_empleado"
+              name="apellidos_pat_empleado"
+              class="form-control"
+              formControlName="apellidos_pat_empleado"
+              id="apellidos_pat_empleado"
+             />
+            </div>
+            <div class="form-group">
+              <label for="inputAddress2" class="form-label">Email</label>
+              <input
+  
+  
+              type="text"
+              [(ngModel)]="empleados[0].email_empleado"
+              name="email_empleado"
+              class="form-control"
+              formControlName="email_empleado"
+              id="email_empleado" 
+              />
+            </div>
+            <div class="form-group">
+              <label for="inputAddress" class="form-label">Perfil Usuario</label>
+              <select 
+              type="text"
+              [(ngModel)]="empleados[0].idPerfilUsuario"
+              name="id"
+              class="form-control"
+              formControlName="idPerfilUsuario"
+              id="idPerfilUsuario" 
+             >
+             
+                <option *ngFor="let perfil of perfiles"  [ngValue]="perfil.id">
+                  {{ perfil.tipo_usuario }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+                <label for="inputPassword4" class="form-label">Apellido Materno</label>
+                <input  
+                
+                type="text"
+                [(ngModel)]="empleados[0].apellidos_mat_empleado"
+                name="apellidos_mat_empleado"
+                class="form-control"
+                formControlName="apellidos_mat_empleado"
+                id="apellidos_mat_empleado"  
+                 />
+              </div>
+              <div class="form-group">
+                <label for="inputAddress" class="form-label">Sexo</label>
+                <select 
+                type="text"
+                [(ngModel)]="empleados[0].sexo_empleado"
+                name="id"
+                class="form-control"
+                formControlName="sexo_empleado"
+                id="sexo_empleado"  >
+              <!-- revisar -->
+                  <option value="F">Femenino</option>
+                  <option value="M">Masculino</option>
+     
+                </select>
+              </div>
+     
+              <div class="form-group">
+                <label for="inputAddress" class="form-label">FECHA</label>
+                 
+                  <!-- <input matInput [matDatepicker]="picker"  placeholder="" [(ngModel)]="picker" formControlName="fecha_empleado"   (dateChange)="onChangeEvent($event)"> -->
+                  <input matInput [matDatepicker]="picker"   class="form-control" placeholder="DD/MM/YYYY"  [(ngModel)]="empleados[0].fecha_empleado"  formControlName="fecha_empleado" (dateChange)="onChangeEvent($event)" >
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <!-- <input matInput [matDatepicker]="picker"   [(ngModel)]="selectedprovincias"  formControlName="fecha_empleado" (dateChange)="onChangeEvent($event)" >
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker ></mat-datepicker> -->
+                  
+              </div> 
+          </div>
+          
+        <div class="col-md-3">
+            <div class="form-group">
+              <label for="inputPassword4" class="form-label">DNI</label>
+              <input  
+              type="text"
+              [(ngModel)]="empleados[0].dni_empleado"
+              name="dni_empleado"
+              class="form-control"
+              formControlName="dni_empleado"
+              id="dni_empleado"   
+           />
+            </div>
+            <div class="form-group">
+              <label for="inputAddress" class="form-label">PAIS</label>
+              <select 
+               type="text"
+                [(ngModel)]="empleados[0].idPais"
+                name="id"
+                class="form-control"
+                formControlName="idPais"
+                id="idPais" >
+       
+                <option *ngFor="let pais of paises" [ngValue]="pais.id">
+                  {{ pais.nombre_pais }}
+                </option>
+              </select>
+            </div>
+   
+          </div>
+        </form>
+  
+          <br />
+      <div class="form-group">
+        <label>Estado</label>
+        <br />
+        <button
+          *ngIf="empleados[0].estado"
+          (click)="empleados[0].estado = false"
+          class="btn btn-outline-success w-50"
+          type="button"
+        >
+          <i class="fa fa-smile-wink"></i>
+          Activo
+        </button>
+        <button
+          *ngIf="!empleados[0].estado"
+          (click)="empleados[0].estado = true"
+          class="btn btn-outline-danger w-50"
+          type="button"
+        >
+          <i class="fa fa-dizzy"></i>
+          Inactivo
+        </button>
+      </div>
+      <hr />
+      <div class="form-group text-center">
+        <button (click)="Actualizar([empleados[0]])" class="btn btn-primary w-25">
+          <i class="fa fa-save"></i>
+          Actualizar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+    
+    

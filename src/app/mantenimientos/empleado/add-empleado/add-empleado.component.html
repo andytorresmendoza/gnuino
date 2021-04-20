@@ -1,0 +1,160 @@
+<h1><small>Agregar Empleado</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../listarempleado">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<div class="row animated fadeIn faster">
+  <div class="col">
+    <form [formGroup]="loginForm" (ngSubmit)="AddEmpleado(loginForm.value)">
+      <form class="row g-3" [formGroup]="loginForm">
+
+        
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="inputEmail4" class="form-label">Nombre Empleado</label>
+            <input 
+             type="text"
+            id="nombre_empleado"
+            class="form-control"         
+            formControlName="nombre_empleado" />
+          </div>
+          <div class="form-group">
+            <label for="inputAddress" class="form-label">Dirección</label>
+            <input
+            type="text"
+            id="direccion_empleado"
+            class="form-control"         
+            formControlName="direccion_empleado"
+            />
+          </div>
+          <div class="form-group">
+            <label for="inputAddress" class="form-label">Tipo Documento</label>
+            <select id="idTipoDocumento" formControlName="idTipoDocumento" class="form-control">
+              <option value="">---Seleccione Tipo Documento---</option>
+              <option *ngFor="let documento of tipodocumentos" value="{{ documento.id }}">
+                {{ documento.tipo_documento }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="inputPassword4" class="form-label">Apellido Paterno</label>
+            <input    type="text"
+            id="apellidos_pat_empleado"
+            class="form-control"         
+            formControlName="apellidos_pat_empleado"/>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress2" class="form-label">Email</label>
+            <input
+            type="text"
+            id="email_empleado"
+            class="form-control"         
+            formControlName="email_empleado"
+            />
+          </div>
+          <div class="form-group">
+            <label for="inputAddress" class="form-label">Perfil Usuario</label>
+            <select id="idPerfilUsuario" formControlName="idPerfilUsuario" class="form-control">
+              <option value="">---Seleccione Perfil Usuario---</option>
+              <option *ngFor="let perfil of perfiles" value="{{ perfil.id }}">
+                {{ perfil.tipo_usuario }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="inputPassword4" class="form-label">Apellido Materno</label>
+            <input  type="text"
+            id="apellidos_mat_empleado"
+            class="form-control"         
+            formControlName="apellidos_mat_empleado"/>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress" class="form-label">Sexo</label>
+            <select id="sexo_empleado" formControlName="sexo_empleado" class="form-control">
+              <option value="">---Seleccione Sexo---</option>
+              <option value="F">Femenino</option>
+              <option value="M">Masculino</option>
+ 
+            </select>
+          </div>
+ 
+
+          <div class="form-group">
+            <label for="inputAddress" class="form-label">FECHA</label>
+            <div class="col-sm-6">
+              <!-- <input matInput [matDatepicker]="picker"  placeholder="" [(ngModel)]="picker" formControlName="fecha_empleado"   (dateChange)="onChangeEvent($event)"> -->
+              <input 
+              matInput [matDatepicker]="picker"  
+               placeholder="" 
+                [(ngModel)]="selectedprovincias" 
+                formControlName="fecha_empleado"
+                 (dateChange)="onChangeEvent($event)" >
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <!-- <input matInput [matDatepicker]="picker"   [(ngModel)]="selectedprovincias"  formControlName="fecha_empleado" (dateChange)="onChangeEvent($event)" >
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker ></mat-datepicker> -->
+             </div>  
+          </div>  
+        </div>
+
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="inputPassword4" class="form-label">DNI</label>
+            <input  type="text"
+            id="dni_empleado"
+            class="form-control"         
+            formControlName="dni_empleado"/>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress" class="form-label">PAIS</label>
+            <select id="idPais" formControlName="idPais" class="form-control">
+              <option value="">---Seleccione Pais---</option>
+              <option *ngFor="let pais of paises" value="{{ pais.id }}">
+                {{ pais.nombre_pais }}
+              </option>
+            </select>
+          </div>
+ 
+        </div>
+
+
+
+
+      </form>
+
+      <!-- <form>
+        <label for="inputAddress" class="form-label">FECHA</label>
+       <div class="col-sm-6">
+          <input matInput [matDatepicker]="micalendario"  
+           id="fecha_empleado"
+          class="form-control"         
+          formControlName="fecha_empleado">
+          <mat-datepicker-toggle matSuffix [for]="micalendario"></mat-datepicker-toggle>
+          <mat-datepicker #micalendario></mat-datepicker>
+        </div>  
+        
+      </form> -->
+      <br />
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary w-25">
+          <i class="fa fa-save"></i>
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

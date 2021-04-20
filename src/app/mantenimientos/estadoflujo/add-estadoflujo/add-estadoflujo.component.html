@@ -1,0 +1,35 @@
+<h1><small>Agregar Estado Flujo</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../listarestadoflujo">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<div class="row animated fadeIn faster">
+  <div class="col">
+    <form [formGroup]="loginForm" (ngSubmit)="AddEstadoflujo(loginForm.value)">
+      <div class="form-group">
+        <label  class="form-label">Detalle Estado Flujo</label>
+        <input
+          type="text"
+          id="detalle_estado"
+          class="form-control"
+          placeholder="Nombre Estado Flujo"
+          formControlName="detalle_estado"
+        />
+      </div>
+      <!-- <input type="password" id="password" class="fadeIn third"  placeholder="password" formControlName="password"> -->
+      <br />
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary w-25">
+          <i class="fa fa-save"></i>
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

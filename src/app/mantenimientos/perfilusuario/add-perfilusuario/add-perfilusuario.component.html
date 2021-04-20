@@ -1,0 +1,35 @@
+<h1><small>Agregar Perfiles Usuarios</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../listarperfilusuario">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<div class="row animated fadeIn faster">
+  <div class="col">
+    <form [formGroup]="loginForm" (ngSubmit)="AddPerfil(loginForm.value)">
+      <div class="form-group">
+        <label  class="form-label">Nombre Perfil</label>
+        <input
+          type="text"
+          id="tipo_usuario"
+          class="form-control"
+          placeholder="Nombre Perfil"
+          formControlName="tipo_usuario"
+        />
+      </div>
+      <!-- <input type="password" id="password" class="fadeIn third"  placeholder="password" formControlName="password"> -->
+      <br />
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary w-25">
+          <i class="fa fa-save"></i>
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

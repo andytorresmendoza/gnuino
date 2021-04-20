@@ -1,0 +1,59 @@
+<h1><small>Agregar Unidad Medida</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../listarunidadmedida">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<div class="row animated fadeIn faster">
+  <div class="col">
+    <form [formGroup]="loginForm" (ngSubmit)="AddUnidadmedida(loginForm.value)">
+      <div class="form-group">
+        <label  class="form-label">Unidad Medida</label>
+        <div class="mb-3">
+          <input
+          type="text"
+          id="detalle"
+          class="form-control"
+          placeholder="Nombre Unidad Medida"
+          formControlName="detalle"
+        />
+        </div>
+        <div class="mb-3">
+          <label  class="form-label">Alto</label>
+          <input
+          type="text"
+          id="alto"
+          class="form-control"
+          placeholder="Alto"
+          formControlName="alto"
+        />
+        </div>
+      
+        <div class="mb-3">
+          <label  class="form-label">Ancho</label>
+          <input
+          type="text"
+          id="ancho"
+          class="form-control"
+          placeholder="Ancho"
+          formControlName="ancho"
+        />
+        </div>
+
+      </div>
+       
+      <br /> 
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary w-25">
+          <i class="fa fa-save"></i>
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

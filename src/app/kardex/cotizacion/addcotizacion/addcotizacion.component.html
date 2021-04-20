@@ -1,0 +1,191 @@
+<h1><small>Agregar Detalles</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../../listarcotizacion">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="kardexService.formData"
+  (submit)="onSubmit(form)"
+>
+  <input
+    type="hidden"
+    name="id"
+    #id="ngModel"
+    [(ngModel)]="kardexService.formData.id"
+  />
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> COTIZACION No.</label>
+        <input
+          name="nroCotizacion"
+          #nroCotizacion="ngModel"
+          [(ngModel)]="kardexService.formData.nroCotizacion"
+          class="form-control"
+          readonly
+        />
+      </div>
+      <div class="form-group">
+        <label> DESCUENTO COTIZACIÓN</label>
+        <input
+          name="descuento_cot"
+          #descuento_cot="ngModel"
+          [(ngModel)]="kardexService.formData.descuento_cot"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label> Detalle</label>
+        <input
+          name="detalle"
+          #detalle="ngModel"
+          [(ngModel)]="kardexService.formData.detalle"
+          class="form-control"
+        />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>EMPLEADO</label>
+        <select
+          name="idEmpleado"
+          #idEmpleado="ngModel"
+          [(ngModel)]="kardexService.formData.idEmpleado"
+          class="form-control"
+          [class.is-invalid]="
+            !isValid && kardexService.formData.idEmpleado == 0
+          "
+        >
+          <option value="0">-Select-</option>
+          <option *ngFor="let empleado of empleados" value="{{ empleado.id }}">
+            {{ empleado.nombre_empleado }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label> Costo Envio</label>
+        <input
+          name="costo_envio"
+          #costo_envio="ngModel"
+          [(ngModel)]="kardexService.formData.costo_envio"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label> Fecha Cotización</label>
+
+        <input
+          matInput
+          [matDatepicker]="picker"
+          name="fecha_entrega"
+          #fecha_entrega="ngModel"
+          placeholder=""
+          [(ngModel)]="selectedFecha"
+          class="form-control"
+          (dateChange)="onChangeEvent($event)"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </div>
+    </div>
+    <!-- faltan -->
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> PROVEEDOR</label>
+        <select
+          name="idProovedor"
+          #idProovedor="ngModel"
+          [(ngModel)]="kardexService.formData.idProovedor"
+          class="form-control"
+        >
+          <option value="0">-Select-</option>
+          <option
+            *ngFor="let proveedor of proveedores"
+            value="{{ proveedor.id }}"
+          >
+            {{ proveedor.nombre_proovedor }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label> Total</label>
+        <input
+          name="total_costo"
+          #total_costo="ngModel"
+          [(ngModel)]="kardexService.formData.total_costo"
+          class="form-control"
+          readonly
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER ITEMS TABLE -->
+  <table class="table table-borderless">
+    <thead class="thead-light">
+      <th>Nombre Producto</th>
+      <th>cantidad</th>
+      <th>precio_unidad</th>
+      <th>precio_total</th>
+      <th>Observaciones</th>
+      <th>
+        <a
+          class="btn btn-sm btn-success text-white"
+          (click)="AddOrEditOrderItem(null, kardexService.formData.id)"
+          ><i class="fa fa-plus"></i> Agregar Producto</a
+        >
+      </th>
+    </thead>
+    <tbody>
+      <tr
+        *ngIf="kardexService.detalleCotizacion.length == 0"
+        [class.text-danger]="
+          !isValid && kardexService.detalleCotizacion.length == 0
+        "
+      >
+        <td class="font-italic text-center" colspan="5">
+          No ah seleccionado Ningun Item
+        </td>
+      </tr>
+      <tr *ngFor="let item of kardexService.detalleCotizacion; let i = index">
+        <!--  <td>{{item.detalleProducto[0].nombre_producto}}</td>  detalleProducto[0].nombre_producto}}</td>   -->
+        <!-- <td>{{item.detalleNameProducto}}</td>  -->
+        <td>{{ item.nombre_producto }}</td>
+        <td>{{ item.cantidad }}</td>
+        <td>{{ item.precio_unidad }}</td>
+        <td>{{ item.precio_total }}</td>
+        <td>{{ item.observaciones }}</td>
+        <!-- {{item | json}}    -->
+        <td>
+          <a
+            class="btn btn-sm btn-info text-white"
+            (click)="AddOrEditOrderItem(i, kardexService.formData.id)"
+            ><i class="fa fa-pencil"></i
+          ></a>
+          <a
+            class="btn btn-sm btn-danger text-white ml-1"
+            (click)="onDeleteOrderItem(item.id, i)"
+            ><i class="fa fa-trash"></i
+          ></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark">
+      <i class="fa fa-database"></i> Guardar
+    </button>
+    <a class="btn btn-outline-dark ml-1" routerLink="listarcotizacion"
+      ><i class="fa fa-close"></i> Ver Cotizaciones</a
+    >
+  </div>
+</form>

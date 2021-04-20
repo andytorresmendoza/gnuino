@@ -1,0 +1,58 @@
+<h1> <small>Editar Nro de Cuenta</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../listarnrocuenta">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<div class="row animated fadeIn faster" mb-3 row >
+  <div class="col">
+      <form action="">
+        <div class="form-group">
+          <label  class="form-label">Nro Cuenta</label>
+          <input
+            type="text"
+            [(ngModel)]="nrocuentas[0].descripcion_cuenta"
+            name="descripcion_cuenta"
+            class="form-control"
+          
+          />
+          <!-- [(ngModel)]="xxx"  -->
+        </div>
+        <div class="form-group">
+          <label>Estado</label>
+          <br />
+          <button
+            *ngIf="nrocuentas[0].estado"
+            (click)="nrocuentas[0].estado = false"
+            class="btn btn-outline-success w-50"
+            type="button"
+          >
+            <i class="fa fa-smile-wink"></i>
+            Activo
+          </button>
+          <button
+            *ngIf="!nrocuentas[0].estado"
+            (click)="nrocuentas[0].estado = true"
+            class="btn btn-outline-danger w-50"
+            type="button"
+          >
+            <i class="fa fa-dizzy"></i>
+            Inactivo
+          </button>
+        </div>     
+        <hr>
+        <div class="form-group text-center">
+          <button (click)="Actualizar([nrocuentas[0]])"    class="btn btn-primary w-25">
+              <i class="fa fa-save"></i>
+              Actualizar
+          </button>
+      </div>
+      </form>
+    </div>
+  </div>
+ 

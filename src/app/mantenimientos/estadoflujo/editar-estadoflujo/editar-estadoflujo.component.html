@@ -1,0 +1,58 @@
+<h1> <small>Editar Estado FLujo</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../listarestadoflujo">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<div class="row animated fadeIn faster" mb-3 row >
+  <div class="col">
+      <form action="">
+        <div class="form-group">
+          <label  class="form-label">Detalle Estado Flujo</label>
+          <input
+            type="text"
+            [(ngModel)]="estadoflujos[0].detalle_estado"
+            name="detalle_estado"
+            class="form-control"
+          
+          />
+          <!-- [(ngModel)]="xxx"  -->
+        </div>
+        <div class="form-group">
+          <label>Estado</label>
+          <br />
+          <button
+            *ngIf="estadoflujos[0].estado"
+            (click)="estadoflujos[0].estado = false"
+            class="btn btn-outline-success w-50"
+            type="button"
+          >
+            <i class="fa fa-smile-wink"></i>
+            Activo
+          </button>
+          <button
+            *ngIf="!estadoflujos[0].estado"
+            (click)="estadoflujos[0].estado = true"
+            class="btn btn-outline-danger w-50"
+            type="button"
+          >
+            <i class="fa fa-dizzy"></i>
+            Inactivo
+          </button>
+        </div>     
+        <hr>
+        <div class="form-group text-center">
+          <button (click)="Actualizar([estadoflujos[0]])"    class="btn btn-primary w-25">
+              <i class="fa fa-save"></i>
+              Actualizar
+          </button>
+      </div>
+      </form>
+    </div>
+  </div>
+ 

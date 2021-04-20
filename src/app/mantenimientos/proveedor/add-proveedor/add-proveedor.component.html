@@ -1,0 +1,142 @@
+<h1><small>Agregar Proveedor</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../listarproveedor">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<div class="row animated fadeIn faster">
+  <div class="col">
+    <form [formGroup]="loginForm" (ngSubmit)="AddProveedor(loginForm.value)">
+      <form class="row g-3" [formGroup]="loginForm">
+
+        
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="inputEmail4" class="form-label">Nombre Proveedor</label>
+            <input 
+             type="text"
+            id="nombre_proovedor"
+            class="form-control"         
+            formControlName="nombre_proovedor" />
+          </div>
+          <div class="form-group">
+            <label for="inputAddress" class="form-label">Direccion</label>
+            <input
+            type="text"
+            id="direccion_proovedor"
+            class="form-control"         
+            formControlName="direccion_proovedor"
+            />
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="inputPassword4" class="form-label">RUC</label>
+            <input    type="text"
+            id="ruc_proovedor"
+            class="form-control"         
+            formControlName="ruc_proovedor"/>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress2" class="form-label">EMAIL</label>
+            <input
+            type="text"
+            id="email_proovedor"
+            class="form-control"         
+            formControlName="email_proovedor"
+            />
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="inputPassword4" class="form-label">TELEFONO</label>
+            <input  type="text"
+            id="telefono_proovedor"
+            class="form-control"         
+            formControlName="telefono_proovedor"/>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress" class="form-label">PAIS</label>
+            <select id="idPais" formControlName="idPais" class="form-control">
+              <option value="">---Seleccione Pais---</option>
+              <option *ngFor="let pais of paises" value="{{ pais.id }}">
+                {{ pais.nombre_pais }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </form>
+
+      <div class="form-group">
+        <label  class="form-label">Departamento</label>
+        <select
+          id="idDepartamento"
+          formControlName="idDepartamento"
+          class="form-control"
+          [(ngModel)]="selectedCountry.id"
+          (change)="onSelectDepartamento($event.target.value)"
+        >
+          <option value="0">---Seleccione Departamento---</option>
+          <option
+            *ngFor="let departamento of departamentos"
+            value="{{ departamento.id }}"
+          >
+            {{ departamento.nombre }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group" *ngIf="provincias.length > 0">
+        <label for="inputAddress" class="form-label">Provincia</label>
+        <select
+          id="idProvincia"
+          formControlName="idProvincia"
+          class="form-control"
+          [(ngModel)]="selectedprovincias.id"
+          (change)="onSelectProvincia($event.target.value)"
+        >
+          <option
+            *ngFor="let provincia of provincias"
+            value="{{ provincia.id }}"
+          >
+            {{ provincia.nombre_provincia }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group" *ngIf="distritos.length > 0">
+        <label for="inputAddress" class="form-label">Distrito</label>
+        <select
+          id="idDistrito"
+          formControlName="idDistrito"
+          class="form-control"
+          class="form-control"
+          id="id"
+          formControlName="idDistrito"
+        >
+          <option
+            *ngFor="let distrito of distritos"
+            ngValue="{{ distrito.id }}"
+          >
+            {{ distrito.nombre_distrito }}
+          </option>
+        </select>
+      </div>
+
+      <br />
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary w-25">
+          <i class="fa fa-save"></i>
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

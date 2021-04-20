@@ -1,0 +1,96 @@
+<h4 class="dispaly-4">Insertar Productos</h4>
+<hr />
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+  <input type="hidden" name="id" #id="ngModel" [(ngModel)]="formData.id" />
+  <input
+    type="hidden"
+    name="idCotizacion"
+    #idCotizacion="ngModel"
+    [(ngModel)]="formData.idCotizacion"
+  />
+  <input
+  type="hidden"
+  name="nombre_producto"
+  #nombre_producto="ngModel"
+  [(ngModel)]="formData.nombre_producto"
+/>
+<input
+type="text"
+name="idProducto"
+#idProducto="ngModel"
+[(ngModel)]="formData.idProducto"
+/>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>PRODUCTO</label>
+      <select
+        name="idProducto"
+        #idProducto="ngModel"
+        [(ngModel)]="formData.idProducto"
+        class="form-control"
+        (change)="UpdateNombre($event.target)"
+        [class.is-invalid]="!isValid && formData.idProducto == 0"
+      >
+        <option value="0">-Select-</option>
+        <option *ngFor="let producto of productos" value="{{ producto.id }}">
+          {{ producto.nombre_producto }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label>CANTIDAD</label>idProducto
+      <input
+        name="cantidad"
+        #cantidad="ngModel"
+        [(ngModel)]="formData.cantidad"
+        class="form-control"
+        [class.is-invalid]="!isValid && formData.cantidad == 0"
+      />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label>Precio Unitario</label>
+      <input
+        name="precio_unidad"
+        #precio_unidad="ngModel"
+        [(ngModel)]="formData.precio_unidad"
+        class="form-control"
+        (keyup)="updateTotal()"
+      />
+    </div>
+
+    <div class="form-group col-md-4">
+      <label>Precio Total</label>
+      <input
+        name="precio_total"
+        #precio_total="ngModel"
+        [(ngModel)]="formData.precio_total"
+        class="form-control"
+        readonly
+      />
+    </div>
+
+    <div class="form-group col-md-4">
+      <label>observaciones</label>
+      <input
+        name="observaciones"
+        #observaciones="ngModel"
+        [(ngModel)]="formData.observaciones"
+        class="form-control"
+      />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark">
+      <i class="fa fa-database"></i> Guardar
+    </button>
+    <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]>
+      <i class="fa fa-close"></i> Salir
+    </button>
+  </div>
+</form>

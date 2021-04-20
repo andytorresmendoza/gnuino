@@ -1,0 +1,58 @@
+<h1> <small>Editar Tipo documentos</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../listartipodocumento">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<div class="row animated fadeIn faster" mb-3 row >
+  <div class="col">
+      <form action="">
+        <div class="form-group">
+          <label  class="form-label">Tipo Documento</label>
+          <input
+            type="text"
+            [(ngModel)]="tipodocumentos[0].tipo_documento"
+            name="tipo_documento"
+            class="form-control"
+          
+          />
+          <!-- [(ngModel)]="xxx"  -->
+        </div>
+        <div class="form-group">
+          <label>Estado</label>
+          <br />
+          <button
+            *ngIf="tipodocumentos[0].estado"
+            (click)="tipodocumentos[0].estado = false"
+            class="btn btn-outline-success w-50"
+            type="button"
+          >
+            <i class="fa fa-smile-wink"></i>
+            Activo
+          </button>
+          <button
+            *ngIf="!tipodocumentos[0].estado"
+            (click)="tipodocumentos[0].estado = true"
+            class="btn btn-outline-danger w-50"
+            type="button"
+          >
+            <i class="fa fa-dizzy"></i>
+            Inactivo
+          </button>
+        </div>     
+        <hr>
+        <div class="form-group text-center">
+          <button (click)="Actualizar([tipodocumentos[0]])"    class="btn btn-primary w-25">
+              <i class="fa fa-save"></i>
+              Actualizar
+          </button>
+      </div>
+      </form>
+    </div>
+  </div>
+ 

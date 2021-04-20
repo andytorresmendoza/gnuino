@@ -1,0 +1,73 @@
+<h1><small>Editar Banco</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../listarbanco">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<div class="row animated fadeIn faster" mb-3 row>
+  <div class="col">
+    <form  [formGroup]="loginForm" action="">
+      <div class="form-group">
+        <!-- <label for="">Nombre Nro Cuenta</label> -->
+        <div class="mb-3">
+          <label  class="form-label">Descripción Banco</label>
+          <input
+            type="text"
+            [(ngModel)]="bancos[0].descripcion_banco"
+            name="descripcion_banco"
+            class="form-control"
+            formControlName="descripcion_banco"
+            id="descripcion_banco"
+          />
+        </div>
+        <div class="mb-3">
+          <label  class="form-label">Nro Cuenta</label>
+            <select
+              type="text"
+              [(ngModel)]="bancos[0].idNroCuenta"
+              name="id"
+              class="form-control"
+              formControlName="idNroCuenta"
+              id="idNroCuenta"
+             >          
+             <option *ngFor="let nrocuenta of nrocuentas" [ngValue]="nrocuenta.id">{{ nrocuenta.descripcion_cuenta }}  </option>
+            </select>
+          </div> 
+      </div>
+      <div class="form-group">
+        <label>Estado</label>
+        <br />
+        <button
+          *ngIf="bancos[0].estado"
+          (click)="bancos[0].estado = false"
+          class="btn btn-outline-success w-50"
+          type="button"
+        >
+          <i class="fa fa-smile-wink"></i>
+          Activo
+        </button>
+        <button
+          *ngIf="!bancos[0].estado"
+          (click)="bancos[0].estado = true"
+          class="btn btn-outline-danger w-50"
+          type="button"
+        >
+          <i class="fa fa-dizzy"></i>
+          Inactivo
+        </button>
+      </div>
+      <hr />
+      <div class="form-group text-center">
+        <button (click)="Actualizar([bancos[0]])" class="btn btn-primary w-25">
+          <i class="fa fa-save"></i>
+          Actualizar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
