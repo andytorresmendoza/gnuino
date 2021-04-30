@@ -15,48 +15,35 @@
   [(ngModel)]="formData.nombre_producto"
 />
 <input
-type="text"
+type="hidden"
 name="idProducto"
 #idProducto="ngModel"
 [(ngModel)]="formData.idProducto"
 />
 
   <div class="form-row">
-    <!-- <div class="form-group col-md-6">
-      <label>PRODUCTO</label>
-      <select
-        name="idProducto"
-        #idProducto="ngModel"
-        [(ngModel)]="formData.idProducto"
-        class="form-control"
-        (change)="UpdateNombre($event.target)"
-        [class.is-invalid]="!isValid && formData.idProducto == 0"
-      >
-        <option value="0">-Select-</option>
-        <option *ngFor="let producto of productos" value="{{ producto.id }}">
-          {{ producto.nombre_producto }}
-        </option>
-      </select>
-    </div> -->
+   
     <div class="form-group col-md-6">
-      <label>PRODUCTO</label>
-      <select
-        name="idProducto"
-        #idProducto="ngModel"
-        [(ngModel)]="formData.idProducto"
-        class="form-control"
-        (change)="UpdateNombre($event.target)"
-        [class.is-invalid]="!isValid && formData.idProducto == 0"
+      <label>Buscar Producto</label>
+    
+      <ng-select 
+      [items]="productos"
+     bindLabel="nombre_producto"
+     bindValue="id" 
+     placeholder="Buscar Producto"
+     [(ngModel)]="formData.idProducto"
+     (change)="onChange($event)"
+     
       >
-        <option value="0">-Select-</option>
-        <option *ngFor="let producto of productos" value="{{ producto.id }}">
-          {{ producto.nombre_producto }}
-        </option>
-      </select>
+
+</ng-select>
+
+
+
     </div>
 
     <div class="form-group col-md-6">
-      <label>CANTIDAD</label>idProducto
+      <label>Cantidad</label> 
       <input
         name="cantidad"
         #cantidad="ngModel"
@@ -91,7 +78,7 @@ name="idProducto"
     </div>
 
     <div class="form-group col-md-4">
-      <label>observaciones</label>
+      <label>Observaciones</label>
       <input
         name="observaciones"
         #observaciones="ngModel"

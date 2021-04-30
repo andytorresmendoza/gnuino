@@ -130,7 +130,11 @@
                 <label for="inputAddress" class="form-label">FECHA</label>
                  
                   <!-- <input matInput [matDatepicker]="picker"  placeholder="" [(ngModel)]="picker" formControlName="fecha_empleado"   (dateChange)="onChangeEvent($event)"> -->
-                  <input matInput [matDatepicker]="picker"   class="form-control" placeholder="DD/MM/YYYY"  [(ngModel)]="empleados[0].fecha_empleado"  formControlName="fecha_empleado" (dateChange)="onChangeEvent($event)" >
+                  <input matInput [matDatepicker]="picker" 
+                    class="form-control" placeholder="DD/MM/YYYY"
+                      [(ngModel)]="empleados[0].fecha_empleado"
+                        formControlName="fecha_empleado" 
+                        (dateChange)="onChangeEvent($event)" >
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                   <!-- <input matInput [matDatepicker]="picker"   [(ngModel)]="selectedprovincias"  formControlName="fecha_empleado" (dateChange)="onChangeEvent($event)" >

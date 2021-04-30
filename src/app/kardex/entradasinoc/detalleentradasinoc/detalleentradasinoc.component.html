@@ -1,0 +1,193 @@
+<h4 class="dispaly-4">Insertar Productos</h4>
+<hr />
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+    <input type="hidden" name="id" #id="ngModel" [(ngModel)]="formData.id" />
+    <input
+    type="hidden"
+    name="idEntradaSinOc"
+    #idEntradaSinOc="ngModel"
+    [(ngModel)]="formData.idEntradaSinOc"
+  /> 
+  <input
+  type="hidden"
+  name="nombre_producto"
+  #nombre_producto="ngModel"
+  [(ngModel)]="formData.nombre_producto"
+/>
+<input
+type="hidden"
+name="idProducto"
+#idProducto="ngModel"
+[(ngModel)]="formData.idProducto"
+/>
+
+<input
+type="hidden"
+name="nombreSedePrincipal"
+#nombreSedePrincipal="ngModel"
+[(ngModel)]="formData.nombreSedePrincipal"
+/>
+<input
+type="hidden"
+name="idSedePrincipal"
+#idSedePrincipal="ngModel"
+[(ngModel)]="formData.idSedePrincipal"
+/>
+
+<input
+type="hidden"
+name="nombre_almacenS"
+#nombre_almacenS="ngModel"
+[(ngModel)]="formData.nombre_almacenS"
+/>
+<input
+type="hidden"
+name="idSedeSecundaria"
+#idSedeSecundaria="ngModel"
+[(ngModel)]="formData.idSedeSecundaria"
+/>
+
+
+<div class="form-row">
+    <div class="form-group col-md-3">
+        <label>Buscar Producto</label>
+      
+        <ng-select 
+        [items]="productos"
+       bindLabel="nombre_producto"
+       bindValue="id" 
+       placeholder="Buscar Producto"
+       [(ngModel)]="formData.idProducto"
+       (change)="onChange($event)"
+       
+        >
+  
+  </ng-select>
+      </div>
+      <div class="form-group col-md-3">
+        <label>Cantidad</label> 
+        <input
+          name="cantidad"
+          #cantidad="ngModel"
+          [(ngModel)]="formData.cantidad"
+          class="form-control"
+        />
+        
+        <!-- [class.is-invalid]="!isValid && formData.cantidad == 0" -->
+      </div>
+      <div class="form-group col-md-3">
+        <label>Precio Unitario</label>
+        <input
+          name="precioUnitario"
+          #precioUnitario="ngModel"
+          [(ngModel)]="formData.precioUnitario"
+          class="form-control"
+          (keyup)="updateTotal()"
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label>Precio Total</label>
+        <input
+          name="precioTotal"
+          #precioTotal="ngModel"
+          [(ngModel)]="formData.precioTotal"
+          class="form-control"
+          readonly
+        />
+      </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group col-md-3">
+        <label>Sede Principal</label>
+      
+        <ng-select 
+        [items]="almacenesPrincpal"  
+       bindLabel="nombre_alamcen"
+       bindValue="id"   
+       placeholder="Buscar Almacén Principal" 
+       [(ngModel)]="formData.idSedePrincipal"
+       (change)="onChangeAlmacenP($event)">
+    
+    </ng-select>    
+      </div>
+      <div class="form-group col-md-3">
+        <label>Cantidad Principal</label> 
+        <input
+          name="cantidadPrincipal"
+          #cantidadPrincipal="ngModel"
+          [(ngModel)]="formData.cantidadPrincipal"
+          class="form-control"
+       
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label>Sede Secundaria</label>
+        <select
+        name="idSedeSecundaria"
+        #idSedeSecundaria="ngModel"
+        [(ngModel)]="formData.idSedeSecundaria"
+        class="form-control"
+        (change)="onChangeAlmacenS($event.target)"
+        [class.is-invalid]="!isValid && formData.idSedeSecundaria == 0"
+      >
+        <option value="0">Buscar Almacén Secundario</option>
+        <option *ngFor="let almacen of almacenesSecundario" [ngValue]="almacen.id">
+          {{ almacen.nombre_almacenS }} 
+        </option>
+      </select> 
+        <!-- <ng-select 
+        [items]="almacenesSecundario"  
+       bindLabel="nombre_almacenS"
+       bindValue="id"   
+       placeholder="Buscar Almacén Secundario" 
+       [(ngModel)]="formData.idSedeSecundaria"
+       (change)="onChangeAlmacenS($event)">
+    
+    </ng-select>     -->
+      </div>
+      <div class="form-group col-md-3">
+        <label>Cantidad Secundaria</label>
+        <input
+          name="cantidaSecundaria"
+          #cantidaSecundaria="ngModel"
+          [(ngModel)]="formData.cantidaSecundaria"
+          class="form-control"
+     
+        />
+      </div>
+</div>
+
+
+
+<div class="form-row">
+
+
+    <div class="form-group col-md-4">
+        <label>Observaciones</label>
+        <input
+          name="observaciones"
+          #observaciones="ngModel"
+          [(ngModel)]="formData.observaciones"
+          class="form-control"
+        />
+      </div>
+    <div class="form-group col-md-4">
+      <label>Cantidad Devuelta</label>
+      <input
+        name="cantidadDevuelta"
+        #cantidadDevuelta="ngModel"
+        [(ngModel)]="formData.cantidadDevuelta"
+        class="form-control"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark">
+      <i class="fa fa-database"></i> Guardar
+    </button>
+    <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]>
+      <i class="fa fa-close"></i> Salir
+    </button>
+  </div>
+</form>

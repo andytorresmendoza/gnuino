@@ -3,6 +3,7 @@ import { KardexService } from '../../../services/kardex/kardex.service';
 import { DataCotizacion } from '../../../models/cotizacion';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-listarcotizacion',
@@ -15,7 +16,7 @@ export class ListarcotizacionComponent implements OnInit {
   cargando = true; 
   
   constructor
-  (private servicioKardex: KardexService , private router:Router) { }
+  (private servicioKardex: KardexService , private router:Router,  private toastr: ToastrService ) { }
 
   ngOnInit(): void {
      this. getCotizacion();
@@ -51,9 +52,11 @@ borrarCotizacion(cotizaciones: DataCotizacion, i: number) {
     }
   });
 } 
- /*
+ 
 EstadoCotizacionAnular(cotizaciones: DataCotizacion, i: number) {
-  console.log(i);
+
+  const bodyform = {id:cotizaciones.id, estadoCotizacion: '3'}
+  console.log(cotizaciones.id);
   Swal.fire({
     title: 'Esta seguro?',
     text: `Que desea Anular la cotizacion Nro${cotizaciones.nroCotizacion}`,
@@ -62,9 +65,19 @@ EstadoCotizacionAnular(cotizaciones: DataCotizacion, i: number) {
     showCancelButton: true,
   }).then((resp) => {
     if (resp.value) {
+      
       this.cotizaciones.splice(i, 1);
-      this.servicioKardex.EstadoCotizacionAnular(cotizaciones.id).subscribe();
+      this.servicioKardex.EstadoCotizacionAnular(cotizaciones.id,bodyform).subscribe(
+        resp => {
+          this.toastr.error('Cotización Anulada');
+          // this.toastr.remove(cotizaciones.nroCotizacion );
+       
+    //  resp   console.log(resp);
+         //  console.log(resp);
+      }
+
+      );
     }
   });
-}*/
+} 
 }

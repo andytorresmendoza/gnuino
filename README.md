@@ -11,4 +11,14 @@ ng add @angular/material
 npm install moment --save
 
 
+
+
+
+PUSHEAR ANGULAR
+git status
+git add -A
+git commit -m "GnuinoV1"
+git push -u origin main
+
+PRODUCCION
 ng build --prod

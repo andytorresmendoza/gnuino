@@ -59,6 +59,9 @@ import { ListarEmpleadoComponent } from './empleado/listar-empleado/listar-emple
 import { EditarEmpleadoComponent } from './empleado/editar-empleado/editar-empleado.component';
 import { AddEmpleadoComponent } from './empleado/add-empleado/add-empleado.component';
 import { AuthInterceptorService } from '../services/token/auth-interceptor.service';
+import { ListaralmacenComponent } from './tipoalmacen/listaralmacen/listaralmacen.component';
+import { EditaralmacenComponent } from './tipoalmacen/editaralmacen/editaralmacen.component';
+import { AddalmacenComponent } from './tipoalmacen/addalmacen/addalmacen.component';
 
 
 
@@ -68,7 +71,7 @@ import { AuthInterceptorService } from '../services/token/auth-interceptor.servi
     MantenimientosComponent,  
     ListarNrocuentaComponent,
     EditarNrocuentaComponent, 
-    AddNrocuentaComponent, AddCategoriaComponent, ListarCategoriaComponent, EditarCategoriaComponent, ListarModeloComponent, EditarModeloComponent, AddModeloComponent, ListarPerfilusuarioComponent, AddPerfilusuarioComponent, EditarPerfilusuarioComponent, ListarTipodocumentoComponent, EditarTipodocumentoComponent, AddTipodocumentoComponent, ListarEstadoflujoComponent, EditarEstadoflujoComponent, AddEstadoflujoComponent, ListarTipodevolucionComponent, EditarTipodevolucionComponent, AddTipodevolucionComponent, ListarTipoingresoComponent, EditarTipoingresoComponent, AddTipoingresoComponent, ListarTiposalidaComponent, EditarTiposalidaComponent, AddTiposalidaComponent, ListarTipopagoComponent, EditarTipopagoComponent, AddTipopagoComponent, AddUnidadmedidaComponent, ListarUnidadmedidaComponent, EditarUnidadmedidaComponent, ListarbancoComponent, EditarbancoComponent, AddbancoComponent, ListarProductoComponent, EditarProductoComponent, AddProductoComponent, ListarProveedorComponent, EditarProveedorComponent, AddProveedorComponent, ListarEmpleadoComponent, EditarEmpleadoComponent, AddEmpleadoComponent,
+    AddNrocuentaComponent, AddCategoriaComponent, ListarCategoriaComponent, EditarCategoriaComponent, ListarModeloComponent, EditarModeloComponent, AddModeloComponent, ListarPerfilusuarioComponent, AddPerfilusuarioComponent, EditarPerfilusuarioComponent, ListarTipodocumentoComponent, EditarTipodocumentoComponent, AddTipodocumentoComponent, ListarEstadoflujoComponent, EditarEstadoflujoComponent, AddEstadoflujoComponent, ListarTipodevolucionComponent, EditarTipodevolucionComponent, AddTipodevolucionComponent, ListarTipoingresoComponent, EditarTipoingresoComponent, AddTipoingresoComponent, ListarTiposalidaComponent, EditarTiposalidaComponent, AddTiposalidaComponent, ListarTipopagoComponent, EditarTipopagoComponent, AddTipopagoComponent, AddUnidadmedidaComponent, ListarUnidadmedidaComponent, EditarUnidadmedidaComponent, ListarbancoComponent, EditarbancoComponent, AddbancoComponent, ListarProductoComponent, EditarProductoComponent, AddProductoComponent, ListarProveedorComponent, EditarProveedorComponent, AddProveedorComponent, ListarEmpleadoComponent, EditarEmpleadoComponent, AddEmpleadoComponent, ListaralmacenComponent, EditaralmacenComponent, AddalmacenComponent,
   
   ],
   imports: [

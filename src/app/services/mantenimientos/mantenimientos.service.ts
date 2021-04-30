@@ -25,6 +25,7 @@ import { DataProducto, ProductoI } from 'src/app/models/producto';
 import { ProveedorI, DataProveedor } from '../../models/proveedor';
 import { PaisI } from '../../models/pais';
 import { EmpleadoI, DataEmpleado } from '../../models/empleado';
+import { DataTipoAlmacen, TipoAlmacenI } from '../../models/tipoalmacen';
  
  
 @Injectable({
@@ -178,7 +179,7 @@ getModeloId(id:number){
   );
 }
 updateModelo(modelos: DataModelo){
-  // console.log('desdeservic',nrocuenta);
+    // console.log('desdeservic',modelos);
   // console.log('desdeservic2',nrocuenta[0].id);
   // console.log('desdeservic2',nrocuenta.estado);
   return this.http.put<DataModelo>(`${this.baseURL}modelo/`+modelos[0].id,modelos[0])
@@ -627,7 +628,46 @@ getProveedor() {
     
      
     }
-  
+
+    /*almacen*/
+
+
+    getTipoAlmacen() {
+      return this.http.get(this.baseURL+ 'sede-almacen')  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+      .pipe(
+        map(resp=>resp['data']),
+        catchError(this.manejarError)
+      );
+     }
+    
+
+
+    addTipoAlmacen(almacenes: TipoAlmacenI):Observable<TipoAlmacenI>{
+      console.log('del servicio',almacenes);
+      return this.http.post<TipoAlmacenI>(`${this.baseURL}sede-almacen`,almacenes).
+      pipe(tap(
+        (res:TipoAlmacenI) =>{
+          if(res){
+         console.log(res );
+          }
+        })
+     );
+      }
+      getTipoAlmacenId(id:number){
+        return this.http.get<TipoAlmacenI>(`${this.baseURL}sede-almacen/`+id)
+        .pipe(
+          map(resp=>resp['data']),
+          catchError(this.manejarError)
+        );
+      }
+      updateTipoAlmacen(almacenes: DataTipoAlmacen){
+      console.log('desdeservic',almacenes);
+        // console.log('desdeservic2',nrocuenta[0].id);
+        // console.log('desdeservic2',nrocuenta.estado);
+        return this.http.put<DataTipoAlmacen>(`${this.baseURL}sede-almacen/`+almacenes[0].id,almacenes[0])
+      
+       
+      }
   
 }
 

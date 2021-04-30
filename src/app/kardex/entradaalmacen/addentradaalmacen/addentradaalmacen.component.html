@@ -1,0 +1,150 @@
+<h1><small>Ingreso Almacen</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../listarentrada">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<!-- VER LA MENERA QUE CAMBIE ESTE KARDEXSERVICE -->
+<form #form="ngForm" autocomplete="off" *ngIf="kardexService.formDataEntrada"  (submit)="onSubmit(form)">
+  <!-- <input type="hidden"  name="id" #id="ngModel" [(ngModel)]="kardexService.formData.id"> -->
+
+  <input
+  
+  type="hidden"
+  name="idOrden"
+  #idOrden="ngModel"
+  [(ngModel)]="kardexService.formDataEntrada.idOrden"
+  />
+ 
+<input
+type="hidden"
+name="idCotizacion"
+#idCotizacion="ngModel"
+[(ngModel)]="kardexService.formDataEntrada.idCotizacion"
+/>   
+      
+  
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Buscar Orden Compra</label>
+<!-- se comento  [(ngModel)]="kardexService.formDataEntrada.idCotizacion" -->
+        <ng-select
+        [items]="ordenes"
+        bindLabel="codigo_orden_num"
+        bindValue="id" 
+        placeholder="Buscar Orden" 
+        [(ngModel)]="kardexService.formDataEntrada.idOrden"
+        (change)="onChange($event)"
+        (change)="SelectCotizacionDetalle($event)"
+       
+        >
+        </ng-select>
+        <!-- {{ordenes | json}}  -->
+      </div>  
+  </div> 
+
+  <div class="col-md-4">
+  <div class="form-group">
+    <label> Tipo Ingreso</label>
+
+    <select  
+      name="idTipoIngreso" 
+      #idTipoIngreso="ngModel" 
+      [(ngModel)]="kardexService.formDataEntrada.idTipoIngreso"
+      class="form-control"
+      disabled="disabled"
+    
+   >  
+        <option value="0">-Select-</option>
+        <option *ngFor="let tipoingreso of tipoingresos" value="{{tipoingreso.id}}">{{tipoingreso.descripcion_ingreso}}</option>
+              </select>
+</div>
+
+  </div>
+
+
+</div>
+
+<table class="table table-borderless" >
+  <thead class="thead-light">
+    <th scope="col">#</th>
+     <th>Nombre Producto</th>   
+      <th>Cantidad Solicitada</th>
+      <th>Precio Unidad</th>
+      <th>Precio Total</th> 
+      <th>Sede Principal</th>
+      <th>Cantidad Principal</th>
+      <th>Sede Secundario</th>
+      <th>Cantidad Secundaria</th>
+      <th>Cantidad Devolucion</th>
+ 
+      
+  </thead>
+
+  <tbody>
+
+        <tr *ngFor="let item of kardexService.detalleIngresoAlmacen  ;let i=index;">
+          <th scope="row">{{ i + 1 }}</th>
+        <td>
+          <p>{{item.detalleNameProducto}}</p>
+            <!-- <p *ngFor="let deta of item.detalleCotizacion">{{deta.nombre_producto}}</p>   -->
+        </td>
+        <td>
+          <p>{{item.cantidad}}</p>
+         
+        </td>
+        <td>
+          <p>{{item.precio_unidad}}</p>
+         
+        </td>
+        <td>
+          <p>{{item.precio_total}}</p>
+          
+        </td> 
+        <td>
+          <!-- <p>{{item.idSedePrincipal}}</p> -->
+          <p>{{item.nombre_alamcen}}</p>
+        </td>
+        <td>
+          <p>{{item.cantidadPrincipal}}</p>
+        
+        </td>
+        <td>
+           
+          <p>{{item.nombre_almacenS}}</p>
+        
+        </td>
+        <td>
+          <p>{{item.cantidaSecundaria}}</p>
+        
+        </td>
+        <td>
+          <p>{{item.cantidadDevuelta}}</p>
+        
+        </td>
+ 
+
+        <td>
+          <a
+            class="btn btn-sm btn-info text-white"
+            (click)="AddOrEditOrderItem(i,item.id)"><i class="fa fa-check-square"></i></a>
+             
+       
+        </td>
+        <!-- {{item | json}}   -->
+        </tr>   
+  </tbody>
+</table>
+<div class="form-group">
+<button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Guardar</button>
+<!-- <a   class="btn btn-outline-dark ml-1" routerLink="listarordencompra" ><i class="fa fa-close"></i> Ver Ordenes</a> -->
+
+</div>
+
+</form>

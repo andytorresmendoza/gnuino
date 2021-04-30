@@ -1,4 +1,29 @@
-<h1>Listado Cotización </h1>
+<nav class="navbar navbar-expand-md navbar-light bg-faded" style="background-color: #e3f2fd;">
+ 
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+ 
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+
+          <!-- active -->
+          <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['../listarcotizacion']">ACTIVAS</a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['../listarcotianulada']">ANULADAS</a>
+          </li>
+        
+      </ul>
+ 
+  </div>
+</nav> 
+<br>
+
+
+<h1>Listado Cotización Activas </h1>
 <hr />
 <div class="row">
   <div class="col text-right">
@@ -9,6 +34,7 @@
 </div>
 <table class="table table-hover">
     <thead class="thead-dark">
+      <th scope="col">#</th>
         <th scope="col">#Cotizacion Nro</th>
         <th scope="col">Proveedor</th>
         <th scope="col">Empleado</th>
@@ -18,7 +44,9 @@
     </thead>
     <tbody>
         <tr *ngFor="let item of cotizaciones; let i = index" >
+          <th scope="row">{{ i + 1 }}</th>
           <th (click)="openForEdit(item.id)">{{item.codigo_cotizacion_num}}</th>
+          <!-- <th (click)="item.idEstadoFlujo != 2 && openForEdit(item.id) ">{{item.codigo_cotizacion_num}}</th> -->
           <td (click)="openForEdit(item.id)">{{item.detalleProovedor[0].nombre_proovedor}}</td>
           <td (click)="openForEdit(item.id)">{{item.detalleEmpleado[0].nombre_empleado}}</td>
           <td (click)="openForEdit(item.id)">{{item.total_costo}}</td>
@@ -36,15 +64,17 @@
             >Anulado</label
           >
           </td>
-       <!-- <td>
+       <td>
             <button class="btn btn-outline-dark" (click)="EstadoCotizacionAnular(item, i)">
                  <i class="far fa-times-circle"></i>
-         </button>  </td> -->
-          <td>
-           <button class="btn btn-outline-dark" (click)="borrarCotizacion(item, i)">
-            <i class="fa fa-trash"></i> 
-                <!-- <i class="far fa-times-circle"></i> -->
-        </button>  </td>  
+         </button>  
+         <button class="btn btn-outline-dark" (click)="borrarCotizacion(item, i)">
+          <i class="fa fa-trash"></i> 
+              <!-- <i class="far fa-times-circle"></i> -->
+      </button> 
+        
+        </td>  
+        
            <!-- <td> <button class="btn btn-info mr-1" (click)="openForEdit(item.id)">            
           <i class="fa fa-pen"></i> 
           </button>

@@ -16,14 +16,28 @@ import { DetallecotizacionComponent } from './cotizacion/detallecotizacion/detal
  
 //nuevos
 import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+
+
 import { MatNativeDateModule } from '@angular/material/core';
 import { OrdencompraComponent } from './ordencompra/ordencompra/ordencompra.component';
 import { ListarordencompraComponent } from './ordencompra/listarordencompra/listarordencompra.component';
   // import { ToastrModule } from 'ngx-toastr';
 
-  import {MatAutocompleteModule} from '@angular/material/autocomplete';
-
-
+ import {MatAutocompleteModule} from '@angular/material/autocomplete';
+  import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+  import { NgSelectModule } from '@ng-select/ng-select';
+import { EditarordencompraComponent } from './ordencompra/editarordencompra/editarordencompra.component';
+import { AddentradaalmacenComponent } from './entradaalmacen/addentradaalmacen/addentradaalmacen.component';
+import { ListarentradaalmacenComponent } from './entradaalmacen/listarentradaalmacen/listarentradaalmacen.component';
+import { DetalleentradaalmacenComponent } from './entradaalmacen/detalleentradaalmacen/detalleentradaalmacen.component';
+import { ListarcotianuladasComponent } from './cotizacion/listarcotianuladas/listarcotianuladas.component';
+import { ListarordanuladasComponent } from './ordencompra/listarordanuladas/listarordanuladas.component';
+import { EditingresoalmacenComponent } from './entradaalmacen/editingresoalmacen/editingresoalmacen.component';
+import { EditdetalleentradaalmacenComponent } from './entradaalmacen/editdetalleentradaalmacen/editdetalleentradaalmacen.component';
+import { ListarentradasinocComponent } from './entradasinoc/listarentradasinoc/listarentradasinoc.component';
+import { AddentradasinocComponent } from './entradasinoc/addentradasinoc/addentradasinoc.component';
+import { DetalleentradasinocComponent } from './entradasinoc/detalleentradasinoc/detalleentradasinoc.component';
 @NgModule({
   declarations: 
   [KardexComponent,    
@@ -32,6 +46,17 @@ import { ListarordencompraComponent } from './ordencompra/listarordencompra/list
      DetallecotizacionComponent,
      OrdencompraComponent,
      ListarordencompraComponent,
+     EditarordencompraComponent,
+     AddentradaalmacenComponent,
+     ListarentradaalmacenComponent,
+     DetalleentradaalmacenComponent,
+     ListarcotianuladasComponent,
+     ListarordanuladasComponent,
+     EditingresoalmacenComponent,
+     EditdetalleentradaalmacenComponent,
+     ListarentradasinocComponent,
+     AddentradasinocComponent,
+     DetalleentradasinocComponent,
      ],
   imports: [
      CommonModule,
@@ -43,7 +68,9 @@ import { ListarordencompraComponent } from './ordencompra/listarordencompra/list
      MatDialogModule,
      MatDatepickerModule,
      MatNativeDateModule,
-     MatAutocompleteModule  
+     AutocompleteLibModule,
+     MatAutocompleteModule,  NgSelectModule
+   
    
 
   ],
@@ -51,7 +78,7 @@ import { ListarordencompraComponent } from './ordencompra/listarordencompra/list
   exports:[     
     KardexComponent
   ],
-  providers:[KardexService]
+  providers:[KardexService, {provide: MAT_DATE_LOCALE, useValue: 'es-ES'}]
   
 })
 export class KardexModule { }

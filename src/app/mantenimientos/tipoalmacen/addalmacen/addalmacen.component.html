@@ -1,0 +1,136 @@
+<h1><small>Agregar Sede Almacén</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../listaralmacen">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<div class="row animated fadeIn faster">
+  <div class="col">
+    <form [formGroup]="loginForm" (ngSubmit)="AddTipoAlmacen(loginForm.value)">
+      <form class="row g-3" [formGroup]="loginForm">
+
+        
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="inputEmail4" class="form-label">Sede Almacén</label>
+            <input 
+             type="text"
+            id="nombre_alamcen"
+            class="form-control"         
+            formControlName="nombre_alamcen" />
+          </div>
+          <div class="form-group">
+            <label for="inputAddress" class="form-label">Codigo Almacén</label>
+            <input
+            type="text"
+            id="cod_alamcen"
+            class="form-control"         
+            formControlName="cod_alamcen"
+            />
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="inputPassword4" class="form-label">Dirección Almacén</label>
+            <input    type="text"
+            id="direccion_almacen"
+            class="form-control"         
+            formControlName="direccion_almacen"/>
+          </div>
+          
+          <div class="form-group">
+            <label for="inputAddress" class="form-label">Tipo Sede</label>
+            <select id="tipoAlmacen" formControlName="tipoAlmacen" class="form-control">
+              <option value="0">---Seleccione Tipo Sede---</option>
+              <option value="1">Principal</option>
+              <option value="2">Secundario</option>
+              <!-- <option *ngFor="let pais of paises" value="{{ pais.id }}">
+                {{ pais.nombre_pais }}
+              </option> -->
+            </select>
+          </div>
+        </div>
+
+       
+      </form>
+      <div class="form-group">
+        <label for="inputAddress" class="form-label">PAIS</label>
+        <select id="idPais" formControlName="idPais" class="form-control">
+          <option value="">---Seleccione Pais---</option>
+          <option *ngFor="let pais of paises" value="{{ pais.id }}">
+            {{ pais.nombre_pais }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label  class="form-label">Departamento</label>
+        <select
+          id="idDepartamento"
+          formControlName="idDepartamento"
+          class="form-control"
+          [(ngModel)]="selectedCountry.id"
+          (change)="onSelectDepartamento($event.target.value)"
+        >
+          <option value="0">---Seleccione Departamento---</option>
+          <option
+            *ngFor="let departamento of departamentos"
+            value="{{ departamento.id }}"
+          >
+            {{ departamento.nombre }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group" *ngIf="provincias.length > 0">
+        <label for="inputAddress" class="form-label">Provincia</label>
+        <select
+          id="idProvincia"
+          formControlName="idProvincia"
+          class="form-control"
+          [(ngModel)]="selectedprovincias.id"
+          (change)="onSelectProvincia($event.target.value)"
+        >
+          <option
+            *ngFor="let provincia of provincias"
+            value="{{ provincia.id }}"
+          >
+            {{ provincia.nombre_provincia }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group" *ngIf="distritos.length > 0">
+        <label for="inputAddress" class="form-label">Distrito</label>
+        <select
+          id="idDistrito"
+          formControlName="idDistrito"
+          class="form-control"
+          class="form-control"
+          id="id"
+          formControlName="idDistrito"
+        >
+          <option
+            *ngFor="let distrito of distritos"
+            ngValue="{{ distrito.id }}"
+          >
+            {{ distrito.nombre_distrito }}
+          </option>
+        </select>
+      </div>
+
+      <br />
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary w-25">
+          <i class="fa fa-save"></i>
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

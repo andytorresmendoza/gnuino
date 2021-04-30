@@ -34,7 +34,7 @@ export class EditarModeloComponent implements OnInit {
     this.mantenimientosService.updateModelo(modelos)
     .subscribe(data=>{
 
-      // console.log('actualizar',data);
+        // console.log('actualizar',data);
       // alert("se actualizo");
       Swal.fire({
         title: this.modelos[0].nombre_modelo,

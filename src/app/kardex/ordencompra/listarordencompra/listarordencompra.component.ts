@@ -1,15 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { DataDetalleCotizacion } from '../../../models/detalle-cotizacion';
-import { NgForm } from '@angular/forms';
-import { DataProducto } from '../../../models/producto';
-import { MantenimientosService } from '../../../services/mantenimientos/mantenimientos.service';
-import { KardexService } from '../../../services/kardex/kardex.service';
-import { DataProveedor } from '../../../models/proveedor';
-import { ToastrService } from 'ngx-toastr';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { DataOrdenCompra } from '../../../models/ordencompra';
  
+import { KardexService } from '../../../services/kardex/kardex.service'; 
+import { Router, ActivatedRoute } from '@angular/router'; 
+import { DataOrdenCompra } from '../../../models/ordencompra';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listarordencompra',
@@ -19,7 +13,7 @@ import { DataOrdenCompra } from '../../../models/ordencompra';
 export class ListarordencompraComponent implements OnInit {
 
   Ordenes:DataOrdenCompra[]=[];
-
+  cargando = true; 
   constructor
   (private servicioKardex: KardexService , private router:Router) { }
 
@@ -33,13 +27,53 @@ export class ListarordencompraComponent implements OnInit {
    .subscribe(resp => {
      
       this.Ordenes = resp; 
+      this.cargando = false;
      console.log(resp);
   });
 }
-
-openForEdit(OrdenId: number) {
-
-  this.router.navigate(['kardex/ordencompra/'+OrdenId]);
+openForEdit(OrdenId:number):void { 
+  // this.router.navigate(['kardex/ordencompra/'+OrdenId]);
+  this.router.navigate(['kardex/editordencompra/'+OrdenId]); 
  
 }
+borrarOrden(ordenes: DataOrdenCompra, i: number) {
+  Swal.fire({
+    title: 'Esta seguro?',
+    text: `Que desea Eliminar la cotizacion Nro${ordenes.codigo_orden_num}`,
+    icon: 'question',
+    showConfirmButton: true,
+    showCancelButton: true,
+  }).then((resp) => {
+    if (resp.value) {
+      this.Ordenes.splice(i, 1);
+      this.servicioKardex.deleteOrden(ordenes.id).subscribe();
+    }
+  });
+} 
+ 
+EstadoOrdenAnular(ordenes: DataOrdenCompra, i: number) {
+
+  const bodyform = {id:ordenes.id, estadoOrden: '3'}
+  console.log(ordenes.id);
+  Swal.fire({
+    title: 'Esta seguro?',
+    text: `Que desea Anular la cotizacion Nro${ordenes.codigo_orden_num}`,
+    icon: 'question',
+    showConfirmButton: true,
+    showCancelButton: true,
+  }).then((resp) => {
+    if (resp.value) {
+      
+      this.Ordenes.splice(i, 1);
+      this.servicioKardex.EstadoOrdenAnular(ordenes.id,bodyform).subscribe(
+        resp => {
+       
+    //  resp   console.log(resp);
+         //  console.log(resp);
+      }
+
+      );
+    }
+  });
+} 
 }

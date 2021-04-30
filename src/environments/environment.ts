@@ -5,7 +5,9 @@
 export const environment = {
   production: true, 
   // production: false,
-  apiURL: 'http://localhost:8080/'
+   apiURL: 'http://localhost:8080/'
+  //  apiURL: ' https://gnuino.pe/apimangment-gnuino-v1/'
+ 
 };
 
 /*

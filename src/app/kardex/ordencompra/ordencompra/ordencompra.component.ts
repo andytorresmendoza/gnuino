@@ -9,12 +9,13 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DataCotizacion } from '../../../models/cotizacion';
-import { DataOrdenCompra, OrdenCompraI } from '../../../models/ordencompra';
+import { DataOrdenCompra } from '../../../models/ordencompra';
 import { DataEmpleado } from '../../../models/empleado';
 import { DataTipoPago } from '../../../models/tipopago';
 import { DataBanco } from '../../../models/banco';
 import { DataNrocuenta } from '../../../models/nrocuenta';
 import * as moment from 'moment';
+ 
 
 @Component({
   selector: 'app-ordencompra',
@@ -22,50 +23,34 @@ import * as moment from 'moment';
   styleUrls: ['./ordencompra.component.css'],
 })
 export class OrdencompraComponent implements OnInit {
-  formData: DataDetalleCotizacion;
-
-  cotizaciones: DataCotizacion[];
+  
+ 
+  cotizaciones: DataCotizacion[]; 
   proveedores: DataProveedor[];
   empleados: DataEmpleado[];
-  tipopagos: DataTipoPago[];
+  tipopagos: DataTipoPago[]; 
   bancos: DataBanco[];
   cuentas: DataNrocuenta[]; 
-  detalleCotizaciones: DataDetalleCotizacion[];
-  selectFecha: DataOrdenCompra;
+  detalleCotizaciones: DataDetalleCotizacion[]; 
   isValid: boolean = true;
 
   constructor(
-    public kardexService: KardexService,
-    private dialog: MatDialog,
+    public kardexService: KardexService ,
     private mantenimientosService: MantenimientosService,
     private toastr: ToastrService,
-    private router: Router,
-    private currentRoute: ActivatedRoute
+    private router: Router 
     
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
 
-    
-    let id = this.currentRoute.snapshot.paramMap.get('id'); 
-    // console.log(id);
-    if (id !== 'nuevo') {
-      this.kardexService.getOrdenCompraById(+id).subscribe((res) => {
-        this.kardexService.formOrdencompra = res[0]; 
-        // console.log(res[0]);
-       this.SelectCotizacionDetalle(
-       this.kardexService.formOrdencompra.idCotizacion
-         
-      );
-     this.getCotizacionEstadoTodas();
-
-      //  console.log( this.SelectCotizacionDetalle);
-      });
-    } else {
       this.resetForm();
      this.getCotizacionEstadoPendiente();
     
-    }
+   
+  
+ 
+
     this.mantenimientosService.getProveedor().subscribe((resp) => {
       this.proveedores = resp as DataProveedor[];
       // console.log(this.productos);
@@ -76,10 +61,17 @@ export class OrdencompraComponent implements OnInit {
       this.empleados = resp as DataEmpleado[];
       // console.log(this.productos);
     });
+
+       
     this.mantenimientosService.getTipopago().subscribe((resp) => {
       this.tipopagos = resp as DataTipoPago[];
-      // console.log(this.productos);
+     
+
     });
+    // this.mantenimientosService.getTipopago().subscribe((resp) => {
+    //   this.tipopagos = resp as DataTipoPago[];
+    //   // console.log(this.productos);
+    // });
     this.mantenimientosService.getBanco().subscribe((resp) => {
       this.bancos = resp as DataBanco[];
       //  console.log(this.bancos);
@@ -89,17 +81,10 @@ export class OrdencompraComponent implements OnInit {
       this.cuentas = resp as DataNrocuenta[];
       // console.log(this.cuentas);
     });
-
  
-    // console.log(this.formData);
   }
-
-   getCotizacionEstadoTodas() {
-  this.kardexService.getCotizacionEstado().subscribe((resp) => {
-       this.cotizaciones = resp as DataCotizacion[];
-       console.log(resp);
-   });
-  }
+ 
+ 
 
   getCotizacionEstadoPendiente() {
     this.kardexService.getCotizacionEstadoPendiente().subscribe((resp) => {
@@ -109,34 +94,46 @@ export class OrdencompraComponent implements OnInit {
     });
   }
 
+  
+
   resetForm(form?: NgForm) {
     if ((form = null)) form.resetForm();
     this.kardexService.formOrdencompra = {
       id: null,
-      // nroCotizacion: '',
+      codigo_orden_num: '',
       idCotizacion: 0,
       idProovedor: 0,
       idEmpleado: 0,
       //  detalle: '',
-      fecha_entrega: '',
+      fechaEntrega: '',
       idTipoPago: 0,
       idBanco: 0,
       idNroCuenta: 0,
+      descuento_cot: 0,
+      costo_envio: 0,
+      total_costo: 0,
+      total_general: 0
     };
   }
+ onChange = ($event: any): void => {
+   console.log($event);
+   this.kardexService.formOrdencompra.idCotizacion = $event.id; 
+  this.kardexService.formOrdencompra.idProovedor = $event.idProovedor;  
+  this.kardexService.formOrdencompra.idEmpleado = $event.idEmpleado;
+  this.kardexService.formOrdencompra.costo_envio = $event.costo_envio;
+  this.kardexService.formOrdencompra.descuento_cot = $event.descuento_cot;
+  this.kardexService.formOrdencompra.total_costo = $event.total_costo; 
+  let total_costo =  $event.total_costo.toString();
+  let descuento_cot =  $event.descuento_cot.toString();
+  let costo_envio =  $event.costo_envio.toString();
 
-  UpdateNombre(ctrl) {
-    this.kardexService.formOrdencompra.idCotizacion = this.cotizaciones[
-      ctrl.selectedIndex - 1
-    ].id;
-    // this.kardexService.formOrdencompra.detalle = this.cotizaciones[ctrl.selectedIndex - 1].detalle;
-    this.kardexService.formOrdencompra.idProovedor = this.cotizaciones[
-      ctrl.selectedIndex - 1
-    ].idProovedor;
-    this.kardexService.formOrdencompra.idEmpleado = this.cotizaciones[
-      ctrl.selectedIndex - 1
-    ].idEmpleado;
+ this.kardexService.formOrdencompra.total_general = (parseFloat(total_costo)-parseFloat(descuento_cot))+parseFloat(costo_envio);
+  // console.log((parseFloat(total_costo)-parseFloat(descuento_cot))+parseFloat(costo_envio));
+ 
   }
+
+ 
+ 
   UpdateBanco(ctrl) {
     console.log(ctrl);
     this.kardexService.formOrdencompra.idNroCuenta = this.bancos[
@@ -144,21 +141,20 @@ export class OrdencompraComponent implements OnInit {
     ].idNroCuenta;
   }
 
-  SelectCotizacionDetalle(id: number): void {
-    this.kardexService.getCotizacionDetalleById(id).subscribe((response) => {
-      this.detalleCotizaciones = response;
-      // console.log('cotizaciondetalle', response);
-    });
+  SelectCotizacionDetalle($event:any): void {
+    console.log($event.id);
+      this.kardexService.getCotizacionDetalleById($event.id).subscribe((response) => {
+     this.detalleCotizaciones = response;
+       console.log('cotizaciondetalle', response);
+     });
   }
 
   onChangeEvent(event) {
     const m = moment(event.value);
     console.log(m);
   event = m.format('YYYY-MM-D');
-    
-    // console.log(event);
-    // this.kardexService.formOrdencompra.fecha_entrega = (event)
-    this.kardexService.formOrdencompra.fecha_entrega = m.format('YYYY-MM-D');
+ 
+    this.kardexService.formOrdencompra.fechaEntrega = m.format('YYYY-MM-D');
     console.log(m.format('YYYY-MM-D'));
   }
 
@@ -169,24 +165,16 @@ export class OrdencompraComponent implements OnInit {
     return this.isValid;
   }
 
+ 
   onSubmit(form: NgForm) {
     // console.log(form);
-    if (this.kardexService.formOrdencompra.id) {
-      console.log('submit', this.kardexService.formOrdencompra.id);
-      this.kardexService.UpdateOrderCompra(this.kardexService.formOrdencompra.id).subscribe(
-        resp=>{
-          // console.log(resp);
-          this.toastr.success('Actualizado Exitosamente','Gnuino');
-          this.router.navigate(["../kardex/listarordencompra"]);
-        }
-      )
-    } else {
+ 
       this.kardexService.saveUpdateOrdercompra().subscribe((res) => {
        console.log('respuesta',res);
         this.resetForm();
         this.toastr.success('Guardado Exitosamente', 'Gnuino');
         this.router.navigate(['../kardex/listarordencompra']);
       });
-    }
+   
   }
 }

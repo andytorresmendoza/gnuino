@@ -1,9 +1,7 @@
 import { formatCurrency } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MatDialog , MatDialogConfig} from '@angular/material/dialog';
-
-
+import { MatDialog , MatDialogConfig} from '@angular/material/dialog'; 
 import { KardexService } from '../../../services/kardex/kardex.service';
 import { DetallecotizacionComponent } from '../detallecotizacion/detallecotizacion.component';
 import { MantenimientosService } from '../../../services/mantenimientos/mantenimientos.service';
@@ -12,11 +10,12 @@ import { DataEmpleado } from '../../../models/empleado';
 import * as moment from 'moment'; 
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DataCotizacion } from 'src/app/models/cotizacion';
-import { DataDetalleCotizacion } from '../../../models/detalle-cotizacion';
+ 
 import { DataProducto } from 'src/app/models/producto';
-import { Observable } from 'rxjs';
+ 
 import Swal from 'sweetalert2';
+import { DataCotizacion } from '../../../models/cotizacion';
+ 
  
 @Component({
   selector: 'app-addcotizacion',
@@ -27,9 +26,9 @@ import Swal from 'sweetalert2';
 export class AddcotizacionComponent implements OnInit {
   proveedores: DataProveedor[];
   empleados: DataEmpleado[];
-  productos: DataProducto[];
-  selectedFecha: DataCotizacion[];
+  productos: DataProducto[];   
   isValid:boolean = true;
+  isButtonVisible:boolean=true;
   //  detalleCotizacion: DataDetalleCotizacion[] = [];
  
   constructor(public kardexService: KardexService,   private dialog: MatDialog, private mantenimientosService: MantenimientosService,
@@ -38,14 +37,18 @@ export class AddcotizacionComponent implements OnInit {
 
   ngOnInit(): void {
 
+    
     let id = this.currentRoute.snapshot.paramMap.get('id');
     if (id !== 'nuevo') {
       this.kardexService.getCotizacionById(+id).subscribe(res => {
-        // console.log('editar',res[0] );
-       
-        console.log('editar',res );
          this.kardexService.formData = res[0]; 
         this.kardexService.detalleCotizacion = res[0].detalleCotizacion;
+        // console.log(res[0].idEstadoFlujo);
+       if (res[0].idEstadoFlujo ==  2 || res[0].idEstadoFlujo ==  3 ) {
+        this.isButtonVisible=false;
+       } else {
+        this.isButtonVisible=true;
+       }
       });
   
     }else{
@@ -81,26 +84,31 @@ export class AddcotizacionComponent implements OnInit {
       idProovedor: 0,
       idEmpleado:0,
       detalle:'',
-      fecha_entrega:'2021-04-14',
+      fecha_entrega: '',
       descuento_cot:0,
       costo_envio:0,
       total_costo:0,
-      // detalleCotizacion: [this.kardexService.detalleCotizacion[0]]
+      codigo_cotizacion_num:'',
+      estadoCotizacion: '',
+      nombre_empleado:'',
+      nombre_proovedor:'',
+
  };
 this.kardexService.detalleCotizacion = [];
 
 }
 
-  onChangeEvent(event){
+onChangeEvent(event) {
+  const m = moment(event.value);
+  // console.log(m);
+   event = (m.format('YYYY-MM-D'));  
 
-    const m = moment(event.value);
-    event = m.format("YYYY-MM-D" );
- this.selectedFecha = event;
-   console.log(event);
-
- 
+  //  console.log(event.toDateString())
+  this.kardexService.formData.fecha_entrega = m.format('YYYY-MM-D');
+  console.log(m.format('YYYY-MM-D'));
+  //  console.log(this.kardexService.formData.fecha_entrega);
 }
- AddOrEditOrderItem(orderItemIndex, id) {
+ AddOrEditOrderItem(orderItemIndex, id) { 
   const dialogConfig = new MatDialogConfig();
   dialogConfig.autoFocus = true;
   dialogConfig.disableClose = true;
@@ -108,6 +116,7 @@ this.kardexService.detalleCotizacion = [];
   dialogConfig.data = { orderItemIndex, id };
   // afterClosed().subscribe; es para cuando se cierre el poput actualize el rpecio
    this.dialog.open(DetallecotizacionComponent, dialogConfig).afterClosed().subscribe(resp=>{
+  //  console.log(resp);
     this.updateTotal();
    });
  
@@ -123,18 +132,47 @@ this.kardexService.detalleCotizacion = [];
     }).then((resp) => {
       if (resp.value) {
     // if (id != null) 
-    this.kardexService.detalleCotizacion.splice(i,1); 
+  
      this.kardexService.deleteDetalleCotizacion( id).subscribe();
+      this.kardexService.detalleCotizacion.splice(i,1); 
       this.updateTotal();
       }
     });
   }
   
   updateTotal(){
-   this.kardexService.formData.total_costo = this.kardexService.detalleCotizacion.reduce((prev,curr)=>{
-      return prev + curr.precio_total},0);
+   this.kardexService.formData.total_costo = this.kardexService.detalleCotizacion.reduce(
+     (prev,curr)=>{
+   
+    let prevparse =  prev.toString();
+    let total =  curr.precio_total.toString();
+    // console.log('prev', parseInt(prevparse),'-',curr.precio_total); 
+       return   (parseFloat(prevparse)+ parseFloat(total)) 
+       
+    } 
+    
+    ,0); 
     this.kardexService.formData.total_costo  = parseFloat(this.kardexService.formData.total_costo.toFixed(2));
+ 
+
   }
+
+   updateMontoTotal(){
+    let costo_envio = this.kardexService.formData.costo_envio.toString();
+
+   this.kardexService.formData.total_costo = this.kardexService.formData.total_costo + parseFloat(costo_envio);
+   
+  console.log(this.kardexService.formData.total_costo );
+    }
+
+  onChange = ($event: any): void => {
+    this.kardexService.formData.nombre_empleado= $event.nombre_empleado; 
+     
+   } 
+   onChangeProveedor = ($event: any): void => {
+    this.kardexService.formData.nombre_proovedor= $event.nombre_proovedor; 
+     
+   } 
   validateForm(){
     this.isValid = true;
     if(this.kardexService.formData.idEmpleado==0)
@@ -149,7 +187,7 @@ onSubmit(form:NgForm){
   // console.log(form);
   
   if (this.kardexService.formData.id) {
-      console.log('submit',this.kardexService.formData);
+      // console.log('submit',this.kardexService.formData);
     this.kardexService.UpdateOrder(this.kardexService.formData).subscribe(
       resp=>{
         // console.log(resp);
@@ -159,9 +197,10 @@ onSubmit(form:NgForm){
     )
 }else{
    this.kardexService.saveUpdateOrder().subscribe(res =>{
+    // console.log('respuesta',res);
     this.resetForm();
-    this.toastr.success('Guardado Exitosamente','Gnuino');
-    this.router.navigate(["../kardex/listarcotizacion"]);
+     this.toastr.success(res.msg );
+     this.router.navigate(["../kardex/listarcotizacion"]);
   })
 }
 

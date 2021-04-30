@@ -49,6 +49,9 @@ import { EditarProveedorComponent } from './proveedor/editar-proveedor/editar-pr
 import { ListarEmpleadoComponent } from './empleado/listar-empleado/listar-empleado.component';
 import { AddEmpleadoComponent } from './empleado/add-empleado/add-empleado.component';
 import { EditarEmpleadoComponent } from './empleado/editar-empleado/editar-empleado.component';
+import { ListaralmacenComponent } from './tipoalmacen/listaralmacen/listaralmacen.component';
+import { AddalmacenComponent } from './tipoalmacen/addalmacen/addalmacen.component';
+import { EditaralmacenComponent } from './tipoalmacen/editaralmacen/editaralmacen.component';
  
 const routes: Routes = [
  
@@ -100,6 +103,9 @@ const routes: Routes = [
      {path:'listarempleado', component: ListarEmpleadoComponent},
      {path:'addempleado', component: AddEmpleadoComponent},
      {path:'editempleado', component: EditarEmpleadoComponent},
+     {path:'listaralmacen', component: ListaralmacenComponent},
+     {path:'addalmacen', component: AddalmacenComponent},
+     {path:'editalmacen', component: EditaralmacenComponent},
   ]
  },
 ];

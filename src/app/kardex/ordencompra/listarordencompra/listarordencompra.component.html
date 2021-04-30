@@ -1,15 +1,39 @@
-<h1>Listado Ordenes Compra </h1>
+<nav class="navbar navbar-expand-md navbar-light bg-faded" style="background-color: #e3f2fd;">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+ 
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+
+          <!-- active -->
+          <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['../listarordencompra']">ACTIVAS</a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['../listarordenanulada']">ANULADAS</a>
+          </li>
+        
+      </ul>
+
+  </div>
+</nav>
+<br>
+<h1>Listado Ordenes Activas </h1>
 <hr />
 <div class="row">
   <div class="col text-right">
-    <button routerLink="/kardex/ordencompra/nuevo" class="btn btn-primary">
+    <button routerLink="/kardex/ordencompra" class="btn btn-primary">
       <i class="fa fa-plus"> Agregar </i>
     </button>
   </div>
 </div>
 <table class="table table-hover">
   <thead class="thead-dark">
+    <th scope="col">#</th>
       <th scope="col">#Orden Nro</th>
+      <th scope="col">#Cotizacion</th>
       <th scope="col">Empleado</th>
       <th scope="col">Proveedor</th> 
       <th scope="col">Estado</th>
@@ -17,7 +41,11 @@
   </thead>
   <tbody>
       <tr *ngFor="let item of Ordenes; let i = index" >
+        <th scope="row">{{ i + 1 }}</th>
         <th (click)="openForEdit(item.id)">{{item.codigo_orden_num}}</th>
+        <td (click)="openForEdit(item.id)" > 
+          <p *ngFor="let deta of item.detalleCotizacion">{{deta.codigo_cotizacion_num}}</p>
+        </td>
         <td (click)="openForEdit(item.id)">{{item.detalleProovedor[0].nombre_proovedor}}</td>
         <td (click)="openForEdit(item.id)">{{item.detalleEmpleado[0].nombre_empleado}}</td>
         <!-- <td (click)="openForEdit(item.id)">{{item.detalleCotizacion[0].precio_total}}</td>   -->
@@ -32,6 +60,16 @@
             >Pendiente</label
           >
         </td>
+        <td>
+          <button class="btn btn-outline-dark" (click)="EstadoOrdenAnular(item, i)">
+               <i class="far fa-times-circle"></i>
+       </button>  
+       <button class="btn btn-outline-dark" (click)="borrarOrden(item, i)">
+        <i class="fa fa-trash"></i> 
+            <!-- <i class="far fa-times-circle"></i> -->
+    </button> 
+      
+      </td>  
          <!-- <td> <button class="btn btn-info mr-1" (click)="openForEdit(item.id)">            
         <i class="fa fa-pen"></i> 
         </button>
@@ -39,3 +77,23 @@
       </tr>
     </tbody>
 </table>
+<div
+  *ngIf="!cargando && Ordenes.length === 0"
+  class="alert alert-warning text-center mt-3 animated fadeIn faster"
+>
+  <h4 class="alert-heading">No hay registros</h4>
+  <p>
+    <i class="fa fa-exclamation fa-2px"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+</div>
+<div
+  *ngIf="cargando"
+  class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+  <h4 class="alert-heading">Cargando</h4>
+  <p>
+    <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+</div>

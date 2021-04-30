@@ -26,7 +26,7 @@ export class AddModeloComponent implements OnInit {
 
 
   AddModelo(modelos: ModeloI):void{
-    console.log( modelos);
+    // console.log( modelos);
     this.mantenimientoService.addModelo(modelos)
     .subscribe(res=>{
       // console.log(res);

@@ -1,0 +1,179 @@
+<h1><small>Editar Almacén</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../listaralmacen">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<div class="row animated fadeIn faster" mb-3 row>
+  <div class="col">
+    <form  [formGroup]="loginForm" action="">
+        <form class="row g-3" [formGroup]="loginForm">
+        <div class="col-md-4">
+            <div class="form-group">
+              <label for="inputEmail4" class="form-label">Nombre Almacén</label>
+              <input
+              type="text"
+              [(ngModel)]="almacenes[0].nombre_alamcen"
+              name="nombre_alamcen"
+              class="form-control"
+              formControlName="nombre_alamcen"
+              id="nombre_alamcen"
+            />
+            </div>
+            <div class="form-group">
+              <label for="inputAddress" class="form-label">Codigo Almacén</label>
+              <input
+              type="text"
+              [(ngModel)]="almacenes[0].cod_alamcen"
+              name="cod_alamcen"
+              class="form-control"
+              formControlName="cod_alamcen"
+              id="cod_alamcen"
+              />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="inputPassword4" class="form-label">Dirección Almacén</label>
+              <input 
+              type="text"
+              [(ngModel)]="almacenes[0].direccion_almacen"
+              name="direccion_almacen"
+              class="form-control"
+              formControlName="direccion_almacen"
+              id="direccion_almacen"/>
+            </div>
+                 
+          <div class="form-group">
+            <label for="inputAddress" class="form-label">Tipo Sede</label>
+            <select 
+            type="text" 
+            [(ngModel)]="almacenes[0].tipoAlmacen"
+            id="tipoAlmacen"
+             formControlName="tipoAlmacen"
+              class="form-control"> 
+              <option value="0">---Seleccione Tipo Sede---</option>
+              <option value="1">Principal</option>
+              <option value="2">Secundario</option>
+              <!-- <option *ngFor="let pais of paises" value="{{ pais.id }}">
+                {{ pais.nombre_pais }}
+              </option> -->
+            </select>
+          </div>
+          
+          </div>
+ 
+        </form>
+
+        <div class="form-group">
+          <label for="inputAddress" class="form-label">PAIS</label>
+          <select 
+          type="text"
+          [(ngModel)]="almacenes[0].idPais"
+          name="id"
+          class="form-control"
+          formControlName="idPais"
+          id="idPais">            
+            <option *ngFor="let pais of paises" [ngValue]="pais.id">
+              {{ pais.nombre_pais }}
+            </option>
+          </select>
+        </div>
+
+        
+        <div class="form-group">
+            <label for="inputAddress" class="form-label">Departamento</label>
+            <select
+            
+            [(ngModel)]="almacenes[0].idDepartamento"
+            name="id"
+            class="form-control"
+            formControlName="idDepartamento"
+            id="idDepartamento"         
+            (change)="onSelectDepartamento($event.target.value)"
+            >           
+              <option
+                *ngFor="let departamento of departamentos"
+                value="{{ departamento.id }}"
+              >
+                {{ departamento.nombre }}
+              </option>
+            </select>
+          </div>
+    
+          <div class="form-group" *ngIf="provincias.length > 0" >
+            <label for="inputAddress" class="form-label">Provincia</label>
+            <select
+            id="idProvincia"
+            formControlName="idProvincia"
+            class="form-control"
+            [(ngModel)]="almacenes[0].idProvincia"
+            (change)="onSelectProvincia($event.target.value)"
+            >
+              <option
+                *ngFor="let provincia of provincias"
+                value="{{ provincia.id }}"
+              >
+                {{ provincia.nombre_provincia }}
+              </option>
+            </select>
+          </div>
+    
+          <div class="form-group" *ngIf="distritos.length > 0">
+            <label for="inputAddress" class="form-label">Distrito</label>
+            <select
+            
+            [(ngModel)]="almacenes[0].idDistrito"
+            name="id"
+            class="form-control"
+            formControlName="idDistrito"
+            id="idDistrito"
+            >
+              <option
+                *ngFor="let distrito of distritos"
+                [ngValue]="distrito.id"
+              >
+                {{ distrito.nombre_distrito }}
+              </option>
+            </select>
+          </div>
+    
+          <br />
+      <div class="form-group">
+        <label>Estado</label>
+        <br />
+        <button
+          *ngIf="almacenes[0].estado"
+          (click)="almacenes[0].estado = false"
+          class="btn btn-outline-success w-50"
+          type="button"
+        >
+          <i class="fa fa-smile-wink"></i>
+          Activo
+        </button>
+        <button
+          *ngIf="!almacenes[0].estado"
+          (click)="almacenes[0].estado = true"
+          class="btn btn-outline-danger w-50"
+          type="button"
+        >
+          <i class="fa fa-dizzy"></i>
+          Inactivo
+        </button>
+      </div>
+      <hr />
+      <div class="form-group text-center">
+        <button (click)="Actualizar([almacenes[0]])" class="btn btn-primary w-25">
+          <i class="fa fa-save"></i>
+          Actualizar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+    

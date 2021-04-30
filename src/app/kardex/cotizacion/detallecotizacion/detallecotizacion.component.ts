@@ -31,7 +31,7 @@ export class DetallecotizacionComponent implements OnInit {
     
      });
    
-    if (this.data.orderItemIndex == null)
+if (this.data.orderItemIndex == null)
     this.formData = {
       id: null,
       idCotizacion: this.data.id,
@@ -40,22 +40,28 @@ export class DetallecotizacionComponent implements OnInit {
       cantidad: 0,
       precio_unidad: 0,
       precio_total: 0,
-      observaciones: ''
+      observaciones: '',
+      codigo_cotizacion_num: ''
     }
   
     else
     this.formData = Object.assign({}, this.kardexService.detalleCotizacion[this.data.orderItemIndex]);
-    console.log(this.formData);
+    // console.log('dataentrada',this.formData);
   }
 
-  UpdateNombre(ctrl) {     
-      this.formData.nombre_producto = this.productos[ctrl.selectedIndex - 1].nombre_producto;
-  }
+  // UpdateNombre(ctrl) {     
+  //     this.formData.nombre_producto = this.productos[ctrl.selectedIndex - 1].nombre_producto;
+  // }
   updateTotal(){
     this.formData.precio_total = parseFloat((this.formData.cantidad * this.formData.precio_unidad).toFixed(2));
   }
+  onChange = ($event: any): void => {
+    this.formData.nombre_producto= $event.nombre_producto; 
+     
+   }
 
   onSubmit(form: NgForm) {
+   console.log(form.value);
     if (this.validateForm(form.value)) {
       if (this.data.orderItemIndex == null) 
   this.kardexService.detalleCotizacion.push(form.value);  
@@ -63,7 +69,8 @@ export class DetallecotizacionComponent implements OnInit {
   else
   this.kardexService.detalleCotizacion[this.data.orderItemIndex] = form.value;
   this.dialogRef.close();
-  console.log('submit', (form.value));
+  console.log('id',this.data.orderItemIndex);
+  console.log('submit',this.kardexService.detalleCotizacion);
     }
 
   }

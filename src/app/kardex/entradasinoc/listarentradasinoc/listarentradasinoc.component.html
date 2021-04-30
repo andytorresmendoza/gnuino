@@ -1,0 +1,62 @@
+
+<h1>Listado entrada sin O/C </h1>
+<hr />
+<div class="row">
+  <div class="col text-right">
+    <button routerLink="/kardex/entradasinoc/nuevo" class="btn btn-primary">
+      <i class="fa fa-plus"> Agregar </i>
+    </button>
+  </div>
+</div>
+
+<table class="table table-hover">
+  <thead class="thead-dark">
+       <th scope="col">#</th>
+      <th scope="col">#Ingreso Almacen</th>
+      <th scope="col">Proveedor</th>
+      <th scope="col">Empleado</th>
+      <th scope="col">Tipo Ingreso</th>
+      <th scope="col">Fecha Ingreso</th>
+    
+  </thead>
+  <tbody>
+      <tr *ngFor="let item of entradaSinOc; let i = index" >
+        <th scope="row">{{ i + 1 }}</th>
+        <th (click)="openForEdit(item.id) ">{{item.codigoIngresoSinOc}}</th>
+        <!-- <th (click)="item.idEstadoFlujo != 2 && openForEdit(item.id) ">{{item.codigo_cotizacion_num}}</th> -->
+        <td (click)="openForEdit(item.id)">{{item.detalleProovedor[0].nombre_proovedor}}</td>
+        <td (click)="openForEdit(item.id)">{{item.detalleEmpleado[0].nombre_empleado}}</td>
+        <td (click)="openForEdit(item.id)">{{item.detalleTipoIngreso[0].descripcion_ingreso}}</td>
+        <td (click)="openForEdit(item.id)">{{item.fechaIngreso}}</td>
+        <!-- <td (click)="openForEdit(item.id)">{{item.idEstadoFlujo}}</td> -->
+        <!-- <td>
+          <label *ngIf="item.idEstadoFlujo == 2" class="badge bg-success"
+            >
+
+            Cerrado</label
+          >
+          <label *ngIf="item.idEstadoFlujo == 1" class="badge bg-warning text-dark"
+            >Pendiente</label
+          >
+          <label *ngIf="item.idEstadoFlujo == 3" class="badge badge-danger"
+          >Anulado</label
+        >
+        </td> -->
+     <!-- <td>
+          <button class="btn btn-outline-dark" (click)="EstadoCotizacionAnular(item, i)">
+               <i class="far fa-times-circle"></i>
+       </button>  
+       <button class="btn btn-outline-dark" (click)="borrarCotizacion(item, i)">
+        <i class="fa fa-trash"></i> 
+          
+    </button> 
+      
+      </td>   -->
+      
+         <!-- <td> <button class="btn btn-info mr-1" (click)="openForEdit(item.id)">            
+        <i class="fa fa-pen"></i> 
+        </button>
+      </td> -  -->
+      </tr>
+    </tbody>
+</table>

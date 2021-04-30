@@ -9,17 +9,36 @@ import {
 import { environment } from 'src/environments/environment';
 import { map, tap, delay, catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
-import { DataOrdenCompra, OrdenCompraI } from '../../models/ordencompra';
-
+import { DataOrdenCompra } from '../../models/ordencompra';
+import { DataEntradaAlmacen } from '../../models/entradaalmacen';
+import { DataDetalleIngresoAlmacen } from '../../models/detalle-ingresoalmacen';
+import { DataEntradaSinOC } from '../../models/entradasinOc';
+import { DataDetalleEntradasinOc } from '../../models/detalleEntradasinOc';
+ 
 @Injectable({
   providedIn: 'root',
 })
 export class KardexService {
   headers = new HttpHeaders();
-
-  formData: DataCotizacion;
+// Cotizacion
+  formData: DataCotizacion; 
   detalleCotizacion: DataDetalleCotizacion[];
-  formOrdencompra: DataOrdenCompra;
+
+  // Orden Compra
+  formOrdencompra: DataOrdenCompra; 
+
+
+  // Ingreso Almacen con Oc
+  formDataEntrada: DataEntradaAlmacen; 
+  detalleIngresoAlmacen: DataDetalleIngresoAlmacen[];
+  
+  //Ingreso Almacen sin OC
+
+  formDataIngresosinOc: DataEntradaSinOC;
+  detalleIngresosinOc:DataDetalleEntradasinOc[];
+
+
+  filteredData; 
 
   constructor(private http: HttpClient) {
     this.headers.append('Content-Type', 'application/json');
@@ -38,6 +57,12 @@ export class KardexService {
       .get(this.baseURL + 'cotizacion')
       .pipe(map((resp) => resp['data']));
   }
+
+  getCotizacionAnuladas() {
+    return this.http
+      .get(this.baseURL + 'cotizaciones-inactivas')
+      .pipe(map((resp) => resp['data']));
+  }
   getCotizacionById(id: number) {
     return this.http.get(`${this.baseURL}cotizacion/` + id).pipe(
       map((resp) => resp['data']),
@@ -50,7 +75,10 @@ export class KardexService {
       detalleCotizacion: this.detalleCotizacion,
     };
       console.log(body);
-    return this.http.post(`${this.baseURL}cotizacion`, body);
+    return this.http.post(`${this.baseURL}cotizacion`, body).pipe(
+      map((resp) => resp['data']),
+      catchError(this.manejarError)
+    );
   }
 
  
@@ -95,9 +123,10 @@ export class KardexService {
     }
 
     
-    // EstadoCotizacionAnular(id: number) {
-    //   return this.http.put(`${this.baseURL}cotizacion-estado/` + id, 3);
-    // }
+    EstadoCotizacionAnular(id: number, bodyform:any) {
+    console.log(id,bodyform );
+    return this.http.put(`${this.baseURL}cotizacion-estado/` + id, bodyform);
+ }
   /*ordencompra */
 
   saveUpdateOrdercompra() {
@@ -110,6 +139,12 @@ export class KardexService {
   getOrdenCompra() {
     return this.http
       .get(this.baseURL + 'orden-compra')
+      .pipe(map((resp) => resp['data']));
+  }
+
+  getOrdenCompraAnuladas() {
+    return this.http
+      .get(this.baseURL + 'orden-inactivas')
       .pipe(map((resp) => resp['data']));
   }
   getOrdenCompraById(id: number) {
@@ -125,6 +160,124 @@ export class KardexService {
     // delete body.id;
     //  console.log('body',body);
     console.log('servicio', id);
-    return this.http.put(`${this.baseURL}orden-compra/` + id, body);
+    return this.http.put(`${this.baseURL}orden-compra/` + id, body).pipe(
+      map((resp) => resp['data']),
+      catchError(this.manejarError)
+    );
   }
+  deleteOrden(id: number) {
+    return this.http.delete(`${this.baseURL}orden-compra/${id}`);
+  }
+
+  
+  EstadoOrdenAnular(id: number, bodyform:any) {
+  console.log(id,bodyform );
+  return this.http.put(`${this.baseURL}orden-anulado/` + id, bodyform);
+}
+
+/*TIPOALMACEN */
+
+getAlmacenPrincipal() {
+  return this.http.get(this.baseURL+ 'sede-principal')  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+  .pipe(
+    map(resp=>resp['data'])
+  
+  );
+ }
+ getAlmacenSecundario() {
+  return this.http.get(this.baseURL+ 'sede-secundaria')  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+  .pipe(
+    map(resp=>resp['data'])
+  
+  );
+ }
+
+  /*INGRESO ALMACEN */
+  getOrdenEstadoPendiente() {
+    return this.http
+      .get(this.baseURL + 'orden-pendientes')
+      .pipe(map((resp) => resp['data']));
+  }
+
+  GuardaIngresoAlmacen() {
+    // console.log('llego');
+    var body = {
+      ...this.formDataEntrada 
+      ,
+      detalleSedeIngreso: this.detalleIngresoAlmacen,
+    };
+      // console.log(body);
+    return this.http.post(`${this.baseURL}ingreso-almacen`, body).pipe(
+      map((resp) => resp['data']),
+      catchError(this.manejarError)
+    );
+  }
+  getIngresoAlmacen() {
+    return this.http
+      .get(this.baseURL + 'ingreso-almacen')
+      .pipe(map((resp) => resp['data']));
+  }
+  getIngresoAlmacenById(id: number) {
+    return this.http.get(`${this.baseURL}ingreso-almacen/` + id).pipe(
+      map((resp) => resp['data']),
+      catchError(this.manejarError)
+    );
+  }
+  GuardaEditIngresoAlmacen() {
+    console.log('llego');
+    var body = {
+      ...this.formDataEntrada 
+      ,
+      detalleIngresoAlmacen: this.detalleIngresoAlmacen,
+    };
+      // console.log(body);
+    return this.http.post(`${this.baseURL}almacen-pendiente-ingreso`, body).pipe(
+      map((resp) =>
+      console.log(resp)
+      // resp['data'])
+     
+    ));
+  }
+
+  /*entrada sin OC */
+  getIngresoSinOC() {
+    return this.http
+      .get(this.baseURL + 'ingreso-sinoc-almacen')
+      .pipe(map((resp) => resp['data']));
+  }
+  getIngresoSinOCById(id: number) {
+    return this.http.get(`${this.baseURL}ingreso-sinoc-almacen/` + id).pipe(
+      map((resp) => resp['data']),
+      catchError(this.manejarError)
+    );
+  }
+  saveIngresoSinOC() {
+    var body = {
+      ...this.formDataIngresosinOc,
+      detalleIngresoSinOrden: this.detalleIngresosinOc, /*cambiar esto desde el json */
+    };
+      // console.log(body);
+    return this.http.post(`${this.baseURL}ingreso-sinoc-almacen`, body).pipe(
+      map((resp) => 
+       resp['data'])
+     
+       ,
+     catchError(this.manejarError)
+    )
+    
+  }
+
+  UpdateIngresoSinOC(formData: DataEntradaSinOC) {
+    const body = {
+      ...this.formDataIngresosinOc,
+      detalleIngresoAlmacenSinOc: this.detalleIngresosinOc 
+    };
+    delete body.id;
+    //  console.log('body',  delete body.id);
+      // console.log('servicio',formData.id);
+    //  this.http.put(`${this.baseURL}cotizacion/`+ id, body);
+     return this.http.put(`${this.baseURL}ingreso-sinoc-almacen/${formData.id}`, body);
+
+  }
+
 }

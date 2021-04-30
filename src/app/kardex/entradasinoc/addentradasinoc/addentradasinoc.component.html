@@ -1,0 +1,226 @@
+
+<h1><small>Agregar Detalles</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../../listarentradasinoc">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="kardexService.formDataIngresosinOc"
+  (submit)="onSubmit(form)"
+>
+<input
+type="hidden"
+name="id"
+#id="ngModel"
+[(ngModel)]="kardexService.formDataIngresosinOc.id"
+/>
+<!-- EMPLEADO -->
+<input
+type="hidden"
+name="nombre_empleado"
+#nombre_empleado="ngModel"
+[(ngModel)]="kardexService.formDataIngresosinOc.nombre_empleado"
+/>
+<input
+type="hidden"
+name="idEmpleado"
+#idEmpleado="ngModel"
+[(ngModel)]="kardexService.formDataIngresosinOc.idEmpleado"
+/>
+<!-- PROVEEDOR -->
+
+<input
+type="hidden"
+name="nombre_proovedor"
+#nombre_proovedor="ngModel"
+[(ngModel)]="kardexService.formDataIngresosinOc.nombre_proovedor"
+/>
+<input
+type="hidden"
+name="idProveedor"
+#idProveedor="ngModel"
+[(ngModel)]="kardexService.formDataIngresosinOc.idProveedor"
+/>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+          <label> Ingreso Sin OC Nro.</label>
+          <input
+            name="codigoIngresoSinOc"
+            #codigoIngresoSinOc="ngModel"
+            [(ngModel)]="kardexService.formDataIngresosinOc.codigoIngresoSinOc"
+            class="form-control"
+            readonly
+          />
+        </div> 
+        <div class="form-group">
+          <label> Detalle</label>
+          <input
+            name="detalle"
+            #detalle="ngModel"
+            [(ngModel)]="kardexService.formDataIngresosinOc.detalle"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <div class="col-md-4">
+  
+          <div class="form-group">
+            <label>Empleado</label>
+    
+            <ng-select 
+            [items]="empleados"
+           bindLabel="nombre_empleado"
+           bindValue="id" 
+           placeholder="Buscar Empleado"
+           [(ngModel)]="kardexService.formDataIngresosinOc.idEmpleado"
+           (change)="onChange($event)"
+           
+            >
+      
+      </ng-select>
+     
+          </div>
+          <div class="form-group">
+            <label  for="inputAddress" class="form-label"> Fecha Ingreso</label>
+    
+            <input
+              matInput
+              [matDatepicker]="picker"
+              placeholder="DD/MM/YYYY" 
+              name="fechaIngreso"
+              #fechaIngreso="ngModel"
+              placeholder=""
+              [(ngModel)]="kardexService.formDataIngresosinOc.fechaIngreso"
+              class="form-control"
+              (dateChange)="onChangeEvent($event)"
+            />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </div>
+      </div>
+      <div class="col-md-4">
+
+        <div class="form-group">
+            <label> Proveedor</label>
+    
+            <ng-select 
+            [items]="proveedores"
+           bindLabel="nombre_proovedor"
+           bindValue="id" 
+           placeholder="Buscar Proveedor"
+           [(ngModel)]="kardexService.formDataIngresosinOc.idProveedor"
+           (change)="onChangeProveedor($event)" 
+            >
+      
+      </ng-select>
+        </div>
+
+        <div class="form-group">
+            <label> Tipo Ingreso</label>
+    
+            <ng-select 
+            [items]="tipoingresos"
+           bindLabel="descripcion_ingreso"
+           bindValue="id" 
+           placeholder="Buscar Tipo Ingreso"
+           [(ngModel)]="kardexService.formDataIngresosinOc.idtipoIngreso"
+           (change)="onChangeTipoIngreso($event)" 
+            >
+      
+      </ng-select>
+        </div>
+        <div class="form-group">
+            <label> Total</label>
+            <input
+              name="totalCosto"
+              #totalCosto="ngModel"
+              [(ngModel)]="kardexService.formDataIngresosinOc.totalCosto"
+              class="form-control"
+              readonly
+            />
+          </div>
+      </div>
+
+</div>
+<table class="table table-borderless">
+    <thead class="thead-light">
+      <th scope="col">#</th>
+      <th>Nombre Producto</th>
+      <th>Cantidad</th>
+      <th>Precio Unidad</th>
+      <th>Precio Total</th>
+      <th>Observaciones</th>
+      <th>Sede Principal</th>
+      <th>Cantidad Principal</th>
+      <th>Sede Secundaria</th>
+      <th>Cantidad Secundaria</th>
+      <th>Cantidad Devuelta</th>
+     
+      <th>
+        <a
+          class="btn btn-sm btn-success text-white"
+          (click)="AddOrEditOrderItem(null, kardexService.formDataIngresosinOc.id)"
+          ><i class="fa fa-plus"></i> Agregar Detalles</a
+        >
+      </th>
+    </thead>
+    <tbody>
+      <!-- <tr
+        *ngIf="kardexService.detalleIngresosinOc.length == 0"
+        [class.text-danger]="
+          !isValid && kardexService.detalleIngresosinOc.length == 0
+        "
+      >
+        <td class="font-italic text-center" colspan="5">
+          No ah seleccionado Ningun Producto
+        </td>
+      </tr> -->
+      <tr *ngFor="let item of kardexService.detalleIngresosinOc; let i = index"> 
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ item.nombre_producto }}</td>
+     <td>{{ item.cantidad }}</td>
+        <td>{{ item.precioUnitario }}</td>
+        <td>{{ item.precioTotal }}</td>
+        <td>{{ item.observaciones }}</td>
+        <td>{{ item.nombreSedePrincipal }}</td>
+        <td>{{ item.cantidadPrincipal }}</td>
+        <td>{{ item.nombre_almacenS }}</td>
+        <td>{{ item.cantidaSecundaria }}</td>
+        <td>{{ item.cantidadDevuelta }}</td>  
+        <td>
+          <a
+            class="btn btn-sm btn-info text-white"
+            (click)="AddOrEditOrderItem(i, kardexService.formDataIngresosinOc.id)"
+            ><i class="fa fa-pencil"></i
+          ></a>
+          <a
+            class="btn btn-sm btn-danger text-white ml-1"
+            (click)="onDeleteOrderItem(item.id, i)"
+            ><i class="fa fa-trash"></i
+          ></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark" 
+    >
+    <i class="fa fa-database"></i> Guardar </button>
+    
+    <a class="btn btn-outline-dark ml-1" routerLink="../../listarentradasinoc"
+      ><i class="fa fa-close"></i> Ver Ingresos</a
+    >
+  </div>
+</form>

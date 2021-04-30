@@ -5,7 +5,7 @@ export interface OrdenCompraI {
 
 export interface DataOrdenCompra {
   id:                    number;
-  // nroCotizacion:         string; 
+  codigo_orden_num:        string; 
   idCotizacion:  number;
   idProovedor:           number;
   idEmpleado:            number;
@@ -13,11 +13,12 @@ export interface DataOrdenCompra {
   idBanco: number;
   idNroCuenta: number;
   // detalle:                string;
-  fecha_entrega:         string;
+  fechaEntrega:         string;
  
-  // descuento_cot:         string;
-  // costo_envio:           string;
-  // total_costo:           number; 
+   descuento_cot:         number;
+  costo_envio:           number;
+  total_costo:           number; 
+  total_general:          number;
  
    
 }

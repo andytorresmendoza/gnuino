@@ -15,20 +15,28 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 
 
+// PRODUCCION const routes: Routes =[
+//   // {path:'', redirectTo:'/dashboard', pathMatch:'full'},  
+//   {path:'login', component:LoginComponent},
+//   {path:'dashboard', component:DashboardComponent},
+//   {path:'mantenimientos',  component: MantenimientosComponent},
+//   {path:'kardex',  component: KardexComponent},
+//   {path:'auth',component: LoginComponent },
+//   { path: '**', pathMatch: 'full', redirectTo: 'login' }
+// ];
 const routes: Routes =[
-  // {path:'', redirectTo:'/dashboard', pathMatch:'full'},  
+  {path:'', redirectTo:'/dashboard', pathMatch:'full'},  
   {path:'login', component:LoginComponent},
-  {path:'dashboard', component:DashboardComponent},
   {path:'mantenimientos',  component: MantenimientosComponent},
   {path:'kardex',  component: KardexComponent},
-  {path:'auth',component: LoginComponent },
-  { path: '**', pathMatch: 'full', redirectTo: 'login' }
+ {path:'auth',component: LoginComponent },
 ];
 
 @NgModule({
   declarations: [],
   imports: [
-    RouterModule.forRoot(routes,{useHash:true})
+    // RouterModule.forRoot(routes,{useHash:true} PRODUCCION)
+    RouterModule.forRoot(routes )
   ],
   exports:[
     RouterModule,
