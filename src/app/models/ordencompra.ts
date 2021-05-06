@@ -19,6 +19,16 @@ export interface DataOrdenCompra {
   costo_envio:           number;
   total_costo:           number; 
   total_general:          number;
- 
+
+  // nuevos
+  fechaEnvio:         string;
+
+  detalleOrden:string;
+  idSede: number;
+  nombreSedePrincipal:string;
+  direccionOrden:string;
+  totalGeneral:number;
+  nombre_empleado:string;
+  nombre_proovedor:string;
    
 }

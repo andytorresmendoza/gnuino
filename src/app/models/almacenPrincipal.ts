@@ -4,7 +4,7 @@ export interface AlmacenPrincipalI {
   }
   export interface DataAlmacenPrincipal{  
     id:number;
-    nombre_alamcen: string;  
+    nombreSedePrincipal: string;  
     cod_alamcen: string;
     direccion_almacen: string;
     idPais: number;

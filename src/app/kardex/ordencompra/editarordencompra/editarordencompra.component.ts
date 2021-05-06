@@ -12,6 +12,7 @@ import { DataDetalleCotizacion } from '../../../models/detalle-cotizacion';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
+import { DataTipoAlmacen } from '../../../models/tipoalmacen';
 
 @Component({
   selector: 'app-editarordencompra',
@@ -26,7 +27,9 @@ export class EditarordencompraComponent implements OnInit {
   cuentas: DataNrocuenta[]; 
   empleados: DataEmpleado[];
   cotizaciones: DataCotizacion[];
+  totales:DataCotizacion[];
   detalleCotizaciones: DataDetalleCotizacion[];
+  almacenes: DataTipoAlmacen[]=[];
   isButtonVisible:boolean=true;
   constructor( public kardexService: KardexService,  
     private currentRoute: ActivatedRoute,  
@@ -38,9 +41,11 @@ export class EditarordencompraComponent implements OnInit {
     let id = this.currentRoute.snapshot.paramMap.get('id'); 
  
     this.kardexService.getOrdenCompraById(+id).subscribe((res) => {
-      // console.log('editar',res[0] );
-      this.kardexService.formOrdencompra = res[0];
+    //  console.log('editar',res[0] );
+      this.kardexService.formOrdencompra = res[0];  
       this.detalleCotizaciones  = res[0].detalleCotizacion[0].detCotizacion;
+      this.totales  = res[0].detalleCotizacion[0];
+      // console.log(res[0].detalleCotizacion[0]);
       if (res[0].idEstadoFlujo ==  2 || res[0].idEstadoFlujo ==  3 ) {
         this.isButtonVisible=false;
        } else { /*implementar  EN ORDEN Y COTIZAICON ANULADA*/
@@ -79,6 +84,10 @@ export class EditarordencompraComponent implements OnInit {
     this.cotizaciones = resp as DataCotizacion[];
     // console.log(resp);
   });
+  this.mantenimientosService.getTipoAlmacen().subscribe((resp) => {
+    this.almacenes = resp as DataTipoAlmacen[];
+    // console.log(this.cuentas);
+  });
 
   }
   resetForm(form?: NgForm) {
@@ -97,7 +106,15 @@ export class EditarordencompraComponent implements OnInit {
       descuento_cot: 0,
       costo_envio: 0,
       total_costo: 0,
-      total_general: 0
+      total_general: 0,
+      fechaEnvio:'',
+      detalleOrden:'',
+      idSede: 0,
+      nombreSedePrincipal: '',
+      direccionOrden:'',
+       totalGeneral: 0,
+       nombre_empleado:'',
+       nombre_proovedor:''
     };
   }
   UpdateBanco(ctrl) {
@@ -106,24 +123,39 @@ export class EditarordencompraComponent implements OnInit {
       ctrl.selectedIndex - 1
     ].idNroCuenta;
   }
-  onChangeEvent(event) {
-    const m = moment(event.value);
-    // console.log(m);
-  event = m.format('YYYY-MM-D');
+  // onChangeEvent(event) {
+  //   const m = moment(event.value);
+  //   // console.log(m);
+  // event = m.format('YYYY-MM-D');
  
-    this.kardexService.formOrdencompra.fechaEntrega = m.format('YYYY-MM-D');
-    // console.log(m.format('YYYY-MM-D'));
-  }
+  //   this.kardexService.formOrdencompra.fechaEntrega = m.format('YYYY-MM-D');
+  //   // console.log(m.format('YYYY-MM-D'));
+  // }
  /*falta implementar el UPDATE */
- 
+ UpdateSede(ctrl) {
+  console.log(ctrl);
+  this.kardexService.formOrdencompra.direccionOrden = this.almacenes[
+    ctrl.selectedIndex - 1
+  ].direccion_almacen;
+}
+
 
  onSubmit(form: NgForm) {
+    if ( form.invalid ) {
+
+      Object.values( form.controls ).forEach( control => {
+        control.markAsTouched();//es para validar el guardar
+        //  console.log(control); //son todos mis controles del formulario
+       });
+  
+      return;
+    } 
   // console.log(form);
   if (this.kardexService.formOrdencompra.id) {
     console.log('submit', this.kardexService.formOrdencompra.id);
     this.kardexService.UpdateOrderCompra(this.kardexService.formOrdencompra.id).subscribe(
       resp=>{
-        console.log(resp.msg );
+    
         // this.kardexService.formData = resp.data;
         this.toastr.success(resp.msg );
         this.router.navigate(["../kardex/listarordencompra"]);

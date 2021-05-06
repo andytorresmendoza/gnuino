@@ -22,74 +22,119 @@ type="hidden"
 name="idCotizacion"
 #idCotizacion="ngModel"
 [(ngModel)]="kardexService.formDataEntrada.idCotizacion"
-/>   
-    <div class="col-md-4">
-        <!-- <div class="form-group">
-            
-            <label for="inputAddress" class="form-label">Nro Cotización</label>
-            <select
-            name="idCotizacion" 
-            #idCotizacion="ngModel" 
-            [(ngModel)]="kardexService.formOrdencompra.idCotizacion"
-            class="form-control"
-            disabled="disabled"
-           
-             > 
-             <option value="0">-Select-</option>
-              <option
-                *ngFor="let cotizacion of cotizaciones"
-                value="{{ cotizacion.id }}"
-              >
-                {{ cotizacion.codigo_cotizacion_num }}
-              </option>
-            </select>
-            </div>    -->
+/>    
  
-          <div class="form-group">
-            <label> Nro Ingreso Alamcén.</label>
-            <input name="codigoIngreso" #codigo_orden_num="ngModel" [(ngModel)]="kardexService.formDataEntrada.codigoIngreso" class="form-control" readonly>
-        </div>  
+<!-- <input
+type="text"
+name="idEmpleado"
+#idEmpleado="ngModel"
+[(ngModel)]="kardexService.formOrdencompra.idEmpleado"
+/>  -->
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Nro Ingreso Alamcén.</label>
+      <input name="codigoIngreso" #codigoIngreso="ngModel" [(ngModel)]="kardexService.formDataEntrada.codigoIngreso" class="form-control" readonly>
+      </div>  
+      <div class="form-group">
+        <label> Fecha  Ingreso</label>
     
-        <!-- <div class="form-group" >
-            <label for="inputAddress" class="form-label">PROVEEDOR</label>
-            <select
-            name="idProovedor" 
-            #idProovedor="ngModel" 
-            [(ngModel)]="kardexService.formOrdencompra.idProovedor"
-            class="form-control"
-            disabled="disabled"
-             > 
-             <option value="0">-Select-</option>
-              <option
-                *ngFor="let proveedor of proveedores"
-                value="{{ proveedor.id }}"
-              >
-                {{ proveedor.nombre_proovedor }}
-              </option>
-            </select>
-          </div> -->
-       
-        
+    
+        <input
+        matInput
+        [matDatepicker]="picker"
+        placeholder="DD/MM/YYYY" 
+        name="fechaIngreso"
+        #fechaIngreso="ngModel" 
+        [(ngModel)]="kardexService.formDataEntrada.fechaIngreso"
+        class="form-control"  
+        [class.is-invalid]="fechaIngreso.invalid && fechaIngreso.touched"
+          required
+    
+      />
+      <small *ngIf="fechaIngreso.invalid && fechaIngreso.touched"
+      class="form-text text-danger">Ingrese Fecha</small>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
     </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Nro Orden Compra</label>
+      <input name="codigo_orden_num" #codigo_orden_num="ngModel" [(ngModel)]="kardexService.formOrdencompra.codigo_orden_num" class="form-control" readonly>
+  </div>  
+  <div class="form-group">
+    <label> Tipo Ingreso</label>
+
+    <input
+      type="text"
+      name="descripcion_ingreso"
+      #descripcion_ingreso="ngModel"
+      [(ngModel)]="kardexService.formDataEntrada.descripcion_ingreso"
+      class="form-control" 
+      disabled="disabled"
+      />
+</div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group" >
+      <label for="inputAddress" class="form-label">Empleado</label>
+      <input
+      type="text"
+      name="nombre_empleado"
+      #nombre_empleado="ngModel"
+      [(ngModel)]="kardexService.formOrdencompra.nombre_empleado"
+      class="form-control" 
+      disabled="disabled"
+      />
+
+ 
+    </div>
+    <div class="form-group">
+      <label for="inputAddress" class="form-label">Proveedor</label>
+      <input
+      type="text"
+      name="nombre_proovedor"
+      #nombre_proovedor="ngModel"
+      [(ngModel)]="kardexService.formOrdencompra.nombre_proovedor"
+      class="form-control" 
+      disabled="disabled"
+      />
+      </div>
+      <div class="form-group">
+        <label> Detalle</label>
+        <input
+        class="form-control" 
+          type="text"
+          name="detalleIngreso"
+          placeholder="Detalle" 
+          #detalleIngreso="ngModel"
+          [(ngModel)]="kardexService.formDataEntrada.detalleIngreso"
+          class="form-control" 
+          [class.is-invalid]="detalleIngreso.invalid && detalleIngreso.touched"
+          required
+          minlength="5"
+        
+        />
+      
+       
+      </div>
+  </div>
+
+</div>
+ 
+    <br>
     <table class="table table-borderless" >
         <thead class="thead-light">
           <th scope="col">#</th>
            <th>Nombre Producto</th> 
+           <th>Unidad Medida</th>
             <th>Cantidad Solicitada</th> 
-            <th>Sede Principal</th>
-            <th>Cantidad Principal</th>
-            <th>Sede Secundaria</th>
-            <th>Cantidad Secundaria</th>
-            <th>Cantidad Devolucion</th>
+                     
+            <th>Cantidad Ingreso</th>
             <th scope="col">Estado</th>
            
-            <!-- <th>
-              <a
-                class="btn btn-sm btn-success text-white"
-                (click)="AddOrEditOrderItem(null, kardexService.formDataEntrada.id)"
-                ><i class="fa fa-plus"></i> Agregar Producto</a
-              >
-            </th> -->
+       
             
         </thead>
       
@@ -102,30 +147,21 @@ name="idCotizacion"
                   <!-- <p *ngFor="let deta of item.detalleCotizacion">{{deta.nombre_producto}}</p>   -->
               </td>
               <td>
+                <p>{{item.detalleNameUnidadMedida}}</p>
+               
+              </td>
+              <td>
                 <p>{{item.cantidadGlobal}}</p>
                
               </td> 
-              <td>
-                <!-- <p>{{item.idSedePrincipal}}</p> -->
-                <p>{{item.detalleNameSedePrincipal}}</p>
-              </td>
+            
+          
+          
               <td>
                 <p>{{item.cantidadPrincipal}}</p>
               
               </td>
-              <td>
-                 
-                <p>{{item.detalleNameSedeSecundaria}}</p>
-              
-              </td>
-              <td>
-                <p>{{item.cantidaSecundaria}}</p>
-              
-              </td>
-              <td>
-                <p>{{item.cantidadDevuelta}}</p>
-              
-              </td>
+             
              
               <!-- <td>
                 <p>{{item.cantidadDevuelta + item.cantidadDevuelta}}</p>
@@ -137,24 +173,29 @@ name="idCotizacion"
       
                   Completado</label
                 >
-                <label *ngIf="item.estadoflujo == 1" class="badge bg-danger"
+                <label *ngIf="item.estadoflujo == 1" class="badge bg-warning"
                   >Pendiente</label
                 >
+                <label *ngIf="item.estadoflujo == 3" class="badge bg-danger"
+                >Anulado</label
+              >
               </td>
             
               <td>
                 <a
                   class="btn btn-sm btn-info text-white"
-                  (click)="AddOrEditOrderItem(i,item.id)"><i class="fa fa-check-square"></i></a>
+                  (click)="AddOrEditOrderItem(i,item.id) " [hidden] = "item.estadoflujo == 2 || item.estadoflujo == 3"><i class="fa fa-check-square"></i></a>
                    
              
               </td>
               <!-- {{item | json}}   -->
               </tr>   
         </tbody>
+        <br>
+ 
       </table>
       <div class="form-group">
-        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Actualizar</button>
+        <button type="submit" class="btn btn-dark" *ngIf="this.isButtonVisible"><i class="fa fa-database"></i> Actualizar</button>
          <a   class="btn btn-outline-dark ml-1" routerLink="../../listarentrada" ><i class="fa fa-close"></i> Ver Ingresos</a>  
         
         </div>

@@ -15,6 +15,7 @@ import { DataTipoPago } from '../../../models/tipopago';
 import { DataBanco } from '../../../models/banco';
 import { DataNrocuenta } from '../../../models/nrocuenta';
 import * as moment from 'moment';
+import { DataTipoAlmacen } from '../../../models/tipoalmacen';
  
 
 @Component({
@@ -28,10 +29,11 @@ export class OrdencompraComponent implements OnInit {
   cotizaciones: DataCotizacion[]; 
   proveedores: DataProveedor[];
   empleados: DataEmpleado[];
-  tipopagos: DataTipoPago[]; 
+  tipopagos: any[] = [];
   bancos: DataBanco[];
   cuentas: DataNrocuenta[]; 
   detalleCotizaciones: DataDetalleCotizacion[]; 
+  almacenes: DataTipoAlmacen[]=[];
   isValid: boolean = true;
 
   constructor(
@@ -65,7 +67,7 @@ export class OrdencompraComponent implements OnInit {
        
     this.mantenimientosService.getTipopago().subscribe((resp) => {
       this.tipopagos = resp as DataTipoPago[];
-     
+ 
 
     });
     // this.mantenimientosService.getTipopago().subscribe((resp) => {
@@ -79,6 +81,11 @@ export class OrdencompraComponent implements OnInit {
 
     this.mantenimientosService.getNroCuenta().subscribe((resp) => {
       this.cuentas = resp as DataNrocuenta[];
+      // console.log(this.cuentas);
+    });
+
+    this.mantenimientosService.getTipoAlmacen().subscribe((resp) => {
+      this.almacenes = resp as DataTipoAlmacen[];
       // console.log(this.cuentas);
     });
  
@@ -112,7 +119,15 @@ export class OrdencompraComponent implements OnInit {
       descuento_cot: 0,
       costo_envio: 0,
       total_costo: 0,
-      total_general: 0
+      total_general: 0,
+      fechaEnvio:'',
+      detalleOrden:'' ,
+      idSede: 0,
+      nombreSedePrincipal: '',
+      direccionOrden:'',
+      totalGeneral:0,
+      nombre_empleado:'',
+      nombre_proovedor:''
     };
   }
  onChange = ($event: any): void => {
@@ -123,6 +138,7 @@ export class OrdencompraComponent implements OnInit {
   this.kardexService.formOrdencompra.costo_envio = $event.costo_envio;
   this.kardexService.formOrdencompra.descuento_cot = $event.descuento_cot;
   this.kardexService.formOrdencompra.total_costo = $event.total_costo; 
+  this.kardexService.formOrdencompra.totalGeneral = $event.totalGeneral; 
   let total_costo =  $event.total_costo.toString();
   let descuento_cot =  $event.descuento_cot.toString();
   let costo_envio =  $event.costo_envio.toString();
@@ -140,6 +156,12 @@ export class OrdencompraComponent implements OnInit {
       ctrl.selectedIndex - 1
     ].idNroCuenta;
   }
+  UpdateSede(ctrl) {
+    console.log(ctrl);
+    this.kardexService.formOrdencompra.direccionOrden = this.almacenes[
+      ctrl.selectedIndex - 1
+    ].direccion_almacen;
+  }
 
   SelectCotizacionDetalle($event:any): void {
     console.log($event.id);
@@ -149,26 +171,37 @@ export class OrdencompraComponent implements OnInit {
      });
   }
 
-  onChangeEvent(event) {
-    const m = moment(event.value);
-    console.log(m);
-  event = m.format('YYYY-MM-D');
+//  onChangeEvent(event) {
+//     const m = moment(event.value);
+//     console.log(m);
+//   event = m.format('YYYY-MM-D');
  
-    this.kardexService.formOrdencompra.fechaEntrega = m.format('YYYY-MM-D');
-    console.log(m.format('YYYY-MM-D'));
-  }
+//     this.kardexService.formOrdencompra.fechaEntrega = m.format('YYYY-MM-D');
+//     console.log(m.format('YYYY-MM-D'));
+//   } 
 
   validateForm() {
     this.isValid = true;
-    if (this.kardexService.formOrdencompra.idEmpleado == 0)
+    if (this.kardexService.formOrdencompra.idTipoPago == 0)
+      this.isValid = false;
+      else if   (this.kardexService.formOrdencompra.idBanco == 0)
       this.isValid = false;
     return this.isValid;
   }
 
  
   onSubmit(form: NgForm) {
+    this.validateForm();
     // console.log(form);
- 
+    if ( form.invalid ) {
+
+      Object.values( form.controls ).forEach( control => {
+        control.markAsTouched();//es para validar el guardar
+        //  console.log(control); //son todos mis controles del formulario
+       });
+  
+      return;
+    } 
       this.kardexService.saveUpdateOrdercompra().subscribe((res) => {
        console.log('respuesta',res);
         this.resetForm();

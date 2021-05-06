@@ -18,6 +18,9 @@ export interface DataCotizacion {
     costo_envio:           number;
     total_costo:           number; 
     estadoCotizacion: string;
+// NUEVO
+   idTipoMoneda:number;
+   totalGeneral: number;
     // detalleCotizacion: DataDetalleCotizacion[];
     
     

@@ -18,7 +18,6 @@ import { DetallecotizacionComponent } from './cotizacion/detallecotizacion/detal
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
-
 import { MatNativeDateModule } from '@angular/material/core';
 import { OrdencompraComponent } from './ordencompra/ordencompra/ordencompra.component';
 import { ListarordencompraComponent } from './ordencompra/listarordencompra/listarordencompra.component';
@@ -38,6 +37,13 @@ import { EditdetalleentradaalmacenComponent } from './entradaalmacen/editdetalle
 import { ListarentradasinocComponent } from './entradasinoc/listarentradasinoc/listarentradasinoc.component';
 import { AddentradasinocComponent } from './entradasinoc/addentradasinoc/addentradasinoc.component';
 import { DetalleentradasinocComponent } from './entradasinoc/detalleentradasinoc/detalleentradasinoc.component';
+import { ListarsalidaproductoComponent } from './salidaproductos/listarsalidaproducto/listarsalidaproducto.component';
+import { AddsalidaproductoComponent } from './salidaproductos/addsalidaproducto/addsalidaproducto.component';
+import { ListarentradaanuladaComponent } from './entradaalmacen/listarentradaanulada/listarentradaanulada.component';
+import { ListarentradasinocanuladaComponent } from './entradasinoc/listarentradasinocanulada/listarentradasinocanulada.component';
+import { FiltroPipe } from './pipes/filtro.pipe';
+import { ListarsalidasinocComponent } from './salidaproductos/listarsalidasinoc/listarsalidasinoc.component';
+import { DetallesalidaproductoComponent } from './salidaproductos/detallesalidaproducto/detallesalidaproducto.component';
 @NgModule({
   declarations: 
   [KardexComponent,    
@@ -57,6 +63,13 @@ import { DetalleentradasinocComponent } from './entradasinoc/detalleentradasinoc
      ListarentradasinocComponent,
      AddentradasinocComponent,
      DetalleentradasinocComponent,
+     ListarsalidaproductoComponent,
+     AddsalidaproductoComponent,
+     ListarentradaanuladaComponent,
+     ListarentradasinocanuladaComponent,
+     FiltroPipe,
+     ListarsalidasinocComponent,
+     DetallesalidaproductoComponent,
      ],
   imports: [
      CommonModule,
@@ -70,6 +83,7 @@ import { DetalleentradasinocComponent } from './entradasinoc/detalleentradasinoc
      MatNativeDateModule,
      AutocompleteLibModule,
      MatAutocompleteModule,  NgSelectModule
+
    
    
 

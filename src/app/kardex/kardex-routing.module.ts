@@ -14,6 +14,11 @@ import { ListarordanuladasComponent } from './ordencompra/listarordanuladas/list
 import { EditingresoalmacenComponent } from './entradaalmacen/editingresoalmacen/editingresoalmacen.component';
 import { ListarentradasinocComponent } from './entradasinoc/listarentradasinoc/listarentradasinoc.component';
 import { AddentradasinocComponent } from './entradasinoc/addentradasinoc/addentradasinoc.component';
+import { ListarsalidaproductoComponent } from './salidaproductos/listarsalidaproducto/listarsalidaproducto.component';
+import { AddsalidaproductoComponent } from './salidaproductos/addsalidaproducto/addsalidaproducto.component';
+import { ListarentradaanuladaComponent } from './entradaalmacen/listarentradaanulada/listarentradaanulada.component';
+import { ListarentradasinocanuladaComponent } from './entradasinoc/listarentradasinocanulada/listarentradasinocanulada.component';
+import { ListarsalidasinocComponent } from './salidaproductos/listarsalidasinoc/listarsalidasinoc.component';
 
 const routes: Routes = [
  
@@ -28,12 +33,19 @@ const routes: Routes = [
    {path:'ordencompra', component: OrdencompraComponent},
    {path:'editordencompra/:id', component: EditarordencompraComponent},
    {path:'listarentrada', component: ListarentradaalmacenComponent},
+   {path:'listarentradaanulada', component: ListarentradaanuladaComponent},
    {path:'ingresoalmacen', component: AddentradaalmacenComponent},
    {path:'editingresoalmacen/:id', component: EditingresoalmacenComponent},
 
    {path:'listarentradasinoc', component: ListarentradasinocComponent}, 
+   {path:'listarentradasinanulada', component: ListarentradasinocanuladaComponent}, 
    {path:'entradasinoc/:id', component: AddentradasinocComponent},
 
+   {path:'listarsalida', component: ListarsalidaproductoComponent},
+   {path:'salidaProducto/:id', component: AddsalidaproductoComponent},
+
+   {path:'listarsalidasinoc', component: ListarsalidasinocComponent},
+  //  {path:'listarsalida/:id', component: AddsalidaproductoComponent},
    {path:'**', pathMatch:'full', redirectTo:''}
    
    ]

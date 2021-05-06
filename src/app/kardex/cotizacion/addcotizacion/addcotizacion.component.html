@@ -24,12 +24,12 @@
     [(ngModel)]="kardexService.formData.id"
   />
 <!-- EMPLEADO -->
-  <input
+   <input
   type="hidden"
   name="nombre_empleado"
   #nombre_empleado="ngModel"
   [(ngModel)]="kardexService.formData.nombre_empleado"
-/>
+/>  
 <input
 type="hidden"
 name="idEmpleado"
@@ -37,12 +37,12 @@ name="idEmpleado"
 [(ngModel)]="kardexService.formData.idEmpleado"
 />
 <!-- PROVEEDOR -->
-<input
+  <input
 type="hidden"
 name="nombre_proovedor"
 #nombre_proovedor="ngModel"
 [(ngModel)]="kardexService.formData.nombre_proovedor"
-/>
+/>  
 <input
 type="hidden"
 name="idProovedor"
@@ -60,76 +60,66 @@ name="fecha_entrega"
 
 
 <input
-type="text"
+type="hidden"
 name="total_costo"
 #total_costo="ngModel"
 [(ngModel)]="kardexService.formData.total_costo"
 />
 <input
-type="text"
+type="hidden"
 name="costo_envio"
 #costo_envio="ngModel"
 [(ngModel)]="kardexService.formData.costo_envio"
 />
+
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Cotización Nro.</label>
+      <input
+        name="codigo_cotizacion_num"
+        #codigo_cotizacion_num="ngModel"
+        [(ngModel)]="kardexService.formData.codigo_cotizacion_num"
+        class="form-control"
+        readonly
+      />
+    </div>
+  </div></div>
+
+
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <label> Cotización Nro.</label>
+        <label> Detalle</label>
         <input
-          name="codigo_cotizacion_num"
-          #codigo_cotizacion_num="ngModel"
-          [(ngModel)]="kardexService.formData.codigo_cotizacion_num"
-          class="form-control"
-          readonly
+        class="form-control" 
+          type="text"
+          name="detalle"
+          placeholder="Detalle"
+          [class.is-invalid]="detalle.invalid && detalle.touched"
+          #detalle="ngModel"
+          [(ngModel)]="kardexService.formData.detalle"
+          class="form-control" 
+          required
+          minlength="5"
+        
         />
+      
+       
       </div>
       <div class="form-group">
         <label> Descuento Cotización</label>
         <input
+        type="number"
           name="descuento_cot"
           #descuento_cot="ngModel"
           [(ngModel)]="kardexService.formData.descuento_cot"
           class="form-control"
-        />
-      </div>
-      <div class="form-group">
-        <label> Detalle</label>
-        <input
-          name="detalle"
-          #detalle="ngModel"
-          [(ngModel)]="kardexService.formData.detalle"
-          class="form-control"
-        />
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <label>Empleado</label>
-
-        <ng-select 
-        [items]="empleados"
-       bindLabel="nombre_empleado"
-       bindValue="id" 
-       placeholder="Buscar Empleado"
-       [(ngModel)]="kardexService.formData.idEmpleado"
-       (change)="onChange($event)"
-       
-        >
-  
-  </ng-select>
- 
-      </div>
-      <div class="form-group">
-        <label> Costo Envio</label>
-        <input
-          name="costo_envio"
-          #costo_envio="ngModel"
-          [(ngModel)]="kardexService.formData.costo_envio"
-          class="form-control"
           (keyup)="updateMontoTotal()"
         />
-        <!-- (keyup)="updateMontoTotal()" -->
       </div>
+
       <div class="form-group">
         <label  for="inputAddress" class="form-label"> Fecha Cotización</label>
 
@@ -138,22 +128,70 @@ name="costo_envio"
           [matDatepicker]="picker"
           placeholder="DD/MM/YYYY" 
           name="fecha_entrega"
-          #fecha_entrega="ngModel"
-          placeholder=""
+          #fecha_entrega="ngModel" 
           [(ngModel)]="kardexService.formData.fecha_entrega"
-          class="form-control"
-          (dateChange)="onChangeEvent($event)"
+          class="form-control"  
+          [class.is-invalid]="fecha_entrega.invalid && fecha_entrega.touched"
+            required
+      
         />
+        <small *ngIf="fecha_entrega.invalid && fecha_entrega.touched"
+        class="form-text text-danger">Ingrese Fecha</small>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Empleado</label>
+
+        <ng-select  
+        #idEmpleado="ngModel"  
+        name="idEmpleado" 
+        bindValue="idEmpleado" 
+        placeholder="Buscar Empleado" 
+        [(ngModel)]="kardexService.formData.idEmpleado"  
+      >   
+          <ng-option *ngFor="let emp of empleados" [value]="emp.id">{{emp.nombre_empleado}}</ng-option>
+       </ng-select> 
+      </div>
+      <div class="form-group">
+        <label> Costo Envio</label>
+        <input
+        type="number"
+          name="costo_envio"
+          #costo_envio="ngModel"
+          [(ngModel)]="kardexService.formData.costo_envio"
+          class="form-control"
+          (keyup)="updateMontoTotal()"
+       
+        />
+        <!-- (keyup)="updateMontoTotal()" -->
+      </div>
+      <div class="form-group">
+        <label> Tipo Moneda</label>
+
+        <select 
+        name="idTipoMoneda" 
+        #idTipoMoneda="ngModel" 
+        [(ngModel)]="kardexService.formData.idTipoMoneda"
+        class="form-control" 
+        [class.is-invalid]="!isValid && kardexService.formData.idTipoMoneda==0"
+      
+        >
+          <option value="0">-Seleccione Tipo Moneda-</option>
+          <option value="1">SOLES</option>
+          <option value="2">DOLARES</option>
+        
+        </select> 
+      </div> 
+      
     </div>
     <!-- {{kardexService.formData.fecha_entrega|| json}} -->
     <!-- faltan -->
     <div class="col-md-4">
       <div class="form-group">
-        <label> Proveedor</label>
-
+        <label> Proveedor</label> 
         <ng-select 
         [items]="proveedores"
        bindLabel="nombre_proovedor"
@@ -162,11 +200,12 @@ name="costo_envio"
        [(ngModel)]="kardexService.formData.idProovedor"
        (change)="onChangeProveedor($event)" 
         >
+         
   
-  </ng-select>
+  </ng-select>  
       </div>
       <div class="form-group">
-        <label> Total</label>
+        <label> Total Producto</label>
         <input
           name="total_costo"
           #total_costo="ngModel"
@@ -174,6 +213,18 @@ name="costo_envio"
           class="form-control"
           readonly
         />
+      </div>
+
+      <div class="form-group">
+        <label> Monto Total</label>
+        <input
+          name="totalGeneral"
+          #totalGeneral="ngModel"
+          [(ngModel)]="kardexService.formData.totalGeneral"
+          class="form-control"
+       
+        />
+        <!-- readonly -->
       </div>
     </div>
   </div>
@@ -184,13 +235,14 @@ name="costo_envio"
       <th scope="col">#</th>
       <th>Nombre Producto</th>
       <th>Cantidad</th>
+      <th>Unidad Medidad</th>
       <th>Precio Unidad</th>
       <th>Precio Total</th>
       <th>Observaciones</th>
       <th>
         <a
           class="btn btn-sm btn-success text-white"
-          (click)="AddOrEditOrderItem(null, kardexService.formData.id)"
+          (click)="AddOrEditOrderItem(null, kardexService.formData.id)"  *ngIf="this.isButtonVisible"
           ><i class="fa fa-plus"></i> Agregar Producto</a
         >
       </th>
@@ -198,8 +250,7 @@ name="costo_envio"
     <tbody>
       <tr
         *ngIf="kardexService.detalleCotizacion.length == 0"
-        [class.text-danger]="
-          !isValid && kardexService.detalleCotizacion.length == 0
+        [class.text-danger]="!isValid && kardexService.detalleCotizacion.length == 0
         "
       >
         <td class="font-italic text-center" colspan="5">
@@ -212,6 +263,7 @@ name="costo_envio"
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ item.nombre_producto }}</td>
         <td>{{ item.cantidad }}</td>
+        <td>{{item.detalleNameUnidadMedida}}</td>
         <td>{{ item.precio_unidad }}</td>
         <td>{{ item.precio_total }}</td>
         <td>{{ item.observaciones }}</td>
@@ -219,12 +271,12 @@ name="costo_envio"
         <td>
           <a
             class="btn btn-sm btn-info text-white"
-            (click)="AddOrEditOrderItem(i, kardexService.formData.id)"
+            (click)="AddOrEditOrderItem(i, kardexService.formData.id)"  *ngIf="this.isButtonVisible"
             ><i class="fa fa-pencil"></i
           ></a>
           <a
             class="btn btn-sm btn-danger text-white ml-1"
-            (click)="onDeleteOrderItem(item.id, i)"
+            (click)="onDeleteOrderItem(item.id, i)"  *ngIf="this.isButtonVisible"
             ><i class="fa fa-trash"></i
           ></a>
         </td>

@@ -14,15 +14,17 @@ export interface DataDetalleEntradasinOc {
  precioUnitario:number;
  precioTotal:number;
   observaciones:string;   
-  idSedePrincipal:number;
-  nombreSedePrincipal:string;
-  nombreSedeSecundaria:string;
-  idSedeSecundaria:number;
+  // idSedePrincipal:number;
+  // nombreSedePrincipal:string;
+  // nombreSedeSecundario:string;
+  // idSedeSecundaria:number;
   cantidadGlobal:number;
   cantidadPrincipal:number;
-  cantidaSecundaria:number;
-  cantidadDevuelta:number;
-  nombre_almacenS:string 
+  detalleNameUnidadMedida:string;
+  // cantidaSecundaria:number;
+  // cantidadDevuelta:number;
+  // nombre_almacenS:string;
+  // nombre_alamcen:string;
  
 }
  

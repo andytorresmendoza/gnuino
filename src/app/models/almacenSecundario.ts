@@ -4,7 +4,8 @@ export interface AlmacenSecundarioI {
   }
   export interface DataAlmacenSecundario{  
     id:number;
-    nombre_almacenS: string;  
+    // nombre_almacenS: string;  
+    nombreSedeSecundario:string;
     cod_alamcen: string;
     direccion_almacen: string;
     idPais: number;

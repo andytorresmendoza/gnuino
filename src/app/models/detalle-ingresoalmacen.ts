@@ -13,20 +13,21 @@ export interface DataDetalleIngresoAlmacen {
   // idCotizacion:number;  
   nombre_producto: string;
   detalleNameProducto:string;  
-  idSedePrincipal:number;
-  idSedeSecundaria:number
-  nombre_alamcen:string;
-  nombre_almacenS:string 
+  // idSedePrincipal:number;
+  // idSedeSecundaria:number
+  // nombreSedePrincipal:string;
+  // nombreSedeSecundario:string 
   cantidadPrincipal:number;
-  cantidaSecundaria:number;
-  cantidadDevuelta:number; 
+  // cantidaSecundaria:number;
+  // cantidadDevuelta:number; 
   cantidad:number;		
   precio_unidad:number;
   precio_total:number;
   observaciones:string;  
   cantidadGlobal:number; 
-  detalleNameSedePrincipal:string;
-  detalleNameSedeSecundaria: string;
+  detalleNameUnidadMedida:string;
+  // detalleNameSedePrincipal:string;
+  // detalleNameSedeSecundaria: string;
   // stockTotal:number;
 
 

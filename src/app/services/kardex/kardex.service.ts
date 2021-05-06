@@ -7,13 +7,18 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { map, tap, delay, catchError } from 'rxjs/operators';
+import { map, tap, delay, catchError, repeat } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
 import { DataOrdenCompra } from '../../models/ordencompra';
 import { DataEntradaAlmacen } from '../../models/entradaalmacen';
 import { DataDetalleIngresoAlmacen } from '../../models/detalle-ingresoalmacen';
 import { DataEntradaSinOC } from '../../models/entradasinOc';
 import { DataDetalleEntradasinOc } from '../../models/detalleEntradasinOc';
+import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
+import { DataSalidaProductos } from '../../models/salidaproductoscerrados';
+import { DataDetalleSalidaAlmacen } from '../../models/detallesalidaalmacen';
+
  
 @Injectable({
   providedIn: 'root',
@@ -37,10 +42,15 @@ export class KardexService {
   formDataIngresosinOc: DataEntradaSinOC;
   detalleIngresosinOc:DataDetalleEntradasinOc[];
 
+  //Salida Almacen sin OC
+
+  formDataSalida: DataSalidaProductos;
+  detalleSalida:DataDetalleSalidaAlmacen[];
+
 
   filteredData; 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private toastr: ToastrService) {
     this.headers.append('Content-Type', 'application/json');
     this.headers.append(
       'Authorization',
@@ -49,7 +59,7 @@ export class KardexService {
   }
   baseURL = environment.apiURL;
   manejarError(error: HttpErrorResponse) {
-    console.log('error');
+    // console.log('error');
     return throwError('error personalizado');
   }
   getCotizacion() {
@@ -66,6 +76,7 @@ export class KardexService {
   getCotizacionById(id: number) {
     return this.http.get(`${this.baseURL}cotizacion/` + id).pipe(
       map((resp) => resp['data']),
+      //ACA VER COMO TRANSFORMAR EL FECHA_ENTREGA GUIARSE DE FORMULARIOS FERNANDO
       catchError(this.manejarError)
     );
   }
@@ -74,10 +85,16 @@ export class KardexService {
       ...this.formData,
       detalleCotizacion: this.detalleCotizacion,
     };
+    let fechaParseada: any;
+    fechaParseada = moment(body.fecha_entrega).format('YYYY-MM-DD');
+    body.fecha_entrega=fechaParseada;
       console.log(body);
     return this.http.post(`${this.baseURL}cotizacion`, body).pipe(
-      map((resp) => resp['data']),
-      catchError(this.manejarError)
+      map(
+        (resp) => resp['data'])
+        // console.log(resp['data']))
+        
+      // catchError(this.manejarError)
     );
   }
 
@@ -87,6 +104,9 @@ export class KardexService {
       ...this.formData,
       detalleCotizacion: this.detalleCotizacion 
     };
+    let fechaParseada: any;
+    fechaParseada = moment(body.fecha_entrega).format('YYYY-MM-DD');
+    body.fecha_entrega=fechaParseada;
     delete body.id;
     //  console.log('body',  delete body.id);
       console.log('servicio',formData.id);
@@ -129,10 +149,25 @@ export class KardexService {
  }
   /*ordencompra */
 
+  // saveUpdateOrdercompra() {
+  //   var body = {
+  //     ...this.formOrdencompra,
+  //   };
+  //   console.log(body);
+  //   return this.http.post(`${this.baseURL}orden-compra`, body);
+  // }
+
   saveUpdateOrdercompra() {
     var body = {
       ...this.formOrdencompra,
     };
+    let fechaParseada: any;
+    fechaParseada = moment(body.fechaEntrega).format('YYYY-MM-DD');
+    body.fechaEntrega=fechaParseada;
+    let fechaParseada2: any;
+    fechaParseada2 = moment(body.fechaEnvio).format('YYYY-MM-DD');
+    body.fechaEnvio=fechaParseada2;
+
     console.log(body);
     return this.http.post(`${this.baseURL}orden-compra`, body);
   }
@@ -157,12 +192,16 @@ export class KardexService {
     const body = {
       ...this.formOrdencompra,
     };
-    // delete body.id;
-    //  console.log('body',body);
+    let fechaParseada: any;
+    fechaParseada = moment(body.fechaEntrega).format('YYYY-MM-DD');
+    body.fechaEntrega=fechaParseada;
+    let fechaParseada2: any;
+    fechaParseada2 = moment(body.fechaEnvio).format('YYYY-MM-DD');
+    body.fechaEnvio=fechaParseada2;
     console.log('servicio', id);
     return this.http.put(`${this.baseURL}orden-compra/` + id, body).pipe(
-      map((resp) => resp['data']),
-      catchError(this.manejarError)
+      map((resp) => resp['data'])
+       
     );
   }
   deleteOrden(id: number) {
@@ -206,11 +245,26 @@ getAlmacenPrincipal() {
       ,
       detalleSedeIngreso: this.detalleIngresoAlmacen,
     };
-      // console.log(body);
-    return this.http.post(`${this.baseURL}ingreso-almacen`, body).pipe(
-      map((resp) => resp['data']),
-      catchError(this.manejarError)
-    );
+
+    let fechaParseada: any;
+    fechaParseada = moment(body.fechaIngreso).format('YYYY-MM-DD');
+    body.fechaIngreso=fechaParseada;
+    console.log(body.detalleSedeIngreso);
+    if (body.detalleSedeIngreso.length >= 1){
+      return this.http.post(`${this.baseURL}ingreso-almacen`, body).pipe(
+        map((resp) =>
+        //  console.log(resp ))
+        
+        resp['data'])
+        //  console.log(resp['data']))
+        // catchError(this.manejarError)
+
+      );
+    }
+    else{
+      this.toastr.warning('Agregar Detalle de los Productos en Ingreso Almacen')
+    }
+   
   }
   getIngresoAlmacen() {
     return this.http
@@ -230,15 +284,28 @@ getAlmacenPrincipal() {
       ,
       detalleIngresoAlmacen: this.detalleIngresoAlmacen,
     };
+    let fechaParseada: any;
+    fechaParseada = moment(body.fechaIngreso).format('YYYY-MM-DD');
+    body.fechaIngreso=fechaParseada;
       // console.log(body);
     return this.http.post(`${this.baseURL}almacen-pendiente-ingreso`, body).pipe(
       map((resp) =>
-      console.log(resp)
-      // resp['data'])
+      // console.log(resp)
+       resp['data'])
      
-    ));
+    );
   }
 
+  EstadoEntradaAnular(id: number, bodyform:any) {
+    console.log(id,bodyform );
+    return this.http.put(`${this.baseURL}ingreso-estado/` + id, bodyform);
+  }
+
+  getEntradasAnuladas() {
+    return this.http
+      .get(this.baseURL + 'ingreso-oc-anuladas')
+      .pipe(map((resp) => resp['data']));
+  }
   /*entrada sin OC */
   getIngresoSinOC() {
     return this.http
@@ -255,14 +322,18 @@ getAlmacenPrincipal() {
     var body = {
       ...this.formDataIngresosinOc,
       detalleIngresoSinOrden: this.detalleIngresosinOc, /*cambiar esto desde el json */
+ 
     };
+    let fechaParseada: any;
+    fechaParseada = moment(body.fechaIngreso).format('YYYY-MM-DD');
+    body.fechaIngreso=fechaParseada;
       // console.log(body);
     return this.http.post(`${this.baseURL}ingreso-sinoc-almacen`, body).pipe(
       map((resp) => 
-       resp['data'])
+       console.log(resp['data']))
      
-       ,
-     catchError(this.manejarError)
+    //    ,
+    //  catchError(this.manejarError)
     )
     
   }
@@ -272,12 +343,68 @@ getAlmacenPrincipal() {
       ...this.formDataIngresosinOc,
       detalleIngresoAlmacenSinOc: this.detalleIngresosinOc 
     };
+    let fechaParseada: any;
+    fechaParseada = moment(body.fechaIngreso).format('YYYY-MM-DD');
+    body.fechaIngreso=fechaParseada;
     delete body.id;
     //  console.log('body',  delete body.id);
       // console.log('servicio',formData.id);
     //  this.http.put(`${this.baseURL}cotizacion/`+ id, body);
-     return this.http.put(`${this.baseURL}ingreso-sinoc-almacen/${formData.id}`, body);
+     return this.http.put(`${this.baseURL}ingreso-sinoc-almacen/${formData.id}`, body).pipe(
+      map((resp) => 
+       resp['data'])
+     
+      
+    )
+    
 
   }
+  getEntradassinOcAnulada() {
+    return this.http
+      .get(this.baseURL + 'ingreso-sinoc-anuladas')
+      .pipe(map((resp) => resp['data']));
+  }
 
+  EstadoEntradasinocAnular(id: number, bodyform:any) {
+    console.log(id,bodyform );
+    return this.http.put(`${this.baseURL}ingresosinoc-estado/` + id, bodyform);
+  }
+/* getEmpleado() { //TRANSFORMAR DATA
+    return this.http.get(this.baseURL+ 'empleado')  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+    .pipe(
+      map((resp:any[])=> 
+      // map((resp:any[])=>
+      resp['data'].map(empleado=>({
+        idEmpleado:empleado.id, nombre_empleado:empleado.nombre_empleado })
+      )
+      )
+    );
+   } */
+
+   /*SALIDA DE PRODUCTOS */
+   
+
+   getListIngresosCerrados() {
+    return this.http
+      .get(this.baseURL + 'list-ingreso-oc-cerrada')
+      .pipe(map((resp) => resp['data']));
+  }
+
+  getSalidaProductosById(id: number) {
+    return this.http.get(`${this.baseURL}detail-ingreso-oc-cerrada/` + id).pipe(
+      map((resp) => 
+      // console.log( resp['data']))
+      resp['data'])
+    );
+  }
+
+
+
+  /*SALIDA DE PRODUCTOS SIN OC */
+  
+  getListIngresossinocCerrados() {
+    return this.http
+      .get(this.baseURL + 'list-ingreso-sinoc-cerrada')
+      .pipe(map((resp) => resp['data']));
+  }
 }

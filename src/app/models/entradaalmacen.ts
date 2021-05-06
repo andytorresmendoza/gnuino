@@ -10,7 +10,11 @@ export interface DataEntradaAlmacen {
     idOrden:number;
     idTipoIngreso:number;
     codigoIngreso: string;
-     
+    fechaIngreso:string;
+    idProovedor:number;
+    idEmpleado:number;
+    detalleIngreso:string;
+    descripcion_ingreso:string;
    
     // id
     // idProovedor:           number;

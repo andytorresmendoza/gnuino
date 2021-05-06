@@ -14,6 +14,8 @@ export class ListarcotizacionComponent implements OnInit {
 
   cotizaciones:DataCotizacion[]=[];
   cargando = true; 
+  public page: number = 0;
+  public search: string = '';
   
   constructor
   (private servicioKardex: KardexService , private router:Router,  private toastr: ToastrService ) { }
@@ -30,9 +32,28 @@ export class ListarcotizacionComponent implements OnInit {
     
      this.cotizaciones = resp; 
      this.cargando = false;
-    //  console.log(resp);
+     console.log(resp);
  });
 } 
+nextPage() {
+  this.page += 5;
+}
+
+prevPage() {
+  if ( this.page > 0 )
+    this.page -= 5;
+}
+onSearchPokemon( search: string ) {
+  this.page = 0;
+  this.search = search;
+}
+
+
+
+
+
+
+
 openForEdit(CotizacionId: number) {
 
     this.router.navigate(['kardex/cotizacion/'+CotizacionId]);

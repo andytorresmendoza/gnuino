@@ -27,7 +27,7 @@ export class DetallecotizacionComponent implements OnInit {
       this.mantenimientosService.getProducto()
       .subscribe(resp => {
         this.productos = resp as DataProducto[]  
-    //  console.log(this.productos,'producto');
+       console.log(this.productos,'producto');
     
      });
    
@@ -41,12 +41,13 @@ if (this.data.orderItemIndex == null)
       precio_unidad: 0,
       precio_total: 0,
       observaciones: '',
-      codigo_cotizacion_num: ''
+      codigo_cotizacion_num: '',
+      detalleNameUnidadMedida: ''
     }
   
     else
     this.formData = Object.assign({}, this.kardexService.detalleCotizacion[this.data.orderItemIndex]);
-    // console.log('dataentrada',this.formData);
+      console.log('dataentrada',this.formData);
   }
 
   // UpdateNombre(ctrl) {     
@@ -57,6 +58,10 @@ if (this.data.orderItemIndex == null)
   }
   onChange = ($event: any): void => {
     this.formData.nombre_producto= $event.nombre_producto; 
+    this.formData.detalleNameUnidadMedida = $event.detalleUnidadMedida[0].detalle 
+    console.log('nuevo',$event.nombre_producto);
+    // console.log($event.detalleUnidadMedida[0].detalle);
+    // console.log($event);
      
    }
 

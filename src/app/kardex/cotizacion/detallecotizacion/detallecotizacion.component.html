@@ -14,6 +14,13 @@
   #nombre_producto="ngModel"
   [(ngModel)]="formData.nombre_producto"
 />
+
+<!-- <input
+type="hidden"
+name="detalleProducto"
+#detalleProducto="ngModel"
+[(ngModel)]="formData.detalleProducto"
+/> -->
 <input
 type="hidden"
 name="idProducto"
@@ -23,7 +30,7 @@ name="idProducto"
 
   <div class="form-row">
    
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-4">
       <label>Buscar Producto</label>
     
       <ng-select 
@@ -41,10 +48,22 @@ name="idProducto"
 
 
     </div>
-
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-4">
+      <label>Unidad Medida </label> 
+      <input
+      type="text"
+        name="detalleNameUnidadMedida"
+        #detalleNameUnidadMedida="ngModel"
+        [(ngModel)]="formData.detalleNameUnidadMedida"
+        class="form-control"
+        readonly
+     
+      />
+    </div>
+    <div class="form-group col-md-4">
       <label>Cantidad</label> 
       <input
+      type="number"
         name="cantidad"
         #cantidad="ngModel"
         [(ngModel)]="formData.cantidad"
@@ -58,10 +77,12 @@ name="idProducto"
     <div class="form-group col-md-4">
       <label>Precio Unitario</label>
       <input
+      type="number"
         name="precio_unidad"
         #precio_unidad="ngModel"
         [(ngModel)]="formData.precio_unidad"
         class="form-control"
+        [class.is-invalid]="!isValid && formData.precio_unidad == 0"
         (keyup)="updateTotal()"
       />
     </div>
@@ -69,6 +90,7 @@ name="idProducto"
     <div class="form-group col-md-4">
       <label>Precio Total</label>
       <input
+      
         name="precio_total"
         #precio_total="ngModel"
         [(ngModel)]="formData.precio_total"

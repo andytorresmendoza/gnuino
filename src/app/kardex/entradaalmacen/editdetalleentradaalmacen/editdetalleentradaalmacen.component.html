@@ -17,8 +17,8 @@
   [(ngModel)]="formData.idIngresoAlmacen"
 /> 
   <div class="form-row ">
-  <div class="col-md-4">
-    <label>Detalle Producto</label>
+  <div class="col-md-6">
+    <label>Producto</label>
     <input
       name="detalleNameProducto"
       #detalleNameProducto="ngModel"
@@ -27,7 +27,18 @@
       readonly
     />
   </div>
-  <div class="col-md-4">
+  <div class="col-md-6">
+    <label>Unidad Medida</label>
+    <input
+type="text" 
+name="detalleNameUnidadMedida"
+#detalleNameUnidadMedida="ngModel"
+[(ngModel)]="formData.detalleNameUnidadMedida"
+class="form-control"
+readonly
+/>
+  </div>
+  <div class="col-md-6">
     <label>Cantidad Solicitada</label>
     <input
       name="cantidadGlobal"
@@ -37,63 +48,23 @@
       readonly
     />
   </div>
-  <div class="col-md-4">
-    <label>Cantidad Devolución</label>
+  <div class="col-md-6">
+    <label>Cantidad Pendiente</label>
     <input
-      name="cantidadDevuelta"
-      #cantidadDevuelta="ngModel"
-      [(ngModel)]="formData.cantidadDevuelta"
+    type="number"
+      name="cantidadPrincipal"
+      #cantidadPrincipal="ngModel"
+      [(ngModel)]="formData.cantidadPrincipal"
       class="form-control"
-    
+ 
     />
   </div>
+
   </div>
 
  <br>
 <!--  -->
-
-<div class="form-row ">
-    <div class="col-md-3">
-      <label>Sede Principal</label>
-      <input
-        name="detalleNameSedePrincipal"
-        #detalleNameSedePrincipal="ngModel"
-        [(ngModel)]="formData.detalleNameSedePrincipal"
-        class="form-control"
-        readonly
-      />
-    </div>
-    <div class="col-md-3">
-      <label>Cantidad Principal</label>
-      <input
-        name="cantidadPrincipal"
-        #cantidadPrincipal="ngModel"
-        [(ngModel)]="formData.cantidadPrincipal"
-        class="form-control"
-   
-      />
-    </div>
-    <div class="col-md-3">
-        <label>Sede Secundaria</label>
-      <input
-        name="detalleNameSedeSecundaria"
-        #detalleNameSedeSecundaria="ngModel"
-        [(ngModel)]="formData.detalleNameSedeSecundaria"
-        class="form-control"
-        readonly
-      />
-    </div>
-    <div class="col-md-3">
-        <label>Cantidad Secundaria</label>
-        <input
-          name="cantidaSecundaria"
-          #cantidaSecundaria="ngModel"
-          [(ngModel)]="formData.cantidaSecundaria"
-          class="form-control"
-     
-        />
-      </div>
-    </div>
+ 
 <br>
 <div class="form-group">
     <button type="submit" class="btn btn-dark">

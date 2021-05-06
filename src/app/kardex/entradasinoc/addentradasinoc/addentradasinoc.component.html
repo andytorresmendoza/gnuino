@@ -52,7 +52,7 @@ name="idProveedor"
 />
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="form-group">
           <label> Ingreso Sin OC Nro.</label>
           <input
@@ -74,7 +74,7 @@ name="idProveedor"
         </div>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-md-3">
   
           <div class="form-group">
             <label>Empleado</label>
@@ -104,13 +104,16 @@ name="idProveedor"
               placeholder=""
               [(ngModel)]="kardexService.formDataIngresosinOc.fechaIngreso"
               class="form-control"
-              (dateChange)="onChangeEvent($event)"
+              [class.is-invalid]="fechaIngreso.invalid && fechaIngreso.touched"
+              required 
             />
+            <small *ngIf="fechaIngreso.invalid && fechaIngreso.touched"
+            class="form-text text-danger">Ingrese Fecha</small>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
 
         <div class="form-group">
             <label> Proveedor</label>
@@ -141,6 +144,26 @@ name="idProveedor"
       
       </ng-select>
         </div>
+
+      </div>
+      <div class="col-md-3">
+
+        <div class="form-group">
+          <label> Tipo Moneda</label>
+  
+          <select 
+          name="idTipoMoneda" 
+          #idTipoMoneda="ngModel" 
+          [(ngModel)]="kardexService.formDataIngresosinOc.idTipoMoneda"
+          [class.is-invalid]="!isValid && kardexService.formDataIngresosinOc.idTipoMoneda==0"
+          class="form-control"  
+          >
+            <option value="0">-Seleccione Tipo Moneda-</option>
+            <option value="1">SOLES</option>
+            <option value="2">DOLARES</option>
+          
+          </select> 
+        </div> 
         <div class="form-group">
             <label> Total</label>
             <input
@@ -152,72 +175,86 @@ name="idProveedor"
             />
           </div>
       </div>
-
 </div>
 <table class="table table-borderless">
     <thead class="thead-light">
       <th scope="col">#</th>
       <th>Nombre Producto</th>
-      <th>Cantidad</th>
+      <th>Unidad Medida</th>
+      <th>Cantidad Solicitada</th>
+      
       <th>Precio Unidad</th>
       <th>Precio Total</th>
       <th>Observaciones</th>
-      <th>Sede Principal</th>
-      <th>Cantidad Principal</th>
-      <th>Sede Secundaria</th>
-      <th>Cantidad Secundaria</th>
-      <th>Cantidad Devuelta</th>
+      <!-- <th>Sede Principal</th> -->
+      <th>Cantidad Recibida</th>
+      <!-- <th>Sede Secundaria</th> -->
+      <!-- <th>Cantidad Secundaria</th> -->
+      <!-- <th>Cantidad Devuelta</th> -->
+      <!-- <th scope="col">Estado</th> -->
      
       <th>
         <a
           class="btn btn-sm btn-success text-white"
-          (click)="AddOrEditOrderItem(null, kardexService.formDataIngresosinOc.id)"
+          (click)="AddOrEditOrderItem(null, kardexService.formDataIngresosinOc.id)" *ngIf="this.isButtonVisible" 
           ><i class="fa fa-plus"></i> Agregar Detalles</a
         >
       </th>
     </thead>
     <tbody>
-      <!-- <tr
-        *ngIf="kardexService.detalleIngresosinOc.length == 0"
-        [class.text-danger]="
-          !isValid && kardexService.detalleIngresosinOc.length == 0
-        "
+      <br>
+     <tr
+        *ngIf="kardexService.detalleIngresosinOc.length == 0" 
+        [class.text-danger]="!isValid && kardexService.detalleIngresosinOc.length == 0"
       >
         <td class="font-italic text-center" colspan="5">
-          No ah seleccionado Ningun Producto
+          No ah seleccionado Ningun Ingreso
         </td>
-      </tr> -->
+      </tr>  
       <tr *ngFor="let item of kardexService.detalleIngresosinOc; let i = index"> 
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ item.nombre_producto }}</td>
-     <td>{{ item.cantidad }}</td>
+        <td>{{item.detalleNameUnidadMedida}}</td>
+        <td>{{ item.cantidad }}</td> 
         <td>{{ item.precioUnitario }}</td>
         <td>{{ item.precioTotal }}</td>
         <td>{{ item.observaciones }}</td>
-        <td>{{ item.nombreSedePrincipal }}</td>
+        <!-- <td>{{ item.nombreSedePrincipal }}</td> -->
         <td>{{ item.cantidadPrincipal }}</td>
-        <td>{{ item.nombre_almacenS }}</td>
-        <td>{{ item.cantidaSecundaria }}</td>
-        <td>{{ item.cantidadDevuelta }}</td>  
+        <!-- <td>{{ item.nombreSedeSecundario }}</td> -->
+        <!-- <td>{{ item.cantidaSecundaria }}</td> -->
+        <!-- <td>{{ item.cantidadDevuelta }}</td>   -->
+       <td>
+          <label *ngIf="item.estadoflujo == 2" class="badge bg-success"
+            >
+
+            Completado</label
+          >
+          <label *ngIf="item.estadoflujo == 1" class="badge bg-warning"
+            >Pendiente</label
+          >
+          <label *ngIf="item.estadoflujo == 3" class="badge bg-danger"
+          >Anulado</label
+        >
+        </td>  
         <td>
           <a
             class="btn btn-sm btn-info text-white"
-            (click)="AddOrEditOrderItem(i, kardexService.formDataIngresosinOc.id)"
-            ><i class="fa fa-pencil"></i
-          ></a>
-          <a
+            (click)="AddOrEditOrderItem(i, kardexService.formDataIngresosinOc.id)"  *ngIf="this.isButtonVisible"
+            ><i class="fa fa-pencil"></i></a>
+          <!-- [hidden] = "item.estadoflujo == 2" -->
+          <!-- <a
             class="btn btn-sm btn-danger text-white ml-1"
-            (click)="onDeleteOrderItem(item.id, i)"
-            ><i class="fa fa-trash"></i
-          ></a>
+            (click)="onDeleteOrderItem(item.id, i)"  
+            ><i class="fa fa-trash"></i></a> -->
         </td>
       </tr>
     </tbody>
   </table>
   <div class="form-group">
-    <button type="submit" class="btn btn-dark" 
+    <button type="submit" class="btn btn-dark" *ngIf="this.isButtonVisible" 
     >
-    <i class="fa fa-database"></i> Guardar </button>
+    <i class="fa fa-database"  ></i> Guardar </button>
     
     <a class="btn btn-outline-dark ml-1" routerLink="../../listarentradasinoc"
       ><i class="fa fa-close"></i> Ver Ingresos</a

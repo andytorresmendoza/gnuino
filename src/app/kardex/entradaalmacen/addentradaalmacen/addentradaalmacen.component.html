@@ -32,8 +32,7 @@ name="idCotizacion"
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <label> Buscar Orden Compra</label>
-<!-- se comento  [(ngModel)]="kardexService.formDataEntrada.idCotizacion" -->
+        <label> Buscar Orden Compra</label> 
         <ng-select
         [items]="ordenes"
         bindLabel="codigo_orden_num"
@@ -47,6 +46,27 @@ name="idCotizacion"
         </ng-select>
         <!-- {{ordenes | json}}  -->
       </div>  
+      <div class="form-group">
+        <label> Fecha  Ingreso</label>
+    
+    
+        <input
+        matInput
+        [matDatepicker]="picker"
+        placeholder="DD/MM/YYYY" 
+        name="fechaIngreso"
+        #fechaIngreso="ngModel" 
+        [(ngModel)]="kardexService.formDataEntrada.fechaIngreso"
+        class="form-control"  
+        [class.is-invalid]="fechaIngreso.invalid && fechaIngreso.touched"
+          required
+    
+      />
+      <small *ngIf="fechaIngreso.invalid && fechaIngreso.touched"
+      class="form-text text-danger">Ingrese Fecha</small>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </div>
   </div> 
 
   <div class="col-md-4">
@@ -65,24 +85,85 @@ name="idCotizacion"
         <option *ngFor="let tipoingreso of tipoingresos" value="{{tipoingreso.id}}">{{tipoingreso.descripcion_ingreso}}</option>
               </select>
 </div>
-
+<div class="form-group" >
+  <label for="inputAddress" class="form-label">Empleado</label>
+  <select
+  name="idEmpleado" 
+  
+  #idEmpleado="ngModel" 
+  [(ngModel)]="kardexService.formDataEntrada.idEmpleado"
+  class="form-control"
+  disabled="disabled"
+>
+ 
+  > 
+ 
+   <option value="0">-Select-</option>
+    <option
+      *ngFor="let empleado of empleados"
+      value="{{ empleado.id }}"
+    >
+      {{ empleado.nombre_empleado }}
+    </option>
+  </select>
+</div>
   </div>
 
-
+  <div class="col-md-4">
+ <div class="form-group">
+    <label for="inputAddress" class="form-label">Proveedor</label>
+    <select
+    name="idProovedor" 
+    #idProovedor="ngModel" 
+    [(ngModel)]="kardexService.formDataEntrada.idProovedor"
+    class="form-control"
+    disabled="disabled"
+     > 
+     <option value="0">-Select-</option>
+      <option
+        *ngFor="let proveedor of proveedores"
+        value="{{ proveedor.id }}"
+      >
+        {{ proveedor.nombre_proovedor }}
+      </option>
+    </select>
+    </div>
+ 
+  <div class="form-group">
+    <label> Detalle</label>
+    <input
+    class="form-control" 
+      type="text"
+      name="detalleIngreso"
+      placeholder="Detalle" 
+      #detalleIngreso="ngModel"
+      [(ngModel)]="kardexService.formDataEntrada.detalleIngreso"
+      class="form-control" 
+      [class.is-invalid]="detalleIngreso.invalid && detalleIngreso.touched"
+      required
+      minlength="5"
+    
+    />
+  
+   
+  </div>
+</div>
 </div>
 
 <table class="table table-borderless" >
   <thead class="thead-light">
     <th scope="col">#</th>
      <th>Nombre Producto</th>   
+     <th>Unidad Medida</th>  
       <th>Cantidad Solicitada</th>
+   
       <th>Precio Unidad</th>
       <th>Precio Total</th> 
-      <th>Sede Principal</th>
-      <th>Cantidad Principal</th>
-      <th>Sede Secundario</th>
-      <th>Cantidad Secundaria</th>
-      <th>Cantidad Devolucion</th>
+      <!-- <th>Sede Principal</th> -->
+      <th>Cantidad Ingresada</th>
+      <!-- <th>Sede Secundario</th> -->
+      <!-- <th>Cantidad Secundaria</th> -->
+      <!-- <th>Cantidad Devolucion</th> -->
  
       
   </thead>
@@ -94,6 +175,10 @@ name="idCotizacion"
         <td>
           <p>{{item.detalleNameProducto}}</p>
             <!-- <p *ngFor="let deta of item.detalleCotizacion">{{deta.nombre_producto}}</p>   -->
+        </td> 
+        <td>
+          <p>{{item.detalleNameUnidadMedida}}</p>
+         
         </td>
         <td>
           <p>{{item.cantidad}}</p>
@@ -107,17 +192,17 @@ name="idCotizacion"
           <p>{{item.precio_total}}</p>
           
         </td> 
-        <td>
-          <!-- <p>{{item.idSedePrincipal}}</p> -->
-          <p>{{item.nombre_alamcen}}</p>
-        </td>
+        <!-- <td>
+       
+          <p>{{item.nombreSedePrincipal}}</p>
+        </td> -->
         <td>
           <p>{{item.cantidadPrincipal}}</p>
         
         </td>
-        <td>
+        <!-- <td>
            
-          <p>{{item.nombre_almacenS}}</p>
+          <p>{{item.nombreSedeSecundario}}</p>
         
         </td>
         <td>
@@ -127,7 +212,7 @@ name="idCotizacion"
         <td>
           <p>{{item.cantidadDevuelta}}</p>
         
-        </td>
+        </td> -->
  
 
         <td>

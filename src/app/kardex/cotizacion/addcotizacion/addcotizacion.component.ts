@@ -42,7 +42,10 @@ export class AddcotizacionComponent implements OnInit {
     if (id !== 'nuevo') {
       this.kardexService.getCotizacionById(+id).subscribe(res => {
          this.kardexService.formData = res[0]; 
+        
         this.kardexService.detalleCotizacion = res[0].detalleCotizacion;
+  // console.log(res[0]);
+   
         // console.log(res[0].idEstadoFlujo);
        if (res[0].idEstadoFlujo ==  2 || res[0].idEstadoFlujo ==  3 ) {
         this.isButtonVisible=false;
@@ -68,8 +71,8 @@ export class AddcotizacionComponent implements OnInit {
    this.mantenimientosService.getEmpleado()
    .subscribe(resp => {
     
-     this.empleados = resp as DataEmpleado[]  
-    //  console.log(resp);
+       this.empleados = resp as DataEmpleado[]  
+ 
   });
 
   }
@@ -92,22 +95,15 @@ export class AddcotizacionComponent implements OnInit {
       estadoCotizacion: '',
       nombre_empleado:'',
       nombre_proovedor:'',
+  idTipoMoneda:0,
+  totalGeneral:0
 
  };
 this.kardexService.detalleCotizacion = [];
 
 }
 
-onChangeEvent(event) {
-  const m = moment(event.value);
-  // console.log(m);
-   event = (m.format('YYYY-MM-D'));  
-
-  //  console.log(event.toDateString())
-  this.kardexService.formData.fecha_entrega = m.format('YYYY-MM-D');
-  console.log(m.format('YYYY-MM-D'));
-  //  console.log(this.kardexService.formData.fecha_entrega);
-}
+ 
  AddOrEditOrderItem(orderItemIndex, id) { 
   const dialogConfig = new MatDialogConfig();
   dialogConfig.autoFocus = true;
@@ -118,9 +114,10 @@ onChangeEvent(event) {
    this.dialog.open(DetallecotizacionComponent, dialogConfig).afterClosed().subscribe(resp=>{
   //  console.log(resp);
     this.updateTotal();
+    this. updateMontoTotal();
    });
  
-  }
+  } 
   onDeleteOrderItem(id:number, i:number){
     // console.log(id);
     Swal.fire({
@@ -158,17 +155,17 @@ onChangeEvent(event) {
   }
 
    updateMontoTotal(){
-    let costo_envio = this.kardexService.formData.costo_envio.toString();
 
-   this.kardexService.formData.total_costo = this.kardexService.formData.total_costo + parseFloat(costo_envio);
+    let porcentaje = (this.kardexService.formData.total_costo - (this.kardexService.formData.total_costo * (this.kardexService.formData.descuento_cot/100))).toString();
+    let costo_envio = this.kardexService.formData.costo_envio.toString()
+
+    this.kardexService.formData.totalGeneral = (parseFloat(porcentaje) + parseFloat(costo_envio));
+
    
-  console.log(this.kardexService.formData.total_costo );
+   
+  // console.log(this.kardexService.formData.totalGeneral );
     }
 
-  onChange = ($event: any): void => {
-    this.kardexService.formData.nombre_empleado= $event.nombre_empleado; 
-     
-   } 
    onChangeProveedor = ($event: any): void => {
     this.kardexService.formData.nombre_proovedor= $event.nombre_proovedor; 
      
@@ -179,31 +176,43 @@ onChangeEvent(event) {
     this.isValid=false;
     else if(this.kardexService.detalleCotizacion.length==0)
     this.isValid=false;
+  
     return this.isValid;
   }
 
 
-onSubmit(form:NgForm){
-  // console.log(form);
   
-  if (this.kardexService.formData.id) {
-      // console.log('submit',this.kardexService.formData);
+
+onSubmit(form:NgForm) {
+  this.validateForm();
+  if ( form.invalid ) {
+
+    Object.values( form.controls ).forEach( control => {
+      control.markAsTouched();//es para validar el guardar
+      //  console.log(control); //son todos mis controles del formulario
+     });
+
+    return;
+  } 
+  
+ else if (this.kardexService.formData.id) {
+ 
     this.kardexService.UpdateOrder(this.kardexService.formData).subscribe(
       resp=>{
-        // console.log(resp);
+ 
         this.toastr.success('Actualizado Exitosamente','Gnuino');
        this.router.navigate(["../kardex/listarcotizacion"]);
       }
     )
 }else{
+  
+  this.validateForm();
    this.kardexService.saveUpdateOrder().subscribe(res =>{
-    // console.log('respuesta',res);
+  
     this.resetForm();
-     this.toastr.success(res.msg );
-     this.router.navigate(["../kardex/listarcotizacion"]);
+      this.toastr.success(res.msg );
+       this.router.navigate(["../kardex/listarcotizacion"]);
   })
 }
-
+} 
 }
-}
-

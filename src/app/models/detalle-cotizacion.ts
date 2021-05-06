@@ -14,6 +14,8 @@ export interface DataDetalleCotizacion {
   precio_unidad:number;
   precio_total:number;
   observaciones:string;   
+  /*nuevo */
+  detalleNameUnidadMedida :string;
 }
  
  

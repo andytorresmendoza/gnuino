@@ -23,6 +23,7 @@ export class AddentradasinocComponent implements OnInit {
   empleados: DataEmpleado[];
   productos: DataProducto[]; 
   tipoingresos:DataTipoIngreso[] ;
+  isButtonVisible:boolean=true;
   // detalleIngresosinOc: DataDetalleEntradasinOc[] = [];
   isValid:boolean = true;
   constructor(public kardexService: KardexService,   private dialog: MatDialog, private mantenimientosService: MantenimientosService,
@@ -34,21 +35,23 @@ export class AddentradasinocComponent implements OnInit {
     if (id !== 'nuevo') {
 
       this.kardexService.getIngresoSinOCById(+id).subscribe(res => {
-  // console.log('editar',res[0] ); 
-        // console.log('editar',res );
+  // console.log('editar',res[0]); 
+        // console.log('editar',res[0] );
          this.kardexService.formDataIngresosinOc = res[0]; 
         this.kardexService.detalleIngresosinOc = res[0].detalleIngresoSinOc;
-        // console.log(res[0].idEstadoFlujo);
-      /* if (res[0].idEstadoFlujo ==  2 || res[0].idEstadoFlujo ==  3 ) {
+      //  console.log('res',res[0]);
+        //  console.log('detalle',res[0].detalleIngresoSinOc[0].estadoflujo);
+        if (res[0].idFlujo ==  2 || res[0].idFlujo ==  3 ) {
         this.isButtonVisible=false;
        } else { 
         this.isButtonVisible=true;
-       }*/
+       }  
       });
-    }else{
+    }
+   else{
       this.resetForm();
 
-  }
+  } 
   
   this.mantenimientosService.getProducto()
   .subscribe(resp => {
@@ -88,7 +91,8 @@ export class AddentradasinocComponent implements OnInit {
       totalCosto:0,
        nombre_empleado:'',
       nombre_proovedor:'',
-      descripcion_ingreso:''
+      descripcion_ingreso:'',
+      idTipoMoneda:0
       // descuento_cot:0,
       // costo_envio:0,
      
@@ -98,16 +102,12 @@ export class AddentradasinocComponent implements OnInit {
  this.kardexService.detalleIngresosinOc = [];
 
 }
-onChangeEvent(event) {
-  const m = moment(event.value);
-  // console.log(m);
-event = m.format('YYYY-MM-D');
-  
-  // console.log(event);
-  // this.kardexService.formOrdencompra.fecha_entrega = (event)
+/*onChangeEvent(event) {
+  const m = moment(event.value); 
+event = m.format('YYYY-MM-D'); 
   this.kardexService.formDataIngresosinOc.fechaIngreso = m.format('YYYY-MM-D');
-  // console.log(m.format('YYYY-MM-D'));
-}
+ 
+}*/
 
 AddOrEditOrderItem(orderItemIndex, id) {
    console.log(orderItemIndex, id);
@@ -151,31 +151,43 @@ AddOrEditOrderItem(orderItemIndex, id) {
      
    } 
    validateForm(){
-    this.isValid = true;
-    if(this.kardexService.formDataIngresosinOc.idEmpleado==0)
-    this.isValid=false;
-    else if(this.kardexService.detalleIngresosinOc.length==0)
+    this.isValid = true; 
+     if(this.kardexService.detalleIngresosinOc.length==0)
     this.isValid=false;
     return this.isValid;
   }
 
   onSubmit(form:NgForm){
+    this.validateForm();
     // console.log(form);
-    
-    if (this.kardexService.formDataIngresosinOc.id) {
+    if ( form.invalid ) {
+
+      Object.values( form.controls ).forEach( control => {
+        control.markAsTouched();//es para validar el guardar
+        //  console.log(control); //son todos mis controles del formulario
+       });
+  
+      return;
+    } 
+    else if (this.kardexService.formDataIngresosinOc.id) {
         // console.log('submit',this.kardexService.formData);
       this.kardexService.UpdateIngresoSinOC(this.kardexService.formDataIngresosinOc).subscribe(
         resp=>{
-          // console.log(resp);
+          console.log(resp);
+          this.ngOnInit();
           this.toastr.success('Actualizado Exitosamente','Gnuino');
-         this.router.navigate(["../kardex/listarentradasinoc"]);
+
+        //  this.router.navigate(["../kardex/listarentradasinoc"]);
         }
       )
   }else{
      this.kardexService.saveIngresoSinOC().subscribe(res =>{
-      // console.log('respuesta',res);
+    //  console.log('respuesta',res);
       this.resetForm();
-  this.toastr.success(res.msg );
+      // this.ngOnInit();
+      this.toastr.success('Guardado Exitosamente','Gnuino');
+  // this.toastr.success(res.msg );
+ 
       this.router.navigate(["../kardex/listarentradasinoc"]);
     })
   }

@@ -29,25 +29,15 @@ export class DetalleentradasinocComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+ 
+
     this.mantenimientosService.getProducto()
     .subscribe(resp => {
       this.productos = resp as DataProducto[]  
   //  console.log(this.productos,'producto');
   
    });
-
-   this.kardexService.getAlmacenPrincipal()
-   .subscribe(resp => {
-     this.almacenesPrincpal = resp as DataAlmacenPrincipal[]   
-    //  console.log('principal', this.almacenesPrincpal);
-});
-this.kardexService.getAlmacenSecundario()
-.subscribe(resp => { 
-  this.almacenesSecundario = resp as DataAlmacenSecundario[] 
-  // console.log('secundario', this.almacenesSecundario); 
-//  console.log(this.productos,'producto');
-
-});
+ 
    if (this.data.orderItemIndex == null)
     this.formData = {
       id: null,
@@ -59,42 +49,63 @@ this.kardexService.getAlmacenSecundario()
     precioUnitario: 0,
     precioTotal: 0,
       observaciones: '',
-      idSedePrincipal:0,
-      nombreSedePrincipal:'',
-      nombreSedeSecundaria:'',
-      idSedeSecundaria:0,
+      // idSedePrincipal:0,
+      // nombreSedePrincipal:'',
+      // nombreSedeSecundario:'',
+      // idSedeSecundaria:0,
       cantidadGlobal:0,
       cantidadPrincipal:0,
-      cantidaSecundaria:0,
-      cantidadDevuelta:0 ,
-      nombre_almacenS:''
+      detalleNameUnidadMedida:''
+      // cantidaSecundaria:0,
+      // cantidadDevuelta:0 ,
+      // nombre_almacenS:'',
+      // nombre_alamcen:''
   
     }
   
     else
     this.formData = Object.assign({}, this.kardexService.detalleIngresosinOc[this.data.orderItemIndex]);
-    // console.log('dataentrada',this.formData);
+      // console.log('dataentrada', this.formData );
   }
 
   onChange = ($event: any): void => {
+    // console.log($event);
     this.formData.nombre_producto= $event.nombre_producto; 
+    this.formData.detalleNameUnidadMedida = $event.detalleUnidadMedida[0].detalle 
+    // console.log('nuevo',$event.nombre_producto);
      
    }
-  onChangeAlmacenP = ($event: any): void => {
+/*onChangeAlmacenP = ($event: any): void => {
     // console.log($event.nombre_alamcen);
     this.formData.nombreSedePrincipal = $event.nombre_alamcen 
-    }
+    }*/
+
+  //   onChangeAlmacenP(ctrl) {  
+  //     // console.log(ctrl);   
+  //     //  this.formData.idSedeSecundaria = this.almacenesSecundario[ctrl.selectedIndex - 1].id;
+  //     this.formData.nombreSedePrincipal = this.almacenesPrincpal[ctrl.selectedIndex - 1].nombreSedePrincipal;
+      
+  // }
+
+    
     // onChangeAlmacenS = ($event: any): void => {
     //   // console.log($event.nombre_almacenS);
     //   this.formData.nombreSedeSecundaria = $event.nombre_almacenS 
     //   }
     
-    onChangeAlmacenS(ctrl) {  
-      console.log(ctrl);   
-      //  this.formData.idSedeSecundaria = this.almacenesSecundario[ctrl.selectedIndex - 1].id;
-      this.formData.nombre_almacenS = this.almacenesSecundario[ctrl.selectedIndex - 1].nombre_almacenS;
+  //   onChangeAlmacenS(ctrl) {  
+  //     // console.log(ctrl);   
+  //     //  this.formData.idSedeSecundaria = this.almacenesSecundario[ctrl.selectedIndex - 1].id;
+  //     this.formData.nombreSedeSecundario = this.almacenesSecundario[ctrl.selectedIndex - 1].nombreSedeSecundario;
       
-  }
+  // }
+
+ /* onChangeAlmacenP(ctrl) {  
+    console.log(ctrl);   
+    //  this.formData.idSedeSecundaria = this.almacenesSecundario[ctrl.selectedIndex - 1].id;
+    this.formData.nombreSedePrincipal = this.almacenesPrincpal[ctrl.selectedIndex - 1].nombre_alamcen;
+    
+}*/
 
    updateTotal(){
     this.formData.precioTotal = parseFloat((this.formData.cantidad * this.formData.precioUnitario).toFixed(2));
@@ -102,7 +113,7 @@ this.kardexService.getAlmacenSecundario()
  
 
    onSubmit(form: NgForm) {
-  console.log(form.value);
+  // console.log(form.value);
   if (this.validateForm(form.value)) {
       if (this.data.orderItemIndex == null) 
 // console.log('id',this.data.orderItemIndex);

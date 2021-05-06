@@ -14,7 +14,7 @@ export class EditdetalleentradaalmacenComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
-    public dialogRef: MatDialogRef<DetalleentradaalmacenComponent>,
+    public dialogRef: MatDialogRef<DetalleentradaalmacenComponent>,/*verificar este componente */
     public kardexService: KardexService,
     private mantenimientosService: MantenimientosService) { }
     formData: DataDetalleIngresoAlmacen;
@@ -29,8 +29,8 @@ export class EditdetalleentradaalmacenComponent implements OnInit {
       // idSedePrincipal:0,
       // idSedeSecundaria:0,
       cantidadPrincipal:0,
-      cantidaSecundaria:0,
-      cantidadDevuelta:0, 
+      // cantidaSecundaria:0,
+      // cantidadDevuelta:0, 
   
      },this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]);
      console.log('dataentrada',this.formData);

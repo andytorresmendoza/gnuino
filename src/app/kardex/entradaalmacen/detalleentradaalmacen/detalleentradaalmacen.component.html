@@ -30,34 +30,9 @@ name="idProducto"
 #idProducto="ngModel"
 [(ngModel)]="formData.idProducto"
 />
-<input
-type="hidden" 
-name="nombre_almacenS"
-#nombre_almacenS="ngModel"
-[(ngModel)]="formData.nombre_almacenS"  
-/>  
-
- <input
-type="hidden" 
-name="idSedeSecundaria"
-#idSedeSecundaria="ngModel"
-[(ngModel)]="formData.idSedeSecundaria"  
-/> 
-
-<input
-type="hidden" 
-name="idSedePrincipal"
-#idSedePrincipal="ngModel"
-[(ngModel)]="formData.idSedePrincipal"  
-/> 
-<input
-type="hidden" 
-name="nombre_alamcen"
-#nombre_alamcen="ngModel"
-[(ngModel)]="formData.nombre_alamcen"  
-/>  
+ 
 <div class="form-row ">
-  <div class="col-md-3">
+  <div class="col-md-4">
     <label>Producto</label>
     <input
 type="text" 
@@ -68,9 +43,22 @@ class="form-control"
 readonly
 />
   </div>
-  <div class="col-md-3">
+
+  <div class="col-md-4">
+    <label>Unidad Medida</label>
+    <input
+type="text" 
+name="detalleNameUnidadMedida"
+#detalleNameUnidadMedida="ngModel"
+[(ngModel)]="formData.detalleNameUnidadMedida"
+class="form-control"
+readonly
+/>
+  </div>
+  <div class="col-md-4">
     <label>Cantidad Solicitada</label> 
     <input
+    
       name="cantidad"
       #cantidad="ngModel"
       [(ngModel)]="formData.cantidad"
@@ -80,7 +68,11 @@ readonly
    
     />
   </div>
-  <div class="col-md-3">
+
+</div> 
+<br>
+<div class="form-row ">
+  <div class="col-md-4">
     <label>Precio Unitario</label>
     <input
       name="precio_unidad"
@@ -90,8 +82,8 @@ readonly
       readonly
     /> 
   </div>
-
-  <div class="col-md-3">
+ 
+  <div class="col-md-4">
     <label>Precio Total</label>
     <input
       name="precio_total"
@@ -101,106 +93,27 @@ readonly
       readonly
     />
   </div>
-</div> 
-<br>
-<div class="form-row ">
-  <div class="col-md-3">
-    <label>Sede Principal</label>  
-   <ng-select 
-    [items]="almacenesPrincpal"  
-   bindLabel="nombre_alamcen"
-   bindValue="id"   
-   placeholder="Buscar Almacén Principal" 
-   [(ngModel)]="formData.idSedePrincipal"
-   (change)="onChangeAlmacenP($event)">
-
-</ng-select>    
-  </div>  
-  <div class="col-md-3">
-    <label>Cantidad Principal</label>
+  <div class="col-md-4">
+    <label>Cantidad Recibida</label>
     <input
+    type="number"
       name="cantidadPrincipal"
       #cantidadPrincipal="ngModel"
       [(ngModel)]="formData.cantidadPrincipal" 
       class="form-control" 
+      [class.is-invalid]="cantidadPrincipal.invalid && cantidadPrincipal.touched"
+      required
     />
-    <!-- (keyup)="updateTotal()" -->
+    <small *ngIf="cantidadPrincipal.invalid && cantidadPrincipal.touched"
+        class="form-text text-danger">Ingrese Cantidad</small>
   </div>
-  <div class="col-md-3">
-    <label>Sede Secundario</label>  
-
-  <select
-    name="idSedeSecundaria"
-    #idSedeSecundaria="ngModel"
-    [(ngModel)]="formData.idSedeSecundaria"
-    class="form-control"
-    (change)="onChangeAlmacenS($event.target)"
-    [class.is-invalid]="!isValid && formData.idSedeSecundaria == 0"
-  >
-    <option value="0">Buscar Almacén Secundario</option>
-    <option *ngFor="let almacen of almacenesSecundario" [ngValue]="almacen.id">
-      {{ almacen.nombre_almacenS }} 
-    </option>
-  </select> 
-     <!-- <ng-select 
-    [items]="almacenesSecundario" 
-   bindLabel="nombre_almacenS"
-   bindValue="id"  
-   placeholder="Buscar Almacén Secundario" 
-   [(ngModel)]="formData.idSedeSecundaria"
-   (change)="onChangeAlmacenS($event)"
-   
-    
-   > 
-
-</ng-select>    -->
-
-  </div>      
-  <div class="col-md-3">
-    <label>Cantidad Secundaria</label>
-    <input
-      name="cantidaSecundaria"
-      #cantidaSecundaria="ngModel"
-      [(ngModel)]="formData.cantidaSecundaria"
-      class="form-control" 
      
-    />
-  </div>
+  
   <!-- (keyup)="updateTotal()" -->
 </div> 
 <br>
-<div class="form-row ">
-  <div class="col-md-3">
-    <label>Cantidad Devolución</label>
-    <input
-      name="cantidadDevuelta" 
-      #cantidadDevuelta="ngModel"
-      [(ngModel)]="formData.cantidadDevuelta"
-      class="form-control" 
-   
-    />
-    <!-- (keyup)="updateTotal()" -->
-  </div>
-  <div class="col-md-3">
-    <label></label>
-   
-  </div>
-  <div class="col-md-3">
-    <label></label>
-   
-  </div>
-  <!-- <div class="col-md-3">
-    <label>Stock Restante</label>
-    <input
-      name="stockTotal"
-      #stockTotal="ngModel"
-      [(ngModel)]="formData.stockTotal"
-      class="form-control" 
-      readonly
-    />
-  </div> -->
-</div>
-<br>
+ <hr>
+ 
 <div class="form-group">
     <button type="submit" class="btn btn-dark">
       <i class="fa fa-database"></i> Guardar

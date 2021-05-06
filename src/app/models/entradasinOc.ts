@@ -17,6 +17,7 @@ codigoIngresoSinOc: string;
     detalle:       string;
     fechaIngreso:         string; /*verificar fecha */ 
     totalCosto:           number; 
+    idTipoMoneda:number;
     // estadoCotizacion: string;
     // detalleCotizacion: DataDetalleCotizacion[];
     

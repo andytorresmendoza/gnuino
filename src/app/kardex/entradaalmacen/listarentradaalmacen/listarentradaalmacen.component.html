@@ -1,4 +1,25 @@
+<nav class="navbar navbar-expand-md navbar-light bg-faded" style="background-color: #e3f2fd;">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+ 
 
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+
+          <!-- active -->
+          <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['../listarentrada']">ACTIVAS</a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['../listarentradaanulada']">ANULADAS</a>
+          </li>
+        
+      </ul>
+
+  </div>
+</nav>
+<br>
 
 <h1>Listado Entrada Almacén </h1>
 <hr />
@@ -16,6 +37,7 @@
         <th scope="col">Nro de Orden Compra</th>
         <th scope="col">Tipo Ingreso</th> 
      <th scope="col">Empleado</th>  
+     <th scope="col">Estado</th>
       <!--  <th scope="col">Total</th>
       <th scope="col">Estado</th> -->
     
@@ -27,6 +49,26 @@
          <td (click)=" openForEdit(item.id)">{{item.detalleOrden[0].codigo_orden_num}}</td>
          <td (click)=" openForEdit(item.id)">{{item.detalleTipoIngreso[0].descripcion_ingreso}}</td>
          <td (click)=" openForEdit(item.id)">{{item.detalleOrden[0].detalleEmpleado[0].nombre_empleado}}</td>
+         <td>
+          <label *ngIf="item.idFlujo == 2" class="badge bg-success"
+            >
+
+            Cerrado</label
+          >
+          <label *ngIf="item.idFlujo == 1" class="badge bg-warning text-dark"
+            >Pendiente</label
+          >
+          <label *ngIf="item.idFlujo == 3" class="badge bg-danger text-dark"
+          >Anulado</label
+        >
+        </td>
+        <td>
+          <button class="btn btn-outline-dark" (click)="EstadoEntradaAnular(item, i)">
+               <i class="far fa-times-circle"></i>
+       </button>  
+    
+ 
+      </td>  
          <!--
         <td (click)="openForEdit(item.id)">{{item.detalleEmpleado[0].nombre_empleado}}</td>
         <td (click)=" openForEdit(item.id)">{{item.total_costo}}</td> -->
@@ -60,3 +102,24 @@
       </tr>
     </tbody>
 </table>
+
+<div
+  *ngIf="!cargando && ingresosAlmacen.length === 0"
+  class="alert alert-warning text-center mt-3 animated fadeIn faster"
+>
+  <h4 class="alert-heading">No hay registros</h4>
+  <p>
+    <i class="fa fa-exclamation fa-2px"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+</div>
+<div
+  *ngIf="cargando"
+  class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+  <h4 class="alert-heading">Cargando</h4>
+  <p>
+    <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+</div>

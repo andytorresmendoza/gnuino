@@ -49,6 +49,14 @@ export class AddentradaalmacenComponent implements OnInit {
       this.tipoingresos = resp as DataTipoIngreso[];
       // console.log(this.cuentas);
     });
+    this.mantenimientosService.getProveedor().subscribe((resp) => {
+      this.proveedores = resp as DataProveedor[];
+      // console.log(this.productos);
+    }); 
+    this.mantenimientosService.getEmpleado().subscribe((resp) => {
+      this.empleados = resp as DataEmpleado[];
+      // console.log(this.productos);
+    });
   }
 
   getOrdenEstadoPendiente() {
@@ -65,16 +73,24 @@ export class AddentradaalmacenComponent implements OnInit {
       idCotizacion: 0,
       idOrden: 0,
       idTipoIngreso:1  ,
-      codigoIngreso:''
+      codigoIngreso:'',
+      fechaIngreso:'',
+      idProovedor:0,
+      idEmpleado:0,
+      detalleIngreso:'',
+      descripcion_ingreso:''
        
    
     };
     this.kardexService.detalleIngresoAlmacen = [];
   }
   onChange = ($event: any): void => {
-    console.log($event);
+    // console.log($event);
      this.kardexService.formDataEntrada.idOrden = $event.id;
     this.kardexService.formDataEntrada.idCotizacion = $event.idCotizacion;
+    this.kardexService.formDataEntrada.idProovedor = $event.idProovedor; 
+    this.kardexService.formDataEntrada.idEmpleado = $event.idEmpleado;
+
     // this.kardexService.formDataEntrada.idOrden =  $event.idOrden; 
  
 
@@ -86,22 +102,22 @@ export class AddentradaalmacenComponent implements OnInit {
  
      this.kardexService.getOrdenCompraById($event.id).subscribe((response) => {
       // this.kardexService.formOrdencompra  = response[0]; 
-      console.log('GETID',response[0]);
+      // console.log('GETID',response[0]);
       // VER COMO CAMBIAR ESTE FORM
       this.kardexService.detalleIngresoAlmacen = response[0].detalleCotizacion[0].detCotizacion;
       // this.kardexService.detalleIngresoAlmacen = response[0].id;
-     console.log('cotizaciondetalle',  this.kardexService.detalleIngresoAlmacen);
+    //  console.log('cotizaciondetalle',  this.kardexService.detalleIngresoAlmacen);
       });
   }
 
   AddOrEditOrderItem(orderItemIndex, id) {
-    console.log(orderItemIndex, id);
+    // console.log(orderItemIndex, id);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
     dialogConfig.width = "60%";
     dialogConfig.data = { orderItemIndex, id };
-    console.log('diaglo',dialogConfig.data);
+    // console.log('diaglo',dialogConfig.data);
     // afterClosed().subscribe; es para cuando se cierre el poput actualize el rpecio
      this.dialog.open(DetalleentradaalmacenComponent, dialogConfig).afterClosed().subscribe(resp=>{
     //  console.log(resp);
@@ -110,13 +126,22 @@ export class AddentradaalmacenComponent implements OnInit {
    
     }
     onSubmit(form:NgForm){
-     console.log(form);
+    //  console.log(form);
+     if ( form.invalid ) {
+
+      Object.values( form.controls ).forEach( control => {
+        control.markAsTouched();//es para validar el guardar
+        //  console.log(control); //son todos mis controles del formulario
+       });
+  
+      return;
+    } 
+       this.kardexService.GuardaIngresoAlmacen().subscribe(resp =>{
+      //   console.log('respuesta',resp);
+        // this.resetForm();
+        resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
+        this.router.navigate(["../kardex/listarentrada"]);
  
-       this.kardexService.GuardaIngresoAlmacen().subscribe(res =>{
-         console.log('respuesta',res);
-        this.resetForm();
-        this.toastr.success(res.msg );
-       this.router.navigate(["kardex/listarentrada"]);
       })  
     }
 }

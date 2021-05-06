@@ -35,19 +35,7 @@ export class DetalleentradaalmacenComponent implements OnInit {
   //  console.log(this.productos,'producto');
   
    });
-    this.kardexService.getAlmacenPrincipal()
-   .subscribe(resp => {
-     this.almacenesPrincpal = resp as DataAlmacenPrincipal[]   
-     console.log('principal', this.almacenesPrincpal);
-});
- 
-  this.kardexService.getAlmacenSecundario()
-  .subscribe(resp => { 
-    this.almacenesSecundario = resp as DataAlmacenSecundario[] 
-    console.log('secundario', this.almacenesSecundario); 
-//  console.log(this.productos,'producto');
-
- });
+   
  /*if (this.data.orderItemIndex == null)
   this.formData = { 
     id: null,
@@ -76,12 +64,8 @@ export class DetalleentradaalmacenComponent implements OnInit {
    
     idDetalleCotizacion:this.data.id,
     idProducto: 0,
-    cantidad:0,
-    idSedePrincipal:0,
-    idSedeSecundaria:0,
-    cantidadPrincipal:0,
-    cantidaSecundaria:0,
-    cantidadDevuelta:0, 
+    cantidad:0, 
+    cantidadPrincipal:0, 
 
    },this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]);
    console.log('dataentrada',this.formData);
@@ -90,9 +74,16 @@ export class DetalleentradaalmacenComponent implements OnInit {
 
   onSubmit(form: NgForm) {
 
-   console.log(form);
-   //if (this.validateForm(form.value)) {
-       if (this.data.orderItemIndex == null) 
+    if ( form.invalid ) {
+
+      Object.values( form.controls ).forEach( control => {
+        control.markAsTouched();//es para validar el guardar
+        //  console.log(control); //son todos mis controles del formulario
+       });
+  
+      return;
+    } 
+  else if (this.data.orderItemIndex == null) 
   this.kardexService.detalleIngresoAlmacen.push(form.value);  
   
   else
@@ -109,17 +100,17 @@ export class DetalleentradaalmacenComponent implements OnInit {
    }
 
  
- onChangeAlmacenP = ($event: any): void => {
+ /*onChangeAlmacenP = ($event: any): void => {
     console.log($event.nombre_alamcen);
-    this.formData.nombre_alamcen = $event.nombre_alamcen 
+    this.formData.nombreSedePrincipal = $event.nombreSedePrincipal 
     }
 
     onChangeAlmacenS(ctrl) {  
       console.log(ctrl);   
       //  this.formData.idSedeSecundaria = this.almacenesSecundario[ctrl.selectedIndex - 1].id;
-      this.formData.nombre_almacenS = this.almacenesSecundario[ctrl.selectedIndex - 1].nombre_almacenS;
+      this.formData.nombreSedeSecundario = this.almacenesSecundario[ctrl.selectedIndex - 1].nombreSedeSecundario;
       
-  }
+  }*/
  
 
   /* updateTotal(){
