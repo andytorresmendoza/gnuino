@@ -19,6 +19,15 @@ import { AddsalidaproductoComponent } from './salidaproductos/addsalidaproducto/
 import { ListarentradaanuladaComponent } from './entradaalmacen/listarentradaanulada/listarentradaanulada.component';
 import { ListarentradasinocanuladaComponent } from './entradasinoc/listarentradasinocanulada/listarentradasinocanulada.component';
 import { ListarsalidasinocComponent } from './salidaproductos/listarsalidasinoc/listarsalidasinoc.component';
+import { AddsalidasinocComponent } from './salidaproductos/addsalidasinoc/addsalidasinoc.component';
+import { ListardevolucionComponent } from './devolucion/listardevolucion/listardevolucion.component';
+import { AdddevolucionComponent } from './devolucion/adddevolucion/adddevolucion.component';
+import { ListartransferenciaComponent } from './transferencia/listartransferencia/listartransferencia.component';
+import { AddtransferenciaComponent } from './transferencia/addtransferencia/addtransferencia.component';
+import { ListartransferenciasinocComponent } from './transferencia/listartransferenciasinoc/listartransferenciasinoc.component';
+import { AddtransferenciasinocComponent } from './transferencia/addtransferenciasinoc/addtransferenciasinoc.component';
+import { ListardevolucionsinocComponent } from './devolucion/listardevolucionsinoc/listardevolucionsinoc.component';
+import { AdddevolucionsinocComponent } from './devolucion/adddevolucionsinoc/adddevolucionsinoc.component';
 
 const routes: Routes = [
  
@@ -45,7 +54,17 @@ const routes: Routes = [
    {path:'salidaProducto/:id', component: AddsalidaproductoComponent},
 
    {path:'listarsalidasinoc', component: ListarsalidasinocComponent},
-  //  {path:'listarsalida/:id', component: AddsalidaproductoComponent},
+    {path:'listarsalidasinoc/:id', component: AddsalidasinocComponent},
+
+    {path:'listardevolucion', component: ListardevolucionComponent},   
+    {path:'devolucion/:id', component: AdddevolucionComponent},
+    {path:'listardevolucionsinoc', component: ListardevolucionsinocComponent},   
+    {path:'devolucionsinoc/:id', component: AdddevolucionsinocComponent},
+
+    {path:'listartransferencia', component: ListartransferenciaComponent}, 
+    {path:'transferencia/:id', component: AddtransferenciaComponent}, 
+    {path:'listartransferenciasinoc', component: ListartransferenciasinocComponent}, 
+    {path:'transferenciasinoc/:id', component: AddtransferenciasinocComponent}, 
    {path:'**', pathMatch:'full', redirectTo:''}
    
    ]

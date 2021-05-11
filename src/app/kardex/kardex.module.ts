@@ -16,7 +16,8 @@ import { DetallecotizacionComponent } from './cotizacion/detallecotizacion/detal
  
 //nuevos
 import { MatDatepickerModule} from '@angular/material/datepicker';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core'; 
+import {MatMenuModule} from '@angular/material/menu';
 
 import { MatNativeDateModule } from '@angular/material/core';
 import { OrdencompraComponent } from './ordencompra/ordencompra/ordencompra.component';
@@ -44,6 +45,20 @@ import { ListarentradasinocanuladaComponent } from './entradasinoc/listarentrada
 import { FiltroPipe } from './pipes/filtro.pipe';
 import { ListarsalidasinocComponent } from './salidaproductos/listarsalidasinoc/listarsalidasinoc.component';
 import { DetallesalidaproductoComponent } from './salidaproductos/detallesalidaproducto/detallesalidaproducto.component';
+import { AddsalidasinocComponent } from './salidaproductos/addsalidasinoc/addsalidasinoc.component';
+import { DetallesalidasinocComponent } from './salidaproductos/detallesalidasinoc/detallesalidasinoc.component';
+import { ListardevolucionComponent } from './devolucion/listardevolucion/listardevolucion.component';
+import { AdddevolucionComponent } from './devolucion/adddevolucion/adddevolucion.component';
+import { DetalledevolucionComponent } from './devolucion/detalledevolucion/detalledevolucion.component';
+import { ListartransferenciaComponent } from './transferencia/listartransferencia/listartransferencia.component';
+import { AddtransferenciaComponent } from './transferencia/addtransferencia/addtransferencia.component';
+import { DetalletransferenciaComponent } from './transferencia/detalletransferencia/detalletransferencia.component';
+import { ListartransferenciasinocComponent } from './transferencia/listartransferenciasinoc/listartransferenciasinoc.component';
+import { AddtransferenciasinocComponent } from './transferencia/addtransferenciasinoc/addtransferenciasinoc.component';
+import { DetalletransferenciasinocComponent } from './transferencia/detalletransferenciasinoc/detalletransferenciasinoc.component';
+import { ListardevolucionsinocComponent } from './devolucion/listardevolucionsinoc/listardevolucionsinoc.component';
+import { AdddevolucionsinocComponent } from './devolucion/adddevolucionsinoc/adddevolucionsinoc.component';
+import { DetalledevolucionsinocComponent } from './devolucion/detalledevolucionsinoc/detalledevolucionsinoc.component';
 @NgModule({
   declarations: 
   [KardexComponent,    
@@ -70,6 +85,20 @@ import { DetallesalidaproductoComponent } from './salidaproductos/detallesalidap
      FiltroPipe,
      ListarsalidasinocComponent,
      DetallesalidaproductoComponent,
+     AddsalidasinocComponent,
+     DetallesalidasinocComponent,
+     ListardevolucionComponent,
+     AdddevolucionComponent,
+     DetalledevolucionComponent,
+     ListartransferenciaComponent,
+     AddtransferenciaComponent,
+     DetalletransferenciaComponent,
+     ListartransferenciasinocComponent,
+     AddtransferenciasinocComponent,
+     DetalletransferenciasinocComponent,
+     ListardevolucionsinocComponent,
+     AdddevolucionsinocComponent,
+     DetalledevolucionsinocComponent,
      ],
   imports: [
      CommonModule,
@@ -82,7 +111,7 @@ import { DetallesalidaproductoComponent } from './salidaproductos/detallesalidap
      MatDatepickerModule,
      MatNativeDateModule,
      AutocompleteLibModule,
-     MatAutocompleteModule,  NgSelectModule
+     MatAutocompleteModule,  NgSelectModule,MatMenuModule
 
    
    

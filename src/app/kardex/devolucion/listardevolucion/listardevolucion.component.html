@@ -1,0 +1,104 @@
+  <!-- <nav class="navbar navbar-expand-md navbar-light bg-faded" style="background-color: #e3f2fd;">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button> 
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+
+       
+          <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['../listardevolucion']">Devolución O/C</a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['../listardevolucionsinoc']">Devolución sin O/C</a>
+          </li>
+        
+      </ul>
+
+  </div>
+</nav> 
+   -->
+<!-- Example split danger button -->
+<a class="navbar-brand">
+  <img src="../../../../assets/images/icono-devolucion.png" width="35" height="30" alt="">
+</a>
+<button mat-button [matMenuTriggerFor]="menu" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"style="background-color: #f4f6f9;">Devoluciones O/C
+
+</button>
+
+<mat-menu #menu="matMenu">
+  
+  <button mat-menu-item [routerLink]="['../listardevolucion']">Listado Devoluciones</button> 
+  <button mat-menu-item [routerLink]="['../listardevolucion']">Devolucion O/C</button>
+</mat-menu>
+ 
+<button mat-button [matMenuTriggerFor]="menu2" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"style="background-color: #f4f6f9;">Devoluciones sin O/C</button>
+<mat-menu #menu2="matMenu">
+  <button mat-menu-item [routerLink]="['../listardevolucionsinoc']">Listado Devoluciones</button>
+  <button mat-menu-item [routerLink]="['../listardevolucionsinoc']">Devolución sin O/C</button>
+</mat-menu>
+<br>
+<br>
+<hr>
+<h1>Listado Ingresos Entrada Almacén</h1>
+
+<hr />
+  <table class="table table-hover">
+    <thead class="thead-dark">
+      <th scope="col">#</th>
+        <th scope="col">#Nro Ingreso</th>
+          <th scope="col">Tipo Movimiento</th>
+          <th scope="col">Fecha</th> 
+       <th scope="col">Nro Cotización</th>  
+       <th scope="col">Empleado</th>
+       <th scope="col">Estado</th>
+        <!--  <th scope="col">Total</th>
+        <th scope="col">Estado</th> -->
+      
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of ListIngresosCerrados; let i = index" >
+          <th scope="row">{{ i + 1 }}</th>
+          <th (click)=" openForEdit(item.id) ">{{item.codigoIngreso}}</th>
+           <td (click)=" openForEdit(item.id)">{{item.detalleTipoIngreso[0].descripcion_ingreso}}</td>
+           <td (click)=" openForEdit(item.id)">{{item.fechaIngreso}}</td>
+           <td (click)=" openForEdit(item.id)">{{item.detalleCotizacion[0].codigo_cotizacion_num}}</td>
+           <td (click)=" openForEdit(item.id)">{{item.detalleCotizacion[0].detalleEmpleado[0].nombre_empleado}}</td>
+           <td>
+            <label *ngIf="item.idFlujo == 2" class="badge bg-success"
+              >
+  
+              OK</label
+              >
+     
+            <td>
+                <button class="btn btn-info mr-1" (click)=" openForEdit(item.id)">
+                     <i class="fa fa-pen"></i> 
+             </button> 
+      
+ 
+        </td>  
+        </tr>
+    </tbody>
+  </table>
+
+  <div
+  *ngIf="!cargando && ListIngresosCerrados.length === 0"
+  class="alert alert-warning text-center mt-3 animated fadeIn faster"
+>
+  <h4 class="alert-heading">No hay registros</h4>
+  <p>
+    <i class="fa fa-exclamation fa-2px"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+</div>
+<div
+  *ngIf="cargando"
+  class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+  <h4 class="alert-heading">Cargando</h4>
+  <p>
+    <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+</div>

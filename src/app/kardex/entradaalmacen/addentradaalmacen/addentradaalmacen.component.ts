@@ -62,7 +62,7 @@ export class AddentradaalmacenComponent implements OnInit {
   getOrdenEstadoPendiente() {
     this.kardexService.getOrdenEstadoPendiente().subscribe((resp) => {
       this.ordenes = resp as DataOrdenCompra[];
-      console.log( 'console',this.ordenes);
+      // console.log( 'console',this.ordenes);
    
     });
   }
@@ -111,13 +111,13 @@ export class AddentradaalmacenComponent implements OnInit {
   }
 
   AddOrEditOrderItem(orderItemIndex, id) {
-    // console.log(orderItemIndex, id);
+    //  console.log(orderItemIndex, id);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
     dialogConfig.width = "60%";
     dialogConfig.data = { orderItemIndex, id };
-    // console.log('diaglo',dialogConfig.data);
+     console.log('diaglo',dialogConfig.data);
     // afterClosed().subscribe; es para cuando se cierre el poput actualize el rpecio
      this.dialog.open(DetalleentradaalmacenComponent, dialogConfig).afterClosed().subscribe(resp=>{
     //  console.log(resp);
@@ -137,7 +137,7 @@ export class AddentradaalmacenComponent implements OnInit {
       return;
     } 
        this.kardexService.GuardaIngresoAlmacen().subscribe(resp =>{
-      //   console.log('respuesta',resp);
+      // console.log('respuesta',resp);
         // this.resetForm();
         resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
         this.router.navigate(["../kardex/listarentrada"]);

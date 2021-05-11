@@ -1,0 +1,120 @@
+<h1><small>Salida de Productos sin O/C</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../../listarsalidasinoc">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+
+<form #form="ngForm" autocomplete="off" *ngIf="kardexService.detalleSalidasinOC"  (submit)="onSubmit(form)">
+    <div class="row">
+  <div class="col-md-4">
+        <label> Nro Ingreso Alamcén.</label>
+        <input   
+        name="codigoIngresoSinOc" 
+        #codigoIngresoSinOc="ngModel" 
+        [(ngModel)]="kardexService.formDataSalidasioc.codigoIngresoSinOc" class="form-control" readonly>
+ 
+      </div>  
+
+    <div class="col-md-4">
+      
+        <label> Tipo Ingreso</label>
+  
+        <input
+          type="text" 
+          name="detalleTipoNameIngreso" 
+          #detalleTipoNameIngreso="ngModel" 
+          [(ngModel)]="kardexService.formDataSalidasioc.detalleTipoNameIngreso"
+          class="form-control" 
+          disabled="disabled"
+          />
+      </div>   
+
+    <div class="col-md-4">
+      
+        <label> Fecha Ingreso</label>
+  
+        <input
+          type="text" 
+          name="fechaIngreso" 
+          #fechaIngreso="ngModel" 
+          [(ngModel)]="kardexService.formDataSalidasioc.fechaIngreso"
+          class="form-control" 
+          disabled="disabled"
+          />
+      </div>   
+    </div>
+
+    <table class="table table-borderless" >
+        <thead class="thead-light">
+          <th scope="col">#</th>
+           <th>Nombre Producto</th> 
+           <th>Unidad Medida</th>
+            <th>Stock</th>
+            <th>Tipo Salida</th>
+            <th>Cantidad Salida</th>
+            <th>Fecha Salida</th>
+            <th>Detalle Salida</th>
+            <th scope="col">Estado</th> 
+        </thead>
+      
+        <tbody>
+      
+              <tr *ngFor="let item of kardexService.detalleSalidasinOC  ;let i=index;">
+                <th scope="row">{{ i + 1 }}</th>
+              <td>
+                <p>{{item.nombre_producto}}</p>
+                  <!-- <p *ngFor="let deta of item.detalleCotizacion">{{deta.nombre_producto}}</p>   -->
+              </td>
+              <td>
+                <p>{{item.detalleNameUnidadMedida}}</p>
+               
+              </td>
+              <td>
+                <p>{{item.cantidadPrincipal}}</p>
+              
+              </td>
+              <td>
+                <p>{{item.descripcion_salida}}</p>
+              
+              </td>
+              <td>
+                <p>{{item.cantidadSalida}}</p>
+              
+              </td>
+              <td>
+                <p>{{item.fechaSalida}}</p>
+              
+              </td>
+              <td>
+                <p>{{item.detalleSalida}}</p>
+              
+              </td>
+             
+           
+              <td>
+                <a
+                  class="btn btn-sm btn-info text-white"
+                  (click)="AddOrEditOrderItem(i,item.id) "><i class="fa fa-check-square"></i></a> 
+             
+              </td>
+              <!-- {{item | json}}   -->
+              </tr>   
+        </tbody>
+        <br>
+    
+      </table>
+    
+      <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Guardar</button>
+        <!-- <a   class="btn btn-outline-dark ml-1" routerLink="listarordencompra" ><i class="fa fa-close"></i> Ver Ordenes</a> -->
+        
+        </div>
+
+
+</form>

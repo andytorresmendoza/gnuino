@@ -1,0 +1,161 @@
+<h4 class="dispaly-4">Devolución Producto</h4>
+<hr />
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+ 
+    <input
+    type="hidden" 
+    name="idDetalleIngresoAlmacen"
+    #idDetalleIngresoAlmacen="ngModel"
+    [(ngModel)]="formData.idDetalleIngresoAlmacen"
+  /> 
+  
+    <input
+    type="hidden" 
+    name="idIngresoAlmacen"
+    #idIngresoAlmacen="ngModel"
+    [(ngModel)]="formData.idIngresoAlmacen"
+  /> 
+  <input
+  type="hidden"
+  name="nombreSedeSecundario"
+  #nombreSedeSecundario="ngModel"
+  [(ngModel)]="formData.nombreSedeSecundario"
+  />
+  <input
+type="hidden"
+name="idSedeSecundaria"
+#idSedeSecundaria="ngModel"
+[(ngModel)]="formData.idSedeSecundaria"
+/>
+  <input
+  type="text"
+  name="idTipoIngreso"
+  #idTipoIngreso="ngModel"
+  [(ngModel)]="kardexService.formDataTransferencia.idTipoIngreso"
+  />
+<!--   
+  <input
+  type="text"
+  name="idTipoIngreso"
+  #idTipoIngreso="ngModel"
+  [(ngModel)]="formData.idTipoIngreso"
+  /> -->
+  <input
+  type="hidden" 
+  name="idProducto"
+  #idProducto="ngModel"
+  [(ngModel)]="formData.idProducto"
+  />
+  
+  <div class="form-row">
+      <div class="form-group col-md-4">
+  
+          <label>Producto</label>
+          <input
+            name="detalleNameProducto"
+            #detalleNameProducto="ngModel"
+            [(ngModel)]="formData.detalleNameProducto"
+            class="form-control"
+            readonly
+          />
+  
+      </div>
+      <div class="form-group col-md-4">
+          <label>Unidad Medida</label>
+          <input
+      type="text" 
+      name="detalleNameUnidadMedida"
+      #detalleNameUnidadMedida="ngModel"
+      [(ngModel)]="formData.detalleNameUnidadMedida"
+      class="form-control"
+      readonly
+      />
+  
+      </div>
+      <div class="form-group col-md-4">
+          <label>Stock</label>
+          <input
+            name="cantidadPrincipal"
+            #cantidadPrincipal="ngModel"
+            [(ngModel)]="formData.cantidadPrincipal"
+            class="form-control"
+            readonly
+          />
+      </div>
+  
+  </div>
+  
+  <div class="form-row">
+      <div class="form-group col-md-3">
+        <label>Sede Secundario</label>  
+        <ng-select 
+         [items]="almacenesSecundario"    
+        bindLabel="nombreSedeSecundario"
+        bindValue="id"   
+        placeholder="Buscar Almacén Secundario" 
+        [(ngModel)]="formData.idSedeSecundaria"
+        (change)="onChange($event)">
+     
+     </ng-select> 
+    
+    
+      </div>
+      <div class="form-group col-md-3">
+          <label>Cantidad Transferencia</label>
+          <input
+          type="number"
+            name="cantidadTransferencia"
+            #cantidadTransferencia="ngModel"
+            [(ngModel)]="formData.cantidadTransferencia"
+            class="form-control"
+       
+          />
+      </div>
+      <div class="form-group col-md-3">
+        <label>Detalle Transferencia</label>
+        <input
+        type="text"
+          name="detalleTransferencia"
+          #detalleTransferencia="ngModel"
+          [(ngModel)]="formData.detalleTransferencia"
+          class="form-control"
+      
+        />
+        
+      </div>
+      <div class="form-group col-md-3">
+        <label> Fecha  Transferencia</label>
+      
+      
+        <input
+        matInput
+        [matDatepicker]="picker"
+        placeholder="DD/MM/YYYY" 
+        name="fechaTransferencia"
+        #fechaTransferencia="ngModel" 
+        [(ngModel)]="formData.fechaTransferencia"
+        class="form-control"  
+        required
+      
+      />
+      <small *ngIf="fechaTransferencia.invalid && fechaTransferencia.touched"
+      class="form-text text-danger">Ingrese Fecha</small>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker ></mat-datepicker>
+        
+      </div>
+  </div>
+   
+  <br>
+  
+  
+    <div class="form-group">
+      <button type="submit" class="btn btn-dark">
+        <i class="fa fa-database"></i> Guardar
+      </button>
+      <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]>
+        <i class="fa fa-close"></i> Salir
+      </button>
+    </div>
+  </form>
+  

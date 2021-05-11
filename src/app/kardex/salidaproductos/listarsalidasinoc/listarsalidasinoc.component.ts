@@ -35,8 +35,13 @@ export class ListarsalidasinocComponent implements OnInit {
       this.ListIngresoSinOcCerrados = resp; 
       this.cargando = false;
   
-      console.log(resp);
+    // console.log(resp);
   });
  }
-  
+ openForEdit(SalidaID: number) {
+  // console.log('salida',SalidaID);
+ this.router.navigate(['kardex/listarsalidasinoc/'+SalidaID]);
+
+}
+
 }

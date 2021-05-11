@@ -1,4 +1,4 @@
-<h1><small>Salida de Productos</small></h1>
+<h1><small>Salida de Productos por O/C</small></h1>
 <hr />
 <div class="row text-right">
   <div class="col">
@@ -9,7 +9,45 @@
   </div>
 </div>
 <br />
- 
+<form #form="ngForm" autocomplete="off" *ngIf="kardexService.detalleSalida"  (submit)="onSubmit(form)">
+  <div class="row">
+    <div class="col-md-4">
+
+      <label> Nro Ingreso Alamcén.</label>
+      <input   
+      name="codigoIngreso" 
+      #codigoIngreso="ngModel" 
+      [(ngModel)]="kardexService.formDataSalida.codigoIngreso" class="form-control" readonly>
+     
+    </div>
+  <div class="col-md-4">
+      
+      <label> Tipo Ingreso</label>
+
+      <input
+        type="text" 
+        [(ngModel)]="kardexService.formDataSalida.descripcion_ingreso"
+        class="form-control" 
+        disabled="disabled"
+        />
+    </div>  
+
+     <div class="col-md-4">
+      
+      <label> Fecha Ingreso</label>
+
+      <input
+        type="text" 
+        name="fechaIngreso" 
+        #fechaIngreso="ngModel" 
+        [(ngModel)]="kardexService.formDataSalida.fechaIngreso " 
+        class="form-control" 
+        disabled="disabled"
+        />
+    </div> 
+  </div>
+
+  <br>
 <table class="table table-borderless" >
     <thead class="thead-light">
       <th scope="col">#</th>
@@ -18,6 +56,7 @@
         <th>Stock</th>
         <th>Tipo Salida</th>
         <th>Cantidad Salida</th>
+        <th>Fecha Salida</th>
         <th>Detalle Salida</th>
         <th scope="col">Estado</th> 
     </thead>
@@ -43,11 +82,15 @@
           
           </td>
           <td>
-            <p>{{item.cantidadDevolucion}}</p>
+            <p>{{item.cantidadSalida}}</p>
           
           </td>
           <td>
-            <p>{{item.detalleDevolucion}}</p>
+            <p>{{item.fechaSalida | date:"dd/MM/yyyy"}}</p>
+          
+          </td>
+          <td>
+            <p>{{item.detalleSalida}}</p>
           
           </td>
          
@@ -64,4 +107,12 @@
     <br>
 
   </table>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Guardar</button>
+    <!-- <a   class="btn btn-outline-dark ml-1" routerLink="listarordencompra" ><i class="fa fa-close"></i> Ver Ordenes</a> -->
+    
+    </div>
+</form>
+    
 

@@ -6,6 +6,7 @@ import { DataDetalleSalidaAlmacen } from '../../../models/detallesalidaalmacen';
 import { DataProducto } from '../../../models/producto';
 import { MantenimientosService } from '../../../services/mantenimientos/mantenimientos.service';
 import { DataTipoSalida } from '../../../models/tiposalida';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-detallesalidaproducto',
@@ -38,37 +39,49 @@ export class DetallesalidaproductoComponent implements OnInit {
 
     });
     this.formData = Object.assign({
-      id:this.data.id, 
+      id:null,
+      idDetalleIngresoAlmacen:this.data.id, 
       idIngresoAlmacen: 0,
       cantidadGlobal:0,
       cantidadPrincipal:0,
-      cantidadDevolucion:0 ,
-      idtipoSalida:0,
-      detalleDevolucion:''
+      cantidadSalida:0 , 
+      idTipoSalida:0,
+      idTipoIngreso:0,  
+      detalleSalida:'',  
+      fechaSalida:'',
+      idProducto:'',//agreagr
   
-     },this.kardexService.detalleSalida[this.data.orderItemIndex]);
-     console.log('dataentrada',this.formData);
+     },
+     
+     this.kardexService.detalleSalida[this.data.orderItemIndex]);
+    //  console.log('dataentrada',this.formData);
   }
   onChange = ($event: any): void => {
-    this.formData.descripcion_salida= $event.descripcion_salida; 
-    //  console.log('nuevo',$event.nombre_producto);
-    // console.log($event.detalleUnidadMedida[0].detalle);
-    // console.log($event);
+    this.formData.descripcion_salida= $event.descripcion_salida;  
      
    }
-
+ 
   onSubmit(form: NgForm) {
-    console.log(form.value);
+    //  console.log('popup',form.value);
       
-       if (this.data.orderItemIndex == null) 
+       if (this.data.orderItemIndex == null) {
+        let fechaParseada: any;
+        fechaParseada = moment(form.value.fechaSalida).format('YYYY-MM-DD');
+        form.value.fechaSalida=fechaParseada;
    this.kardexService.detalleSalida.push(form.value);  
-   
-   else
+       }
+   else{
+
+
+    let fechaParseada: any;
+    fechaParseada = moment(form.value.fechaSalida).format('YYYY-MM-DD');
+    form.value.fechaSalida=fechaParseada;
    this.kardexService.detalleSalida[this.data.orderItemIndex] = form.value;
+
    this.dialogRef.close();
    console.log('id',this.data.orderItemIndex);
    console.log('submit',this.kardexService.detalleSalida);
      }
- 
+    }
    }
  

@@ -8,11 +8,14 @@ export interface DataSalidaSinOcCerrado {
     id:  number; 
     idCotizacion:  number;
     idOrden:number;
-    idTipoIngreso:number;
+    idtipoIngreso:number;
     codigoIngreso: string;
     fechaIngreso:string;
     idProovedor:number;
     idEmpleado:number;
     detalleIngreso:string;
     descripcion_ingreso:string; 
+    detalleTipoNameIngreso:string;
+    codigoIngresoSinOc:string;
+    
 }

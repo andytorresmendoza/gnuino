@@ -1,0 +1,82 @@
+<nav class="navbar navbar-expand-md navbar-light bg-faded" style="background-color: #e3f2fd;">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+   
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+  
+         
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['../listartransferencia']">Transferencia O/C</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['../listartransferenciasinoc']">Transferencia sin O/C</a>
+            </li>
+          
+        </ul>
+  
+    </div>
+  </nav>
+
+  <br>
+  <h1>Listado Ingresos Entrada Almacén sin O/C </h1>
+  <hr />
+  <table class="table table-hover">
+    <thead class="thead-dark">
+      <th scope="col">#</th>
+        <th scope="col">#Nro Ingreso</th>
+          <th scope="col">Tipo Movimiento</th>
+          <th scope="col">Fecha</th> 
+          <th scope="col">Estado</th>
+       <!-- <th scope="col">Empleado</th> -->
+ 
+      
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of ListIngresoSinOcCerrados; let i = index" >
+          <th scope="row">{{ i + 1 }}</th>
+          <th (click)=" openForEdit(item.id) ">{{item.codigoIngresoSinOc}}</th>
+           <td (click)=" openForEdit(item.id)">{{item.detalleTipoIngreso[0].descripcion_ingreso}}</td>
+           <td (click)=" openForEdit(item.id)">{{item.fechaIngreso}}</td>
+           <td>
+            <label *ngIf="item.idFlujo == 2" class="badge bg-success"
+              >
+  
+              KARDEX</label
+            >
+     
+           <!-- <td (click)=" openForEdit(item.id)">{{item.detalleCotizacion[0].detalleEmpleado[0].nombre_empleado}}</td> -->
+      
+          <td>
+            <button class="btn btn-info mr-1" (click)="openForEdit(item, id)">
+                 <i class="fa fa-pen"></i> 
+         </button> 
+ 
+        </td>  
+        </tr>
+    </tbody>
+  </table>  
+
+  <div
+  *ngIf="!cargando && ListIngresoSinOcCerrados.length === 0"
+  class="alert alert-warning text-center mt-3 animated fadeIn faster"
+>
+  <h4 class="alert-heading">No hay registros</h4>
+  <p>
+    <i class="fa fa-exclamation fa-2px"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+</div>
+<div
+  *ngIf="cargando"
+  class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+  <h4 class="alert-heading">Cargando</h4>
+  <p>
+    <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+</div>
+

@@ -18,6 +18,16 @@ import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { DataSalidaProductos } from '../../models/salidaproductoscerrados';
 import { DataDetalleSalidaAlmacen } from '../../models/detallesalidaalmacen';
+import { DataSalidaSinOcCerrado } from '../../models/salidaproductossinoc';
+import { DataDetalleDevolucion } from '../../models/detalledevolucion';
+import { DataDevolucion } from '../../models/devoluciones';
+import { DataTransferenciaProductos } from '../../models/transferenciaproductos';
+import { DataDetalleTransferencias } from '../../models/detalletransferencias';
+import { DataTransferenciaSinOcCerrado } from '../../models/transferenciaproductossinoc';
+import { DataDetalleTransferenciasinOc } from '../../models/detalletransferenciasinoc';
+import { DataDetalleSalidasinOc } from '../../models/detallesinocalmacen';
+import { DataDevolucionSinOc } from 'src/app/models/devolucionsinoc';
+import { DataDetalleDevolucionSinOc } from '../../models/detalledevolucionsinoc';
 
  
 @Injectable({
@@ -42,11 +52,37 @@ export class KardexService {
   formDataIngresosinOc: DataEntradaSinOC;
   detalleIngresosinOc:DataDetalleEntradasinOc[];
 
-  //Salida Almacen sin OC
+  //Salida Almacen con  OC
 
   formDataSalida: DataSalidaProductos;
   detalleSalida:DataDetalleSalidaAlmacen[];
 
+  //Salida Almacen sin  OC
+
+   formDataSalidasioc: DataSalidaSinOcCerrado;
+   detalleSalidasinOC:DataDetalleSalidasinOc[];
+
+//DEVOLUCIONES
+formDataDevoluciones: DataDevolucion;
+detalleDevoluciones: DataDetalleDevolucion[];
+
+//devoluciones sin o/C
+
+formDataDevolucionesSinOc: DataDevolucionSinOc;
+detalleDevolucionesSinOC: DataDetalleDevolucionSinOc[];
+
+
+
+
+
+
+//transferencias
+formDataTransferencia: DataTransferenciaProductos;
+detalleTransferencia: DataDetalleTransferencias[];
+//transferencias si oc
+
+formDatatransferenciasinoc: DataTransferenciaSinOcCerrado;
+detalleTransferenciasinoc: DataDetalleTransferenciasinOc[];
 
   filteredData; 
 
@@ -398,7 +434,25 @@ getAlmacenPrincipal() {
     );
   }
 
+  GuardaSalidaAlmacen() {
+    // console.log('llego');
+    var body = { 
+      // ...this.detalleSalida
+      detallSalida: this.detalleSalida
+    }; 
+      return this.http.post(`${this.baseURL}salida-productos-oc`, body).pipe(
+        map((resp) =>
+      //  console.log(resp ))
+        
+      resp['data'])
+        //  console.log(resp['data']))
+        // catchError(this.manejarError)
 
+      );
+   
+  
+   
+  }
 
   /*SALIDA DE PRODUCTOS SIN OC */
   
@@ -407,4 +461,99 @@ getAlmacenPrincipal() {
       .get(this.baseURL + 'list-ingreso-sinoc-cerrada')
       .pipe(map((resp) => resp['data']));
   }
+
+ 
+  getSalidasinOCsById(id: number) {
+    return this.http.get(`${this.baseURL}detail-ingreso-sinoc-cerrada/` + id).pipe(
+      map((resp) => 
+      // console.log( resp['data']))
+      resp['data'])
+    );
+  }
+
+  GuardaSalidasinOC() {
+    // console.log('llego');
+    var body = { 
+      // ...this.detalleSalida
+      detallSalidaSinoc: this.detalleSalidasinOC
+    }; 
+ 
+
+      return this.http.post(`${this.baseURL}salida-productos-sinoc`, body).pipe(
+        map((resp) =>
+      //  console.log(resp ))
+        
+      // resp['data'])
+           console.log(resp['data']))
+        // catchError(this.manejarError)
+
+      );
+   
+  
+   
+  }
+
+
+  /*DEVOLUCIONES CON O/C */
+  GuardaDevolucionAlmacen() {
+    // console.log('llego');
+    var body = { 
+      // ...this.detalleSalida
+      detalledevolucion: this.detalleDevoluciones
+    }; 
+      return this.http.post(`${this.baseURL}devolucion-orden-compra`, body).pipe(
+        map((resp) =>
+      //  console.log(resp ))
+        
+      resp['data'])
+        //  console.log(resp['data']))
+        // catchError(this.manejarError)
+
+      );
+   
+  
+   
+  }
+  
+  /*DEVOLUCIONES SIN  O/C */
+  GuardaDevolucionSinOc() {
+    // console.log('llego');
+    var body = { 
+      // ...this.detalleSalida
+      detalledevolucion: this.detalleDevolucionesSinOC
+    }; 
+      return this.http.post(`${this.baseURL}devolucion-sinorden-compra`, body).pipe(
+        map((resp) =>
+      //  console.log(resp ))
+        
+      resp['data'])
+        //  console.log(resp['data']))
+        // catchError(this.manejarError)
+
+      );
+   
+  
+   
+  }
+
+    /*TRANSFERENCIA CON O/C */
+    GuardaTransferenciaAlmacen() {
+      // console.log('llego');
+      var body = { 
+        // ...this.detalleSalida
+        detalletransferencia: this.detalleTransferencia
+      }; 
+        return this.http.post(`${this.baseURL}transferencia-oc`, body).pipe(
+          map((resp) =>
+        //  console.log(resp ))
+          
+        resp['data'])
+          //  console.log(resp['data']))
+          // catchError(this.manejarError)
+  
+        );
+     
+    
+     
+    }
 }

@@ -6,7 +6,7 @@ export class DetalleSalidaAlmaIcenI {
 export interface DataDetalleSalidaAlmacen {
   id:number;/*hidenn */ 
   idIngresoAlmacen:number;
-  idDetalleCotizacion:number; 
+  // idDetalleCotizacion:number; 
   idOrden:number,/*hidenn */
   idProducto:number, 
   nombre_producto: string;
@@ -20,10 +20,13 @@ export interface DataDetalleSalidaAlmacen {
   cantidadGlobal:number; 
   detalleNameUnidadMedida:string; 
   //nuevos
-  cantidadDevolucion:number;
+  cantidadSalida:number;
   descripcion_salida:string
-  idtipoSalida:number;
-  detalleDevolucion:string;
+  idTipoSalida:number;
+  detalleSalida:string;
+  fechaSalida:string;
+  idDetalleIngresoAlmacen:number;
+  idTipoIngreso:number;
   
 }
  

@@ -60,15 +60,15 @@ export class DetalleentradaalmacenComponent implements OnInit {
    }
    
      else */ 
-   this.formData = Object.assign({
-   
+   this.formData = Object.assign({ 
+     id:null,
     idDetalleCotizacion:this.data.id,
     idProducto: 0,
     cantidad:0, 
     cantidadPrincipal:0, 
 
    },this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]);
-   console.log('dataentrada',this.formData);
+  //  console.log('dataentrada',this.formData);
   //  console.log('dataentrada',this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]);
   }
 
@@ -89,7 +89,7 @@ export class DetalleentradaalmacenComponent implements OnInit {
   else
   this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex] = form.value;
   this.dialogRef.close();
-   console.log('submit', ( this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]));
+  //  console.log('submit', ( this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]));
  //  }
 
   }

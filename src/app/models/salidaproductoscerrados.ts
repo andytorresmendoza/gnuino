@@ -15,4 +15,5 @@ export interface DataSalidaProductos {
     idEmpleado:number;
     detalleIngreso:string;
     descripcion_ingreso:string; 
+ 
 }

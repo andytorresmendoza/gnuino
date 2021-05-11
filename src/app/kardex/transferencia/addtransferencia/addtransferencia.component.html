@@ -1,0 +1,118 @@
+<h1><small>Transferencias de Productos por O/C</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../../listartransferencia">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+
+
+<form #form="ngForm" autocomplete="off" *ngIf="kardexService.detalleTransferencia"  (submit)="onSubmit(form)">
+    <div class="row">
+      <div class="col-md-4">
+  
+        <label> Nro Ingreso Alamcén.</label>
+        <input   
+        name="codigoIngreso" 
+        #codigoIngreso="ngModel" 
+        [(ngModel)]="kardexService.formDataTransferencia.codigoIngreso" class="form-control" readonly>
+       
+      </div>
+    <div class="col-md-4">
+        
+        <label> Tipo Ingreso</label>
+  
+        <input
+          type="text" 
+          [(ngModel)]="kardexService.formDataTransferencia.descripcion_ingreso"
+          class="form-control" 
+          disabled="disabled"
+          />
+      </div>  
+  
+       <div class="col-md-4">
+        
+        <label> Fecha Ingreso</label>
+  
+        <input
+          type="text" 
+          name="fechaIngreso" 
+          #fechaIngreso="ngModel" 
+          [(ngModel)]="kardexService.formDataTransferencia.fechaIngreso"
+          class="form-control" 
+          disabled="disabled"
+          />
+      </div> 
+    </div>
+  
+    <br>
+  <table class="table table-borderless" >
+      <thead class="thead-light">
+        <th scope="col">#</th>
+         <th>Nombre Producto</th> 
+         <th>Unidad Medida</th>
+          <th>Stock</th>
+          <th>Sede Transferencia</th>
+          <th>Cantidad Transferencia</th>
+          <th>Fecha Transferencia</th>
+          <th>Detalle Transferencia</th>
+          <th scope="col">Estado</th> 
+      </thead>
+    
+      <tbody>
+    
+            <tr *ngFor="let item of kardexService.detalleTransferencia  ;let i=index;">
+              <th scope="row">{{ i + 1 }}</th>
+            <td>
+              <p>{{item.detalleNameProducto}}</p>
+                <!-- <p *ngFor="let deta of item.detalleCotizacion">{{deta.nombre_producto}}</p>   -->
+            </td>
+            <td>
+              <p>{{item.detalleNameUnidadMedida}}</p>
+             
+            </td>
+            <td>
+              <p>{{item.cantidadPrincipal}}</p>
+            
+            </td>
+            <td>
+              <p>{{item.nombreSedeSecundario}}</p>
+            
+            </td>
+            <td>
+              <p>{{item.cantidadTransferencia}}</p>
+            
+            </td>
+            <td>
+              <p>{{item.fechaTransferencia}}</p>
+            
+            </td>
+            <td>
+              <p>{{item.detalleTransferencia}}</p>
+            
+            </td>
+           
+         
+            <td>
+              <a
+                class="btn btn-sm btn-info text-white"
+                (click)="AddOrEditOrderItem(i,item.id) "><i class="fa fa-check-square"></i></a> 
+           
+            </td>
+            <!-- {{item | json}}   -->
+            </tr>   
+      </tbody>
+      <br>
+  
+    </table>
+  
+    <div class="form-group">
+      <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Guardar</button>
+      <!-- <a   class="btn btn-outline-dark ml-1" routerLink="listarordencompra" ><i class="fa fa-close"></i> Ver Ordenes</a> -->
+      
+      </div>
+  </form>
