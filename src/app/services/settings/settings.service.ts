@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 export class SettingsService {
   private  linkThemen = document.querySelector('#theme');
   constructor() {
-    console.log('ingreso');
-    const url=  localStorage.getItem('theme') ||  './assets/css//colors/default-dark.css'
+    // console.log('ingreso');
+    const url=  localStorage.getItem('theme') ||  './assets/css/colors/default-dark.css'
     this.linkThemen.setAttribute('href',url);
   //  localStorage.getItem('theme',url)
   //  console.log(url);

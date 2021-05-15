@@ -521,11 +521,10 @@ getAlmacenPrincipal() {
   }
   GuardaDevolucionAlmacen() {
     // console.log('llego');
-    var body = { 
-      // ...this.detalleSalida
-      
+    var body = {  
       detalledevolucion: this.detalleDevoluciones
     };  
+    // delete body.detalledevolucion[0].idDetalleIngresoAlmacen;
     // let idParse: any;
     // idParse =0;
     // body.detalledevolucion[0].id = idParse;
@@ -629,4 +628,13 @@ getAlmacenPrincipal() {
       
        
       }
+
+        /*KARDEX OC*/
+        getLisKardexoc() {
+          return this.http
+            .get(this.baseURL + 'kardex-oc')
+            .pipe(map((resp) => 
+            
+            resp['data']));
+        }
 }

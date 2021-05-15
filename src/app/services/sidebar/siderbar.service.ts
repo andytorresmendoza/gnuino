@@ -54,6 +54,7 @@ export class SiderbarService {
         {titulo:'Devolución de Productos', url:'../kardex/devoluciones'},
         {titulo:'Salida de Productos', url:'../kardex/salidas'},
         {titulo:'Transferencias', url:'../kardex/transferencias'},
+        {titulo:'Kardex', url:'../kardex/kardex'},
       ]
       
     }

@@ -65,6 +65,8 @@ import { TotaldevolucionComponent } from './devolucion/totaldevolucion/totaldevo
 import { TotaldevolucionsinocComponent } from './devolucion/totaldevolucionsinoc/totaldevolucionsinoc.component';
 import { TotalsalidasinocComponent } from './salidaproductos/totalsalidasinoc/totalsalidasinoc.component';
 import { TotalsalidasComponent } from './salidaproductos/totalsalidas/totalsalidas.component';
+import { KardexocComponent } from './kardexoc/kardexoc.component';
+ 
 @NgModule({
   declarations: 
   [KardexComponent,    
@@ -111,6 +113,7 @@ import { TotalsalidasComponent } from './salidaproductos/totalsalidas/totalsalid
      TotaldevolucionsinocComponent,
      TotalsalidasinocComponent,
      TotalsalidasComponent,
+     KardexocComponent
      ],
   imports: [
      CommonModule,

@@ -18,6 +18,7 @@ import { KardexModule } from './kardex/kardex.module';
   import { ToastrModule } from 'ngx-toastr';
   import { NgSelectModule } from '@ng-select/ng-select';
  
+ 
 @NgModule({
   declarations: [
     AppComponent,

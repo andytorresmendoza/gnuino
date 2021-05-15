@@ -24,10 +24,9 @@ export class AdddevolucionComponent implements OnInit {
     this.kardexService.getSalidaProductosById(+id).subscribe(res => {
         //  console.log(res[0]);
 
-    this.kardexService.formDataDevoluciones = res[0];     
-      // console.log(this.kardexService.formDataDevoluciones );   
+    this.kardexService.formDataDevoluciones = res[0];  
     this.kardexService.detalleDevoluciones = res[0].detalleIngresoSedeAlamacen;  
- this.kardexService.formDataDevoluciones.descripcion_ingreso = res[0].detalleTipoIngreso[0].descripcion_ingreso; 
+    this.kardexService.formDataDevoluciones.descripcion_ingreso = res[0].detalleTipoIngreso[0].descripcion_ingreso; 
     });
 
   this.mantenimientosService.getTipoingreso().subscribe((resp) => {
@@ -36,7 +35,7 @@ export class AdddevolucionComponent implements OnInit {
   });
 }
 
-AddOrEditOrderItem(orderItemIndex, id) {
+AddOrEditOrderItem( orderItemIndex,id) {
   //  console.log(orderItemIndex, id); 
   const dialogConfig = new MatDialogConfig();
   
@@ -44,15 +43,15 @@ AddOrEditOrderItem(orderItemIndex, id) {
   dialogConfig.disableClose = true;
   dialogConfig.width = "55%";
   // dialogConfig.height = "48%";
-  dialogConfig.data = { orderItemIndex, id }; 
-  console.log(orderItemIndex, id);
+  dialogConfig.data = {  orderItemIndex,id }; 
+  console.log( orderItemIndex,id);
    this.dialog.open(DetalledevolucionComponent, dialogConfig).afterClosed().subscribe(resp=>{
-
+// console.log('cerro',resp);
    });
  
   }
   onSubmit(form:NgForm){
- 
+//  console.log(form.value);
     this.kardexService.GuardaDevolucionAlmacen().subscribe(resp =>{ /*falta */
   // console.log('respuesta',resp); 
    this.toastr.success('Actualizado Exitosamente');
