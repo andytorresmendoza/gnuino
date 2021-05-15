@@ -1,0 +1,99 @@
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<section
+  id="wrapper"
+  class="login-register login-sidebar"
+  style="background-image: url(../assets/images/background/login-register.jpg)"
+>
+  <div class="login-box card">
+    <div class="card-body">
+      <form
+        class="form-horizontal form-material"
+        id="loginform"
+        autocomplete="off"
+        [formGroup]="registerForm"
+        (ngSubmit) ="crearUsuario()"
+      >
+        <a href="javascript:void(0)" class="text-center db"
+          ><img src="../assets/images/logo-icon.png" alt="Home" /><br /><img
+            src="../assets/images/logo-text.png"
+            alt="Home"
+        /></a>
+    
+        <div class="form-group m-t-20">
+            <div class="form-group">
+            <label for="inputAddress" class="form-label">Usuario</label>
+            <input
+              class="form-control"
+              type="text" 
+              placeholder="Usuario"
+              formControlName="nombre"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="inputAddress" class="form-label">Tipo Empleado</label>
+            <select id="idTipoEmpleado" formControlName="idTipoEmpleado" class="form-control">
+              <option value="">---Seleccione Tipo Empleado---</option>
+              <option *ngFor="let empl of empleados" value="{{ empl.id }}">
+                {{ empl.nombre_empleado }}
+              </option>
+            </select>
+          </div>
+        </div>
+      
+        <div class="form-group">
+          <div class="col-xs-12">
+            <label for="inputAddress" class="form-label">Contraseña</label>
+            <input
+              class="form-control"
+              type="password"
+              required=""
+              placeholder="Password"
+              formControlName="password"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-xs-12">
+            <label for="inputAddress" class="form-label">Repita Contraseña</label>
+            <input
+              class="form-control"
+              type="password"
+              required=""
+              placeholder="Confirm Password"
+              formControlName="password2"
+            />
+          </div>
+        </div>
+ 
+        <div class="row">
+            <div class="col text-danger" >
+                <p *ngIf="campoNoValido('nombre')">El Nombres es obligatorio</p>
+                <p *ngIf="contrasenasNoValidas()">Las Contraseñas deben ser Iguales</p>
+                <p *ngIf="validateCombo()">Seleccione Empleado</p>
+
+            </div>
+
+        </div>
+        <div class="form-group text-center m-t-20">
+          <div class="col-xs-12">
+            <button
+              class="
+                btn btn-info btn-lg btn-block
+                text-uppercase
+                waves-effect waves-light
+              "
+              type="submit"
+            >
+              Sign Up
+            </button>
+          </div>
+        </div>
+ 
+      </form>
+    </div>
+  </div>
+</section>
+<!-- ============================================================== -->
+<!-- End Wrapper -->

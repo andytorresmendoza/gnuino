@@ -7,6 +7,7 @@ import { DataProducto } from '../../../models/producto';
 import { DataTipoSalida } from '../../../models/tiposalida';
 import { DataDetalleSalidasinOc } from '../../../models/detallesinocalmacen';
 import * as moment from 'moment';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-detallesalidasinoc',
   templateUrl: './detallesalidasinoc.component.html',
@@ -64,8 +65,23 @@ export class DetallesalidasinocComponent implements OnInit {
   
    onSubmit(form: NgForm) {
     //  console.log('popup',form.value);
-      
-       if (this.data.orderItemIndex == null) {
+    if (
+      form.value.cantidadSalida > form.value.cantidadPrincipal ||
+      form.value.cantidadSalida <= 0
+    ) {
+      return Swal.fire({
+        title: form.value.cantidadPrincipal + ' Productos en Stock',
+        text: 'Cantidad Salida Invalida',
+        icon: 'error',
+      });
+    } else if (form.invalid) {
+      Object.values(form.controls).forEach((control) => {
+        control.markAsTouched(); //es para validar el guardar
+      });
+
+      return;
+    } 
+      else  if (this.data.orderItemIndex == null) {
         let fechaParseada: any;
         fechaParseada = moment(form.value.fechaSalida).format('YYYY-MM-DD');
         form.value.fechaSalida=fechaParseada;

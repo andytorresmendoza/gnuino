@@ -1,4 +1,4 @@
-import { Component, Inject,OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { KardexService } from '../../../services/kardex/kardex.service';
 import { MantenimientosService } from '../../../services/mantenimientos/mantenimientos.service';
@@ -8,75 +8,85 @@ import { DataDetalleDevolucionSinOc } from '../../../models/detalledevolucionsin
 import { DataProducto } from '../../../models/producto';
 import { DataAlmacenSecundario } from '../../../models/almacenSecundario';
 import { DataTipodevolucion } from '../../../models/tipodevolucion';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-detalledevolucionsinoc',
   templateUrl: './detalledevolucionsinoc.component.html',
-  styleUrls: ['./detalledevolucionsinoc.component.css']
+  styleUrls: ['./detalledevolucionsinoc.component.css'],
 })
 export class DetalledevolucionsinocComponent implements OnInit {
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<DetalledevolucionsinocComponent>,
-    public kardexService: KardexService,  private mantenimientosService: MantenimientosService)   { }
-    formData: DataDetalleDevolucionSinOc;
-    productos: DataProducto[];
-    tipodevoluciones: DataTipodevolucion[];
+    public kardexService: KardexService,
+    private mantenimientosService: MantenimientosService
+  ) {}
+  formData: DataDetalleDevolucionSinOc;
+  productos: DataProducto[];
+  tipodevoluciones: DataTipodevolucion[];
   ngOnInit(): void {
-    this.mantenimientosService.getProducto()
-    .subscribe(resp => {
-      this.productos = resp as DataProducto[]  
-  //  console.log(this.productos,'producto');
-  
-   });
- 
-  this.mantenimientosService.getTipoDevolucion()
-  .subscribe(resp => {
-    
-     this.tipodevoluciones = resp as DataTipodevolucion[]  
-     console.log(this.tipodevoluciones,'devoluciones');
-   });
-  this.formData = Object.assign({
-    id:null,
-    idDetalleIngresoAlmacen:this.data.id, 
-    idEntradaSinOc:0,
-       // cantidadGlobal:0,
-       cantidadPrincipal:0,
-       cantidadDevolucion:0 , 
-       idTipoDevolucion:0,
-       idTipoIngreso:0,  
-       detalleDevolucion:'',  
-       fechaDevolucion:'',
-       idProducto:'',//agreagr
+    this.mantenimientosService.getProducto().subscribe((resp) => {
+      this.productos = resp as DataProducto[];
+      //  console.log(this.productos,'producto');
+    });
 
-   },
-   
-   this.kardexService.detalleDevolucionesSinOC[this.data.orderItemIndex]);
+    this.mantenimientosService.getTipoDevolucion().subscribe((resp) => {
+      this.tipodevoluciones = resp as DataTipodevolucion[];
+      console.log(this.tipodevoluciones, 'devoluciones');
+    });
+    this.formData = Object.assign(
+      {
+        id: null,
+        idDetalleIngresoAlmacen: this.data.id,
+        idEntradaSinOc: 0,
+        // cantidadGlobal:0,
+        cantidadPrincipal: 0,
+        cantidadDevolucion: 0,
+        idTipoDevolucion: 0,
+        idTipoIngreso: 0,
+        detalleDevolucion: '',
+        fechaDevolucion: '',
+        idProducto: '', //agreagr
+      },
+
+      this.kardexService.detalleDevolucionesSinOC[this.data.orderItemIndex]
+    );
   }
   onChange = ($event: any): void => {
-    this.formData.descripcion_devolucion= $event.descripcion_devolucion;  
-     
-   }
-   onSubmit(form: NgForm) {
-    //  console.log('popup',form.value);
-      
-       if (this.data.orderItemIndex == null) {
-        let fechaParseada: any;
-        fechaParseada = moment(form.value.fechaDevolucion).format('YYYY-MM-DD');
-        form.value.fechaDevolucion=fechaParseada;
-   this.kardexService.detalleDevolucionesSinOC.push(form.value);  
-       }
-   else{
+    this.formData.descripcion_devolucion = $event.descripcion_devolucion;
+  };
+  onSubmit(form: NgForm) {
+    if (
+      form.value.cantidadDevolucion > form.value.cantidadPrincipal ||
+      form.value.cantidadDevolucion <= 0
+    ) {
+      return Swal.fire({
+        title: form.value.cantidadPrincipal + ' Productos en Stock',
+        text: 'Cantidad Devolución Invalida',
+        icon: 'error',
+      });
+    } else if (form.invalid) {
+      Object.values(form.controls).forEach((control) => {
+        control.markAsTouched(); //es para validar el guardar
+      });
 
-
-    let fechaParseada: any;
-    fechaParseada = moment(form.value.fechaDevolucion).format('YYYY-MM-DD');
-    form.value.fechaDevolucion=fechaParseada;
-   this.kardexService.detalleDevolucionesSinOC[this.data.orderItemIndex] = form.value;
-
-   this.dialogRef.close();
-   console.log('id',this.data.orderItemIndex);
-   console.log('submit',this.kardexService.detalleDevolucionesSinOC);
-     }
+      return;
     }
+   else if (this.data.orderItemIndex == null) {
+      let fechaParseada: any;
+      fechaParseada = moment(form.value.fechaDevolucion).format('YYYY-MM-DD');
+      form.value.fechaDevolucion = fechaParseada;
+      this.kardexService.detalleDevolucionesSinOC.push(form.value);
+    } else {
+      let fechaParseada: any;
+      fechaParseada = moment(form.value.fechaDevolucion).format('YYYY-MM-DD');
+      form.value.fechaDevolucion = fechaParseada;
+      this.kardexService.detalleDevolucionesSinOC[this.data.orderItemIndex] =
+        form.value;
+
+      this.dialogRef.close();
+      console.log('id', this.data.orderItemIndex);
+      console.log('submit', this.kardexService.detalleDevolucionesSinOC);
+    }
+  }
 }

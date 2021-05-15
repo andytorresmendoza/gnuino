@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-faded" style="background-color: #e3f2fd;">
+<!-- <nav class="navbar navbar-expand-md navbar-light bg-faded" style="background-color: #e3f2fd;">
  
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
@@ -8,7 +8,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
 
-          <!-- active -->
+       
           <li class="nav-item" routerLinkActive="active">
               <a class="nav-link" [routerLink]="['../listarcotizacion']">ACTIVAS</a>
           </li>
@@ -19,44 +19,43 @@
       </ul>
  
   </div>
-</nav> 
-<br>
+</nav>  -->
+<div class="col-md-12">
+  <div class="card"> 
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                      <span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">ESTADOS</span>
+                  </a>
+                  <div class="dropdown-menu"> 
+                    <a class="dropdown-item" id="dropdown1-tab"[routerLink]="['../listarcotizacion']" role="tab" data-toggle="tab" aria-controls="dropdown1">Activas</a> 
+                    <a class="dropdown-item" id="dropdown2-tab" [routerLink]="['../listarcotianulada']"  role="tab" data-toggle="tab" aria-controls="dropdown2">Anuladas</a> </div>
+              </li> 
+          </ul> 
+  </div>
+</div> 
+ 
 
 
-<h1>Listado Cotización Activas </h1>
-<hr />
+
+<h1>Listado Cotización Activas </h1> 
 <div class="row">
+  <div class="col-md-11 text-left">
+
+    <input type="text"
+    class="form-control"
+    placeholder="Buscar Cotización"
+    #txtSearch
+    (keyup)="onSearchPokemon( txtSearch.value )" /> 
+  </div>
   <div class="col text-right">
+
     <button routerLink="/kardex/cotizacion/nuevo" class="btn btn-primary">
       <i class="fa fa-plus"> Agregar </i>
     </button>
   </div>
 </div>
-<hr>
-<div class="row">
-  <div class="col-md-4"> 
-    <div class="form-group"> 
-      </div> 
-  </div>
-  <div class="col-md-4"> 
-    <div class="form-group"> 
-      </div> 
-  </div>
-  <div class="col-md-4"> 
-    <div class="form-group">
-      <input type="text"
-              class="form-control"
-              placeholder="Buscar Cotización"
-              #txtSearch
-              (keyup)="onSearchPokemon( txtSearch.value )" /> 
-      
-      </div>
-    
-
-  </div>
-</div> 
-  
- 
+<hr> 
 <br>
 <table class="table table-hover">
     <thead class="thead-dark">
@@ -65,7 +64,9 @@
         <th scope="col">Proveedor</th>
         <th scope="col">Empleado</th>
         <th scope="col">Total</th>
+       
         <th scope="col">Estado</th>
+      
       
     </thead>
     <tbody>
@@ -77,6 +78,7 @@
           <td (click)="openForEdit(item.id)">{{item.detalleEmpleado[0].nombre_empleado}}</td>
           <td (click)="openForEdit(item.id)">{{item.total_costo}}</td>
           <!-- <td (click)="openForEdit(item.id)">{{item.idEstadoFlujo}}</td> -->
+     
           <td>
             <label *ngIf="item.idEstadoFlujo == 2" class="badge bg-success"
               >
@@ -90,6 +92,7 @@
             >Anulado</label
           >
           </td>
+         
        <td>
             <button class="btn btn-outline-dark" (click)="EstadoCotizacionAnular(item, i)">
                  <i class="far fa-times-circle"></i>
@@ -108,7 +111,7 @@
         </tr>
       </tbody>
 </table>
-<div class="col text-right">
+<!-- <div class="col text-right">
 <button class="btn btn-primary"
         (click)="prevPage()">
     Anteriores
@@ -119,7 +122,7 @@
         [disabled]="(cotizaciones | filtro:page:search).length === 0">
     Siguientes
 </button>
-</div>
+</div> -->
 <div
   *ngIf="!cargando && cotizaciones.length === 0"
   class="alert alert-warning text-center mt-3 animated fadeIn faster"

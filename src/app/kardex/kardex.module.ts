@@ -17,7 +17,7 @@ import { DetallecotizacionComponent } from './cotizacion/detallecotizacion/detal
 //nuevos
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE } from '@angular/material/core'; 
-import {MatMenuModule} from '@angular/material/menu';
+// import {MatMenuModule} from '@angular/material/menu';
 
 import { MatNativeDateModule } from '@angular/material/core';
 import { OrdencompraComponent } from './ordencompra/ordencompra/ordencompra.component';
@@ -59,6 +59,12 @@ import { DetalletransferenciasinocComponent } from './transferencia/detalletrans
 import { ListardevolucionsinocComponent } from './devolucion/listardevolucionsinoc/listardevolucionsinoc.component';
 import { AdddevolucionsinocComponent } from './devolucion/adddevolucionsinoc/adddevolucionsinoc.component';
 import { DetalledevolucionsinocComponent } from './devolucion/detalledevolucionsinoc/detalledevolucionsinoc.component';
+import { TotaltransferenciasComponent } from './transferencia/totaltransferencias/totaltransferencias.component';
+import { TotaltransferenciassinocComponent } from './transferencia/totaltransferenciassinoc/totaltransferenciassinoc.component';
+import { TotaldevolucionComponent } from './devolucion/totaldevolucion/totaldevolucion.component';
+import { TotaldevolucionsinocComponent } from './devolucion/totaldevolucionsinoc/totaldevolucionsinoc.component';
+import { TotalsalidasinocComponent } from './salidaproductos/totalsalidasinoc/totalsalidasinoc.component';
+import { TotalsalidasComponent } from './salidaproductos/totalsalidas/totalsalidas.component';
 @NgModule({
   declarations: 
   [KardexComponent,    
@@ -99,6 +105,12 @@ import { DetalledevolucionsinocComponent } from './devolucion/detalledevolucions
      ListardevolucionsinocComponent,
      AdddevolucionsinocComponent,
      DetalledevolucionsinocComponent,
+     TotaltransferenciasComponent,
+     TotaltransferenciassinocComponent,
+     TotaldevolucionComponent,
+     TotaldevolucionsinocComponent,
+     TotalsalidasinocComponent,
+     TotalsalidasComponent,
      ],
   imports: [
      CommonModule,
@@ -111,7 +123,8 @@ import { DetalledevolucionsinocComponent } from './devolucion/detalledevolucions
      MatDatepickerModule,
      MatNativeDateModule,
      AutocompleteLibModule,
-     MatAutocompleteModule,  NgSelectModule,MatMenuModule
+     MatAutocompleteModule,  NgSelectModule
+    //  ,MatMenuModule
 
    
    

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-faded" style="background-color: #e3f2fd;">
+<!-- <nav class="navbar navbar-expand-md navbar-light bg-faded" style="background-color: #e3f2fd;">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -7,7 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
 
-          <!-- active -->
+ 
           <li class="nav-item" routerLinkActive="active">
               <a class="nav-link" [routerLink]="['../listarordencompra']">ACTIVAS</a>
           </li>
@@ -19,7 +19,22 @@
 
   </div>
 </nav>
-<br>
+<br> -->
+<div class="col-md-12">
+  <div class="card"> 
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                      <span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">ESTADOS</span>
+                  </a>
+                  <div class="dropdown-menu"> 
+                    <a class="dropdown-item" id="dropdown1-tab"[routerLink]="['../listarordencompra']" role="tab" data-toggle="tab" aria-controls="dropdown1">Activas</a> 
+                    <a class="dropdown-item" id="dropdown2-tab" [routerLink]="['../listarordenanulada']"  role="tab" data-toggle="tab" aria-controls="dropdown2">Anuladas</a> </div>
+              </li> 
+          </ul> 
+  </div>
+</div> 
+ 
 <h1>Listado Ordenes Activas </h1>
 <hr />
 <div class="row">

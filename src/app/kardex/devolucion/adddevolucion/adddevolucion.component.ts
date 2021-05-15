@@ -25,7 +25,7 @@ export class AdddevolucionComponent implements OnInit {
         //  console.log(res[0]);
 
     this.kardexService.formDataDevoluciones = res[0];     
-      console.log(this.kardexService.formDataDevoluciones );   
+      // console.log(this.kardexService.formDataDevoluciones );   
     this.kardexService.detalleDevoluciones = res[0].detalleIngresoSedeAlamacen;  
  this.kardexService.formDataDevoluciones.descripcion_ingreso = res[0].detalleTipoIngreso[0].descripcion_ingreso; 
     });
@@ -37,13 +37,15 @@ export class AdddevolucionComponent implements OnInit {
 }
 
 AddOrEditOrderItem(orderItemIndex, id) {
-  //  console.log(orderItemIndex, id);
+  //  console.log(orderItemIndex, id); 
   const dialogConfig = new MatDialogConfig();
+  
   dialogConfig.autoFocus = true;
   dialogConfig.disableClose = true;
   dialogConfig.width = "55%";
   // dialogConfig.height = "48%";
   dialogConfig.data = { orderItemIndex, id }; 
+  console.log(orderItemIndex, id);
    this.dialog.open(DetalledevolucionComponent, dialogConfig).afterClosed().subscribe(resp=>{
 
    });
@@ -52,12 +54,10 @@ AddOrEditOrderItem(orderItemIndex, id) {
   onSubmit(form:NgForm){
  
     this.kardexService.GuardaDevolucionAlmacen().subscribe(resp =>{ /*falta */
-  console.log('respuesta',resp);
-     // this.resetForm();
-
-     this.toastr.success('Actualizado Exitosamente');
-     //  resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
-    //  this.router.navigate(["../kardex/listarsalida"]);
+  // console.log('respuesta',resp); 
+   this.toastr.success('Actualizado Exitosamente');
+    // resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
+      this.router.navigate(["../kardex/devoluciones"]);
 
    })  
  }

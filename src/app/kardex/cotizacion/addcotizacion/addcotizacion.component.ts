@@ -110,6 +110,7 @@ this.kardexService.detalleCotizacion = [];
   dialogConfig.disableClose = true;
   dialogConfig.width = "50%";
   dialogConfig.data = { orderItemIndex, id };
+  console.log(orderItemIndex, id);
   // afterClosed().subscribe; es para cuando se cierre el poput actualize el rpecio
    this.dialog.open(DetallecotizacionComponent, dialogConfig).afterClosed().subscribe(resp=>{
   //  console.log(resp);

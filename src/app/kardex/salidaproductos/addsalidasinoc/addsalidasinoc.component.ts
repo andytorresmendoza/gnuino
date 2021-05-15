@@ -52,7 +52,7 @@ export class AddsalidasinocComponent implements OnInit {
 
        this.toastr.success('Actualizado Exitosamente');
        //  resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
-       this.router.navigate(["../kardex/listarsalidasinoc"]);
+       this.router.navigate(["../kardex/salidassinoc"]);
 
      })  
    }

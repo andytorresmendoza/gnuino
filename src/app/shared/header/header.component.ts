@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   }
   salir(){
     this.auth.logout();
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/auth/login');
     }
 
 }

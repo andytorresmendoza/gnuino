@@ -2,39 +2,39 @@
 <form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
     <input
   
-    type="text" 
+    type="hidden" 
     name="idDetalleIngresoAlmacen"
     #idDetalleIngresoAlmacen="ngModel"
     [(ngModel)]="formData.idDetalleIngresoAlmacen"
   /> 
    
     <input
-    type="text" 
+    type="hidden" 
     name="idEntradaSinOc"
     #idEntradaSinOc="ngModel"
     [(ngModel)]="formData.idEntradaSinOc"
   /> 
 
   <input
-  type="text"
+  type="hidden"
   name="idTipoIngreso"
   #idTipoIngreso="ngModel"
   [(ngModel)]="kardexService.formDataDevolucionesSinOc.idtipoIngreso"
   />
   <input
-  type="text" 
+  type="hidden" 
   name="idProducto"
   #idProducto="ngModel"
   [(ngModel)]="formData.idProducto"
   /> 
   <input
-  type="text"
+  type="hidden"
   name="descripcion_devolucion"
   #descripcion_devolucion="ngModel"
   [(ngModel)]="formData.descripcion_devolucion"
   />
   <input
-type="text"
+type="hidden"
 name="idTipoDevolucion"
 #idTipoDevolucion="ngModel"
 [(ngModel)]="formData.idTipoDevolucion"
@@ -129,6 +129,7 @@ name="idTipoDevolucion"
     #fechaDevolucion="ngModel" 
     [(ngModel)]="formData.fechaDevolucion"
     class="form-control"  
+    [class.is-invalid]="fechaDevolucion.invalid && fechaDevolucion.touched"
     required
   
   />

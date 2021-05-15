@@ -1,0 +1,79 @@
+<div class="col-md-12">
+    <div class="card"> 
+  
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <!-- <img src="../../../../assets/images/icono-devolucion.png" width="35" height="30" alt=""> -->
+                    <li class="nav-item dropdown" >
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Transferencia O/C</span>
+                    </a>
+                    <div class="dropdown-menu"> 
+                      <a class="dropdown-item" id="dropdown1-tab"[routerLink]="['../transferencias']" role="tab" data-toggle="tab" aria-controls="dropdown1">Listado Transferencias</a> 
+                      <a class="dropdown-item" id="dropdown2-tab" [routerLink]="['../listartransferencia']"  role="tab" data-toggle="tab" aria-controls="dropdown2">Ingresos Almacén</a> </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                      <span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Transferencia sin O/C</span>
+                  </a>
+                  <div class="dropdown-menu"> <a class="dropdown-item" id="dropdown1-tab" [routerLink]="['../transferenciassinoc']" role="tab" data-toggle="tab" aria-controls="dropdown1">Listado Transferencias sin OC</a> 
+                    <a class="dropdown-item" id="dropdown2-tab" [routerLink]="['../listartransferenciasinoc']" role="tab" data-toggle="tab" aria-controls="dropdown2">Ingresos Almacén sin O/C</a> </div>
+              </li>
+            </ul> 
+    </div>
+  </div> 
+
+
+  <h1>Listado Transferencias sin O/C</h1>
+
+<hr />
+<table class="table table-hover">
+  <thead class="thead-dark">
+    <th scope="col">#</th>
+      <th scope="col">#Nro Transferencia</th>
+      <th scope="col">#Nro Ingreso sin o/c</th>
+        <th scope="col">Tipo Movimiento</th>
+        <th scope="col">Producto</th> 
+     <th scope="col">Fecha Transferencia</th>  
+     <th scope="col">Sede</th>
+     <th scope="col">Cantidad Transferencia</th>
+     <th scope="col">Detalle Transferencia</th>
+      <!--  <th scope="col">Total</th>
+      <th scope="col">Estado</th> -->
+    
+  </thead>
+  <tbody>
+      <tr *ngFor="let item of ListTranferenciasinoc; let i = index" >
+        <th scope="row">{{ i + 1 }}</th>
+        <th>{{item.codigoTransferSin}}</th>
+        <td>{{item.detalleIngresoAlmacen[0].codigoIngresoSinOc}}</td> 
+         <td>{{item.detalleTipoIngreso[0].descripcion_ingreso}}</td>
+         <td>{{item.detalleNameProducto}}</td> 
+         <td>{{item.fechaTransferencia}}</td>    
+         <td>{{item.detalleSedeSecundaria[0].nombre_alamcen}}</td>
+         <td>{{item.cantidadTransferencia}}</td> 
+         <td>{{item.detalleTransferencia}}</td> 
+        
+         </tr>
+  </tbody>
+</table>
+
+<div
+*ngIf="!cargando && ListTranferenciasinoc.length === 0"
+class="alert alert-warning text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading">No hay registros</h4>
+<p>
+  <i class="fa fa-exclamation fa-2px"></i>
+</p>
+<p class="mb-0">Espere por favor</p>
+</div>
+<div
+*ngIf="cargando"
+class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading">Cargando</h4>
+<p>
+  <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+</p>
+<p class="mb-0">Espere por favor</p>
+</div>

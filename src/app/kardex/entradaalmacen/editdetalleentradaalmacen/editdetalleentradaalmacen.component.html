@@ -2,72 +2,68 @@
 <hr />
 
 <form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
-   <input
-    type="hidden" 
-    name="id"
-    #id="ngModel"
-    [(ngModel)]="formData.id"
-  />   
-
+  <input type="hidden" name="id" #id="ngModel" [(ngModel)]="formData.id" />
 
   <input
-  type="hidden" 
-  name="idIngresoAlmacen"
-  #idIngresoAlmacen="ngModel"
-  [(ngModel)]="formData.idIngresoAlmacen"
-/> 
-  <div class="form-row ">
-  <div class="col-md-6">
-    <label>Producto</label>
-    <input
-      name="detalleNameProducto"
-      #detalleNameProducto="ngModel"
-      [(ngModel)]="formData.detalleNameProducto"
-      class="form-control"
-      readonly
-    />
-  </div>
-  <div class="col-md-6">
-    <label>Unidad Medida</label>
-    <input
-type="text" 
-name="detalleNameUnidadMedida"
-#detalleNameUnidadMedida="ngModel"
-[(ngModel)]="formData.detalleNameUnidadMedida"
-class="form-control"
-readonly
-/>
-  </div>
-  <div class="col-md-6">
-    <label>Cantidad Solicitada</label>
-    <input
-      name="cantidadGlobal"
-      #cantidadGlobal="ngModel"
-      [(ngModel)]="formData.cantidadGlobal"
-      class="form-control"
-      readonly
-    />
-  </div>
-  <div class="col-md-6">
-    <label>Cantidad Pendiente</label>
-    <input
-    type="number"
-      name="cantidadPrincipal"
-      #cantidadPrincipal="ngModel"
-      [(ngModel)]="formData.cantidadPrincipal"
-      class="form-control"
- 
-    />
+    type="hidden"
+    name="idIngresoAlmacen"
+    #idIngresoAlmacen="ngModel"
+    [(ngModel)]="formData.idIngresoAlmacen"
+  />
+  <div class="form-row">
+    <div class="col-md-6">
+      <label>Producto</label>
+      <input
+        name="detalleNameProducto"
+        #detalleNameProducto="ngModel"
+        [(ngModel)]="formData.detalleNameProducto"
+        class="form-control"
+        readonly
+      />
+    </div>
+    <div class="col-md-6">
+      <label>Unidad Medida</label>
+      <input
+        type="text"
+        name="detalleNameUnidadMedida"
+        #detalleNameUnidadMedida="ngModel"
+        [(ngModel)]="formData.detalleNameUnidadMedida"
+        class="form-control"
+        readonly
+      />
+    </div>
+    <div class="col-md-6">
+      <label>Cantidad Solicitada</label>
+      <input
+        name="cantidadGlobal"
+        #cantidadGlobal="ngModel"
+        [(ngModel)]="formData.cantidadGlobal"
+        class="form-control"
+        readonly
+      />
+    </div>
+    <div class="col-md-6">
+      <label>Cantidad Pendiente</label>
+      <input
+        type="number"
+        name="cantidadPrincipal"
+        #cantidadPrincipal="ngModel"
+        [(ngModel)]="formData.cantidadPrincipal"
+       
+        class="form-control"
+      />
+      <!-- [ngClass]="{'is-invalid': formData.cantidadPrincipal >5 || formData.cantidadPrincipal<0}" -->
+      <!-- <small *ngIf="cantidadPrincipal.invalid && cantidadPrincipal.touched"
+      class="form-text text-danger">Ingrese Fecha</small> -->
+    </div>
   </div>
 
-  </div>
+  <br />
+  <!--  -->
 
- <br>
-<!--  -->
- 
-<br>
-<div class="form-group">
-    <button type="submit" class="btn btn-dark">
+  <br />
+  <div class="form-group">
+    <button type="submit"   class="btn btn-dark">
       <i class="fa fa-database"></i> Guardar
     </button>
     <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]>

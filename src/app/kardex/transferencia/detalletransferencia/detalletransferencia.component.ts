@@ -8,6 +8,7 @@ import { DataTransferenciaProductos } from '../../../models/transferenciaproduct
 import { DataProducto } from '../../../models/producto';
 import { DataDetalleTransferencias } from '../../../models/detalletransferencias';
 import { DataAlmacenSecundario } from '../../../models/almacenSecundario';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-detalletransferencia',
   templateUrl: './detalletransferencia.component.html',
@@ -33,9 +34,7 @@ export class DetalletransferenciaComponent implements OnInit {
     
   this.kardexService.getAlmacenSecundario()
   .subscribe(resp => { 
-    this.almacenesSecundario = resp as DataAlmacenSecundario[] 
-    // console.log('secundario', this.almacenesSecundario); 
-//  console.log(this.productos,'producto');
+    this.almacenesSecundario = resp as DataAlmacenSecundario[]  
 
  });
    this.formData = Object.assign({
@@ -62,8 +61,23 @@ export class DetalletransferenciaComponent implements OnInit {
 
    onSubmit(form: NgForm) {
     //  console.log('popup',form.value);
-      
-       if (this.data.orderItemIndex == null) {
+    if (
+      form.value.cantidadTransferencia > form.value.cantidadPrincipal ||
+      form.value.cantidadTransferencia <= 0
+    ) {
+      return Swal.fire({
+        title: form.value.cantidadPrincipal + ' Productos en Stock',
+        text: 'Cantidad Transferencia Invalida',
+        icon: 'error',
+      });
+    } else if (form.invalid) {
+      Object.values(form.controls).forEach((control) => {
+        control.markAsTouched(); //es para validar el guardar
+      });
+
+      return;
+    } 
+      else  if (this.data.orderItemIndex == null) {
         let fechaParseada: any;
         fechaParseada = moment(form.value.fechaTransferencia).format('YYYY-MM-DD');
         form.value.fechaTransferencia=fechaParseada;

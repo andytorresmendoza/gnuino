@@ -28,51 +28,67 @@ import { ListartransferenciasinocComponent } from './transferencia/listartransfe
 import { AddtransferenciasinocComponent } from './transferencia/addtransferenciasinoc/addtransferenciasinoc.component';
 import { ListardevolucionsinocComponent } from './devolucion/listardevolucionsinoc/listardevolucionsinoc.component';
 import { AdddevolucionsinocComponent } from './devolucion/adddevolucionsinoc/adddevolucionsinoc.component';
+import { TotaltransferenciasComponent } from './transferencia/totaltransferencias/totaltransferencias.component';
+import { TotaltransferenciassinocComponent } from './transferencia/totaltransferenciassinoc/totaltransferenciassinoc.component';
+import { TotaldevolucionComponent } from './devolucion/totaldevolucion/totaldevolucion.component';
+import { TotaldevolucionsinocComponent } from './devolucion/totaldevolucionsinoc/totaldevolucionsinoc.component';
+import { TotalsalidasComponent } from './salidaproductos/totalsalidas/totalsalidas.component';
+import { TotalsalidasinocComponent } from './salidaproductos/totalsalidasinoc/totalsalidasinoc.component';
+import { DashboardComponent } from '../pages/dashboard/dashboard.component';
+import { PagesComponent } from '../pages/pages.component';
 
 const routes: Routes = [
  
-  {path:'kardex', component:KardexComponent,
+  {path:'kardex', component:PagesComponent,
   children:[
-    // {path:'',component:HomeComponent},     
-   {path:'listarcotizacion', component: ListarcotizacionComponent},
-   {path:'listarcotianulada', component: ListarcotianuladasComponent},
-   {path:'cotizacion/:id', component: AddcotizacionComponent},
-   {path:'listarordencompra', component: ListarordencompraComponent},
-   {path:'listarordenanulada', component: ListarordanuladasComponent},
-   {path:'ordencompra', component: OrdencompraComponent},
-   {path:'editordencompra/:id', component: EditarordencompraComponent},
-   {path:'listarentrada', component: ListarentradaalmacenComponent},
-   {path:'listarentradaanulada', component: ListarentradaanuladaComponent},
-   {path:'ingresoalmacen', component: AddentradaalmacenComponent},
-   {path:'editingresoalmacen/:id', component: EditingresoalmacenComponent},
+   {path:'',component:DashboardComponent},     
+   {path:'listarcotizacion', component: ListarcotizacionComponent, data:{titulo:'Cotización'}},
+   {path:'listarcotianulada', component: ListarcotianuladasComponent, data:{titulo:'Cotización'}},
+   {path:'cotizacion/:id', component: AddcotizacionComponent, data:{titulo:'Cotización'}},
+   {path:'listarordencompra', component: ListarordencompraComponent, data:{titulo:'Orden Compra'}},
+   {path:'listarordenanulada', component: ListarordanuladasComponent, data:{titulo:'Orden Compra'}},
+   {path:'ordencompra', component: OrdencompraComponent, data:{titulo:'Orden Compra'}},
+   {path:'editordencompra/:id', component: EditarordencompraComponent, data:{titulo:'Orden Compra'}},
+   {path:'listarentrada', component: ListarentradaalmacenComponent, data:{titulo:'Entrada Almacén'}},
+   {path:'listarentradaanulada', component: ListarentradaanuladaComponent, data:{titulo:'Entrada Almacén'}},
+   {path:'ingresoalmacen', component: AddentradaalmacenComponent, data:{titulo:'Entrada Almacén'}},
+   {path:'editingresoalmacen/:id', component: EditingresoalmacenComponent, data:{titulo:'Entrada Almacén'}},
 
-   {path:'listarentradasinoc', component: ListarentradasinocComponent}, 
-   {path:'listarentradasinanulada', component: ListarentradasinocanuladaComponent}, 
-   {path:'entradasinoc/:id', component: AddentradasinocComponent},
+   {path:'listarentradasinoc', component: ListarentradasinocComponent, data:{titulo:'Entradas sin O/C'}}, 
+   {path:'listarentradasinanulada', component: ListarentradasinocanuladaComponent, data:{titulo:'Entradas sin O/C'}}, 
+   {path:'entradasinoc/:id', component: AddentradasinocComponent, data:{titulo:'Entradas sin O/C'}},
 
-   {path:'listarsalida', component: ListarsalidaproductoComponent},
-   {path:'salidaProducto/:id', component: AddsalidaproductoComponent},
+   {path:'listarsalida', component: ListarsalidaproductoComponent, data:{titulo:'Salidas'}},
+   {path:'salidas', component: TotalsalidasComponent, data:{titulo:'Salidas'}}, 
+   {path:'salidaProducto/:id', component: AddsalidaproductoComponent, data:{titulo:'Salidas'}},
 
-   {path:'listarsalidasinoc', component: ListarsalidasinocComponent},
-    {path:'listarsalidasinoc/:id', component: AddsalidasinocComponent},
+   {path:'listarsalidasinoc', component: ListarsalidasinocComponent, data:{titulo:'Salida sin O/C'}},
+   {path:'salidassinoc', component: TotalsalidasinocComponent, data:{titulo:'Salida sin O/C'}}, 
+    {path:'listarsalidasinoc/:id', component: AddsalidasinocComponent, data:{titulo:'Salida sin O/C'}},
 
-    {path:'listardevolucion', component: ListardevolucionComponent},   
-    {path:'devolucion/:id', component: AdddevolucionComponent},
-    {path:'listardevolucionsinoc', component: ListardevolucionsinocComponent},   
-    {path:'devolucionsinoc/:id', component: AdddevolucionsinocComponent},
+    {path:'listardevolucion', component: ListardevolucionComponent, data:{titulo:'Devoluciones'}},   
+    {path:'devoluciones', component: TotaldevolucionComponent, data:{titulo:'Devoluciones'}}, 
+    {path:'devolucion/:id', component: AdddevolucionComponent, data:{titulo:'Devoluciones'}},
+    {path:'listardevolucionsinoc', component: ListardevolucionsinocComponent, data:{titulo:'Devoluciones sin O/C'}},   
+    {path:'devolucionessinoc', component: TotaldevolucionsinocComponent, data:{titulo:'Devoluciones sin O/C'}}, 
+    {path:'devolucionsinoc/:id', component: AdddevolucionsinocComponent, data:{titulo:'Devoluciones sin O/C'}},
 
-    {path:'listartransferencia', component: ListartransferenciaComponent}, 
-    {path:'transferencia/:id', component: AddtransferenciaComponent}, 
-    {path:'listartransferenciasinoc', component: ListartransferenciasinocComponent}, 
-    {path:'transferenciasinoc/:id', component: AddtransferenciasinocComponent}, 
-   {path:'**', pathMatch:'full', redirectTo:''}
+    {path:'listartransferencia', component: ListartransferenciaComponent, data:{titulo:'Transferencias'}}, 
+    {path:'transferencias', component: TotaltransferenciasComponent, data:{titulo:'Transferencias'}}, 
+    {path:'transferencia/:id', component: AddtransferenciaComponent, data:{titulo:'Transferencias'}}, 
+    {path:'listartransferenciasinoc', component: ListartransferenciasinocComponent, data:{titulo:'Transferencias sin O/C'}}, 
+    {path:'transferenciassinoc', component: TotaltransferenciassinocComponent, data:{titulo:'Transferencias sin O/C'}}, 
+    {path:'transferenciasinoc/:id', component: AddtransferenciasinocComponent, data:{titulo:'Transferencias sin O/C'}}, 
+
+  
+  //  {path:'**', pathMatch:'full', redirectTo:''}
    
    ]
   }
  ];
 
  @NgModule({
-  imports:[ RouterModule.forRoot(routes) ],
+  imports:[ RouterModule.forChild(routes) ],
   exports:[ RouterModule ]
 })
 export class KardexRoutingModule { }

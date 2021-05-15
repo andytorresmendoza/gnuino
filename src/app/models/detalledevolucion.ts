@@ -5,33 +5,34 @@ export class DetalleDevolucionI {
 
 export interface DataDetalleDevolucion {
   id:number;/*hidenn */ 
+  idDetalleIngresoAlmacen:number;
   idIngresoAlmacen:number;
-  // idDetalleCotizacion:number; 
-  idOrden:number,/*hidenn */
+  cantidadPrincipal:number;
+  cantidadDevolucion:number;
+  idTipoDevolucion:number;
+  idTipoIngreso:number;
+  detalleDevolucion:string;
+  fechaDevolucion:string;
   idProducto:number, 
+
+ 
+  idOrden:number,/*hidenn */ 
   nombre_producto: string;
   detalleNameProducto:string;   
-  cantidadPrincipal:number;
- 
+
   cantidad:number;		
   precio_unidad:number;
   precio_total:number;
   observaciones:string;  
   cantidadGlobal:number; 
-  detalleNameUnidadMedida:string; 
-  //nuevos
-  cantidadSalida:number;
-  // descripcion_salida:string
-  // idTipoSalida:number;
-  // detalleSalida:string;
-  fechaDevolucion:string;
-  idDetalleIngresoAlmacen:number;
-  idTipoIngreso:number;
+  detalleNameUnidadMedida:string;  
+  cantidadSalida:number; 
+ 
 
   descripcion_devolucion:string;
-  idTipoDevolucion:number;
-  cantidadDevolucion:number;
-  detalleDevolucion:string;
+ 
+
+
   
 }
  

@@ -27,7 +27,8 @@ import { DataTransferenciaSinOcCerrado } from '../../models/transferenciaproduct
 import { DataDetalleTransferenciasinOc } from '../../models/detalletransferenciasinoc';
 import { DataDetalleSalidasinOc } from '../../models/detallesinocalmacen';
 import { DataDevolucionSinOc } from 'src/app/models/devolucionsinoc';
-import { DataDetalleDevolucionSinOc } from '../../models/detalledevolucionsinoc';
+import { DataDetalleDevolucionSinOc } from '../../models/detalledevolucionsinoc'; 
+import { DataDetalleDevolucionP } from '../../models/detalletransferenciaprueba';
 
  
 @Injectable({
@@ -65,7 +66,7 @@ export class KardexService {
 //DEVOLUCIONES
 formDataDevoluciones: DataDevolucion;
 detalleDevoluciones: DataDetalleDevolucion[];
-
+detalleDevolucionesP: DataDetalleDevolucionP[];
 //devoluciones sin o/C
 
 formDataDevolucionesSinOc: DataDevolucionSinOc;
@@ -83,6 +84,8 @@ detalleTransferencia: DataDetalleTransferencias[];
 
 formDatatransferenciasinoc: DataTransferenciaSinOcCerrado;
 detalleTransferenciasinoc: DataDetalleTransferenciasinOc[];
+
+
 
   filteredData; 
 
@@ -419,7 +422,13 @@ getAlmacenPrincipal() {
 
    /*SALIDA DE PRODUCTOS */
    
-
+   getLisSalidasAlmacen() {
+    return this.http
+      .get(this.baseURL + 'salida-productos-oc')
+      .pipe(map((resp) => 
+      
+      resp['data']));
+  }
    getListIngresosCerrados() {
     return this.http
       .get(this.baseURL + 'list-ingreso-oc-cerrada')
@@ -440,6 +449,7 @@ getAlmacenPrincipal() {
       // ...this.detalleSalida
       detallSalida: this.detalleSalida
     }; 
+
       return this.http.post(`${this.baseURL}salida-productos-oc`, body).pipe(
         map((resp) =>
       //  console.log(resp ))
@@ -455,7 +465,13 @@ getAlmacenPrincipal() {
   }
 
   /*SALIDA DE PRODUCTOS SIN OC */
-  
+  getLisSalidassinocAlmacen() {
+    return this.http
+      .get(this.baseURL + 'salida-productos-sinoc')
+      .pipe(map((resp) => 
+      
+      resp['data']));
+  }
   getListIngresossinocCerrados() {
     return this.http
       .get(this.baseURL + 'list-ingreso-sinoc-cerrada')
@@ -495,19 +511,29 @@ getAlmacenPrincipal() {
 
 
   /*DEVOLUCIONES CON O/C */
+
+  getLisDevolucionesAlmacen() {
+    return this.http
+      .get(this.baseURL + 'devolucion-orden-compra')
+      .pipe(map((resp) => 
+      
+      resp['data']));
+  }
   GuardaDevolucionAlmacen() {
     // console.log('llego');
     var body = { 
       // ...this.detalleSalida
+      
       detalledevolucion: this.detalleDevoluciones
-    }; 
+    };  
+    // let idParse: any;
+    // idParse =0;
+    // body.detalledevolucion[0].id = idParse;
+ 
       return this.http.post(`${this.baseURL}devolucion-orden-compra`, body).pipe(
-        map((resp) =>
-      //  console.log(resp ))
-        
+        map((resp) => 
       resp['data'])
-        //  console.log(resp['data']))
-        // catchError(this.manejarError)
+ 
 
       );
    
@@ -516,12 +542,21 @@ getAlmacenPrincipal() {
   }
   
   /*DEVOLUCIONES SIN  O/C */
+
+  getLisDevolucionesSinOc() {
+    return this.http
+      .get(this.baseURL + 'devolucion-sinorden-compra')
+      .pipe(map((resp) => 
+      
+      resp['data']));
+  }
   GuardaDevolucionSinOc() {
     // console.log('llego');
     var body = { 
       // ...this.detalleSalida
       detalledevolucion: this.detalleDevolucionesSinOC
     }; 
+   
       return this.http.post(`${this.baseURL}devolucion-sinorden-compra`, body).pipe(
         map((resp) =>
       //  console.log(resp ))
@@ -536,7 +571,15 @@ getAlmacenPrincipal() {
    
   }
 
-    /*TRANSFERENCIA CON O/C */
+    /*TRANSFERENCIA CON O/C */    
+
+    getListransferenciaAlmacen() {
+      return this.http
+        .get(this.baseURL + 'transferencia-oc')
+        .pipe(map((resp) => 
+        
+        resp['data']));
+    }
     GuardaTransferenciaAlmacen() {
       // console.log('llego');
       var body = { 
@@ -551,9 +594,39 @@ getAlmacenPrincipal() {
           //  console.log(resp['data']))
           // catchError(this.manejarError)
   
-        );
-     
-    
+        ); 
      
     }
+
+      /*TRANSFERENCIA CON O/C */   
+
+
+      getListransferenciaSinOcAlmacen() {
+        return this.http
+          .get(this.baseURL + 'transferencia-sinoc')
+          .pipe(map((resp) => 
+          
+          resp['data']));
+      }
+
+      GuardaTransferenciaSinOcAlmacen() {
+        // console.log('llego');
+        var body = { 
+          // ...this.detalleSalida
+          detalletransferencia: this.detalleTransferenciasinoc
+        }; 
+        console.log(body);
+          return this.http.post(`${this.baseURL}transferencia-sinoc`, body).pipe(
+            map((resp) =>
+          //  console.log(resp ))
+            
+          resp['data'])
+            //  console.log(resp['data']))
+            // catchError(this.manejarError)
+    
+          );
+       
+      
+       
+      }
 }

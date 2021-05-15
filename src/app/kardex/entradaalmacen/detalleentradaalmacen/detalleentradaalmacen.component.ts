@@ -9,7 +9,7 @@ import { DataDetalleIngresoAlmacen } from '../../../models/detalle-ingresoalmace
  
 import { DataAlmacenPrincipal } from '../../../models/almacenPrincipal';
 import { DataAlmacenSecundario } from 'src/app/models/almacenSecundario';
- 
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-detalleentradaalmacen',
   templateUrl: './detalleentradaalmacen.component.html',
@@ -73,8 +73,18 @@ export class DetalleentradaalmacenComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-
-    if ( form.invalid ) {
+    console.log(form.value);
+    if(form.value.cantidadPrincipal > form.value.cantidad ||  form.value.cantidadPrincipal <= 0){
+    
+      return   Swal.fire({
+        title: form.value.cantidad+' Productos se solicito' ,
+        text: 'Cantidad Invalida',
+        icon: 'error',
+      });
+      // this.toastr.error('CANTIDAD INVALIDA');
+     }
+ 
+   else if ( form.invalid ) {
 
       Object.values( form.controls ).forEach( control => {
         control.markAsTouched();//es para validar el guardar
@@ -83,16 +93,19 @@ export class DetalleentradaalmacenComponent implements OnInit {
   
       return;
     } 
-  else if (this.data.orderItemIndex == null) 
+  else if  (this.data.orderItemIndex == null) {
   this.kardexService.detalleIngresoAlmacen.push(form.value);  
-  
-  else
+  }
+  else{
   this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex] = form.value;
   this.dialogRef.close();
   //  console.log('submit', ( this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]));
- //  }
-
   }
+
+}
+
+
+
   onChange = ($event: any): void => {
     // this.formData.idProducto= $event.idProducto; 
     this.formData.nombre_producto= $event.nombre_producto; 
@@ -100,22 +113,7 @@ export class DetalleentradaalmacenComponent implements OnInit {
    }
 
  
- /*onChangeAlmacenP = ($event: any): void => {
-    console.log($event.nombre_alamcen);
-    this.formData.nombreSedePrincipal = $event.nombreSedePrincipal 
-    }
-
-    onChangeAlmacenS(ctrl) {  
-      console.log(ctrl);   
-      //  this.formData.idSedeSecundaria = this.almacenesSecundario[ctrl.selectedIndex - 1].id;
-      this.formData.nombreSedeSecundario = this.almacenesSecundario[ctrl.selectedIndex - 1].nombreSedeSecundario;
-      
-  }*/
  
-
-  /* updateTotal(){
-    this.formData.stockTotal = parseFloat((this.formData.cantidad  - this.formData.cantidadPrincipal- this.formData.cantidaSecundaria- this.formData.cantidadDevuelta).toFixed(2));
-  }*/
   validateForm(FormDetalleA: DataDetalleIngresoAlmacen) {
     this.isValid = true;
     if (FormDetalleA.id == 0)

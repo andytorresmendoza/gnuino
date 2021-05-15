@@ -27,13 +27,13 @@ import { KardexModule } from './kardex/kardex.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AuthModule,
     PagesModule,
     MantenimientosModule,
+    KardexModule,
+    AuthModule, 
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-    KardexModule,
+    BrowserAnimationsModule, 
     ToastrModule.forRoot(),
     NgSelectModule
   // MatDatepickerModule,

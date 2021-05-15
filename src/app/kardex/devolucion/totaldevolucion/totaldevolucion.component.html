@@ -1,0 +1,81 @@
+ 
+<div class="col-md-12">
+    <div class="card"> 
+  
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <!-- <img src="../../../../assets/images/icono-devolucion.png" width="35" height="30" alt=""> -->
+                    <li class="nav-item dropdown" >
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Devoluciones O/C</span>
+                    </a>
+                    <div class="dropdown-menu"> 
+                      <a class="dropdown-item" id="dropdown1-tab"[routerLink]="['../devoluciones']" role="tab" data-toggle="tab" aria-controls="dropdown1">Listado Devoluciones</a> 
+                      <a class="dropdown-item" id="dropdown2-tab" [routerLink]="['../listardevolucion']"  role="tab" data-toggle="tab" aria-controls="dropdown2">Ingresos Almacén</a> </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                      <span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Devoluciones sin O/C</span>
+                  </a>
+                  <div class="dropdown-menu"> <a class="dropdown-item" id="dropdown1-tab" [routerLink]="['../devolucionessinoc']" role="tab" data-toggle="tab" aria-controls="dropdown1">Listado Devoluciones sin O/C</a> 
+                    <a class="dropdown-item" id="dropdown2-tab" [routerLink]="['../listardevolucionsinoc']" role="tab" data-toggle="tab" aria-controls="dropdown2">Ingreso sin O/C</a> </div>
+              </li>
+            </ul> 
+    </div>
+  </div> 
+  <h1>Listado Devoluciones </h1>
+
+  <hr />  
+
+  
+<table class="table table-hover">
+    <thead class="thead-dark">
+      <th scope="col">#</th>
+        <th scope="col">#Nro Devolución</th>
+        <th scope="col">#Nro Ingreso o/c</th>
+          <th scope="col">Tipo Movimiento</th>
+          <th scope="col">Producto</th> 
+       <th scope="col">Fecha Devolución</th>  
+       <th scope="col">Tipo Devolución</th>
+       <th scope="col">Cantidad Devolución</th>
+       <th scope="col">Detalle Devolución</th>
+        <!--  <th scope="col">Total</th>
+        <th scope="col">Estado</th> -->
+      
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of ListDevoluciones; let i = index" >
+          <th scope="row">{{ i + 1 }}</th>
+          <th>{{item.codigoDevolucion}}</th>
+          <td>{{item.detalleIngresoAlmacen[0].codigoIngreso}}</td> 
+           <td>{{item.detalleTipoIngreso[0].descripcion_ingreso}}</td>
+           <td>{{item.detalleNameProducto}}</td> 
+           <td>{{item.fechaDevolucion}}</td>    
+            <td>{{item.detalleTipoDevolucion[0].descripcion_devolucion}}</td>  
+           <td>{{item.cantidadDevolucion}}</td> 
+           <td>{{item.detalleDevolucion}}</td>
+          
+           </tr>
+    </tbody>
+  </table>
+  
+  <div
+  *ngIf="!cargando && ListDevoluciones.length === 0"
+  class="alert alert-warning text-center mt-3 animated fadeIn faster"
+  >
+  <h4 class="alert-heading">No hay registros</h4>
+  <p>
+    <i class="fa fa-exclamation fa-2px"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+  </div>
+  <div
+  *ngIf="cargando"
+  class="alert alert-info text-center mt-3 animated fadeIn faster"
+  >
+  <h4 class="alert-heading">Cargando</h4>
+  <p>
+    <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+  </div>
+  

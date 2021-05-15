@@ -25,25 +25,33 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 //   { path: '**', pathMatch: 'full', redirectTo: 'login' }
 // ];
 const routes: Routes =[
-  {path:'', redirectTo:'/dashboard', pathMatch:'full'},  
-  {path:'login', component:LoginComponent},
-  {path:'mantenimientos',  component: MantenimientosComponent},
-  {path:'kardex',  component: KardexComponent},
- {path:'auth',component: LoginComponent },
+  {path:'', redirectTo:'/dashboard', pathMatch:'full'},   
+   {path:'/mantenimientos'   , component: MantenimientosComponent},
+   {path:'/kardex'   , component: KardexComponent}, 
+   {path:'/auth'   , component: LoginComponent}, 
+  {path:'**', component: NopagefoundComponent}, 
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [
+
+  ],
   imports: [
     // RouterModule.forRoot(routes,{useHash:true})
-     RouterModule.forRoot(routes )
+     RouterModule.forRoot(routes ),
+     AuthRoutingModule,
+     PagesRoutingModule,
+     MantenimientosRoutingModule,
+     KardexRoutingModule,
+     AuthRoutingModule
+    //  KardexRoutingModule
   ],
   exports:[
     RouterModule,
-    PagesRoutingModule,
-    AuthRoutingModule,
-    MantenimientosRoutingModule,
-    KardexRoutingModule
+    // PagesRoutingModule,
+    // AuthRoutingModule,
+      // MantenimientosRoutingModule,
+    // KardexRoutingModule
   ]
 })
 export class AppRoutingModule { }

@@ -1,26 +1,28 @@
-<nav class="navbar navbar-expand-md navbar-light bg-faded" style="background-color: #e3f2fd;">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
  
+<div class="col-md-12">
+  <div class="card"> 
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-
-       
-          <li class="nav-item" routerLinkActive="active">
-              <a class="nav-link" [routerLink]="['../listartransferencia']">Transferencia O/C</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-              <a class="nav-link" [routerLink]="['../listartransferenciasinoc']">Transferencia sin O/C</a>
-          </li>
-        
-      </ul>
-
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <!-- <img src="../../../../assets/images/icono-devolucion.png" width="35" height="30" alt=""> -->
+                  <li class="nav-item dropdown" >
+                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                      <span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Transferencia O/C</span>
+                  </a>
+                  <div class="dropdown-menu"> 
+                    <a class="dropdown-item" id="dropdown1-tab"[routerLink]="['../transferencias']" role="tab" data-toggle="tab" aria-controls="dropdown1">Listado Transferencias</a> 
+                    <a class="dropdown-item" id="dropdown2-tab" [routerLink]="['../listartransferencia']"  role="tab" data-toggle="tab" aria-controls="dropdown2">Ingresos Almacén</a> </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Transferencia sin O/C</span>
+                </a>
+                <div class="dropdown-menu"> <a class="dropdown-item" id="dropdown1-tab" [routerLink]="['../transferenciassinoc']" role="tab" data-toggle="tab" aria-controls="dropdown1">Listado Transferencias sin OC</a> 
+                  <a class="dropdown-item" id="dropdown2-tab" [routerLink]="['../listartransferenciasinoc']" role="tab" data-toggle="tab" aria-controls="dropdown2">Ingresos Almacén sin O/C</a> </div>
+            </li>
+          </ul> 
   </div>
-</nav>
+</div> 
 
-<br>
 <h1>Listado Ingresos Entrada Almacén</h1>
 
 <hr />

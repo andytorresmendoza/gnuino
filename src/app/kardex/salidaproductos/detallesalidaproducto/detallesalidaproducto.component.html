@@ -131,7 +131,8 @@ name="idProducto"
       name="fechaSalida"
       #fechaSalida="ngModel" 
       [(ngModel)]="formData.fechaSalida"
-      class="form-control"  
+      class="form-control" 
+      [class.is-invalid]="fechaSalida.invalid && fechaSalida.touched" 
       required
     
     />

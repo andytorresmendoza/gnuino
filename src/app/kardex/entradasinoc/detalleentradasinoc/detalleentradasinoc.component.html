@@ -34,6 +34,7 @@ name="idProducto"
        placeholder="Buscar Producto"
        [(ngModel)]="formData.idProducto"
        (change)="onChange($event)"
+       required
        
         >
   
@@ -61,8 +62,11 @@ name="idProducto"
           #cantidad="ngModel"
           [(ngModel)]="formData.cantidad"
           class="form-control"
+          [class.is-invalid]="cantidad.invalid && cantidad.touched"
+          required
         />
-        
+        <small *ngIf="cantidad.invalid && cantidad.touched "
+        class="form-text text-danger">Ingrese Cantidad</small>
         <!-- [class.is-invalid]="!isValid && formData.cantidad == 0" -->
       </div>
       <div class="form-group col-md-4">
@@ -73,8 +77,12 @@ name="idProducto"
           #precioUnitario="ngModel"
           [(ngModel)]="formData.precioUnitario"
           class="form-control"
+          [class.is-invalid]="precioUnitario.invalid && precioUnitario.touched"
+          required
           (keyup)="updateTotal()"
         />
+        <small *ngIf="precioUnitario.invalid && precioUnitario.touched"
+        class="form-text text-danger">Ingrese Precio</small>
       </div>
       <div class="form-group col-md-4">
         <label>Precio Total</label>
@@ -85,6 +93,7 @@ name="idProducto"
           [(ngModel)]="formData.precioTotal"
           class="form-control"
           readonly
+
         />
       </div>
       </div>
@@ -99,10 +108,13 @@ name="idProducto"
         type="number"
           name="cantidadPrincipal"
           #cantidadPrincipal="ngModel"
-          [(ngModel)]="formData.cantidadPrincipal"
-          class="form-control"
-       
+          [(ngModel)]="formData.cantidadPrincipal" 
+          class="form-control" 
+          required
         />
+        <!-- [class.is-invalid]="cantidadPrincipal.invalid && cantidadPrincipal.touched"
+        <small *ngIf="cantidadPrincipal.invalid && cantidadPrincipal.touched"
+        class="form-text text-danger">Ingrese Cantidad</small> -->
       </div>
       <div class="form-group col-md-9">
         <label>Observaciones</label>
@@ -111,6 +123,8 @@ name="idProducto"
           #observaciones="ngModel"
           [(ngModel)]="formData.observaciones"
           class="form-control"
+          [class.is-invalid]="observaciones.invalid && observaciones.touched"
+          required
         />
       </div>
  

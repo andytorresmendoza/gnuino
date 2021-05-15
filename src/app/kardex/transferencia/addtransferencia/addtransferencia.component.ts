@@ -54,9 +54,9 @@ this.kardexService.formDataTransferencia.descripcion_ingreso = res[0].detalleTip
     console.log('respuesta',resp);
        // this.resetForm();
   
-       this.toastr.success('Actualizado Exitosamente');
-       //  resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
-      //  this.router.navigate(["../kardex/listarsalida"]);
+      //  this.toastr.success('Actualizado Exitosamente');
+       resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
+      this.router.navigate(["../kardex/transferencias"]);
   
      })  
    }

@@ -28,7 +28,7 @@ name="idSedeSecundaria"
 [(ngModel)]="formData.idSedeSecundaria"
 />
   <input
-  type="text"
+  type="hidden"
   name="idTipoIngreso"
   #idTipoIngreso="ngModel"
   [(ngModel)]="kardexService.formDataTransferencia.idTipoIngreso"
@@ -135,6 +135,7 @@ name="idSedeSecundaria"
         #fechaTransferencia="ngModel" 
         [(ngModel)]="formData.fechaTransferencia"
         class="form-control"  
+        [class.is-invalid]="fechaTransferencia.invalid && fechaTransferencia.touched" 
         required
       
       />

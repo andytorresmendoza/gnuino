@@ -5,6 +5,8 @@ import { DetalleentradaalmacenComponent } from '../detalleentradaalmacen/detalle
 import { MantenimientosService } from '../../../services/mantenimientos/mantenimientos.service';
 import { DataDetalleIngresoAlmacen } from '../../../models/detalle-ingresoalmacen';
 import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-editdetalleentradaalmacen',
   templateUrl: './editdetalleentradaalmacen.component.html',
@@ -16,7 +18,7 @@ export class EditdetalleentradaalmacenComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<DetalleentradaalmacenComponent>,/*verificar este componente */
     public kardexService: KardexService,
-    private mantenimientosService: MantenimientosService) { }
+    private mantenimientosService: MantenimientosService, private toastr: ToastrService) { }
     formData: DataDetalleIngresoAlmacen;
 
   ngOnInit(): void {
@@ -35,17 +37,27 @@ export class EditdetalleentradaalmacenComponent implements OnInit {
      },this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]);
      console.log('dataentrada',this.formData);
   }
-  onSubmit(form: NgForm) {
 
-    console.log(form);
-    //if (this.validateForm(form.value)) {
-        if (this.data.orderItemIndex == null) 
+ 
+
+  onSubmit(form: NgForm) { 
+ if(form.value.cantidadPrincipal > form.value.cantidadGlobal ||  form.value.cantidadPrincipal <= 0){
+    
+  return   Swal.fire({
+    title:  form.value.cantidadGlobal+' Productos se solicito' ,
+    text: 'Cantidad Invalida',
+    icon: 'error',
+  });
+  // this.toastr.error('CANTIDAD INVALIDA');
+ }
+ 
+ if (this.data.orderItemIndex == null) 
    this.kardexService.detalleIngresoAlmacen.push(form.value);  
    
    else
    this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex] = form.value;
    this.dialogRef.close();
-    console.log('submit', ( this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]));
+    // console.log('submit', ( this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]));
   //  }
  
    }

@@ -5,6 +5,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { MantenimientosService } from '../../../services/mantenimientos/mantenimientos.service';
 import { DetalletransferenciasinocComponent } from '../detalletransferenciasinoc/detalletransferenciasinoc.component';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-addtransferenciasinoc',
@@ -35,10 +36,24 @@ export class AddtransferenciasinocComponent implements OnInit {
   dialogConfig.width = "55%";
   // dialogConfig.height = "48%";
   dialogConfig.data = { orderItemIndex, id }; 
+  // console.log(o);
    this.dialog.open(DetalletransferenciasinocComponent, dialogConfig).afterClosed().subscribe(resp=>{
 
    });
  
   }
+
+  onSubmit(form:NgForm){
+    console.log(form);
+         this.kardexService.GuardaTransferenciaSinOcAlmacen().subscribe(resp =>{ /*falta */
+       console.log('respuesta',resp);
+          // this.resetForm();
+     
+          this.toastr.success('Actualizado Exitosamente');
+          //  resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
+          this.router.navigate(["../kardex/transferenciassinoc"]);
+     
+        })  
+      }
 
 }

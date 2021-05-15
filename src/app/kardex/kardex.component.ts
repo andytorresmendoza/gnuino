@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { SettingsService } from '../services/settings/settings.service';
+declare function  customInitFunctions()  ;
 @Component({
   selector: 'app-kardex',
   templateUrl: './kardex.component.html',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KardexComponent implements OnInit {
 
-  constructor() { }
+  constructor(private settingsService: SettingsService) { }
 
   ngOnInit(): void {
+    customInitFunctions();
+    // console.log('llego custom kardex');
   }
 
 }

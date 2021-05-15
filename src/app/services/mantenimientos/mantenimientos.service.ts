@@ -169,7 +169,7 @@ getModelo() {
       }
     })
  );
-}
+} 
 
 getModeloId(id:number){
   return this.http.get<ModeloI>(`${this.baseURL}modelo/`+id)
@@ -667,6 +667,12 @@ getProveedor() {
         return this.http.put<DataTipoAlmacen>(`${this.baseURL}sede-almacen/`+almacenes[0].id,almacenes[0])
       
        
+      }
+
+      /*USUARIOS */
+      CrearUsuario(formData:any){
+        console.log('creando');
+         
       }
   
 }
