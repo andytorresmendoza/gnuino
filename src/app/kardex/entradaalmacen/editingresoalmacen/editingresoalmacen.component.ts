@@ -28,7 +28,7 @@ export class EditingresoalmacenComponent implements OnInit {
     let id = this.currentRoute.snapshot.paramMap.get('id');
     this.kardexService.getIngresoAlmacenById(+id).subscribe(res => {
  
-       console.log('editar',res );
+      //  console.log('editar',res );
        this.kardexService.formDataEntrada = res[0]; 
       this.kardexService.detalleIngresoAlmacen = res[0].detalleIngresoSedeAlamacen;  
        this.kardexService.formOrdencompra = res[0].detalleOrden[0];   
@@ -54,7 +54,7 @@ this.kardexService.formOrdencompra
     });
     this.mantenimientosService.getEmpleado().subscribe((resp) => {
       this.empleados = resp as DataEmpleado[];
-       console.log(this.empleados);
+      //  console.log(this.empleados);
     });
     this.mantenimientosService.getTipoingreso().subscribe((resp) => {
       this.tipoingresos = resp as DataTipoIngreso[];
@@ -71,7 +71,7 @@ this.kardexService.formOrdencompra
     dialogConfig.data = { orderItemIndex, id };
     // afterClosed().subscribe; es para cuando se cierre el poput actualize el rpecio
      this.dialog.open(EditdetalleentradaalmacenComponent, dialogConfig).afterClosed().subscribe(resp=>{
-  console.log(resp);
+  // console.log(resp);
       // this.updateTotal();
      });
    
@@ -80,7 +80,7 @@ this.kardexService.formOrdencompra
       // console.log(form);
   
         this.kardexService.GuardaEditIngresoAlmacen().subscribe(res =>{
-          console.log('respuesta',res);
+          // console.log('respuesta',res);
         this.toastr.success(res.msg );
           this.ngOnInit();
             // this.resetForm();

@@ -23,7 +23,7 @@ export class TotalsalidasinocComponent implements OnInit {
       this.ListSalidasinoc = resp; 
       this.cargando = false;
       // this.cargando = false;
-      console.log(resp);
+      // console.log(resp);
   });
   }
 }

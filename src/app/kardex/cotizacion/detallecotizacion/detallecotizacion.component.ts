@@ -27,7 +27,7 @@ export class DetallecotizacionComponent implements OnInit {
       this.mantenimientosService.getProducto()
       .subscribe(resp => {
         this.productos = resp as DataProducto[]  
-       console.log(this.productos,'producto');
+      //  console.log(this.productos,'producto');
     
      });
    
@@ -47,7 +47,7 @@ if (this.data.orderItemIndex == null)
   
     else
     this.formData = Object.assign({}, this.kardexService.detalleCotizacion[this.data.orderItemIndex]);
-      console.log('dataentrada',this.formData);
+      // console.log('dataentrada',this.formData);
   }
 
   // UpdateNombre(ctrl) {     
@@ -59,14 +59,14 @@ if (this.data.orderItemIndex == null)
   onChange = ($event: any): void => {
     this.formData.nombre_producto= $event.nombre_producto; 
     this.formData.detalleNameUnidadMedida = $event.detalleUnidadMedida[0].detalle 
-    console.log('nuevo',$event.nombre_producto);
+    // console.log('nuevo',$event.nombre_producto);
     // console.log($event.detalleUnidadMedida[0].detalle);
     // console.log($event);
      
    }
 
   onSubmit(form: NgForm) {
-   console.log(form.value);
+  //  console.log(form.value);
     if (this.validateForm(form.value)) {
       if (this.data.orderItemIndex == null) 
   this.kardexService.detalleCotizacion.push(form.value);  
@@ -74,8 +74,8 @@ if (this.data.orderItemIndex == null)
   else
   this.kardexService.detalleCotizacion[this.data.orderItemIndex] = form.value;
   this.dialogRef.close();
-  console.log('id',this.data.orderItemIndex);
-  console.log('submit',this.kardexService.detalleCotizacion);
+  // console.log('id',this.data.orderItemIndex);
+  // console.log('submit',this.kardexService.detalleCotizacion);
     }
 
   }

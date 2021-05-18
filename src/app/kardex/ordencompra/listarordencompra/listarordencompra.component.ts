@@ -28,7 +28,7 @@ export class ListarordencompraComponent implements OnInit {
      
       this.Ordenes = resp; 
       this.cargando = false;
-     console.log(resp);
+    //  console.log(resp);
   });
 }
 openForEdit(OrdenId:number):void { 
@@ -54,7 +54,7 @@ borrarOrden(ordenes: DataOrdenCompra, i: number) {
 EstadoOrdenAnular(ordenes: DataOrdenCompra, i: number) {
 
   const bodyform = {id:ordenes.id, estadoOrden: '3'}
-  console.log(ordenes.id);
+  // console.log(ordenes.id);
   Swal.fire({
     title: 'Esta seguro?',
     text: `Que desea Anular la cotizacion Nro${ordenes.codigo_orden_num}`,

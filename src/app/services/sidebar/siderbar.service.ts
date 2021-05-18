@@ -54,7 +54,31 @@ export class SiderbarService {
         {titulo:'Devolución de Productos', url:'../kardex/devoluciones'},
         {titulo:'Salida de Productos', url:'../kardex/salidas'},
         {titulo:'Transferencias', url:'../kardex/transferencias'},
-        {titulo:'Kardex', url:'../kardex/kardex'},
+        {titulo:'Kardex O/C', url:'../kardex/kardex'},
+        {titulo:'Kardex sin O/C', url:'../kardex/kardexsinoc'}, 
+        // {titulo:'TABLE PRUEBA', url:'../kardex/lista'}, 
+      ]
+      
+    },
+    {
+      titulo:'Ventas',
+      icono:'mdi mdi-cart',
+      submenu: [ 
+        {titulo:'Cotización'},
+        {titulo:'Venta'}, 
+     /*   {titulo:'Cotización', url:'../kardex/listarcotizacion'},
+        {titulo:'Venta', url:'../kardex/listarordencompra'}, 
+       */
+      ]
+      
+    },
+    {
+      titulo:'Delivery',
+      icono:'mdi mdi-motorbike',
+      submenu: [
+   
+        // {titulo:'Entrega Producto', url:'../kardex/listarcotizacion'}, 
+        {titulo:'Entrega Producto'}, 
       ]
       
     }

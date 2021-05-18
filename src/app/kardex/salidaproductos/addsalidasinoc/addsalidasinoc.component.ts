@@ -19,7 +19,7 @@ export class AddsalidasinocComponent implements OnInit {
   ngOnInit(): void {
     let id = this.currentRoute.snapshot.paramMap.get('id');
     this.kardexService.getSalidasinOCsById(+id).subscribe(res => {
-      console.log('add',res[0]);
+      // console.log('add',res[0]);
        this.kardexService.formDataSalidasioc = res[0]; 
    this.kardexService.detalleSalidasinOC =  res[0].detalleIngresoSinOc
      
@@ -32,7 +32,7 @@ export class AddsalidasinocComponent implements OnInit {
     // });
   }
   AddOrEditOrderItem(orderItemIndex, id) {
-      console.log(orderItemIndex, id);
+      // console.log(orderItemIndex, id);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
@@ -50,7 +50,7 @@ export class AddsalidasinocComponent implements OnInit {
      // console.log('respuesta',resp);
        // this.resetForm();
 
-       this.toastr.success('Actualizado Exitosamente');
+       this.toastr.success('Se realizo la Salida Exitosamente');
        //  resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
        this.router.navigate(["../kardex/salidassinoc"]);
 

@@ -27,7 +27,7 @@ export class ListarordanuladasComponent implements OnInit {
      
       this.Ordenes = resp; 
       this.cargando = false;
-     console.log(resp);
+    //  console.log(resp);
   });
 }
 openForEdit(OrdenId:number):void { 

@@ -32,7 +32,7 @@ export class ListarcotizacionComponent implements OnInit {
     
      this.cotizaciones = resp; 
      this.cargando = false;
-     console.log(resp);
+    //  console.log(resp);
  });
 } 
 nextPage() {

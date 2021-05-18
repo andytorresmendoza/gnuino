@@ -86,8 +86,8 @@ export class DetallesalidaproductoComponent implements OnInit {
       this.kardexService.detalleSalida[this.data.orderItemIndex] = form.value;
 
       this.dialogRef.close();
-      console.log('id', this.data.orderItemIndex);
-      console.log('submit', this.kardexService.detalleSalida);
+      // console.log('id', this.data.orderItemIndex);
+      // console.log('submit', this.kardexService.detalleSalida);
     }
   }
 }

@@ -24,12 +24,12 @@ export class AddtransferenciasinocComponent implements OnInit {
     this.kardexService.getSalidasinOCsById(+id).subscribe(res => {
      this.kardexService.formDatatransferenciasinoc = res[0]; 
    this.kardexService.detalleTransferenciasinoc =  res[0].detalleIngresoSinOc
-      console.log(res[0]); 
+      // console.log(res[0]); 
     });
   }
 
   AddOrEditOrderItem(orderItemIndex, id) {
-    console.log(orderItemIndex, id);
+    // console.log(orderItemIndex, id);
   const dialogConfig = new MatDialogConfig();
   dialogConfig.autoFocus = true;
   dialogConfig.disableClose = true;
@@ -44,12 +44,12 @@ export class AddtransferenciasinocComponent implements OnInit {
   }
 
   onSubmit(form:NgForm){
-    console.log(form);
+    // console.log(form);
          this.kardexService.GuardaTransferenciaSinOcAlmacen().subscribe(resp =>{ /*falta */
-       console.log('respuesta',resp);
+      //  console.log('respuesta',resp);
           // this.resetForm();
      
-          this.toastr.success('Actualizado Exitosamente');
+          this.toastr.success('Se realizo la Transferencia Exitosamente');
           //  resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
           this.router.navigate(["../kardex/transferenciassinoc"]);
      

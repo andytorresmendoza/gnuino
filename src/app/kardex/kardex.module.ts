@@ -17,7 +17,9 @@ import { DetallecotizacionComponent } from './cotizacion/detallecotizacion/detal
 //nuevos
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE } from '@angular/material/core'; 
-// import {MatMenuModule} from '@angular/material/menu';
+// import {MatTableModule} from '@angular/material/table';
+ import {MatInputModule} from '@angular/material/input';
+   import { MatTableModule} from '@angular/material/table';
 
 import { MatNativeDateModule } from '@angular/material/core';
 import { OrdencompraComponent } from './ordencompra/ordencompra/ordencompra.component';
@@ -66,6 +68,8 @@ import { TotaldevolucionsinocComponent } from './devolucion/totaldevolucionsinoc
 import { TotalsalidasinocComponent } from './salidaproductos/totalsalidasinoc/totalsalidasinoc.component';
 import { TotalsalidasComponent } from './salidaproductos/totalsalidas/totalsalidas.component';
 import { KardexocComponent } from './kardexoc/kardexoc.component';
+import { KardexsinocComponent } from './kardexsinoc/kardexsinoc.component';
+import { ListapruebaComponent } from './listaprueba/listaprueba.component';
  
 @NgModule({
   declarations: 
@@ -113,7 +117,9 @@ import { KardexocComponent } from './kardexoc/kardexoc.component';
      TotaldevolucionsinocComponent,
      TotalsalidasinocComponent,
      TotalsalidasComponent,
-     KardexocComponent
+     KardexocComponent,
+     KardexsinocComponent,
+     ListapruebaComponent
      ],
   imports: [
      CommonModule,
@@ -126,7 +132,7 @@ import { KardexocComponent } from './kardexoc/kardexoc.component';
      MatDatepickerModule,
      MatNativeDateModule,
      AutocompleteLibModule,
-     MatAutocompleteModule,  NgSelectModule
+     MatAutocompleteModule, NgSelectModule,MatInputModule,MatTableModule
     //  ,MatMenuModule
 
    

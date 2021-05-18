@@ -28,7 +28,7 @@ export class ListarentradaalmacenComponent implements OnInit {
       this.ingresosAlmacen = resp; 
       this.cargando = false;
       // this.cargando = false;
-      console.log(resp);
+      // console.log(resp);
   });
  } 
 
@@ -40,7 +40,7 @@ export class ListarentradaalmacenComponent implements OnInit {
 EstadoEntradaAnular(entradas: DataEntradaAlmacen, i: number) {
 
   const bodyform = {id:entradas.id, estadoIngreso: '3'}
-  console.log(entradas.id);
+  // console.log(entradas.id);
   Swal.fire({
     title: 'Esta seguro?',
     text: `Que desea Anular el Ingreso ${entradas.codigoIngreso}`,

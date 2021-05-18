@@ -120,8 +120,8 @@ export class DetalletransferenciasinocComponent implements OnInit {
       // console.log('ORDER',this.data.orderItemIndex);
       // console.log('push',form.value);
       this.dialogRef.close();
-      // console.log('id', this.data.orderItemIndex);
-        console.log('submit', this.kardexService.detalleTransferenciasinoc);
+      // // console.log('id', this.data.orderItemIndex);
+        // console.log('submit', this.kardexService.detalleTransferenciasinoc);
     }
   }
 }

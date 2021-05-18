@@ -49,13 +49,13 @@ this.kardexService.formDataTransferencia.descripcion_ingreso = res[0].detalleTip
     }
 
     onSubmit(form:NgForm){
- console.log(form);
+//  console.log(form);
       this.kardexService.GuardaTransferenciaAlmacen().subscribe(resp =>{ /*falta */
-    console.log('respuesta',resp);
+    // console.log('respuesta',resp);
        // this.resetForm();
   
-      //  this.toastr.success('Actualizado Exitosamente');
-       resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
+       this.toastr.success('Se realizo la Transferencia Exitosamente');
+      //  resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
       this.router.navigate(["../kardex/transferencias"]);
   
      })  

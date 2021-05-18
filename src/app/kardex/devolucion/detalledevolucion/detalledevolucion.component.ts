@@ -62,14 +62,35 @@ export class DetalledevolucionComponent implements OnInit {
   };
 
   onSubmit(form: NgForm) {
-  {
+    // console.log(form);
+    if (
+      form.value.cantidadDevolucion > form.value.cantidadPrincipal ||
+      form.value.cantidadDevolucion <= 0
+    ) {
+      return Swal.fire({
+        title: form.value.cantidadPrincipal + ' Productos en Stock',
+        text: 'Cantidad Devolución Invalida',
+        icon: 'error',
+      });
+    } else if (form.invalid) {
+      Object.values(form.controls).forEach((control) => {
+        control.markAsTouched(); //es para validar el guardar
+      });
+
+      return;
+    } else if (this.data.orderItemIndex == null) {
+      let fechaParseada: any;
+      fechaParseada = moment(form.value.fechaDevolucion).format('YYYY-MM-DD');
+      form.value.fechaDevolucion = fechaParseada;
+      this.kardexService.detalleDevoluciones.push(form.value);
+    } else {
       let fechaParseada: any;
       fechaParseada = moment(form.value.fechaDevolucion).format('YYYY-MM-DD');
       form.value.fechaDevolucion = fechaParseada;
       /*aca manda la posicion del arreglo  [this.data.orderItemIndex] si mandamos vacio inserta*/
       this.kardexService.detalleDevoluciones[this.data.orderItemIndex] = form.value;
       this.dialogRef.close();
-      console.log('submit', this.kardexService.detalleDevoluciones);
+      // console.log('submit', this.kardexService.detalleDevoluciones);
     }
   }
 }

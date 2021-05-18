@@ -28,13 +28,13 @@ export class ListartransferenciaComponent implements OnInit {
       this.ListIngresosCerrados = resp; 
       this.cargando = false;
       // this.cargando = false;
-      console.log(resp);
+      // console.log(resp);
   });
   }
 
   
  openForEdit(TransferenciaID: number) {
-console.log(TransferenciaID);
+// console.log(TransferenciaID);
   this.router.navigate(['kardex/transferencia/'+TransferenciaID]);
 }
 }

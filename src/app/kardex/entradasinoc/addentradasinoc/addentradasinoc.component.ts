@@ -110,7 +110,7 @@ event = m.format('YYYY-MM-D');
 }*/
 
 AddOrEditOrderItem(orderItemIndex, id) {
-   console.log(orderItemIndex, id);
+  //  console.log(orderItemIndex, id);
   const dialogConfig = new MatDialogConfig();
   dialogConfig.autoFocus = true;
   dialogConfig.disableClose = true;
@@ -173,7 +173,7 @@ AddOrEditOrderItem(orderItemIndex, id) {
         // console.log('submit',this.kardexService.formData);
       this.kardexService.UpdateIngresoSinOC(this.kardexService.formDataIngresosinOc).subscribe(
         resp=>{
-          console.log(resp);
+          // console.log(resp);
           this.ngOnInit();
           this.toastr.success('Actualizado Exitosamente','Gnuino');
 

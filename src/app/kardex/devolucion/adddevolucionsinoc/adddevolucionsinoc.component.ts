@@ -23,12 +23,12 @@ export class AdddevolucionsinocComponent implements OnInit {
     this.kardexService.getSalidasinOCsById(+id).subscribe(res => {
       this.kardexService.formDataDevolucionesSinOc = res[0]; 
     this.kardexService.detalleDevolucionesSinOC =  res[0].detalleIngresoSinOc
-       console.log(res[0]); 
+      //  console.log(res[0]); 
      });
   }
 
   AddOrEditOrderItem(orderItemIndex, id) {
-    console.log(orderItemIndex, id);
+    // console.log(orderItemIndex, id);
   const dialogConfig = new MatDialogConfig();
   dialogConfig.autoFocus = true;
   dialogConfig.disableClose = true;
@@ -43,10 +43,10 @@ export class AdddevolucionsinocComponent implements OnInit {
   onSubmit(form:NgForm){
  
     this.kardexService.GuardaDevolucionSinOc().subscribe(resp =>{ /*falta */
-  console.log('respuesta',resp);
+  // console.log('respuesta',resp);
      // this.resetForm();
 
-     this.toastr.success('Actualizado Exitosamente');
+     this.toastr.success('Se realizo la Devolución Exitosamente');
      //  resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
   this.router.navigate(["../kardex/devolucionessinoc"]);
 

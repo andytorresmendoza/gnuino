@@ -25,14 +25,14 @@ export class ListarentradasinocComponent implements OnInit {
      
       this.entradaSinOc = resp; 
       this.cargando = false;
-       console.log(resp);
+      //  console.log(resp);
   });
  } 
 
  EstadoEntradasinOcAnular(entradas: DataEntradaSinOC, i: number) {
 
   const bodyform = {id:entradas.id, estadoIngreso: '3'}
-  console.log(entradas.id);
+  // console.log(entradas.id);
   Swal.fire({
     title: 'Esta seguro?',
     text: `Que desea Anular el Ingreso ${entradas.codigoIngresoSinOc}`,

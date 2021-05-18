@@ -25,7 +25,7 @@ export class ListarentradaanuladaComponent implements OnInit {
      
       this.Entradas = resp; 
       this.cargando = false;
-     console.log(resp);
+    //  console.log(resp);
   });
 }
 

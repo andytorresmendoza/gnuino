@@ -5,6 +5,7 @@ import {JwtResponseI} from '../../interfaces/jwt-response'
 import {tap} from 'rxjs/operators'
 import {observable, BehaviorSubject, Observable} from 'rxjs'
 import { environment } from 'src/environments/environment';
+import { LoginForm } from '../../models/login-Form';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,9 +17,9 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient) { }
 
-
  
-  login(user: UserI):Observable<JwtResponseI>{
+ 
+  /*login(user: UserI):Observable<JwtResponseI>{
     return this.httpClient.post<JwtResponseI>(`${this.baseURL}login`,user).
     pipe(tap(
       (res:JwtResponseI) =>{
@@ -28,7 +29,29 @@ export class AuthService {
         }
       })
    );
-  }
+  }*/
+validarToken(){
+  const token = localStorage.getItem('access_token') || '';
+  
+  return this.httpClient.post(`${this.baseURL}login`,{
+    headers:{
+  'x-toke': token 
+    }
+
+  });
+
+}
+
+Login(formData: LoginForm){
+
+  return this.httpClient.post(`${this.baseURL}login`,formData)
+  .pipe(
+    tap((resp:any) =>{
+      this.saveToken( resp.access_token, resp.expires_in)
+    })
+  )
+}
+
   logout():void{
     this.token='';
     localStorage.removeItem("access_token")
@@ -40,7 +63,7 @@ export class AuthService {
     this.token=token;
   }
   
-  private getToken(token:string):string{
+  getToken():string{
     if(!this.token){
       this.token=localStorage.getItem("access_token");
     }

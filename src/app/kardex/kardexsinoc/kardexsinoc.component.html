@@ -1,4 +1,4 @@
-<h1>Listado General Kardex</h1>
+<h1>Listado General Kardex sin O/C</h1>
 <hr />
 <div class="row"></div>
 <table class="table table-hover">
@@ -21,18 +21,19 @@
       <th (click)="openForEdit(item.id)">{{ item.detalleNameProducto }}</th>
       <td (click)="openForEdit(item.id)">{{ item.detalleNameUnidadMedida }}</td>
       <td (click)="openForEdit(item.id)">{{ item.detallePrecioUnidad }}</td>
-      <td (click)="openForEdit(item.id)">{{ item.detalleSedePrincipal[0].nombre_alamcen }}
+      <td (click)="openForEdit(item.id)">
+        {{ item.detalleSedePrincipal[0].nombre_alamcen }}
       </td>
       <td (click)="openForEdit(item.id)">{{ item.cantidadPrincipal }}</td>
 
-      <td *ngIf="item.detalleSedeSecundaria.length === 0">No hay Productos</td>
-
+      <td *ngIf="item.detalleSedeSecundaria.length === 0">No hay Productos</td> 
       <td *ngIf="item.detalleSedeSecundaria.length > 0">
         {{ item.detalleSedeSecundaria[0].nombre_alamcen }}
       </td>
-
-      <td *ngIf="item.cantidadSecundaria === null">0</td>
-      <td *ngIf="item.cantidadSecundaria != null">{{ item.cantidadSecundaria }}</td>
+      
+      <td *ngIf="item.cantidadSecundaria === null">0</td>  
+      <td *ngIf="item.cantidadSecundaria != null">{{ item.cantidadSecundaria }}</td> 
+      <!-- <td *ngIf="item.cantidadSecundaria ==! null">{{ item.cantidadSecundaria }}</td>  -->
       <td (click)="openForEdit(item.id)">
         {{ item.detalleFechaIngreso }}
       </td>

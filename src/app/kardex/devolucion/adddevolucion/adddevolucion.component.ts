@@ -44,7 +44,7 @@ AddOrEditOrderItem( orderItemIndex,id) {
   dialogConfig.width = "55%";
   // dialogConfig.height = "48%";
   dialogConfig.data = {  orderItemIndex,id }; 
-  console.log( orderItemIndex,id);
+  // console.log( orderItemIndex,id);
    this.dialog.open(DetalledevolucionComponent, dialogConfig).afterClosed().subscribe(resp=>{
 // console.log('cerro',resp);
    });
@@ -54,7 +54,7 @@ AddOrEditOrderItem( orderItemIndex,id) {
 //  console.log(form.value);
     this.kardexService.GuardaDevolucionAlmacen().subscribe(resp =>{ /*falta */
   // console.log('respuesta',resp); 
-   this.toastr.success('Actualizado Exitosamente');
+   this.toastr.success('Se realizo la Devolución Exitosamente');
     // resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
       this.router.navigate(["../kardex/devoluciones"]);
 

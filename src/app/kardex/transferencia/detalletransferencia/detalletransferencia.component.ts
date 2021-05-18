@@ -93,7 +93,7 @@ export class DetalletransferenciaComponent implements OnInit {
 
    this.dialogRef.close();
   //  console.log('id',this.data.orderItemIndex);
-   console.log('submit',this.kardexService.detalleTransferencia);
+  //  console.log('submit',this.kardexService.detalleTransferencia);
      }
     }
 }

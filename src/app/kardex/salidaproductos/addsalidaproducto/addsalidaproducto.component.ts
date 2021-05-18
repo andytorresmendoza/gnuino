@@ -54,7 +54,7 @@ export class AddsalidaproductoComponent implements OnInit {
         // console.log('respuesta',resp);
           // this.resetForm();
 
-          this.toastr.success('Actualizado Exitosamente');
+          this.toastr.success('Se realizo la Salida Exitosamente');
           //  resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
           this.router.navigate(["../kardex/salidas"]);
    

@@ -37,6 +37,8 @@ import { TotalsalidasinocComponent } from './salidaproductos/totalsalidasinoc/to
 import { DashboardComponent } from '../pages/dashboard/dashboard.component';
 import { PagesComponent } from '../pages/pages.component';
 import { KardexocComponent } from './kardexoc/kardexoc.component';
+import { KardexsinocComponent } from './kardexsinoc/kardexsinoc.component';
+import { ListapruebaComponent } from './listaprueba/listaprueba.component';
  
 const routes: Routes = [
  
@@ -80,7 +82,9 @@ const routes: Routes = [
     {path:'listartransferenciasinoc', component: ListartransferenciasinocComponent, data:{titulo:'Transferencias sin O/C'}}, 
     {path:'transferenciassinoc', component: TotaltransferenciassinocComponent, data:{titulo:'Transferencias sin O/C'}}, 
     {path:'transferenciasinoc/:id', component: AddtransferenciasinocComponent, data:{titulo:'Transferencias sin O/C'}}, 
-    {path:'kardex', component: KardexocComponent, data:{titulo:'Kardex'}}, 
+    {path:'kardex', component: KardexocComponent, data:{titulo:'Kardex O/C'}}, 
+    {path:'kardexsinoc', component: KardexsinocComponent, data:{titulo:'Kardex sin O/C'}}, 
+    {path:'lista', component: ListapruebaComponent, data:{titulo:'Prueba'}}, 
 
   
   //  {path:'**', pathMatch:'full', redirectTo:''}

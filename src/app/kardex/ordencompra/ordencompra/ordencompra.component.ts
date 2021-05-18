@@ -96,7 +96,7 @@ export class OrdencompraComponent implements OnInit {
   getCotizacionEstadoPendiente() {
     this.kardexService.getCotizacionEstadoPendiente().subscribe((resp) => {
       this.cotizaciones = resp as DataCotizacion[];
-      console.log(resp);
+      // console.log(resp);
    
     });
   }
@@ -131,7 +131,7 @@ export class OrdencompraComponent implements OnInit {
     };
   }
  onChange = ($event: any): void => {
-   console.log($event);
+  //  console.log($event);
    this.kardexService.formOrdencompra.idCotizacion = $event.id; 
   this.kardexService.formOrdencompra.idProovedor = $event.idProovedor;  
   this.kardexService.formOrdencompra.idEmpleado = $event.idEmpleado;
@@ -151,23 +151,23 @@ export class OrdencompraComponent implements OnInit {
  
  
   UpdateBanco(ctrl) {
-    console.log(ctrl);
+    // console.log(ctrl);
     this.kardexService.formOrdencompra.idNroCuenta = this.bancos[
       ctrl.selectedIndex - 1
     ].idNroCuenta;
   }
   UpdateSede(ctrl) {
-    console.log(ctrl);
+    // console.log(ctrl);
     this.kardexService.formOrdencompra.direccionOrden = this.almacenes[
       ctrl.selectedIndex - 1
     ].direccion_almacen;
   }
 
   SelectCotizacionDetalle($event:any): void {
-    console.log($event.id);
+    // console.log($event.id);
       this.kardexService.getCotizacionDetalleById($event.id).subscribe((response) => {
      this.detalleCotizaciones = response;
-       console.log('cotizaciondetalle', response);
+      //  console.log('cotizaciondetalle', response);
      });
   }
 
@@ -203,7 +203,7 @@ export class OrdencompraComponent implements OnInit {
       return;
     } 
       this.kardexService.saveUpdateOrdercompra().subscribe((res) => {
-       console.log('respuesta',res);
+      //  console.log('respuesta',res);
         this.resetForm();
         this.toastr.success('Guardado Exitosamente', 'Gnuino');
         this.router.navigate(['../kardex/listarordencompra']);

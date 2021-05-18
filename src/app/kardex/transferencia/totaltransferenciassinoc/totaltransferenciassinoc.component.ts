@@ -27,7 +27,7 @@ export class TotaltransferenciassinocComponent implements OnInit {
       this.ListTranferenciasinoc = resp; 
       this.cargando = false;
       // this.cargando = false;
-      console.log(resp);
+      // console.log(resp);
   });
   }
 

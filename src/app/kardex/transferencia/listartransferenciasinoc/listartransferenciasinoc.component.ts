@@ -26,7 +26,7 @@ export class ListartransferenciasinocComponent implements OnInit {
       this.ListIngresoSinOcCerrados = resp; 
       this.cargando = false;
   
-      console.log(resp);
+      // console.log(resp);
   });
  }
  openForEdit(TransferenciaID: number) {

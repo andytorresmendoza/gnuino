@@ -96,8 +96,8 @@ export class DetallesalidasinocComponent implements OnInit {
    this.kardexService.detalleSalidasinOC[this.data.orderItemIndex] = form.value;
 
    this.dialogRef.close();
-   console.log('id',this.data.orderItemIndex);
-   console.log('submit',this.kardexService.detalleSalidasinOC);
+  //  console.log('id',this.data.orderItemIndex);
+  //  console.log('submit',this.kardexService.detalleSalidasinOC);
      }
     }
 }

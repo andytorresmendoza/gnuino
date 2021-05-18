@@ -1,24 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { KardexService } from '../../services/kardex/kardex.service';
-import { DataKardexoc } from '../../models/kardexoc';
-
 @Component({
-  selector: 'app-kardexoc',
-  templateUrl: './kardexoc.component.html',
-  styles: [
-  ]
+  selector: 'app-kardexsinoc',
+  templateUrl: './kardexsinoc.component.html',
+  styleUrls: ['./kardexsinoc.component.css']
 })
-export class KardexocComponent implements OnInit {
+export class KardexsinocComponent implements OnInit {
   ListKardex :any []= [];
   cargando = true; 
   constructor  (private servicioKardex: KardexService) { }
 
   ngOnInit(): void {
-    this.getListKardex();
+    this.getListKardexsinoc();
   }
-  getListKardex(){
+  getListKardexsinoc(){
 
-    this.servicioKardex.getLisKardexoc()
+    this.servicioKardex.getLisKardexsinoc()
    .subscribe(resp => {
      
       this.ListKardex = resp; 
@@ -27,5 +24,4 @@ export class KardexocComponent implements OnInit {
       // console.log(resp);
   });
   }
-
 }

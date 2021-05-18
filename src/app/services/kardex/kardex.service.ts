@@ -127,7 +127,7 @@ detalleTransferenciasinoc: DataDetalleTransferenciasinOc[];
     let fechaParseada: any;
     fechaParseada = moment(body.fecha_entrega).format('YYYY-MM-DD');
     body.fecha_entrega=fechaParseada;
-      console.log(body);
+      // console.log(body);
     return this.http.post(`${this.baseURL}cotizacion`, body).pipe(
       map(
         (resp) => resp['data'])
@@ -148,7 +148,7 @@ detalleTransferenciasinoc: DataDetalleTransferenciasinOc[];
     body.fecha_entrega=fechaParseada;
     delete body.id;
     //  console.log('body',  delete body.id);
-      console.log('servicio',formData.id);
+      // console.log('servicio',formData.id);
     //  this.http.put(`${this.baseURL}cotizacion/`+ id, body);
      return this.http.put(`${this.baseURL}cotizacion/${formData.id}`, body);
 
@@ -183,7 +183,7 @@ detalleTransferenciasinoc: DataDetalleTransferenciasinOc[];
 
     
     EstadoCotizacionAnular(id: number, bodyform:any) {
-    console.log(id,bodyform );
+    // console.log(id,bodyform );
     return this.http.put(`${this.baseURL}cotizacion-estado/` + id, bodyform);
  }
   /*ordencompra */
@@ -207,7 +207,7 @@ detalleTransferenciasinoc: DataDetalleTransferenciasinOc[];
     fechaParseada2 = moment(body.fechaEnvio).format('YYYY-MM-DD');
     body.fechaEnvio=fechaParseada2;
 
-    console.log(body);
+    // console.log(body);
     return this.http.post(`${this.baseURL}orden-compra`, body);
   }
   getOrdenCompra() {
@@ -237,7 +237,7 @@ detalleTransferenciasinoc: DataDetalleTransferenciasinOc[];
     let fechaParseada2: any;
     fechaParseada2 = moment(body.fechaEnvio).format('YYYY-MM-DD');
     body.fechaEnvio=fechaParseada2;
-    console.log('servicio', id);
+    // console.log('servicio', id);
     return this.http.put(`${this.baseURL}orden-compra/` + id, body).pipe(
       map((resp) => resp['data'])
        
@@ -249,7 +249,7 @@ detalleTransferenciasinoc: DataDetalleTransferenciasinOc[];
 
   
   EstadoOrdenAnular(id: number, bodyform:any) {
-  console.log(id,bodyform );
+  // console.log(id,bodyform );
   return this.http.put(`${this.baseURL}orden-anulado/` + id, bodyform);
 }
 
@@ -288,7 +288,7 @@ getAlmacenPrincipal() {
     let fechaParseada: any;
     fechaParseada = moment(body.fechaIngreso).format('YYYY-MM-DD');
     body.fechaIngreso=fechaParseada;
-    console.log(body.detalleSedeIngreso);
+    // console.log(body.detalleSedeIngreso);
     if (body.detalleSedeIngreso.length >= 1){
       return this.http.post(`${this.baseURL}ingreso-almacen`, body).pipe(
         map((resp) =>
@@ -317,7 +317,7 @@ getAlmacenPrincipal() {
     );
   }
   GuardaEditIngresoAlmacen() {
-    console.log('llego');
+    // console.log('llego');
     var body = {
       ...this.formDataEntrada 
       ,
@@ -336,7 +336,7 @@ getAlmacenPrincipal() {
   }
 
   EstadoEntradaAnular(id: number, bodyform:any) {
-    console.log(id,bodyform );
+    // console.log(id,bodyform );
     return this.http.put(`${this.baseURL}ingreso-estado/` + id, bodyform);
   }
 
@@ -369,7 +369,7 @@ getAlmacenPrincipal() {
       // console.log(body);
     return this.http.post(`${this.baseURL}ingreso-sinoc-almacen`, body).pipe(
       map((resp) => 
-       console.log(resp['data']))
+      (resp['data']))
      
     //    ,
     //  catchError(this.manejarError)
@@ -405,7 +405,7 @@ getAlmacenPrincipal() {
   }
 
   EstadoEntradasinocAnular(id: number, bodyform:any) {
-    console.log(id,bodyform );
+    // console.log(id,bodyform );
     return this.http.put(`${this.baseURL}ingresosinoc-estado/` + id, bodyform);
   }
 /* getEmpleado() { //TRANSFORMAR DATA
@@ -445,9 +445,15 @@ getAlmacenPrincipal() {
 
   GuardaSalidaAlmacen() {
     // console.log('llego');
+    // console.log('this.detalleDevoluciones',this.detalleSalida);
+    let nuevoArregloTemp=[];
+      this.detalleSalida?.map(
+        res => {
+          res.hasOwnProperty('idDetalleIngresoAlmacen') ? nuevoArregloTemp.push(res): '' 
+        }); 
     var body = { 
       // ...this.detalleSalida
-      detallSalida: this.detalleSalida
+      detallSalida: nuevoArregloTemp
     }; 
 
       return this.http.post(`${this.baseURL}salida-productos-oc`, body).pipe(
@@ -488,10 +494,14 @@ getAlmacenPrincipal() {
   }
 
   GuardaSalidasinOC() {
-    // console.log('llego');
+    let nuevoArregloTemp=[];
+    this.detalleSalidasinOC?.map(
+      res => {
+        res.hasOwnProperty('idDetalleIngresoAlmacen') ? nuevoArregloTemp.push(res): '' 
+      }); 
     var body = { 
       // ...this.detalleSalida
-      detallSalidaSinoc: this.detalleSalidasinOC
+      detallSalidaSinoc: nuevoArregloTemp
     }; 
  
 
@@ -499,8 +509,8 @@ getAlmacenPrincipal() {
         map((resp) =>
       //  console.log(resp ))
         
-      // resp['data'])
-           console.log(resp['data']))
+       resp['data'])
+          //  console.log(resp['data']))
         // catchError(this.manejarError)
 
       );
@@ -520,10 +530,16 @@ getAlmacenPrincipal() {
       resp['data']));
   }
   GuardaDevolucionAlmacen() {
-    // console.log('llego');
+    // console.log('this.detalleDevoluciones',this.detalleDevoluciones);
+    let nuevoArregloTemp=[];
+      this.detalleDevoluciones?.map(
+        res => {
+          res.hasOwnProperty('idDetalleIngresoAlmacen') ? nuevoArregloTemp.push(res): '' 
+        }); 
     var body = {  
-      detalledevolucion: this.detalleDevoluciones
+      detalledevolucion: nuevoArregloTemp
     };  
+    // console.log('nuevo array',nuevoArregloTemp);
     // delete body.detalledevolucion[0].idDetalleIngresoAlmacen;
     // let idParse: any;
     // idParse =0;
@@ -535,9 +551,6 @@ getAlmacenPrincipal() {
  
 
       );
-   
-  
-   
   }
   
   /*DEVOLUCIONES SIN  O/C */
@@ -550,12 +563,17 @@ getAlmacenPrincipal() {
       resp['data']));
   }
   GuardaDevolucionSinOc() {
-    // console.log('llego');
+    // console.log('this.detalleDevoluciones',this.detalleDevolucionesSinOC);
+    let nuevoArregloTemp=[];
+      this.detalleDevolucionesSinOC?.map(
+        res => {
+          res.hasOwnProperty('idDetalleIngresoAlmacen') ? nuevoArregloTemp.push(res): '' 
+        }); 
     var body = { 
       // ...this.detalleSalida
-      detalledevolucion: this.detalleDevolucionesSinOC
+      detalledevolucion: nuevoArregloTemp
     }; 
-   
+    // console.log('nuevo array',nuevoArregloTemp);
       return this.http.post(`${this.baseURL}devolucion-sinorden-compra`, body).pipe(
         map((resp) =>
       //  console.log(resp ))
@@ -580,10 +598,14 @@ getAlmacenPrincipal() {
         resp['data']));
     }
     GuardaTransferenciaAlmacen() {
-      // console.log('llego');
+      let nuevoArregloTemp=[];
+      this.detalleTransferencia?.map(
+        res => {
+          res.hasOwnProperty('idDetalleIngresoAlmacen') ? nuevoArregloTemp.push(res): '' 
+        }); 
       var body = { 
         // ...this.detalleSalida
-        detalletransferencia: this.detalleTransferencia
+        detalletransferencia: nuevoArregloTemp
       }; 
         return this.http.post(`${this.baseURL}transferencia-oc`, body).pipe(
           map((resp) =>
@@ -609,12 +631,16 @@ getAlmacenPrincipal() {
       }
 
       GuardaTransferenciaSinOcAlmacen() {
-        // console.log('llego');
+        let nuevoArregloTemp=[];
+        this.detalleTransferenciasinoc?.map(
+          res => {
+            res.hasOwnProperty('idDetalleIngresoAlmacen') ? nuevoArregloTemp.push(res): '' 
+          }); 
         var body = { 
           // ...this.detalleSalida
-          detalletransferencia: this.detalleTransferenciasinoc
+          detalletransferencia: nuevoArregloTemp
         }; 
-        console.log(body);
+        // console.log(body);
           return this.http.post(`${this.baseURL}transferencia-sinoc`, body).pipe(
             map((resp) =>
           //  console.log(resp ))
@@ -637,4 +663,12 @@ getAlmacenPrincipal() {
             
             resp['data']));
         }
+                /*KARDEX SIN OC*/
+                getLisKardexsinoc() {
+                  return this.http
+                    .get(this.baseURL + 'kardex-sinoc')
+                    .pipe(map((resp) => 
+                    
+                    resp['data']));
+                }
 }

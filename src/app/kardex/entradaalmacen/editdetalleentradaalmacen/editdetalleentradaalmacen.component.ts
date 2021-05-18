@@ -35,7 +35,7 @@ export class EditdetalleentradaalmacenComponent implements OnInit {
       // cantidadDevuelta:0, 
   
      },this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]);
-     console.log('dataentrada',this.formData);
+    //  console.log('dataentrada',this.formData);
   }
 
  

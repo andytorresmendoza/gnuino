@@ -26,6 +26,7 @@ import { ProveedorI, DataProveedor } from '../../models/proveedor';
 import { PaisI } from '../../models/pais';
 import { EmpleadoI, DataEmpleado } from '../../models/empleado';
 import { DataTipoAlmacen, TipoAlmacenI } from '../../models/tipoalmacen';
+import { UsuarioForm } from 'src/app/models/usuario';
  
  
 @Injectable({
@@ -670,9 +671,10 @@ getProveedor() {
       }
 
       /*USUARIOS */
-      CrearUsuario(formData:any){
-        console.log('creando');
-         
+      CrearUsuario(formData: UsuarioForm){
+        // console.log('creando');
+       return this.http.post(`${this.baseURL}register`,formData) 
+      
       }
   
 }

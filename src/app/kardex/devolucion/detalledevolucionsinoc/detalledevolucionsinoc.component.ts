@@ -32,7 +32,7 @@ export class DetalledevolucionsinocComponent implements OnInit {
 
     this.mantenimientosService.getTipoDevolucion().subscribe((resp) => {
       this.tipodevoluciones = resp as DataTipodevolucion[];
-      console.log(this.tipodevoluciones, 'devoluciones');
+      // console.log(this.tipodevoluciones, 'devoluciones');
     });
     this.formData = Object.assign(
       {
@@ -85,8 +85,8 @@ export class DetalledevolucionsinocComponent implements OnInit {
         form.value;
 
       this.dialogRef.close();
-      console.log('id', this.data.orderItemIndex);
-      console.log('submit', this.kardexService.detalleDevolucionesSinOC);
+      // console.log('id', this.data.orderItemIndex);
+      // console.log('submit', this.kardexService.detalleDevolucionesSinOC);
     }
   }
 }

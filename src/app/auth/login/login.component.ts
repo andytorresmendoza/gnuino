@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import {Router} from '@angular/router';
-import {FormGroup, FormControl, Validators} from '@angular/forms'
+import { Validators, FormBuilder} from '@angular/forms'
 import { UserI } from 'src/app/interfaces/user';
 import { AuthService } from '../../services/auth/auth.service';
- 
+import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,16 +13,43 @@ import { AuthService } from '../../services/auth/auth.service';
   ]
 })
 export class LoginComponent implements OnInit {
-  loginForm = new FormGroup({
-    username: new FormControl('',Validators.required),
-      password : new FormControl('', Validators.required)
-   })
-   constructor(private authService: AuthService, private router: Router) { }
+  // Respuesta :any
+  public loginForm = this.fb.group({
+    username: [localStorage.getItem('username')|| '', Validators.required ], 
+    password: ['', Validators.required ],
+    remember:[false]
+     
+    // terminos: [ true, Validators.required ],
+  });
+   constructor(private  fb: FormBuilder,private authService: AuthService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
  
-  onLogin(form: UserI):void{
+login(){
+  // console.log(this.loginForm.value);
+  this.authService.Login(this.loginForm.value)
+  .subscribe((resp:any) => {  
+    if(this.loginForm.get('remember').value){
+      localStorage.setItem('username',this.loginForm.get('username').value);
+    
+    }else{
+      localStorage.removeItem('username');
+    }
+    resp.code === 404 ?  
+    Swal.fire({
+      title: resp.userMessage , 
+      icon: 'error',
+    }): 
+    this.toastr.success('Bienvenido al Sistema');
+  this.router.navigate(['/dashboard']);
+  // console.log(this.loginForm.value);
+
+}
+  )
+}
+
+ /* login(form: UserI):void{
     //  console.log('Login', form.value);
          this.authService.login(form).subscribe(res=>{
           // console.log(res );
@@ -33,17 +61,8 @@ export class LoginComponent implements OnInit {
 
  
   
-    }
+    }*/
   }
-  
-
-    //  console.log('Login', form.value);
-      //    this.authService.login(form).subscribe(res=>{
-      //     console.log(res );
-      //     this.router.navigate(['/auth/register']);
-         
-      // });
-  
   
  
   

@@ -26,7 +26,7 @@ export class TotaltransferenciasComponent implements OnInit {
       this.ListTranferencia = resp; 
       this.cargando = false;
       // this.cargando = false;
-      console.log(resp);
+      // console.log(resp);
   });
   }
 }

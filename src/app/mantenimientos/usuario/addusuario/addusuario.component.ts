@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { DataEmpleado } from '../../../models/empleado';
 import { MantenimientosService } from '../../../services/mantenimientos/mantenimientos.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-addusuario',
   templateUrl: './addusuario.component.html',
@@ -12,11 +12,11 @@ export class AddusuarioComponent implements OnInit {
   empleados: DataEmpleado[] = [];
   public formSubmitted = false;
   public registerForm = this.fb.group({
-    nombre: ['Fernando', Validators.required ],
+    username: ['Fernando', Validators.required ],
     // email: ['test100@gmail.com', [ Validators.required, Validators.email ] ],
     password: ['123456', Validators.required ],
     password2: ['123456', Validators.required ],
-    idTipoEmpleado: ['', Validators.required],
+    idEmpleado: ['', Validators.required],
     // terminos: [ true, Validators.required ],
   }, {
     validators: this.passwordsIguales('password', 'password2')
@@ -31,13 +31,21 @@ export class AddusuarioComponent implements OnInit {
   }
 crearUsuario(){
   this.formSubmitted = true;
-  console.log(this.registerForm.value);
+   console.log(this.registerForm.value);
   if(this.registerForm.invalid){
+     console.log(this.registerForm.invalid);
     return;
-  }
-
-  //realizar posteo
-  this.mantenimientosService.CrearUsuario(this.registerForm.value);
+  } 
+  this.mantenimientosService.CrearUsuario(this.registerForm.value)
+  .subscribe(resp=>{
+  },(err)=>{
+    console.log(err.error);
+    Swal.fire({
+      title: 'Usuario Registrado' , 
+      icon: 'error',
+    }); 
+   }
+  )
 }
 campoNoValido(campo:string):boolean{
  if(this.registerForm.get(campo).invalid && this.formSubmitted){
@@ -77,12 +85,15 @@ contrasenasNoValidas() {
     }
   }
   validateCombo() {
-    const comboEmpleado = this.registerForm.get('idTipoEmpleado').value;
-    if ( (comboEmpleado !==  0) && this.formSubmitted ) {
-      return true;
-    } else {
-      return false;
+
+    const comboEmpleado = this.registerForm.get('idEmpleado').value;
+  // console.log(this.registerForm.get('idTipoEmpleado').value);
+    if ( (comboEmpleado ===  '' || comboEmpleado ===  0  ) && this.formSubmitted ) { 
+      return  true; 
+    }else{
+      false;
     }
+  
   }
 
 }
