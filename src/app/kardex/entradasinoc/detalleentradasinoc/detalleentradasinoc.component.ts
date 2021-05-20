@@ -8,6 +8,7 @@ import { MantenimientosService } from 'src/app/services/mantenimientos/mantenimi
 import { DataAlmacenPrincipal } from '../../../models/almacenPrincipal';
 import { DataAlmacenSecundario } from '../../../models/almacenSecundario';
 import Swal from 'sweetalert2';
+import { DataTipoAlmacen } from '../../../models/tipoalmacen';
 
 @Component({
   selector: 'app-detalleentradasinoc',
@@ -17,8 +18,7 @@ import Swal from 'sweetalert2';
 export class DetalleentradasinocComponent implements OnInit {
   formData: DataDetalleEntradasinOc;
   productos: DataProducto[];
-  almacenesPrincpal: DataAlmacenPrincipal[];
-  almacenesSecundario: DataAlmacenSecundario[];
+  almacenes: DataTipoAlmacen[];
   isValid: boolean = true;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
@@ -32,6 +32,11 @@ export class DetalleentradasinocComponent implements OnInit {
       this.productos = resp as DataProducto[];
       //  console.log(this.productos,'producto');
     });
+    this.mantenimientosService.getTipoAlmacen()
+    .subscribe(resp => {
+      this.almacenes = resp as DataTipoAlmacen[]   
+      console.log('principal', this.almacenes);
+ });
 
     if (this.data.orderItemIndex == null)
       this.formData = {
@@ -43,18 +48,12 @@ export class DetalleentradasinocComponent implements OnInit {
         cantidad: 0,
         precioUnitario: 0,
         precioTotal: 0,
-        observaciones: '',
-        // idSedePrincipal:0,
-        // nombreSedePrincipal:'',
-        // nombreSedeSecundario:'',
-        // idSedeSecundaria:0,
+        observaciones: '', 
         cantidadGlobal: 0,
         cantidadPrincipal: 0,
         detalleNameUnidadMedida: '',
-        // cantidaSecundaria:0,
-        // cantidadDevuelta:0 ,
-        // nombre_almacenS:'',
-        // nombre_alamcen:''
+        idSedePrincipal: 0,
+        nombre_alamcen: ''
       };
     else
       this.formData = Object.assign(
@@ -71,7 +70,10 @@ export class DetalleentradasinocComponent implements OnInit {
       $event.detalleUnidadMedida[0].detalle;
     // console.log('nuevo',$event.nombre_producto);
   };
-
+  onChangeAlmacen = ($event: any): void => {
+    // console.log($event.nombre_alamcen);
+    this.formData.nombre_alamcen = $event.nombre_alamcen 
+    }
   updateTotal() {
     this.formData.precioTotal = parseFloat(
       (this.formData.cantidad * this.formData.precioUnitario).toFixed(2)

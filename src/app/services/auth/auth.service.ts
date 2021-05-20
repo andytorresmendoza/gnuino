@@ -13,7 +13,7 @@ export class AuthService {
  
   baseURL: string = environment.apiURL;
   authSubject = new BehaviorSubject(false);
-  private token: string;
+  public token: string;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -57,10 +57,15 @@ Login(formData: LoginForm){
     localStorage.removeItem("access_token")
     localStorage.removeItem("expires_in")
   }
+
   private saveToken(token:string, expiresIn:string):void{
-    localStorage.setItem("access_token",token);
-    localStorage.setItem("expires_in", expiresIn);
-    this.token=token;
+    if(token && expiresIn){
+      localStorage.setItem("access_token",token);
+      localStorage.setItem("expires_in", expiresIn);
+      this.token=token;
+     
+    }  
+   
   }
   
   getToken():string{

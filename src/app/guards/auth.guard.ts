@@ -13,10 +13,8 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot){
-/*    this.authService.validarToken().subscribe(resp=>{
-        console.log(resp);
-      })
-      console.log('paso por el canactive');*/
+      console.log(this.authService,'guard');
+     
     return false;
   }
   

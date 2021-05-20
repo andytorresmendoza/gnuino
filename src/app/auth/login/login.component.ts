@@ -36,13 +36,14 @@ login(){
     }else{
       localStorage.removeItem('username');
     }
+    // console.log(resp)
     resp.code === 404 ?  
     Swal.fire({
       title: resp.userMessage , 
       icon: 'error',
     }): 
     this.toastr.success('Bienvenido al Sistema');
-  this.router.navigate(['/dashboard']);
+  // this.router.navigate(['/dashboard']);
   // console.log(this.loginForm.value);
 
 }

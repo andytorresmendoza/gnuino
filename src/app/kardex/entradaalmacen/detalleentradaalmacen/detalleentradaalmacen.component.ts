@@ -10,6 +10,7 @@ import { DataDetalleIngresoAlmacen } from '../../../models/detalle-ingresoalmace
 import { DataAlmacenPrincipal } from '../../../models/almacenPrincipal';
 import { DataAlmacenSecundario } from 'src/app/models/almacenSecundario';
 import Swal from 'sweetalert2';
+import { DataTipoAlmacen } from '../../../models/tipoalmacen';
 @Component({
   selector: 'app-detalleentradaalmacen',
   templateUrl: './detalleentradaalmacen.component.html',
@@ -17,8 +18,8 @@ import Swal from 'sweetalert2';
 })
 export class DetalleentradaalmacenComponent implements OnInit {
   productos: DataProducto[];
-  almacenesPrincpal: DataAlmacenPrincipal[]; 
-  almacenesSecundario: DataAlmacenSecundario[]; 
+  almacenes: DataTipoAlmacen[]; 
+ 
   // formData: DataDetalleCotizacion;
   formData: DataDetalleIngresoAlmacen;
   isValid: boolean = true;
@@ -35,43 +36,35 @@ export class DetalleentradaalmacenComponent implements OnInit {
   //  console.log(this.productos,'producto');
   
    });
-   
- /*if (this.data.orderItemIndex == null)
-  this.formData = { 
-    id: null,
-    idDetalleCotizacion:this.data.id, 
-    nombre_producto:'',
-    detalleNameProducto:'',
-    nombre_alamcen:'',
-    nombre_almacenS:'',
-    precio_unidad:0,
-    precio_total:0,
-    observaciones:'',
-    idOrden:0, 
-    // stockTotal:0,
-    // realmente valen
-    idProducto: 0,
-    cantidad:0,
-    idSedePrincipal:0,
-    idSedeSecundaria:0,
-    cantidadPrincipal:0,
-    cantidaSecundaria:0,
-    cantidadDevuelta:0, 
-   }
-   
-     else */ 
+
+   this.mantenimientosService.getTipoAlmacen()
+   .subscribe(resp => {
+     this.almacenes = resp as DataTipoAlmacen[]   
+     console.log('principal', this.almacenes);
+});
+ 
    this.formData = Object.assign({ 
      id:null,
     idDetalleCotizacion:this.data.id,
     idProducto: 0,
     cantidad:0, 
     cantidadPrincipal:0, 
+    idSedePrincipal: 0
 
    },this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]);
-  //  console.log('dataentrada',this.formData);
-  //  console.log('dataentrada',this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]);
+ 
   }
+  onChangeAlmacen = ($event: any): void => {
+    // console.log($event.nombre_alamcen);
+    this.formData.nombre_alamcen = $event.nombre_alamcen 
+    }
 
+    
+  onChange = ($event: any): void => {
+    // this.formData.idProducto= $event.idProducto; 
+    this.formData.nombre_producto= $event.nombre_producto; 
+   
+   }
   onSubmit(form: NgForm) {
     // console.log(form.value);
     if(form.value.cantidadPrincipal > form.value.cantidad ||  form.value.cantidadPrincipal <= 0){
@@ -99,18 +92,13 @@ export class DetalleentradaalmacenComponent implements OnInit {
   else{
   this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex] = form.value;
   this.dialogRef.close();
-  //  console.log('submit', ( this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]));
+   console.log('submit', ( this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]));
   }
 
 }
 
 
 
-  onChange = ($event: any): void => {
-    // this.formData.idProducto= $event.idProducto; 
-    this.formData.nombre_producto= $event.nombre_producto; 
-   
-   }
 
  
  

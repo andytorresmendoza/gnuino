@@ -21,10 +21,22 @@ name="idProducto"
 [(ngModel)]="formData.idProducto"
 />
  
+<input
+type="hidden" 
+name="nombre_alamcen"
+#nombre_alamcen="ngModel"
+[(ngModel)]="formData.nombre_alamcen"
+/>
 
+<input
+type="hidden" 
+name="idSedePrincipal"
+#idSedePrincipal="ngModel"
+[(ngModel)]="formData.idSedePrincipal"
+/>
 
 <div class="form-row">
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-4">
         <label>Buscar Producto</label>
       
         <ng-select 
@@ -40,7 +52,7 @@ name="idProducto"
   
   </ng-select>
       </div>
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-4">
         <label>Unidad Medida </label> 
         <input
         type="text"
@@ -53,6 +65,18 @@ name="idProducto"
         />
       </div>
 
+      <div class="form-group col-md-4">
+       <label>Almacén</label> 
+       <ng-select 
+       [items]="almacenes"  
+       bindLabel="nombre_alamcen"
+       bindValue="id"   
+       placeholder="Buscar Almacén" 
+       [(ngModel)]="formData.idSedePrincipal" 
+       (change)="onChangeAlmacen($event)">
+    
+    </ng-select>   
+      </div>
       <div class="form-row">   
       <div class="form-group col-md-4">
         <label>Cantidad Solicitada</label> 

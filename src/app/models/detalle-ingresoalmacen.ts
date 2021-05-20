@@ -26,6 +26,8 @@ export interface DataDetalleIngresoAlmacen {
   observaciones:string;  
   cantidadGlobal:number; 
   detalleNameUnidadMedida:string;
+  idSedePrincipal: number;
+  nombre_alamcen:string;
   // detalleNameSedePrincipal:string;
   // detalleNameSedeSecundaria: string;
   // stockTotal:number;
