@@ -10,8 +10,22 @@
     #idIngresoAlmacen="ngModel"
     [(ngModel)]="formData.idIngresoAlmacen"
   />
+  <input
+  type="hidden"
+  name="idProducto"
+  #idProducto="ngModel"
+  [(ngModel)]="formData.idProducto"
+/>
+
+<input
+type="hidden"
+name="precio_unidad"
+#precio_unidad="ngModel"
+[(ngModel)]="formData.precio_unidad"
+/>
+
   <div class="form-row">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <label>Producto</label>
       <input
         name="detalleNameProducto"
@@ -21,7 +35,7 @@
         readonly
       />
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <label>Unidad Medida</label>
       <input
         type="text"
@@ -32,32 +46,74 @@
         readonly
       />
     </div>
-    <div class="col-md-6">
-      <label>Cantidad Solicitada</label>
+ 
+    <div class="col-md-4">
+      <label>Almacén</label>
+  <input
+  type="text" 
+  name="nombre_alamcen"
+  #nombre_alamcen="ngModel"
+  [(ngModel)]="formData.nombre_alamcen"
+  class="form-control" 
+  readonly
+  />
+    </div>
+
+  </div>
+  <br>
+  <div class="form-row ">
+    <div class="col-md-3">
+      <label>Cantidad Solicitada</label> 
       <input
+      
         name="cantidadGlobal"
         #cantidadGlobal="ngModel"
         [(ngModel)]="formData.cantidadGlobal"
         class="form-control"
         readonly
+  
+     
       />
     </div>
-    <div class="col-md-6">
-      <label>Cantidad Pendiente</label>
+    <div class="col-md-3">
+      <label>Precio Unitario</label>
       <input
-        type="number"
+        name="precio_unidad"
+        #precio_unidad="ngModel"
+        [(ngModel)]="formData.precio_unidad"
+        class="form-control" 
+        readonly
+      /> 
+    </div>
+   
+    <div class="col-md-3">
+      <label>Precio Total</label>
+      <input
+        name="precio_total"
+        #precio_total="ngModel"
+        [(ngModel)]="formData.precio_total"
+        class="form-control"
+        readonly
+      />
+    </div>
+    <div class="col-md-3">
+      <label>Cantidad Recibida</label>
+      <input
+      type="number"
         name="cantidadPrincipal"
         #cantidadPrincipal="ngModel"
-        [(ngModel)]="formData.cantidadPrincipal"
-       
-        class="form-control"
+        [(ngModel)]="formData.cantidadPrincipal" 
+        class="form-control" 
+        [class.is-invalid]="cantidadPrincipal.invalid && cantidadPrincipal.touched"
+        required
       />
-      <!-- [ngClass]="{'is-invalid': formData.cantidadPrincipal >5 || formData.cantidadPrincipal<0}" -->
-      <!-- <small *ngIf="cantidadPrincipal.invalid && cantidadPrincipal.touched"
-      class="form-text text-danger">Ingrese Fecha</small> -->
+      <small *ngIf="cantidadPrincipal.invalid && cantidadPrincipal.touched"
+          class="form-text text-danger">Ingrese Cantidad</small>
     </div>
-  </div>
-
+       
+    
+    <!-- (keyup)="updateTotal()" -->
+  </div> 
   <br />
   <!--  -->
 

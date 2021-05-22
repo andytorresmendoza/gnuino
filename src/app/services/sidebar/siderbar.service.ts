@@ -56,7 +56,7 @@ export class SiderbarService {
         {titulo:'Transferencias', url:'../kardex/transferencias'},
         {titulo:'Kardex O/C', url:'../kardex/kardex'},
         {titulo:'Kardex sin O/C', url:'../kardex/kardexsinoc'}, 
-        // {titulo:'TABLE PRUEBA', url:'../kardex/lista'}, 
+        {titulo:'TABLE PRUEBA', url:'../kardex/lista'}, 
       ]
       
     },

@@ -56,10 +56,12 @@ import { PagesComponent } from '../pages/pages.component';
 import { DashboardComponent } from '../pages/dashboard/dashboard.component';
 import { ListarusuarioComponent } from './usuario/listarusuario/listarusuario.component';
 import { AddusuarioComponent } from './usuario/addusuario/addusuario.component';
+import { AuthGuard } from '../guards/auth.guard';
  
 const routes: Routes = [
  
   {path:'mantenimientos', component:PagesComponent,
+  canActivate:[AuthGuard],
    children:[
         {path:'',component:DashboardComponent},     
      {path:'listarnrocuenta', component: ListarNrocuentaComponent, data:{titulo:'Numero Cuenta'}},

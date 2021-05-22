@@ -49,7 +49,8 @@ export class DetalleentradaalmacenComponent implements OnInit {
     idProducto: 0,
     cantidad:0, 
     cantidadPrincipal:0, 
-    idSedePrincipal: 0
+    idSedePrincipal: 0,
+    precio_unidad:0
 
    },this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]);
  

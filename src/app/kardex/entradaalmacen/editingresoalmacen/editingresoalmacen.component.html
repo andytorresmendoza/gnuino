@@ -61,7 +61,7 @@ name="idEmpleado"
   <div class="col-md-4">
     <div class="form-group">
       <label> Nro Orden Compra</label>
-      <input name="codigo_orden_num" #codigo_orden_num="ngModel" [(ngModel)]="kardexService.formOrdencompra.codigo_orden_num" class="form-control" readonly>
+      <input  [(ngModel)]="kardexService.formOrdencompra.codigo_orden_num" class="form-control" readonly>
   </div>  
   <div class="form-group">
     <label> Tipo Ingreso</label>
@@ -129,8 +129,10 @@ name="idEmpleado"
           <th scope="col">#</th>
            <th>Nombre Producto</th> 
            <th>Unidad Medida</th>
-            <th>Cantidad Solicitada</th> 
-                     
+             <th>Nombre Almacén</th>   
+            <th>Cantidad Solicitada</th>  
+            <th>Precio Unidad</th>
+             <th>Precio Total</th>  
             <th>Cantidad Ingreso</th>
             <th scope="col">Estado</th>
            
@@ -151,11 +153,23 @@ name="idEmpleado"
                
               </td>
               <td>
+                <p>{{item.nombre_alamcen}}</p>
+               
+              </td>
+              <td>
                 <p>{{item.cantidadGlobal}}</p>
                
               </td> 
+              <td>
+                <p>{{item.precio_unidad}}</p>
+               
+              </td> 
+              <td>
+                <p>{{item.precio_total}}</p>
+               
+              </td> 
             
-          
+    
           
               <td>
                 <p>{{item.cantidadPrincipal}}</p>

@@ -31,6 +31,7 @@ export class EditingresoalmacenComponent implements OnInit {
       //  console.log('editar',res );
        this.kardexService.formDataEntrada = res[0]; 
       this.kardexService.detalleIngresoAlmacen = res[0].detalleIngresoSedeAlamacen;  
+      console.log( this.kardexService.detalleIngresoAlmacen,'endopoint');
        this.kardexService.formOrdencompra = res[0].detalleOrden[0];   
        this.kardexService.detalleIngresoAlmacen = res[0].detalleIngresoSedeAlamacen;
        this.kardexService.formOrdencompra.nombre_empleado = res[0].detalleOrden[0].detalleEmpleado[0].nombre_empleado; 

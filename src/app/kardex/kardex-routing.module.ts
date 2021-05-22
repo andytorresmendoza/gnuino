@@ -39,10 +39,12 @@ import { PagesComponent } from '../pages/pages.component';
 import { KardexocComponent } from './kardexoc/kardexoc.component';
 import { KardexsinocComponent } from './kardexsinoc/kardexsinoc.component';
 import { ListapruebaComponent } from './listaprueba/listaprueba.component';
+import { AuthGuard } from '../guards/auth.guard';
  
 const routes: Routes = [
  
   {path:'kardex', component:PagesComponent,
+  canActivate:[AuthGuard],
   children:[
    {path:'',component:DashboardComponent},     
    {path:'listarcotizacion', component: ListarcotizacionComponent, data:{titulo:'Cotización'}},

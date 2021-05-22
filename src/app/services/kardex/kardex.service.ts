@@ -284,7 +284,7 @@ getAlmacenPrincipal() {
       ,
       detalleSedeIngreso: this.detalleIngresoAlmacen,
     };
-
+console.log(body);
     let fechaParseada: any;
     fechaParseada = moment(body.fechaIngreso).format('YYYY-MM-DD');
     body.fechaIngreso=fechaParseada;
@@ -323,6 +323,7 @@ getAlmacenPrincipal() {
       ,
       detalleIngresoAlmacen: this.detalleIngresoAlmacen,
     };
+    console.log(body);
     let fechaParseada: any;
     fechaParseada = moment(body.fechaIngreso).format('YYYY-MM-DD');
     body.fechaIngreso=fechaParseada;

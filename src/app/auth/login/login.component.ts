@@ -43,7 +43,7 @@ login(){
       icon: 'error',
     }): 
     this.toastr.success('Bienvenido al Sistema');
-  // this.router.navigate(['/dashboard']);
+     this.router.navigate(['/dashboard']);
   // console.log(this.loginForm.value);
 
 }

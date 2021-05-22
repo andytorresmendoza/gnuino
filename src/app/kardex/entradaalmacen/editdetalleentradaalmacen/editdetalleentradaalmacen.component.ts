@@ -26,11 +26,12 @@ export class EditdetalleentradaalmacenComponent implements OnInit {
     this.formData = Object.assign({
       id:this.data.id, 
       idIngresoAlmacen: 0,
-      // idProducto: 0,
+      idProducto: 0,
       cantidadGlobal:0,
       // idSedePrincipal:0,
       // idSedeSecundaria:0,
       cantidadPrincipal:0,
+      precio_unidad:0
       // cantidaSecundaria:0,
       // cantidadDevuelta:0, 
   
