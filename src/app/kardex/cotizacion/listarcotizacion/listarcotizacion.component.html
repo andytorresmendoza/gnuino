@@ -1,25 +1,4 @@
-<!-- <nav class="navbar navbar-expand-md navbar-light bg-faded" style="background-color: #e3f2fd;">
  
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
- 
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-
-       
-          <li class="nav-item" routerLinkActive="active">
-              <a class="nav-link" [routerLink]="['../listarcotizacion']">ACTIVAS</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-              <a class="nav-link" [routerLink]="['../listarcotianulada']">ANULADAS</a>
-          </li>
-        
-      </ul>
- 
-  </div>
-</nav>  -->
 <div class="col-md-12">
   <div class="card"> 
           <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -70,14 +49,11 @@
       
     </thead>
     <tbody>
-        <tr *ngFor="let item of cotizaciones  | filtro:page:search; let i = index" >
-          <!-- <th scope="row">{{ i + 1 }}</th> -->
-          <th (click)="openForEdit(item.id)">{{item.codigo_cotizacion_num}}</th>
-          <!-- <th (click)="item.idEstadoFlujo != 2 && openForEdit(item.id) ">{{item.codigo_cotizacion_num}}</th> -->
+        <tr *ngFor="let item of cotizaciones  | filtro:page:search; let i = index" > 
+          <th (click)="openForEdit(item.id)">{{item.codigo_cotizacion_num}}</th> 
           <td (click)="openForEdit(item.id)">{{item.detalleProovedor[0].nombre_proovedor}}</td>
           <td (click)="openForEdit(item.id)">{{item.detalleEmpleado[0].nombre_empleado}}</td>
-          <td (click)="openForEdit(item.id)">{{item.total_costo}}</td>
-          <!-- <td (click)="openForEdit(item.id)">{{item.idEstadoFlujo}}</td> -->
+          <td (click)="openForEdit(item.id)">{{item.total_costo}}</td> 
      
           <td>
             <label *ngIf="item.idEstadoFlujo == 2" class="badge bg-success"

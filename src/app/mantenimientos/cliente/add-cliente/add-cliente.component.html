@@ -1,0 +1,209 @@
+<h1><small>Agregar Cliente</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../../listarcliente">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="formData"
+  (submit)="onSubmit(form)"
+>
+
+ 
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label> Nombre</label>
+        <input
+          name="nombre_cliente"
+          #nombre_cliente="ngModel"
+          [(ngModel)]="formData.nombre_cliente"
+          class="form-control"
+        />
+      </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+          <label> Apellido Paterno</label>
+          <input
+            name="apellidos_pat_cliente"
+            #apellidos_pat_cliente="ngModel"
+            [(ngModel)]="formData.apellidos_pat_cliente"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label> Apellido Materno</label>
+          <input
+            name="apellidos_mat_cliente"
+            #apellidos_mat_cliente="ngModel"
+            [(ngModel)]="formData.apellidos_mat_cliente"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+            <label> Telefono</label>
+          <input
+            name="telefono_cliente"
+            #telefono_cliente="ngModel"
+            [(ngModel)]="formData.telefono_cliente"
+            class="form-control"
+          />
+        </div>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label> Tipo Documento</label>
+        <select  
+                name="idTipoDocumento" 
+                #idTipoDocumento="ngModel" 
+                [(ngModel)]="formData.idTipoDocumento"
+                class="form-control"  
+                >
+ 
+                  <option value="0">-Select-</option>
+                  <option *ngFor="let tipodocumento of tipodocumentos" value="{{tipodocumento.id}}">{{tipodocumento.tipo_documento}}</option>
+                        </select>
+      </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+          <label> Nro Documento</label>
+          <input
+            name="dni_cliente"
+            #dni_cliente="ngModel"
+            [(ngModel)]="formData.dni_cliente"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label> Dirección</label>
+          <input
+            name="direccion_cliente"
+            #direccion_cliente="ngModel"
+            [(ngModel)]="formData.direccion_cliente"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label> Pais</label>
+          <ng-select  
+          #idPais="ngModel"  
+          name="idPais" 
+          bindValue="idPais" 
+          placeholder="Buscar Pais" 
+          [(ngModel)]="formData.idPais"  
+        >   
+            <ng-option *ngFor="let emp of paises" [value]="emp.id">{{emp.nombre_pais}}</ng-option>
+         </ng-select> 
+        </div>
+      </div>
+      
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label> Email</label>
+        <input
+          name="email_cliente"
+          #email_cliente="ngModel"
+          [(ngModel)]="formData.email_cliente"
+          class="form-control"
+        />
+      </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+          <label> Departamento</label>
+          <ng-select  
+          #idDepartamento="ngModel"  
+          name="idDepartamento" 
+          bindValue="idDepartamento" 
+          placeholder="Buscar Departamento" 
+          [(ngModel)]="formData.idDepartamento"  
+          (change)="onSelectDepartamento($event)"
+        >   
+            <ng-option *ngFor="let emp of departamentos" [value]="emp.id">{{emp.nombre}}</ng-option>
+         </ng-select> 
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label> Provincia</label>
+          <ng-select  
+          #idProvincia="ngModel"  
+          name="idProvincia" 
+          bindValue="idProvincia" 
+          placeholder="Buscar Provincia" 
+          [(ngModel)]="formData.idProvincia" 
+          (change)="onSelectProvincia($event)"
+        >   
+       
+            <ng-option *ngFor="let emp of provincias" [value]="emp.id">{{emp.nombre_provincia}}</ng-option>
+         </ng-select> 
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label> Distrito</label>
+          <ng-select  
+          #idDistrito="ngModel"  
+          name="idDistrito" 
+          bindValue="idDistrito" 
+          placeholder="Buscar Distrito" 
+          [(ngModel)]="formData.idDistrito"  
+        >   
+       
+            <ng-option *ngFor="let emp of distritos" [value]="emp.id">{{emp.nombre_distrito}}</ng-option>
+         </ng-select> 
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+            <label> Sexo</label>
+            <select 
+            name="sexo_cliente" 
+            #sexo_cliente="ngModel" 
+            [(ngModel)]="formData.sexo_cliente"
+            class="form-control" 
+          
+          
+            >
+              <option value="0">-Seleccione Sexo-</option>
+              <option value="F">Femenino</option>
+              <option value="M">Masculino</option>
+            
+            </select> 
+        </div>
+      </div>
+      
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark" 
+  >
+    <i class="fa fa-database"></i> Guardar </button>
+   
+  </div>
+</form>

@@ -38,6 +38,7 @@ export class SiderbarService {
         {titulo:'Tipo Pago', url:'../mantenimientos/listartipopago'},
         {titulo:'Unidad de Medida', url:'../mantenimientos/listarunidadmedida'},
         {titulo:'Sede Almacén', url:'../mantenimientos/listaralmacen'},
+        {titulo:'Cliente', url:'../mantenimientos/listarcliente'},
         
       ]
       

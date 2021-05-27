@@ -539,7 +539,13 @@ getDepartamento() {
     catchError(this.manejarError)
   );
  }
- 
+ getProvinciaAll() {
+  return this.http.get(this.baseURL+ 'provincia')  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+  .pipe(
+    map(resp=>resp['response']),
+    catchError(this.manejarError)
+  );
+ }
 getProvincia(id:number) { /*ver aca */
   return this.http.get(this.baseURL + id +'/provincia')   // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes/
   .pipe(
@@ -676,7 +682,21 @@ getProveedor() {
        return this.http.post(`${this.baseURL}register`,formData) 
       
       }
+  /*clientes */
+
+  getClientebyId(id: number) {
+    return this.http.get(this.baseURL+ 'cliente')  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+    .pipe(
+      map(resp=>resp['data']),
+      catchError(this.manejarError)
+    );
   
+  }
+  getCotizacion() {
+    return this.http
+      .get(this.baseURL + 'cliente')
+      .pipe(map((resp) => resp['data']));
+  }
 }
 
 

@@ -57,6 +57,9 @@ import { DashboardComponent } from '../pages/dashboard/dashboard.component';
 import { ListarusuarioComponent } from './usuario/listarusuario/listarusuario.component';
 import { AddusuarioComponent } from './usuario/addusuario/addusuario.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { EditarClienteComponent } from './cliente/editar-cliente/editar-cliente.component';
+import { ListarClienteComponent } from './cliente/listar-cliente/listar-cliente.component';
+import { AddClienteComponent } from './cliente/add-cliente/add-cliente.component';
  
 const routes: Routes = [
  
@@ -114,6 +117,9 @@ const routes: Routes = [
      {path:'editalmacen', component: EditaralmacenComponent, data:{titulo:'Almacén'}},
      {path:'listarusuarios', component: ListarusuarioComponent, data:{titulo:'Usuarios'}},
      {path:'addusuario', component: AddusuarioComponent, data:{titulo:'Usuarios'}},
+    //  {path:'editcliente', component: EditarClienteComponent, data:{titulo:'Cliente'}},
+     {path:'listarcliente', component: ListarClienteComponent, data:{titulo:'Cliente'}},
+     {path:'cliente/:id', component: AddClienteComponent, data:{titulo:'Cliente'}},
   ]
 
  },

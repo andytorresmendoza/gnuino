@@ -64,17 +64,24 @@ import { EditaralmacenComponent } from './tipoalmacen/editaralmacen/editaralmace
 import { AddalmacenComponent } from './tipoalmacen/addalmacen/addalmacen.component';
 import { ListarusuarioComponent } from './usuario/listarusuario/listarusuario.component';
 import { AddusuarioComponent } from './usuario/addusuario/addusuario.component';
+import { AddClienteComponent } from './cliente/add-cliente/add-cliente.component';
+import { EditarClienteComponent } from './cliente/editar-cliente/editar-cliente.component';
+import { ListarClienteComponent } from './cliente/listar-cliente/listar-cliente.component';
  
 
-
-
+//material
+import {MatInputModule} from '@angular/material/input';
+   import { MatTableModule} from '@angular/material/table';
+   import {MatIconModule} from '@angular/material/icon';
+   import {MatButtonModule} from '@angular/material/button';
+   import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   declarations: [
     HomeComponent,
     MantenimientosComponent,  
     ListarNrocuentaComponent,
     EditarNrocuentaComponent, 
-    AddNrocuentaComponent, AddCategoriaComponent, ListarCategoriaComponent, EditarCategoriaComponent, ListarModeloComponent, EditarModeloComponent, AddModeloComponent, ListarPerfilusuarioComponent, AddPerfilusuarioComponent, EditarPerfilusuarioComponent, ListarTipodocumentoComponent, EditarTipodocumentoComponent, AddTipodocumentoComponent, ListarEstadoflujoComponent, EditarEstadoflujoComponent, AddEstadoflujoComponent, ListarTipodevolucionComponent, EditarTipodevolucionComponent, AddTipodevolucionComponent, ListarTipoingresoComponent, EditarTipoingresoComponent, AddTipoingresoComponent, ListarTiposalidaComponent, EditarTiposalidaComponent, AddTiposalidaComponent, ListarTipopagoComponent, EditarTipopagoComponent, AddTipopagoComponent, AddUnidadmedidaComponent, ListarUnidadmedidaComponent, EditarUnidadmedidaComponent, ListarbancoComponent, EditarbancoComponent, AddbancoComponent, ListarProductoComponent, EditarProductoComponent, AddProductoComponent, ListarProveedorComponent, EditarProveedorComponent, AddProveedorComponent, ListarEmpleadoComponent, EditarEmpleadoComponent, AddEmpleadoComponent, ListaralmacenComponent, EditaralmacenComponent, AddalmacenComponent, ListarusuarioComponent, AddusuarioComponent
+    AddNrocuentaComponent, AddCategoriaComponent, ListarCategoriaComponent, EditarCategoriaComponent, ListarModeloComponent, EditarModeloComponent, AddModeloComponent, ListarPerfilusuarioComponent, AddPerfilusuarioComponent, EditarPerfilusuarioComponent, ListarTipodocumentoComponent, EditarTipodocumentoComponent, AddTipodocumentoComponent, ListarEstadoflujoComponent, EditarEstadoflujoComponent, AddEstadoflujoComponent, ListarTipodevolucionComponent, EditarTipodevolucionComponent, AddTipodevolucionComponent, ListarTipoingresoComponent, EditarTipoingresoComponent, AddTipoingresoComponent, ListarTiposalidaComponent, EditarTiposalidaComponent, AddTiposalidaComponent, ListarTipopagoComponent, EditarTipopagoComponent, AddTipopagoComponent, AddUnidadmedidaComponent, ListarUnidadmedidaComponent, EditarUnidadmedidaComponent, ListarbancoComponent, EditarbancoComponent, AddbancoComponent, ListarProductoComponent, EditarProductoComponent, AddProductoComponent, ListarProveedorComponent, EditarProveedorComponent, AddProveedorComponent, ListarEmpleadoComponent, EditarEmpleadoComponent, AddEmpleadoComponent, ListaralmacenComponent, EditaralmacenComponent, AddalmacenComponent, ListarusuarioComponent, AddusuarioComponent, AddClienteComponent, EditarClienteComponent, ListarClienteComponent
   
   ],
   imports: [
@@ -86,7 +93,12 @@ import { AddusuarioComponent } from './usuario/addusuario/addusuario.component';
     ReactiveFormsModule,
     AutocompleteLibModule,
   MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatInputModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    NgSelectModule
    
   ],
   exports:[
