@@ -44,7 +44,7 @@ export class DetalleentradaalmacenComponent implements OnInit {
 });
  
    this.formData = Object.assign({ 
-     id:null,
+    id:null,
     idDetalleCotizacion:this.data.id,
     idProducto: 0,
     cantidad:0, 

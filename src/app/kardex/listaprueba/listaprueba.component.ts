@@ -4,6 +4,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { KardexService } from '../../services/kardex/kardex.service';
 import { DataKardexoc } from '../../models/kardexoc';
+import { Router } from '@angular/router';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -20,7 +21,7 @@ export interface PeriodicElement {
 })
 
 export class ListapruebaComponent implements OnInit {
-  displayedColumns: string[] = ['Producto', 'Cantidad Global', 'weight', 'symbol'];
+  displayedColumns: string[] = ['Producto', 'Cantidad Global', 'Unidad Medida', 'Detalle Ingreso','details'];
   dataSource = new MatTableDataSource<DataKardexoc>();
 
 
@@ -29,7 +30,7 @@ export class ListapruebaComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  constructor(private servicioKardex: KardexService){}
+  constructor(private servicioKardex: KardexService, private router:Router){}
 
   ngOnInit(): void {
    this.getListKardexsinoc();
@@ -47,23 +48,9 @@ export class ListapruebaComponent implements OnInit {
     //  console.log(resp);
   });
   }
-
- /* logData(row) {
-    console.log(row);
-  } */
-   /*getListKardexsinoc(){ 
-    this.servicioKardex.getLisKardexsinoc()
-   .subscribe(resp => {
-     
-      this.dataSource.data = resp as DataKardexoc[]; 
-      console.log(  this.dataSource.data);
-   
-      // this.cargando = false;
-    //  console.log(resp);
-  });*/
-  
-  // applyFilter(filterValue: string) {
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
-  // }
+  openForEdit(id: string) {
+console.log(id);
+    // this.router.navigate(['kardex/cotizacion/'+CotizacionId]);
+}
 }
  

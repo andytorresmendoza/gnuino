@@ -1,10 +1,19 @@
 /* Structure */
-table {
+ table {
     width: 100%;
-  }
-  
-  .mat-form-field {
-    font-size: 14px;
+     
+  } 
+  th.mat-header-cell {
+    /* text-align: left; */
+    max-width: 300px;
+}
+  /* table {
     width: 100%;
-  }
-  
+    overflow-x: auto;
+    overflow-y: hidden;
+    min-width: 500px;
+}
+th.mat-header-cell {
+    text-align: left;
+    max-width: 300px;
+} */

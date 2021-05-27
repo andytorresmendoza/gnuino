@@ -14,12 +14,16 @@ import { KardexService } from '../services/kardex/kardex.service';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DetallecotizacionComponent } from './cotizacion/detallecotizacion/detallecotizacion.component';
  
-//nuevos
+//nuevos material angular
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE } from '@angular/material/core'; 
 // import {MatTableModule} from '@angular/material/table';
  import {MatInputModule} from '@angular/material/input';
    import { MatTableModule} from '@angular/material/table';
+   import {MatIconModule} from '@angular/material/icon';
+   import {MatButtonModule} from '@angular/material/button';
+
+
 
 import { MatNativeDateModule } from '@angular/material/core';
 import { OrdencompraComponent } from './ordencompra/ordencompra/ordencompra.component';
@@ -132,7 +136,7 @@ import { ListapruebaComponent } from './listaprueba/listaprueba.component';
      MatDatepickerModule,
      MatNativeDateModule,
      AutocompleteLibModule,
-     MatAutocompleteModule, NgSelectModule,MatInputModule,MatTableModule
+     MatAutocompleteModule, NgSelectModule,MatInputModule,MatTableModule,MatIconModule,MatButtonModule
     //  ,MatMenuModule
 
    

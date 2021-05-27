@@ -44,7 +44,7 @@ export class AddcotizacionComponent implements OnInit {
          this.kardexService.formData = res[0]; 
         
         this.kardexService.detalleCotizacion = res[0].detalleCotizacion;
-  // console.log(res[0]);
+  //  console.log(res[0]);
    
         // console.log(res[0].idEstadoFlujo);
        if (res[0].idEstadoFlujo ==  2 || res[0].idEstadoFlujo ==  3 ) {
@@ -95,8 +95,8 @@ export class AddcotizacionComponent implements OnInit {
       estadoCotizacion: '',
       nombre_empleado:'',
       nombre_proovedor:'',
-  idTipoMoneda:0,
-  totalGeneral:0
+      idTipoMoneda:0,
+      totalGeneral:0
 
  };
 this.kardexService.detalleCotizacion = [];

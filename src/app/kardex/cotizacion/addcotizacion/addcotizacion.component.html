@@ -23,6 +23,12 @@
     #id="ngModel"
     [(ngModel)]="kardexService.formData.id"
   />
+  <input
+  type="hidden"
+  name="fecha_entrega"
+  #fecha_entrega="ngModel"
+  [(ngModel)]="kardexService.formData.fecha_entrega"
+/>
 <!-- EMPLEADO -->
    <input
   type="hidden"
@@ -122,9 +128,9 @@ name="costo_envio"
 
       <div class="form-group">
         <label  for="inputAddress" class="form-label"> Fecha Cotización</label>
-
+        <!-- matInput -->
         <input
-          matInput
+
           [matDatepicker]="picker"
           placeholder="DD/MM/YYYY" 
           name="fecha_entrega"
