@@ -17,7 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { KardexModule } from './kardex/kardex.module';
   import { ToastrModule } from 'ngx-toastr';
   import { NgSelectModule } from '@ng-select/ng-select';
-  
+import { VentaModule } from './venta/venta.module';
  
  
 @NgModule({
@@ -38,6 +38,7 @@ import { KardexModule } from './kardex/kardex.module';
     BrowserAnimationsModule, 
     ToastrModule.forRoot(),
     NgSelectModule,
+    VentaModule
   // MatDatepickerModule,
   //    MatNativeDateModule
 

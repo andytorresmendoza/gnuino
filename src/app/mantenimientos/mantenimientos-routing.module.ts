@@ -56,8 +56,7 @@ import { PagesComponent } from '../pages/pages.component';
 import { DashboardComponent } from '../pages/dashboard/dashboard.component';
 import { ListarusuarioComponent } from './usuario/listarusuario/listarusuario.component';
 import { AddusuarioComponent } from './usuario/addusuario/addusuario.component';
-import { AuthGuard } from '../guards/auth.guard';
-import { EditarClienteComponent } from './cliente/editar-cliente/editar-cliente.component';
+import { AuthGuard } from '../guards/auth.guard'; 
 import { ListarClienteComponent } from './cliente/listar-cliente/listar-cliente.component';
 import { AddClienteComponent } from './cliente/add-cliente/add-cliente.component';
  

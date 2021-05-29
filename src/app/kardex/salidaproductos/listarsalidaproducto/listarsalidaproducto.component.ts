@@ -4,7 +4,9 @@ import { KardexService } from '../../../services/kardex/kardex.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DataSalidaProductos } from 'src/app/models/salidaproductoscerrados';
- 
+import { MatDialog , MatDialogConfig} from '@angular/material/dialog'; 
+import {MatTableDataSource} from '@angular/material/table';
+import { DetallesalidaproductoComponent } from '../detallesalidaproducto/detallesalidaproducto.component';
 @Component({
   selector: 'app-listarsalidaproducto',
   templateUrl: './listarsalidaproducto.component.html',
@@ -13,25 +15,59 @@ import { DataSalidaProductos } from 'src/app/models/salidaproductoscerrados';
 export class ListarsalidaproductoComponent implements OnInit {
  ListIngresosCerrados:DataSalidaProductos []= [];
  cargando = true; 
+
+ displayedColumns: string[] = ['Codigo Producto', 'Producto', 'Cantidad por O/C', 'Cantidad por sin O/C', 'Cantidad Total','Precio Unidad O/C','Precio Unidad sin O/C','Precio Promedio','Salida'];
+  dataSource = new MatTableDataSource<DataSalidaProductos>();
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+ 
   constructor
-  (private servicioKardex: KardexService , private router:Router,private toastr: ToastrService ) { }
+  (private kardexService: KardexService , private router:Router,private toastr: ToastrService ,  private dialog: MatDialog) { }
 
 
   ngOnInit(): void {
     this.getListIngresosCerrados();
   }
 
-  getListIngresosCerrados(){
-
-    this.servicioKardex.getListIngresosCerrados()
+  getListIngresosCerrados(){ 
+    this.kardexService.getListKardex()
    .subscribe(resp => {
-     
+    this.dataSource.data = resp as DataSalidaProductos[]; 
       this.ListIngresosCerrados = resp; 
       this.cargando = false;
       // this.cargando = false;
-      // console.log(resp);
+        console.log(resp);
   });
  }
+
+ AddDetalleSalida(orderItemIndex, id:number) {  
+/*  this.kardexService.getkardexById(+id).subscribe(res => {
+   console.log(res,'respuesta'); 
+// this.kardexService.formDataSalida = res[0];    
+this.kardexService.detalleSalida = res[0]; 
+// this.kardexService.formDataSalida.descripcion_ingreso = res[0].detalleTipoIngreso[0].descripcion_ingreso; 
+}); */
+  //  console.log(id,'detalle');
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.autoFocus = true;
+  dialogConfig.disableClose = true;
+  dialogConfig.width = "55%";
+  dialogConfig.data = {orderItemIndex,id };
+  console.log( orderItemIndex,id);
+  // afterClosed().subscribe; es para cuando se cierre el poput actualize el rpecio
+   this.dialog.open(DetallesalidaproductoComponent, dialogConfig).afterClosed().subscribe(resp=>{
+  //  console.log(resp);
+    // this.updateTotal();
+    // this. updateMontoTotal();
+   });
+ 
+  } 
+
+
+
+
 
  openForEdit(SalidaID: number) {
 

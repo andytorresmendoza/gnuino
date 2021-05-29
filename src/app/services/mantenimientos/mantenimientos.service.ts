@@ -27,6 +27,7 @@ import { PaisI } from '../../models/pais';
 import { EmpleadoI, DataEmpleado } from '../../models/empleado';
 import { DataTipoAlmacen, TipoAlmacenI } from '../../models/tipoalmacen';
 import { UsuarioForm } from 'src/app/models/usuario';
+import { DataCliente } from '../../models/cliente';
  
  
 @Injectable({
@@ -546,6 +547,12 @@ getDepartamento() {
     catchError(this.manejarError)
   );
  }
+ getDistritoAll() {
+  return this.http.get(this.baseURL+ 'distrito')  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+  .pipe(
+    map(resp=>resp['response']) 
+  );
+ }
 getProvincia(id:number) { /*ver aca */
   return this.http.get(this.baseURL + id +'/provincia')   // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes/
   .pipe(
@@ -685,18 +692,33 @@ getProveedor() {
   /*clientes */
 
   getClientebyId(id: number) {
-    return this.http.get(this.baseURL+ 'cliente')  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+    return this.http.get(this.baseURL+ 'cliente/'+ id)  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
     .pipe(
       map(resp=>resp['data']),
       catchError(this.manejarError)
     );
   
   }
-  getCotizacion() {
+  getCliente() {
     return this.http
       .get(this.baseURL + 'cliente')
       .pipe(map((resp) => resp['data']));
   }
+
+ saveCliente(data:DataCliente) {
+    
+      console.log(data);
+    return this.http.post(`${this.baseURL}cliente`, data).pipe(
+      map(
+        (resp) => resp['data']) 
+    );
+  }  
+  updateCliente(data:DataCliente) {
+    
+      console.log(data);
+    return this.http.put(`${this.baseURL}cliente/${data.id}`, data);
+
+}  
 }
 
 

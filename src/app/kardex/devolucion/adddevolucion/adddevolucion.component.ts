@@ -36,7 +36,7 @@ export class AdddevolucionComponent implements OnInit {
 }
 
 AddOrEditOrderItem( orderItemIndex,id) {
-  //  console.log(orderItemIndex, id); 
+     console.log(orderItemIndex, id); 
   const dialogConfig = new MatDialogConfig();
   
   dialogConfig.autoFocus = true;

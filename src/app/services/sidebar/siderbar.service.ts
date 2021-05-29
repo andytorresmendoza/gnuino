@@ -53,23 +53,21 @@ export class SiderbarService {
         {titulo:'Entrada Almacén', url:'../kardex/listarentrada'},
         {titulo:'Entrada Sin Orden', url:'../kardex/listarentradasinoc'},
         {titulo:'Devolución de Productos', url:'../kardex/devoluciones'},
-        {titulo:'Salida de Productos', url:'../kardex/salidas'},
+        {titulo:'Kardex', url:'../kardex/kardex'},
         {titulo:'Transferencias', url:'../kardex/transferencias'},
-        {titulo:'Kardex O/C', url:'../kardex/kardex'},
-        {titulo:'Kardex sin O/C', url:'../kardex/kardexsinoc'}, 
-        {titulo:'TABLE PRUEBA', url:'../kardex/lista'}, 
+        // {titulo:'Kardex O/C', url:'../kardex/kardex'},
+        // {titulo:'Kardex sin O/C', url:'../kardex/kardexsinoc'}, 
+        // {titulo:'TABLE PRUEBA', url:'../kardex/lista'}, 
       ]
       
     },
     {
       titulo:'Ventas',
       icono:'mdi mdi-cart',
-      submenu: [ 
-        {titulo:'Cotización'},
-        {titulo:'Venta'}, 
-     /*   {titulo:'Cotización', url:'../kardex/listarcotizacion'},
-        {titulo:'Venta', url:'../kardex/listarordencompra'}, 
-       */
+      submenu: [  
+      {titulo:'Cotización Venta', url:'../venta/listarventa'},
+        // {titulo:'Venta', url:'../kardex/listarordencompra'}, 
+       
       ]
       
     },

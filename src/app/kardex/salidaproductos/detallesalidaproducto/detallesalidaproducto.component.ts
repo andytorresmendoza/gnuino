@@ -8,6 +8,7 @@ import { MantenimientosService } from '../../../services/mantenimientos/mantenim
 import { DataTipoSalida } from '../../../models/tiposalida';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-detallesalidaproducto',
@@ -19,26 +20,41 @@ export class DetallesalidaproductoComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<DetallesalidaproductoComponent>,
     public kardexService: KardexService,
-    private mantenimientosService: MantenimientosService
+    private mantenimientosService: MantenimientosService,private currentRoute: ActivatedRoute
   ) {}
 
   formData: DataDetalleSalidaAlmacen;
   productos: DataProducto[];
   tiposalidas: DataTipoSalida[];
+
   ngOnInit(): void {
-    this.mantenimientosService.getProducto().subscribe((resp) => {
-      this.productos = resp as DataProducto[];
-      //  console.log(this.productos,'producto');
+
+    // let id = this.currentRoute.snapshot.paramMap.get('id');
+    this.kardexService.getkardexById(this.data.id).subscribe(res => {
+        //  console.log(res[0]); 
+    this.formData= res[0];     
+    // console.log(res[0],'nuevo');
+    //  console.log(this.kardexService.formDataSalida );   
+    
     });
 
-    this.mantenimientosService.getTiposalida().subscribe((resp) => {
-      this.tiposalidas = resp as DataTipoSalida[];
+    // this.getListIngresosCerrados();
+
+    this.mantenimientosService.getProducto().subscribe((resp) => {
+      this.productos = resp as DataProducto[];
+    //  console.log(this.productos,'producto');
     });
-    this.formData = Object.assign(
+
+      this.mantenimientosService.getTiposalida().subscribe((resp) => {
+     this.tiposalidas = resp as DataTipoSalida[];
+     });
+
+
+  /*  this.formData = Object.assign(
       {
         id: null,
-        idDetalleIngresoAlmacen: this.data.id,
-        idIngresoAlmacen: 0,
+        idProducto:0,
+        // idIngresoAlmacen: 0,
         cantidadGlobal: 0,
         cantidadPrincipal: 0,
         cantidadSalida: 0,
@@ -46,48 +62,62 @@ export class DetallesalidaproductoComponent implements OnInit {
         idTipoIngreso: 0,
         detalleSalida: '',
         fechaSalida: '',
-        idProducto: '', //agreagr
-      },
+        nombre_producto: '' 
+      },)
+    */
+//  console.log(this.kardexService.detalleSalida[this.data.id],'array');
 
-      this.kardexService.detalleSalida[this.data.orderItemIndex]
-    );
-    //  console.log('dataentrada',this.formData);
-  }
+this.formData = Object.assign({ 
+  id: null,
+  idProducto:0,
+  // idIngresoAlmacen: 0,
+  cantidadGlobal: 0,
+  // cantidadPrincipal: 0,
+  cantidadSalida: 0,
+  idTipoSalida: 0,
+  idTipoIngreso: 0,
+  detalleSalida: '',
+  fechaSalida: '',
+  nombre_producto: '' ,
+  descripcion_salida:''
+
+ })
+//  ,this.kardexService.detalleSalida[this.data]);
+//  
+
+}
+// getListIngresosCerrados(){ 
+//   this.kardexService.getListKardex()
+//  .subscribe(resp => {
+//   this.ListIngresosCerrados = resp; 
+//     // this.ListIngresosCerrados = resp; 
+//     this.cargando = false;
+//     // this.cargando = false;
+//       console.log(resp);
+// });
+// }
+
+
   onChange = ($event: any): void => {
     this.formData.descripcion_salida = $event.descripcion_salida;
   };
 
   onSubmit(form: NgForm) {
-    //  console.log('popup',form.value);
-    if (
-      form.value.cantidadSalida > form.value.cantidadPrincipal ||
-      form.value.cantidadSalida <= 0
-    ) {
-      return Swal.fire({
-        title: form.value.cantidadPrincipal + ' Productos en Stock',
-        text: 'Cantidad Salida Invalida',
-        icon: 'error',
-      });
-    } else if (form.invalid) {
-      Object.values(form.controls).forEach((control) => {
-        control.markAsTouched(); //es para validar el guardar
-      });
-
-      return;
-    } else if (this.data.orderItemIndex == null) {
+    
       let fechaParseada: any;
       fechaParseada = moment(form.value.fechaSalida).format('YYYY-MM-DD');
       form.value.fechaSalida = fechaParseada;
-      this.kardexService.detalleSalida.push(form.value);
-    } else {
-      let fechaParseada: any;
-      fechaParseada = moment(form.value.fechaSalida).format('YYYY-MM-DD');
-      form.value.fechaSalida = fechaParseada;
-      this.kardexService.detalleSalida[this.data.orderItemIndex] = form.value;
-
-      this.dialogRef.close();
+      // console.log(form.value);  
+    this.kardexService.detalleSalida = form.value
+ 
+    this.kardexService.GuardaSalidaProducto().subscribe(resp =>{  
+      
+     })    
+    
+     this.dialogRef.close();
+     this.ngOnInit();
       // console.log('id', this.data.orderItemIndex);
       // console.log('submit', this.kardexService.detalleSalida);
     }
-  }
+ 
 }

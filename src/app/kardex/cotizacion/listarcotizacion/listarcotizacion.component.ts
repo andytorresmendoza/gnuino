@@ -4,6 +4,7 @@ import { DataCotizacion } from '../../../models/cotizacion';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-listarcotizacion',
@@ -14,48 +15,35 @@ export class ListarcotizacionComponent implements OnInit {
 
   cotizaciones:DataCotizacion[]=[];
   cargando = true; 
-  public page: number = 0;
-  public search: string = '';
-  
+
+  displayedColumns: string[] = ['Nro Cotizacion', 'Proveedor', 'Empleado', 'Total', 'Fecha Entrega','Estado','details','Anular'];
+  dataSource = new MatTableDataSource<DataCotizacion>();
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   constructor
   (private servicioKardex: KardexService , private router:Router,  private toastr: ToastrService ) { }
 
   ngOnInit(): void {
      this. getCotizacion();
-    // console.log(  this. getCotizacion());
+ 
   }
 
   getCotizacion(){
 
    this.servicioKardex.getCotizacion()
   .subscribe(resp => {
-    
-     this.cotizaciones = resp; 
+    this.dataSource.data = resp as DataCotizacion[]; 
+      this.cotizaciones = resp; 
      this.cargando = false;
-    //  console.log(resp);
+      console.log(resp);
  });
 } 
-nextPage() {
-  this.page += 5;
-}
-
-prevPage() {
-  if ( this.page > 0 )
-    this.page -= 5;
-}
-onSearchPokemon( search: string ) {
-  this.page = 0;
-  this.search = search;
-}
-
-
-
-
-
-
+  
 
 openForEdit(CotizacionId: number) {
-
+console.log(CotizacionId,'editar');
     this.router.navigate(['kardex/cotizacion/'+CotizacionId]);
 }
  
@@ -75,7 +63,8 @@ borrarCotizacion(cotizaciones: DataCotizacion, i: number) {
 } 
  
 EstadoCotizacionAnular(cotizaciones: DataCotizacion, i: number) {
-
+console.log(cotizaciones,'1');
+console.log(i,'index');
   const bodyform = {id:cotizaciones.id, estadoCotizacion: '3'}
   console.log(cotizaciones.id);
   Swal.fire({
@@ -88,13 +77,12 @@ EstadoCotizacionAnular(cotizaciones: DataCotizacion, i: number) {
     if (resp.value) {
       
       this.cotizaciones.splice(i, 1);
+      console.log( this.cotizaciones.splice(i, 1),'slice');
       this.servicioKardex.EstadoCotizacionAnular(cotizaciones.id,bodyform).subscribe(
         resp => {
           this.toastr.error('Cotización Anulada');
-          // this.toastr.remove(cotizaciones.nroCotizacion );
-       
-    //  resp   console.log(resp);
-         //  console.log(resp);
+           this.ngOnInit();
+ 
       }
 
       );

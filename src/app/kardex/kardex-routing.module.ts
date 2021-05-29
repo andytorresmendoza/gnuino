@@ -62,8 +62,8 @@ const routes: Routes = [
    {path:'listarentradasinoc', component: ListarentradasinocComponent, data:{titulo:'Entradas sin O/C'}}, 
    {path:'listarentradasinanulada', component: ListarentradasinocanuladaComponent, data:{titulo:'Entradas sin O/C'}}, 
    {path:'entradasinoc/:id', component: AddentradasinocComponent, data:{titulo:'Entradas sin O/C'}},
-
-   {path:'listarsalida', component: ListarsalidaproductoComponent, data:{titulo:'Salidas'}},
+  //  {path:'listarsalida', component: ListarsalidaproductoComponent, data:{titulo:'Salidas'}},
+   {path:'kardex', component: ListarsalidaproductoComponent, data:{titulo:'kardex'}},
    {path:'salidas', component: TotalsalidasComponent, data:{titulo:'Salidas'}}, 
    {path:'salidaProducto/:id', component: AddsalidaproductoComponent, data:{titulo:'Salidas'}},
 

@@ -32,7 +32,7 @@ export class ListarClienteComponent implements OnInit {
 
   getCliente(){
 
-    this.mantenientoservice.getCotizacion()
+    this.mantenientoservice.getCliente()
    .subscribe(resp => {
     this.dataSource.data = resp as DataCliente[]; 
       // this.cliente = resp; 

@@ -9,6 +9,7 @@ import { ProveedorI } from '../../../models/proveedor';
 import { DataCliente } from 'src/app/models/cliente';
 import { NgForm } from '@angular/forms';
 import { DataTipodocumento } from 'src/app/models/tipodocumento';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-add-cliente',
   templateUrl: './add-cliente.component.html',
@@ -23,13 +24,14 @@ export class AddClienteComponent implements OnInit {
   public formData : DataCliente;
   tipodocumentos: DataTipodocumento[] = [];
   cargando = true; 
-  constructor(private mantenimientosServices: MantenimientosService, private router:Router,private currentRoute: ActivatedRoute) { }
+  constructor(private mantenimientosServices: MantenimientosService, private router:Router,private currentRoute: ActivatedRoute,private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    let id = this.currentRoute.snapshot.paramMap.get('id');
+    let id = this.currentRoute.snapshot.paramMap.get('id'); 
     if (id !== 'nuevo') {
       this.mantenimientosServices.getClientebyId(+id).subscribe(res => {
          this.formData = res[0]; 
+         console.log(res[0].id,'id');
          console.log( this.formData);
 
 
@@ -51,6 +53,7 @@ this.mantenimientosServices.getTipodocumento()
 
   this.getDepartamento(); 
   this.getProvinciaAll();
+  this.getDistritoAll();
     this.getPais();
   }
 
@@ -65,16 +68,16 @@ this.mantenimientosServices.getTipodocumento()
       apellidos_pat_cliente: '',
       apellidos_mat_cliente:'',
       sexo_cliente:'',
-      dni_cliente: 0,
+      dni_cliente: '',
       direccion_cliente: '',
-      telefono_cliente: 0,
+      telefono_cliente: '',
       email_cliente: '',
       idTipoDocumento:0,
       idPais: 0,
       idDepartamento: 0,
       idProvincia:0,
       idDistrito:0,
-      estado:0 
+     
   }; 
   } 
 
@@ -102,10 +105,16 @@ getProvinciaAll(){
  );
  } 
 
+ getDistritoAll(){ 
+  this.mantenimientosServices.getDistritoAll()
+   .subscribe(response => { 
+      this.distritos = response;  
+     this.cargando = false; 
+   }
+ );
+ } 
   onSelectDepartamento($event:any):void{
-    //colocar una condicional
  
-    // console.log('ID_proveed',id);
     this.mantenimientosServices.getProvincia($event)
     .subscribe(response=>{   
       console.log(response,'response');
@@ -124,25 +133,25 @@ getProvinciaAll(){
     });
   } 
 
-  
-
-  onSubmit(proveedores: ProveedorI):void{
-    console.log('entro',proveedores);
-    // this.nrocuentas[0].id = 22;
-  this.mantenimientosServices.addProveedor(proveedores)
-    .subscribe(res=>{
-     console.log(res);
-      Swal.fire({
-        //  title: this.nrocuentas[0].descripcion_cuenta,
-        text: 'Se Guardo correctamente',
-        icon: 'success',
-      });
-      this.router.navigate(["../mantenimientos/listarproveedor"]);
-     
-      
-    });
-  
+ onSubmit(form:NgForm):void{
+     console.log(form);
+     if (this.formData.id) {
+      this.mantenimientosServices.updateCliente(this.formData).subscribe(
+        resp=>{
    
-  
-  }
+        this.toastr.success('Actualizado Exitosamente','Gnuino');
+         this.router.navigate(["../mantenimientos/listarcliente"]);
+        }
+      )
+  } 
+  else{
+
+     this.mantenimientosServices.saveCliente(this.formData).subscribe(res =>{
+    console.log(res);
+      this.resetForm();
+      this.toastr.success('Guardado Exitosamente','Gnuino');
+      this.router.navigate(["../mantenimientos/listarcliente"]);
+    }) ;
+ }
+}
 }

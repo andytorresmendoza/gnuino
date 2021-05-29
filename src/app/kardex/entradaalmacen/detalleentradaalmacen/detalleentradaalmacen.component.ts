@@ -19,8 +19,6 @@ import { DataTipoAlmacen } from '../../../models/tipoalmacen';
 export class DetalleentradaalmacenComponent implements OnInit {
   productos: DataProducto[];
   almacenes: DataTipoAlmacen[]; 
- 
-  // formData: DataDetalleCotizacion;
   formData: DataDetalleIngresoAlmacen;
   isValid: boolean = true;
   constructor(
@@ -52,7 +50,8 @@ export class DetalleentradaalmacenComponent implements OnInit {
     idSedePrincipal: 0,
     precio_unidad:0
 
-   },this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]);
+   },
+   this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]);
  
   }
   onChangeAlmacen = ($event: any): void => {
@@ -92,6 +91,7 @@ export class DetalleentradaalmacenComponent implements OnInit {
   }
   else{
   this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex] = form.value;
+  console.log(this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex],'component');
   this.dialogRef.close();
    console.log('submit', ( this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]));
   }

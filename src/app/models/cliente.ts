@@ -8,14 +8,14 @@ export interface ClienteI {
     apellidos_pat_cliente: string;
     apellidos_mat_cliente:string;
     sexo_cliente: string;
-    dni_cliente: number;
+    dni_cliente: string;
     direccion_cliente:string;
-    telefono_cliente:number;
+    telefono_cliente:string;
     email_cliente:string;
     idTipoDocumento:number;
     idPais:number;
     idDepartamento:number;
     idProvincia:number;
     idDistrito:number;
-    estado: number; 
+    
   }

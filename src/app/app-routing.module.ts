@@ -11,6 +11,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { KardexComponent } from './kardex/kardex.component';
 import { KardexRoutingModule } from './kardex/kardex-routing.module';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { VentaComponent } from './venta/venta.component';
+import { VentaRoutingModule } from './venta/venta-routing.module';
 
 
 
@@ -28,6 +30,7 @@ const routes: Routes =[
   {path:'', redirectTo:'/dashboard', pathMatch:'full'},   
    {path:'/mantenimientos'   , component: MantenimientosComponent},
    {path:'/kardex'   , component: KardexComponent}, 
+   {path:'/venta'   , component: VentaComponent}, 
    {path:'/auth'   , component: LoginComponent}, 
   {path:'**', component: NopagefoundComponent}, 
 ];
@@ -43,7 +46,8 @@ const routes: Routes =[
      PagesRoutingModule,
      MantenimientosRoutingModule,
      KardexRoutingModule,
-     AuthRoutingModule
+     AuthRoutingModule,
+     VentaRoutingModule
     //  KardexRoutingModule
   ],
   exports:[

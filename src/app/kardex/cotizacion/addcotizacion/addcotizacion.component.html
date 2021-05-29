@@ -56,14 +56,7 @@ name="idProovedor"
 [(ngModel)]="kardexService.formData.idProovedor"
 />
 
-<!-- PRUEBA -->
-  <!-- <input
-type="text"
-name="fecha_entrega"
-#fecha_entrega="ngModel"
-[(ngModel)]="kardexService.formData.fecha_entrega"
-/> -  -->
-
+ 
 
 <input
 type="hidden"
@@ -115,7 +108,7 @@ name="costo_envio"
        
       </div>
       <div class="form-group">
-        <label> Descuento Cotización</label>
+        <label> Descuento Cotización %</label>
         <input
         type="number"
           name="descuento_cot"
@@ -162,15 +155,14 @@ name="costo_envio"
        </ng-select> 
       </div>
       <div class="form-group">
-        <label> Costo Envio</label>
+        <label> Costo Envio </label>
         <input
         type="number"
           name="costo_envio"
           #costo_envio="ngModel"
           [(ngModel)]="kardexService.formData.costo_envio"
           class="form-control"
-          (keyup)="updateMontoTotal()"
-       
+          (keyup)="updateMontoTotal()" 
         />
         <!-- (keyup)="updateMontoTotal()" -->
       </div>

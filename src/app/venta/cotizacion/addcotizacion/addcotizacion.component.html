@@ -1,0 +1,21 @@
+
+<h1><small>Agregar Detalles</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../../listarventa">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+
+
+
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="ventaService.formData"
+  (submit)="onSubmit(form)"
+>

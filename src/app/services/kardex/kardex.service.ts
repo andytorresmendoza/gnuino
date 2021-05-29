@@ -55,7 +55,7 @@ export class KardexService {
 
   //Salida Almacen con  OC
 
-  formDataSalida: DataSalidaProductos;
+  formDataSalida: DataSalidaProductos; //utilizamos
   detalleSalida:DataDetalleSalidaAlmacen[];
 
   //Salida Almacen sin  OC
@@ -127,7 +127,7 @@ detalleTransferenciasinoc: DataDetalleTransferenciasinOc[];
     let fechaParseada: any;
     fechaParseada = moment(body.fecha_entrega).format('YYYY-MM-DD');
     body.fecha_entrega=fechaParseada;
-      // console.log(body);
+     console.log(body);
     return this.http.post(`${this.baseURL}cotizacion`, body).pipe(
       map(
         (resp) => resp['data'])
@@ -280,8 +280,7 @@ getAlmacenPrincipal() {
   GuardaIngresoAlmacen() {
     // console.log('llego');
     var body = {
-      ...this.formDataEntrada 
-      ,
+      ...this.formDataEntrada,
       detalleSedeIngreso: this.detalleIngresoAlmacen,
     };
 console.log(body);
@@ -317,16 +316,25 @@ console.log(body);
     );
   }
   GuardaEditIngresoAlmacen() {
-    // console.log('llego');
+   console.log(this.detalleIngresoAlmacen,'llego');
+
+  //  let nuevoArregloTemp=[];
+  //  this.detalleIngresoAlmacen?.map(
+  //    res => {
+  //      res.hasOwnProperty('idDetalleCotizacion') ? 
+
+  //      '': nuevoArregloTemp.push(res);
+  //    }); 
+
     var body = {
-      ...this.formDataEntrada 
-      ,
-      detalleIngresoAlmacen: this.detalleIngresoAlmacen,
+     ...this.formDataEntrada 
+     ,
+      detalleIngresoAlmacen:this.detalleIngresoAlmacen
     };
     console.log(body);
-    let fechaParseada: any;
-    fechaParseada = moment(body.fechaIngreso).format('YYYY-MM-DD');
-    body.fechaIngreso=fechaParseada;
+    // let fechaParseada: any;
+    // fechaParseada = moment(body.fechaIngreso).format('YYYY-MM-DD');
+    // body.fechaIngreso=fechaParseada;
       // console.log(body);
     return this.http.post(`${this.baseURL}almacen-pendiente-ingreso`, body).pipe(
       map((resp) =>
@@ -425,14 +433,21 @@ console.log(body);
    
    getLisSalidasAlmacen() {
     return this.http
-      .get(this.baseURL + 'salida-productos-oc')
+      .get(this.baseURL + 'salida-productos')
       .pipe(map((resp) => 
       
       resp['data']));
   }
-   getListIngresosCerrados() {
+   getListIngresosCerrados() { //ya no va
     return this.http
       .get(this.baseURL + 'list-ingreso-oc-cerrada')
+      .pipe(map((resp) => resp['data']));
+  }
+
+
+  getListKardex() {
+    return this.http
+      .get(this.baseURL + 'kardex-list')
       .pipe(map((resp) => resp['data']));
   }
 
@@ -444,32 +459,35 @@ console.log(body);
     );
   }
 
-  GuardaSalidaAlmacen() {
-    // console.log('llego');
-    // console.log('this.detalleDevoluciones',this.detalleSalida);
+GuardaSalidaAlmacen() { 
     let nuevoArregloTemp=[];
       this.detalleSalida?.map(
         res => {
           res.hasOwnProperty('idDetalleIngresoAlmacen') ? nuevoArregloTemp.push(res): '' 
         }); 
-    var body = { 
-      // ...this.detalleSalida
+    var body = {  
       detallSalida: nuevoArregloTemp
     }; 
 
       return this.http.post(`${this.baseURL}salida-productos-oc`, body).pipe(
-        map((resp) =>
-      //  console.log(resp ))
-        
-      resp['data'])
-        //  console.log(resp['data']))
-        // catchError(this.manejarError)
-
-      );
-   
-  
-   
+        map((resp) => 
+      resp['data']) 
+      ); 
   }
+  
+  GuardaSalidaProducto() {   
+      // console.log(this.detalleSalida,'objeto');
+    var body = {  
+      detallSalida: [this.detalleSalida]  
+    };   
+      console.log(body , 'array'); 
+      return this.http.post(`${this.baseURL}salida-productos`, body).pipe(
+        map((resp) => 
+      resp['data']) 
+      ); 
+  }
+
+
 
   /*SALIDA DE PRODUCTOS SIN OC */
   getLisSalidassinocAlmacen() {
@@ -503,9 +521,10 @@ console.log(body);
     var body = { 
       // ...this.detalleSalida
       detallSalidaSinoc: nuevoArregloTemp
+   
     }; 
  
-
+    console.log(body,'sioc');
       return this.http.post(`${this.baseURL}salida-productos-sinoc`, body).pipe(
         map((resp) =>
       //  console.log(resp ))
@@ -525,7 +544,7 @@ console.log(body);
 
   getLisDevolucionesAlmacen() {
     return this.http
-      .get(this.baseURL + 'devolucion-orden-compra')
+      .get(this.baseURL + 'devolucion-producto')
       .pipe(map((resp) => 
       
       resp['data']));
@@ -540,13 +559,13 @@ console.log(body);
     var body = {  
       detalledevolucion: nuevoArregloTemp
     };  
-    // console.log('nuevo array',nuevoArregloTemp);
+     console.log('nuevo array',nuevoArregloTemp);
     // delete body.detalledevolucion[0].idDetalleIngresoAlmacen;
     // let idParse: any;
     // idParse =0;
     // body.detalledevolucion[0].id = idParse;
  
-      return this.http.post(`${this.baseURL}devolucion-orden-compra`, body).pipe(
+      return this.http.post(`${this.baseURL}devolucion-producto`, body).pipe(
         map((resp) => 
       resp['data'])
  
@@ -671,5 +690,14 @@ console.log(body);
                     .pipe(map((resp) => 
                     
                     resp['data']));
+                }
+
+
+                getkardexById(id: number) {
+                  return this.http.get(`${this.baseURL}kardex-list/` + id).pipe(
+                    map((resp) => 
+                    // console.log( resp['data']))
+                    resp['data'])
+                  );
                 }
 }

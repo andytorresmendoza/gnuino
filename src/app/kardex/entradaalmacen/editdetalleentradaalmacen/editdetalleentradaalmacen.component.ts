@@ -56,7 +56,9 @@ export class EditdetalleentradaalmacenComponent implements OnInit {
    this.kardexService.detalleIngresoAlmacen.push(form.value);  
    
    else
+   console.log( form.value, 'form');
    this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex] = form.value;
+   
    this.dialogRef.close();
     // console.log('submit', ( this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]));
   //  }
