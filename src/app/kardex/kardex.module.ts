@@ -74,6 +74,8 @@ import { TotalsalidasComponent } from './salidaproductos/totalsalidas/totalsalid
 import { KardexocComponent } from './kardexoc/kardexoc.component';
 import { KardexsinocComponent } from './kardexsinoc/kardexsinoc.component';
 import { ListapruebaComponent } from './listaprueba/listaprueba.component';
+import { ListarkardexComponent } from './kardex/listarkardex/listarkardex.component';
+import { DetalleprecioventaComponent } from './kardex/detalleprecioventa/detalleprecioventa.component';
  
 @NgModule({
   declarations: 
@@ -123,7 +125,9 @@ import { ListapruebaComponent } from './listaprueba/listaprueba.component';
      TotalsalidasComponent,
      KardexocComponent,
      KardexsinocComponent,
-     ListapruebaComponent
+     ListapruebaComponent,
+     ListarkardexComponent,
+     DetalleprecioventaComponent
      ],
   imports: [
      CommonModule,

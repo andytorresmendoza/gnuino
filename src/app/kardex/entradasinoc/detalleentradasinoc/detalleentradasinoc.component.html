@@ -1,56 +1,69 @@
 <h4 class="dispaly-4">Insertar Productos</h4>
 <hr />
 <form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
-    <input type="hidden" name="id" #id="ngModel" [(ngModel)]="formData.id" />
+    <input type="hidden" name="id" #id="ngModel" [(ngModel)]="formDataOC.id" />
     <input
     type="hidden"
     name="idEntradaSinOc"
     #idEntradaSinOc="ngModel"
-    [(ngModel)]="formData.idEntradaSinOc"
+    [(ngModel)]="formDataOC.idEntradaSinOc"
   /> 
   <input
   type="hidden"
   name="nombre_producto"
   #nombre_producto="ngModel"
-  [(ngModel)]="formData.nombre_producto"
+  [(ngModel)]="formDataOC.nombre_producto"
 />
-<input
-type="hidden"
-name="idProducto"
-#idProducto="ngModel"
-[(ngModel)]="formData.idProducto"
-/>
- 
+
 <input
 type="hidden" 
 name="nombre_alamcen"
 #nombre_alamcen="ngModel"
-[(ngModel)]="formData.nombre_alamcen"
+[(ngModel)]="formDataOC.nombre_alamcen"
 />
 
 <input
 type="hidden" 
 name="idSedePrincipal"
 #idSedePrincipal="ngModel"
-[(ngModel)]="formData.idSedePrincipal"
+[(ngModel)]="formDataOC.idSedePrincipal"
 />
-
+<input
+type="hidden"
+name="idProducto"
+#idProducto="ngModel"
+[(ngModel)]="formDataOC.idProducto"
+/>
+ 
 <div class="form-row">
     <div class="form-group col-md-4">
         <label>Buscar Producto</label>
       
+        <!-- <ng-select  
+        #idProducto="ngModel"  
+        name="idProducto" 
+        bindValue="idProducto" 
+        placeholder="Buscar Producto" 
+        [(ngModel)]="formDataOC.idProducto"  
+        (change)="onChange($event)"
+      >   
+          <ng-option *ngFor="let emp of productos" [value]="emp.id">{{emp.nombre_producto}}</ng-option>
+       </ng-select>  -->
+
+
+ 
+
         <ng-select 
         [items]="productos"
        bindLabel="nombre_producto"
        bindValue="id" 
        placeholder="Buscar Producto"
-       [(ngModel)]="formData.idProducto"
+       [(ngModel)]="formDataOC.idProducto"
        (change)="onChange($event)"
-       required
        
         >
   
-  </ng-select>
+  </ng-select>  
       </div>
       <div class="form-group col-md-4">
         <label>Unidad Medida </label> 
@@ -58,7 +71,7 @@ name="idSedePrincipal"
         type="text"
           name="detalleNameUnidadMedida"
           #detalleNameUnidadMedida="ngModel"
-          [(ngModel)]="formData.detalleNameUnidadMedida"
+          [(ngModel)]="formDataOC.detalleNameUnidadMedida"
           class="form-control"
           readonly
        
@@ -67,15 +80,28 @@ name="idSedePrincipal"
 
       <div class="form-group col-md-4">
        <label>Almacén</label> 
+       <ng-select  
+       #idSedePrincipal="ngModel"  
+       name="idSedePrincipal" 
+       bindValue="idSedePrincipal" 
+       placeholder="Buscar Almacén" 
+       [(ngModel)]="formDataOC.idSedePrincipal"  
+     >   
+         <ng-option *ngFor="let emp of almacenes" [value]="emp.id">{{emp.nombre_alamcen}}</ng-option>
+      </ng-select> 
+
+
+<!-- 
+
        <ng-select 
        [items]="almacenes"  
        bindLabel="nombre_alamcen"
        bindValue="id"   
        placeholder="Buscar Almacén" 
-       [(ngModel)]="formData.idSedePrincipal" 
+       [(ngModel)]="formDataOC.idSedePrincipal" 
        (change)="onChangeAlmacen($event)">
     
-    </ng-select>   
+    </ng-select>    -->
       </div>
       <div class="form-row">   
       <div class="form-group col-md-4">
@@ -84,7 +110,7 @@ name="idSedePrincipal"
         type="number"
           name="cantidad"
           #cantidad="ngModel"
-          [(ngModel)]="formData.cantidad"
+          [(ngModel)]="formDataOC.cantidad"
           class="form-control"
           [class.is-invalid]="cantidad.invalid && cantidad.touched"
           required
@@ -99,7 +125,7 @@ name="idSedePrincipal"
         type="number"
           name="precioUnitario"
           #precioUnitario="ngModel"
-          [(ngModel)]="formData.precioUnitario"
+          [(ngModel)]="formDataOC.precioUnitario"
           class="form-control"
           [class.is-invalid]="precioUnitario.invalid && precioUnitario.touched"
           required
@@ -114,7 +140,7 @@ name="idSedePrincipal"
         type="number"
           name="precioTotal"
           #precioTotal="ngModel"
-          [(ngModel)]="formData.precioTotal"
+          [(ngModel)]="formDataOC.precioTotal"
           class="form-control"
           readonly
 
@@ -132,7 +158,7 @@ name="idSedePrincipal"
         type="number"
           name="cantidadPrincipal"
           #cantidadPrincipal="ngModel"
-          [(ngModel)]="formData.cantidadPrincipal" 
+          [(ngModel)]="formDataOC.cantidadPrincipal" 
           class="form-control" 
           required
         />
@@ -145,7 +171,7 @@ name="idSedePrincipal"
         <input
           name="observaciones"
           #observaciones="ngModel"
-          [(ngModel)]="formData.observaciones"
+          [(ngModel)]="formDataOC.observaciones"
           class="form-control"
           [class.is-invalid]="observaciones.invalid && observaciones.touched"
           required

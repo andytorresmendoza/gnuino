@@ -1,25 +1,4 @@
-<!-- <nav class="navbar navbar-expand-md navbar-light bg-faded" style="background-color: #e3f2fd;">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
-</button>
  
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-
-          
-          <li class="nav-item" routerLinkActive="active">
-              <a class="nav-link" [routerLink]="['../listarentrada']">ACTIVAS</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-              <a class="nav-link" [routerLink]="['../listarentradaanulada']">ANULADAS</a>
-          </li>
-        
-      </ul>
-
-  </div>
-</nav>
-<br> -->
 <div class="col-md-12">
   <div class="card"> 
           <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -27,16 +6,123 @@
                   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                       <span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">ESTADOS</span>
                   </a>
-                  <div class="dropdown-menu"> 
-                    <a class="dropdown-item" id="dropdown1-tab"[routerLink]="['../listarentrada']" role="tab" data-toggle="tab" aria-controls="dropdown1">Kardex</a> 
+                  <div class="dropdown-menu">  
                     <a class="dropdown-item" id="dropdown1-tab"[routerLink]="['../listarentrada']" role="tab" data-toggle="tab" aria-controls="dropdown1">Activas</a> 
                     <a class="dropdown-item" id="dropdown2-tab" [routerLink]="['../listarentradaanulada']"  role="tab" data-toggle="tab" aria-controls="dropdown2">Anuladas</a> </div>
               </li> 
           </ul> 
   </div>
+  <div class="col text-right" >
+    <button routerLink="/kardex/ingresoalmacen" class="btn btn-primary">
+      <i class="fa fa-plus"> Agregar </i>
+    </button>
+  
+  </div>
 </div> 
 <h1>Listado Entrada Almacén </h1>
-<hr />
+
+<mat-form-field>
+  <mat-label>Buscar</mat-label> 
+  <input matInput (keyup)="applyFilter($event)"   placeholder="Ingrese dato" #input>
+ 
+</mat-form-field>
+ 
+ 
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="Ingreso Almacen Nro">
+    <th mat-header-cell *matHeaderCellDef> Ingreso Almacen Nro </th>
+    <td mat-cell *matCellDef="let element" > {{element.codigoIngreso}} </td>
+   
+  </ng-container>
+
+  
+  <ng-container matColumnDef="Nro Orden Compra">
+    <th mat-header-cell *matHeaderCellDef> Nro Orden Compra </th>
+    <td mat-cell *matCellDef="let element"> {{element.detalleOrden[0].codigo_orden_num}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Tipo Ingreso">
+    <th mat-header-cell *matHeaderCellDef> Tipo Ingreso </th>
+    <td mat-cell *matCellDef="let element"> {{element.detalleTipoIngreso[0].descripcion_ingreso}} </td>
+  </ng-container>
+
+ 
+  <ng-container matColumnDef="Empleado">
+    <th mat-header-cell *matHeaderCellDef> Empleado </th>
+    <td mat-cell *matCellDef="let element" > {{element.detalleOrden[0].detalleEmpleado[0].nombre_empleado}} </td>
+   
+  </ng-container>
+  <ng-container matColumnDef="Fecha Ingreso">
+    <th mat-header-cell *matHeaderCellDef> Fecha Ingreso </th>
+    <td mat-cell *matCellDef="let element" > {{element.fechaIngreso }} </td>
+   
+  </ng-container>
+  <ng-container matColumnDef="Estado">
+    <th mat-header-cell *matHeaderCellDef> Estado </th>
+    <td mat-cell *matCellDef="let element">
+     
+        <label *ngIf="element.idFlujo == 2" class="badge bg-success"
+          >
+
+          Cerrado</label
+        >
+        <label *ngIf="element.idFlujo == 1" class="badge bg-warning text-dark"
+          >Pendiente</label
+        >
+        <label *ngIf="element.idFlujo == 3" class="badge badge-danger"
+        >Anulado</label
+      > 
+    </td>
+  
+  </ng-container>
+  <ng-container matColumnDef="details">
+    <th mat-header-cell *matHeaderCellDef> Editar </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="primary" (click)="openForEdit(element.id)"> 
+        <mat-icon>create</mat-icon>
+      </button>
+    </td>
+  
+  </ng-container>
+  <ng-container matColumnDef="Anular">
+    <th mat-header-cell *matHeaderCellDef> Anular </th>
+    <td mat-cell *matCellDef="let element; let i = index ">
+      <button mat-icon-button color="warn" (click)="EstadoEntradaAnular(element, i)"> 
+        <mat-icon>delete_sweep</mat-icon>
+      </button>
+    </td>
+  
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <!-- Row shown when there is no matching data. -->
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">No existe coincidencia con "{{input.value}}"</td>
+  </tr>
+ 
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <hr />
 <div class="row">
   <div class="col text-right">
     <button routerLink="/kardex/ingresoalmacen" class="btn btn-primary">
@@ -52,9 +138,7 @@
         <th scope="col">Tipo Ingreso</th> 
      <th scope="col">Empleado</th>  
      <th scope="col">Estado</th>
-      <!--  <th scope="col">Total</th>
-      <th scope="col">Estado</th> -->
-    
+ 
   </thead>
   <tbody>
       <tr *ngFor="let item of ingresosAlmacen; let i = index" >
@@ -83,36 +167,7 @@
     
  
       </td>  
-         <!--
-        <td (click)="openForEdit(item.id)">{{item.detalleEmpleado[0].nombre_empleado}}</td>
-        <td (click)=" openForEdit(item.id)">{{item.total_costo}}</td> -->
-        <!-- <td (click)="openForEdit(item.id)">{{item.idEstadoFlujo}}</td> -->
-        <!-- <td>
-          <label *ngIf="item.idEstadoFlujo == 2" class="badge bg-success"
-            >
-
-            Cerrado</label
-          >
-          <label *ngIf="item.idEstadoFlujo == 1" class="badge bg-warning text-dark"
-            >Pendiente</label
-          >
-          <label *ngIf="item.idEstadoFlujo == 3" class="badge badge-danger"
-          >Anulado</label
-        >
-        </td> -->
-     <!-- <td>
- 
-       <button class="btn btn-outline-dark" (click)="borrarCotizacion(item, i)">
-        <i class="fa fa-trash"></i> 
-          
-    </button> 
-      
-      </td>   -->
-      
-         <!-- <td> <button class="btn btn-info mr-1" (click)="openForEdit(item.id)">            
-        <i class="fa fa-pen"></i> 
-        </button>
-      </td> -  -->
+       
       </tr>
     </tbody>
 </table>
@@ -136,4 +191,4 @@
     <i class="fa fa-sync-alt fa-spin fa-2px"></i>
   </p>
   <p class="mb-0">Espere por favor</p>
-</div>
+</div> -->

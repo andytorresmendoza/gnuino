@@ -40,6 +40,7 @@ import { KardexocComponent } from './kardexoc/kardexoc.component';
 import { KardexsinocComponent } from './kardexsinoc/kardexsinoc.component';
 import { ListapruebaComponent } from './listaprueba/listaprueba.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { ListarkardexComponent } from './kardex/listarkardex/listarkardex.component';
  
 const routes: Routes = [
  
@@ -63,7 +64,7 @@ const routes: Routes = [
    {path:'listarentradasinanulada', component: ListarentradasinocanuladaComponent, data:{titulo:'Entradas sin O/C'}}, 
    {path:'entradasinoc/:id', component: AddentradasinocComponent, data:{titulo:'Entradas sin O/C'}},
   //  {path:'listarsalida', component: ListarsalidaproductoComponent, data:{titulo:'Salidas'}},
-   {path:'kardex', component: ListarsalidaproductoComponent, data:{titulo:'kardex'}},
+  //  {path:'kardex', component: ListarsalidaproductoComponent, data:{titulo:'kardex'}},
    {path:'salidas', component: TotalsalidasComponent, data:{titulo:'Salidas'}}, 
    {path:'salidaProducto/:id', component: AddsalidaproductoComponent, data:{titulo:'Salidas'}},
 
@@ -87,7 +88,7 @@ const routes: Routes = [
     {path:'kardex', component: KardexocComponent, data:{titulo:'Kardex O/C'}}, 
     {path:'kardexsinoc', component: KardexsinocComponent, data:{titulo:'Kardex sin O/C'}}, 
     {path:'lista', component: ListapruebaComponent, data:{titulo:'Prueba'}}, 
-
+    {path:'Listarkardex', component: ListarkardexComponent, data:{titulo:'Kardex'}}, 
   
   //  {path:'**', pathMatch:'full', redirectTo:''}
    

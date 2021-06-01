@@ -1,4 +1,4 @@
-<h4 class="dispaly-4">Salida Productos</h4>
+<h4 class="dispaly-4">Precio Venta</h4>
 <hr />
 
 <form #form="ngForm" autocomplete="off"   *ngIf="formData" (submit)="onSubmit(form)">
@@ -36,44 +36,21 @@ name="idProducto"
         />
     </div> 
     <div class="form-group col-md-4">
-      <label>Tipo Ingreso</label>
-      <select 
-        name="idTipoIngreso"  
-        #idTipoIngreso="ngModel"
-          [(ngModel)]="formData.idTipoIngreso"
-        class="form-control"  
-        [class.is-invalid]="!isValid && formData.idTipoIngreso==0" 
-        >
-    
-          <option value="0">-Seleccione Tipo Ingreso-</option>
-          <option value="1">Salida Por O/C</option>
-          <option value="2">Salida Sin O/C</option>
-        
-        </select> 
-     
-  </div>
+        <label>Precio Promedio </label>
+        <input
+          name="precioUnidadPromedio"
+          #precioUnidadPromedio="ngModel"
+          [(ngModel)]="formData.precioUnidadPromedio"
+          class="form-control"
+          readonly
+        />
+    </div> 
 </div>
 
  <div class="form-row">
-    <div class="form-group col-md-3">
-        <label>Tipo Salida</label>
-     
-        <ng-select 
-        [items]="tiposalidas"
-       bindLabel="descripcion_salida"
-       bindValue="id" 
-       placeholder="Buscar Salida"
-       name="idTipoSalida"  
-       #idTipoSalida="ngModel"
-       [(ngModel)]="formData.idTipoSalida"
-       (change)="onChange($event)"
-       
-        >
-  
-  </ng-select>
-    </div>
-    <div class="form-group col-md-3">
-        <label>Cantidad Salida</label>
+ 
+    <div class="form-group col-md-4">
+        <label>Precio Venta Salida</label>
         <input
         type="number"
           name="cantidadSalida"
@@ -83,20 +60,9 @@ name="idProducto"
      
         />
     </div>
-    <div class="form-group col-md-3">
-      <label>Detalle Salida</label>
-      <input
-      type="text"
-        name="detalleSalida"
-        #detalleSalida="ngModel"
-        [(ngModel)]="formData.detalleSalida"
-        class="form-control"
-    
-      />
-      
-    </div>
-    <div class="form-group col-md-3">
-      <label> Fecha  Salida</label> 
+ 
+    <div class="form-group col-md-4">
+      <label> Fecha  Precio</label> 
     
       <input
       
@@ -115,6 +81,17 @@ name="idProducto"
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker ></mat-datepicker>
       
+    </div>
+    <div class="form-group col-md-4">
+        <label>Detalle Venta</label>
+        <input
+        type="number"
+          name="descripcion_salida"
+          #descripcion_salida="ngModel"
+          [(ngModel)]="formData.descripcion_salida"
+          class="form-control"
+     
+        />
     </div>
 </div>
   

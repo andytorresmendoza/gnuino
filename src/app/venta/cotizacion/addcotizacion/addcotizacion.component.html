@@ -1,5 +1,5 @@
 
-<h1><small>Agregar Detalles</small></h1>
+<h1><small>Agregar Detalles de Ventas</small></h1>
 <hr />
 <div class="row text-right">
   <div class="col">
@@ -11,11 +11,285 @@
 </div>
 <br />
 
-
-
 <form
   #form="ngForm"
   autocomplete="off"
   *ngIf="ventaService.formData"
   (submit)="onSubmit(form)"
 >
+  <input
+    type="hidden"
+    name="id"
+    #id="ngModel"
+    [(ngModel)]="ventaService.formData.id"
+  />
+  <input
+  type="hidden"
+  name="fecha_entrega"
+  #fecha_entrega="ngModel"
+  [(ngModel)]="ventaService.formData.fecha_entrega"
+/>
+<!-- EMPLEADO -->
+   <input
+  type="hidden"
+  name="nombre_empleado"
+  #nombre_empleado="ngModel"
+  [(ngModel)]="ventaService.formData.nombre_empleado"
+/>  
+<input
+type="hidden"
+name="idEmpleado"
+#idEmpleado="ngModel"
+[(ngModel)]="ventaService.formData.idEmpleado"
+/>
+<!-- PROVEEDOR -->
+  <input
+type="hidden"
+name="nombre_proovedor"
+#nombre_proovedor="ngModel"
+[(ngModel)]="ventaService.formData.nombre_proovedor"
+/>  
+<input
+type="hidden"
+name="idProovedor"
+#idProovedor="ngModel"
+[(ngModel)]="ventaService.formData.idProovedor"
+/>
+
+ 
+
+<input
+type="hidden"
+name="total_costo"
+#total_costo="ngModel"
+[(ngModel)]="ventaService.formData.total_costo"
+/>
+<input
+type="hidden"
+name="costo_envio"
+#costo_envio="ngModel"
+[(ngModel)]="ventaService.formData.costo_envio"
+/>
+
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Cotización Nro.</label>
+      <input
+        name="codigo_cotizacion_num"
+        #codigo_cotizacion_num="ngModel"
+        [(ngModel)]="ventaService.formData.codigo_cotizacion_num"
+        class="form-control"
+        readonly
+      />
+    </div>
+  </div></div>
+
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Detalle</label>
+        <input
+        class="form-control" 
+          type="text"
+          name="detalle"
+          placeholder="Detalle"
+          [class.is-invalid]="detalle.invalid && detalle.touched"
+          #detalle="ngModel"
+          [(ngModel)]="ventaService.formData.detalle"
+          class="form-control" 
+          required
+          minlength="5"
+        
+        />
+      
+       
+      </div>
+      <!-- cambiar -->
+      <div class="form-group">
+        <label> Telefono</label>
+        <input
+        type="number"
+          name="telefono"
+          #telefono="ngModel"
+          [(ngModel)]="ventaService.formData.telefono"
+          class="form-control"
+          (keyup)="updateMontoTotal()"
+        />
+      </div>
+
+      <div class="form-group">
+        <label  for="inputAddress" class="form-label"> Fecha Cotización</label>
+        <!-- matInput -->
+        <input
+
+          [matDatepicker]="picker"
+          placeholder="DD/MM/YYYY" 
+          name="fecha_entrega"
+          #fecha_entrega="ngModel" 
+          [(ngModel)]="ventaService.formData.fecha_entrega"
+          class="form-control"  
+          [class.is-invalid]="fecha_entrega.invalid && fecha_entrega.touched"
+            required
+      
+        />
+        <small *ngIf="fecha_entrega.invalid && fecha_entrega.touched"
+        class="form-text text-danger">Ingrese Fecha</small>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Empleado</label>
+
+        <ng-select  
+        #idEmpleado="ngModel"  
+        name="idEmpleado" 
+        bindValue="idEmpleado" 
+        placeholder="Buscar Empleado" 
+        [(ngModel)]="ventaService.formData.idEmpleado"  
+      >   
+          <ng-option *ngFor="let emp of empleados" [value]="emp.id">{{emp.nombre_empleado}}</ng-option>
+       </ng-select> 
+      </div>
+      <!-- cambiar -->
+      <div class="form-group">
+        <label> Dirección </label>
+        <input
+        type="number"
+          name="direccion"
+          #direccion="ngModel"
+          [(ngModel)]="ventaService.formData.direccion"
+          class="form-control"
+          (keyup)="updateMontoTotal()" 
+        />
+        <!-- (keyup)="updateMontoTotal()" -->
+      </div>
+      <div class="form-group">
+        <label> Tipo Moneda</label>
+
+        <select 
+        name="idTipoMoneda" 
+        #idTipoMoneda="ngModel" 
+        [(ngModel)]="ventaService.formData.idTipoMoneda"
+        class="form-control" 
+        [class.is-invalid]="!isValid && ventaService.formData.idTipoMoneda==0"
+      
+        >
+          <option value="0">-Seleccione Tipo Moneda-</option>
+          <option value="1">SOLES</option>
+          <option value="2">DOLARES</option>
+        
+        </select> 
+      </div> 
+      
+    </div>
+    <!-- {{ventaService.formData.fecha_entrega|| json}} -->
+    <!-- faltan -->
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Cliente</label> 
+        <ng-select 
+        [items]="proveedores"
+       bindLabel="nombre_cliente"
+       bindValue="id" 
+       placeholder="Buscar Cliente"
+       [(ngModel)]="ventaService.formData.idProovedor"
+       (change)="onChangeProveedor($event)" 
+        >
+         
+  
+  </ng-select>  
+      </div>
+      <div class="form-group">
+        <label> Total Producto</label>
+        <input
+          name="total_costo"
+          #total_costo="ngModel"
+          [(ngModel)]="ventaService.formData.total_costo"
+          class="form-control"
+          readonly
+        />
+      </div>
+
+      <div class="form-group">
+        <label> Monto Total</label>
+        <input
+          name="totalGeneral"
+          #totalGeneral="ngModel"
+          [(ngModel)]="ventaService.formData.totalGeneral"
+          class="form-control"
+       
+        />
+        <!-- readonly -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER ITEMS TABLE -->
+  <table class="table table-borderless">
+    <thead class="thead-light">
+      <th scope="col">#</th>
+      <th>Nombre Producto</th>
+      <th>Cantidad</th>
+      <th>Unidad Medida</th>
+      <th>Precio Venta</th>
+      <th>Precio Total</th>
+      <th>Observaciones</th>
+      <th>
+        <a
+          class="btn btn-sm btn-success text-white"
+          (click)="AddOrEditOrderItem(null, ventaService.formData.id)"  *ngIf="this.isButtonVisible"
+          ><i class="fa fa-plus"></i> Agregar Producto</a
+        >
+      </th>
+    </thead>
+    <tbody>
+      <tr
+        *ngIf="ventaService.detalleCotizacion.length == 0"
+        [class.text-danger]="!isValid && ventaService.detalleCotizacion.length == 0
+        "
+      >
+        <td class="font-italic text-center" colspan="5">
+          No ah seleccionado Ningun Producto
+        </td>
+      </tr>
+      <tr *ngFor="let item of ventaService.detalleCotizacion; let i = index">
+        <!--  <td>{{item.detalleProducto[0].nombre_producto}}</td>  detalleProducto[0].nombre_producto}}</td>   -->
+        <!-- <td>{{item.detalleNameProducto}}</td>  -->
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ item.nombre_producto }}</td>
+        <td>{{ item.cantidad }}</td>
+        <td>{{item.detalleNameUnidadMedida}}</td>
+        <td>{{ item.precio_unidad }}</td>
+        <td>{{ item.precio_total }}</td>
+        <td>{{ item.observaciones }}</td>
+        <!-- {{item | json}}    -->
+        <td>
+          <a
+            class="btn btn-sm btn-info text-white"
+            (click)="AddOrEditOrderItem(i, ventaService.formData.id)"  *ngIf="this.isButtonVisible"
+            ><i class="fa fa-pencil"></i
+          ></a>
+          <a
+            class="btn btn-sm btn-danger text-white ml-1"
+            (click)="onDeleteOrderItem(item.id, i)"  *ngIf="this.isButtonVisible"
+            ><i class="fa fa-trash"></i
+          ></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark" 
+    *ngIf="this.isButtonVisible">
+    <i class="fa fa-database"></i> Guardar </button>
+    
+    <a class="btn btn-outline-dark ml-1" routerLink="../../listarventa"
+      ><i class="fa fa-close"></i> Ver Cotizaciones</a
+    >
+  </div>
+</form>

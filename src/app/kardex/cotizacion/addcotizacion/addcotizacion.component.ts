@@ -1,5 +1,4 @@
-import { formatCurrency } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog , MatDialogConfig} from '@angular/material/dialog'; 
 import { KardexService } from '../../../services/kardex/kardex.service';
@@ -9,14 +8,9 @@ import { DataProveedor } from '../../../models/proveedor';
 import { DataEmpleado } from '../../../models/empleado';
 import * as moment from 'moment'; 
 import { ToastrService } from 'ngx-toastr';
-import { Router, ActivatedRoute } from '@angular/router';
- 
-import { DataProducto } from 'src/app/models/producto';
- 
-import Swal from 'sweetalert2';
-import { DataCotizacion } from '../../../models/cotizacion';
- 
- 
+import { Router, ActivatedRoute } from '@angular/router'; 
+import { DataProducto } from 'src/app/models/producto'; 
+import Swal from 'sweetalert2'; 
 @Component({
   selector: 'app-addcotizacion',
   templateUrl: './addcotizacion.component.html',
@@ -28,8 +22,7 @@ export class AddcotizacionComponent implements OnInit {
   empleados: DataEmpleado[];
   productos: DataProducto[];   
   isValid:boolean = true;
-  isButtonVisible:boolean=true;
-  //  detalleCotizacion: DataDetalleCotizacion[] = [];
+  isButtonVisible:boolean=true; 
  
   constructor(public kardexService: KardexService,   private dialog: MatDialog, private mantenimientosService: MantenimientosService,
     private toastr: ToastrService, private router: Router,private currentRoute: ActivatedRoute

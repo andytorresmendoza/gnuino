@@ -28,6 +28,8 @@ export class AddtransferenciaComponent implements OnInit {
     // console.log(this.kardexService.formDataTransferencia );   
   this.kardexService.detalleTransferencia = res[0].detalleIngresoSedeAlamacen;  
 this.kardexService.formDataTransferencia.descripcion_ingreso = res[0].detalleTipoIngreso[0].descripcion_ingreso; 
+console.log(this.kardexService.detalleTransferencia,'DETALLE');
+console.log(this.kardexService.formDataTransferencia,'CABECERA');
   });
   this.mantenimientosService.getTipoingreso().subscribe((resp) => {
     this.tipoingresos = resp as DataTipoIngreso[];
@@ -40,7 +42,7 @@ this.kardexService.formDataTransferencia.descripcion_ingreso = res[0].detalleTip
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
     dialogConfig.width = "55%";
-    // dialogConfig.height = "48%";
+  // dialogConfig.height = "48%";
     dialogConfig.data = { orderItemIndex, id }; 
      this.dialog.open(DetalletransferenciaComponent, dialogConfig).afterClosed().subscribe(resp=>{
   

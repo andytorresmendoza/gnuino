@@ -72,11 +72,7 @@ detalleDevolucionesP: DataDetalleDevolucionP[];
 formDataDevolucionesSinOc: DataDevolucionSinOc;
 detalleDevolucionesSinOC: DataDetalleDevolucionSinOc[];
 
-
-
-
-
-
+ 
 //transferencias
 formDataTransferencia: DataTransferenciaProductos;
 detalleTransferencia: DataDetalleTransferencias[];
@@ -84,9 +80,7 @@ detalleTransferencia: DataDetalleTransferencias[];
 
 formDatatransferenciasinoc: DataTransferenciaSinOcCerrado;
 detalleTransferenciasinoc: DataDetalleTransferenciasinOc[];
-
-
-
+ 
   filteredData; 
 
   constructor(private http: HttpClient, private toastr: ToastrService) {
@@ -316,33 +310,31 @@ console.log(body);
     );
   }
   GuardaEditIngresoAlmacen() {
-   console.log(this.detalleIngresoAlmacen,'llego');
+    console.log(this.detalleIngresoAlmacen,'llego'); 
 
-  //  let nuevoArregloTemp=[];
-  //  this.detalleIngresoAlmacen?.map(
-  //    res => {
-  //      res.hasOwnProperty('idDetalleCotizacion') ? 
 
-  //      '': nuevoArregloTemp.push(res);
-  //    }); 
+    this.detalleIngresoAlmacen?.map(
+      res => {
+        res?.hasOwnProperty('idDetalleCotizacion') ? 
+        (res.isAvailable=false):
+        (
+          res.isAvailable=true
+        )
+  });
 
-    var body = {
-     ...this.formDataEntrada 
-     ,
-      detalleIngresoAlmacen:this.detalleIngresoAlmacen
-    };
-    console.log(body);
-    // let fechaParseada: any;
-    // fechaParseada = moment(body.fechaIngreso).format('YYYY-MM-DD');
-    // body.fechaIngreso=fechaParseada;
-      // console.log(body);
-    return this.http.post(`${this.baseURL}almacen-pendiente-ingreso`, body).pipe(
-      map((resp) =>
-      // console.log(resp)
-       resp['data'])
-     
-    );
-  }
+     var body = {
+      ...this.formDataEntrada 
+      ,
+       detalleIngresoAlmacen:this.detalleIngresoAlmacen
+     };
+     console.log(body); 
+     return this.http.post(`${this.baseURL}almacen-pendiente-ingreso`, body).pipe(
+       map((resp) =>
+       // console.log(resp)
+        resp['data'])
+      
+     );
+   }
 
   EstadoEntradaAnular(id: number, bodyform:any) {
     // console.log(id,bodyform );
@@ -544,7 +536,7 @@ GuardaSalidaAlmacen() {
 
   getLisDevolucionesAlmacen() {
     return this.http
-      .get(this.baseURL + 'devolucion-producto')
+      .get(this.baseURL + 'devolucion-producto-oc')
       .pipe(map((resp) => 
       
       resp['data']));
@@ -559,13 +551,8 @@ GuardaSalidaAlmacen() {
     var body = {  
       detalledevolucion: nuevoArregloTemp
     };  
-     console.log('nuevo array',nuevoArregloTemp);
-    // delete body.detalledevolucion[0].idDetalleIngresoAlmacen;
-    // let idParse: any;
-    // idParse =0;
-    // body.detalledevolucion[0].id = idParse;
- 
-      return this.http.post(`${this.baseURL}devolucion-producto`, body).pipe(
+     console.log('nuevo array',nuevoArregloTemp); 
+      return this.http.post(`${this.baseURL}devolucion-producto-oc`, body).pipe(
         map((resp) => 
       resp['data'])
  

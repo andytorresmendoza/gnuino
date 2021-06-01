@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DataEntradaSinOC } from '../../../models/entradasinOc';
 import Swal from 'sweetalert2';
+
+import {MatTableDataSource} from '@angular/material/table';
 @Component({
   selector: 'app-listarentradasinoc',
   templateUrl: './listarentradasinoc.component.html',
@@ -12,6 +14,12 @@ import Swal from 'sweetalert2';
 export class ListarentradasinocComponent implements OnInit {
   entradaSinOc:DataEntradaSinOC[]=[];
   cargando = true; 
+  displayedColumns: string[] = ['Ingreso Almacen Nro', 'Proveedor', 'Empleado', 'Tipo Ingreso','Fecha Ingreso','Estado','details','Anular'];
+  dataSource = new MatTableDataSource<DataEntradaSinOC>();
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   constructor (private servicioKardex: KardexService , private router:Router,  private toastr: ToastrService ) { }
 
 
@@ -22,10 +30,10 @@ export class ListarentradasinocComponent implements OnInit {
 
     this.servicioKardex.getIngresoSinOC()
    .subscribe(resp => {
-     
+    this.dataSource.data = resp as DataEntradaSinOC[]; 
       this.entradaSinOc = resp; 
       this.cargando = false;
-      //  console.log(resp);
+      console.log(resp);
   });
  } 
 

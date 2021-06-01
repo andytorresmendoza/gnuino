@@ -17,13 +17,12 @@ export interface DataCotizacionVenta {
     descuento_cot:         number;
     costo_envio:           number;
     total_costo:           number; 
-    estadoCotizacion: string;
-// NUEVO
+    estadoCotizacion: string; 
+
    idTipoMoneda:number;
    totalGeneral: number;
-    // detalleCotizacion: DataDetalleCotizacion[];
-    
-    
-    // DeletedOrderItemIDs: string;
-   
+   // NUEVO
+   telefono: string;
+   direccion: string;
+ 
 }

@@ -32,5 +32,7 @@ export interface DataDetalleTransferencias {
   idSedeSecundaria:number;
   cantidadTransferencia:number;
   detalleTransferencia:string;
+
+  nombre_alamcen:string;
 }
  

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { DataEntradaAlmacen } from '../../../models/entradaalmacen';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
-
+import {MatTableDataSource} from '@angular/material/table';
 @Component({
   selector: 'app-listarentradaalmacen',
   templateUrl: './listarentradaalmacen.component.html',
@@ -13,6 +13,14 @@ import { ToastrService } from 'ngx-toastr';
 export class ListarentradaalmacenComponent implements OnInit {
   ingresosAlmacen: DataEntradaAlmacen[]= [];
   cargando = true; 
+
+  displayedColumns: string[] = ['Ingreso Almacen Nro', 'Nro Orden Compra', 'Tipo Ingreso', 'Empleado','Fecha Ingreso','Estado','details','Anular'];
+  dataSource = new MatTableDataSource<DataEntradaAlmacen>();
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   constructor
   (private servicioKardex: KardexService , private router:Router,private toastr: ToastrService ) { }
 
@@ -24,11 +32,11 @@ export class ListarentradaalmacenComponent implements OnInit {
 
     this.servicioKardex.getIngresoAlmacen()
    .subscribe(resp => {
-     
+    this.dataSource.data = resp as DataEntradaAlmacen[]; 
       this.ingresosAlmacen = resp; 
       this.cargando = false;
       // this.cargando = false;
-      // console.log(resp);
+     console.log(resp);
   });
  } 
 

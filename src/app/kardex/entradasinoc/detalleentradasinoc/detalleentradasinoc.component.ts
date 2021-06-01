@@ -16,7 +16,7 @@ import { DataTipoAlmacen } from '../../../models/tipoalmacen';
   styleUrls: ['./detalleentradasinoc.component.css'],
 })
 export class DetalleentradasinocComponent implements OnInit {
-  formData: DataDetalleEntradasinOc;
+  formDataOC: DataDetalleEntradasinOc;
   productos: DataProducto[];
   almacenes: DataTipoAlmacen[];
   isValid: boolean = true;
@@ -28,18 +28,20 @@ export class DetalleentradasinocComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.mantenimientosService.getProducto().subscribe((resp) => {
-      this.productos = resp as DataProducto[];
-      //  console.log(this.productos,'producto');
-    });
+    this.mantenimientosService.getProducto()
+    .subscribe(resp => {
+      this.productos = resp as DataProducto[]  
+    //  console.log(this.productos,'producto');
+  
+   });
     this.mantenimientosService.getTipoAlmacen()
     .subscribe(resp => {
       this.almacenes = resp as DataTipoAlmacen[]   
-      console.log('principal', this.almacenes);
+      // console.log('principal', this.almacenes);
  });
 
     if (this.data.orderItemIndex == null)
-      this.formData = {
+      this.formDataOC = {
         id: null,
         idEntradaSinOc: this.data.id,
         codigoIngresoSinOc: '',
@@ -56,27 +58,28 @@ export class DetalleentradasinocComponent implements OnInit {
         nombre_alamcen: ''
       };
     else
-      this.formData = Object.assign(
+      this.formDataOC = Object.assign(
         {},
         this.kardexService.detalleIngresosinOc[this.data.orderItemIndex]
       );
-    // console.log('dataentrada', this.formData );
+      console.log(this.kardexService.detalleIngresosinOc,'servicio');
+     console.log('dataentrada', this.formDataOC );
   }
 
   onChange = ($event: any): void => {
-    // console.log($event);
-    this.formData.nombre_producto = $event.nombre_producto;
-    this.formData.detalleNameUnidadMedida =
+      console.log($event);
+    this.formDataOC.nombre_producto = $event.nombre_producto;
+    this.formDataOC.detalleNameUnidadMedida =
       $event.detalleUnidadMedida[0].detalle;
     // console.log('nuevo',$event.nombre_producto);
   };
   onChangeAlmacen = ($event: any): void => {
     // console.log($event.nombre_alamcen);
-    this.formData.nombre_alamcen = $event.nombre_alamcen 
+    this.formDataOC.nombre_alamcen = $event.nombre_alamcen 
     }
   updateTotal() {
-    this.formData.precioTotal = parseFloat(
-      (this.formData.cantidad * this.formData.precioUnitario).toFixed(2)
+    this.formDataOC.precioTotal = parseFloat(
+      (this.formDataOC.cantidad * this.formDataOC.precioUnitario).toFixed(2)
     );
   }
 
@@ -109,13 +112,13 @@ else  {
       }
     
   }
-  validateForm(formData: DataDetalleEntradasinOc) {
+  validateForm(formDataOC: DataDetalleEntradasinOc) {
     
     /*esta validacion es buena */
     this.isValid = true;
     // if (formData.id == 0) this.isValid = false;
     // else if (formData.cantidad == 0) this.isValid = false;
-   if (formData.cantidadPrincipal === 0) this.isValid = false;
+   if (formDataOC.cantidadPrincipal === 0) this.isValid = false;
 
     return this.isValid;
   }

@@ -13,9 +13,9 @@
   <div class="col">
     <form  [formGroup]="loginForm" action="">
         <form class="row g-3" [formGroup]="loginForm">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="form-group">
-              <label for="inputEmail4" class="form-label">Nombre Sede</label>
+              <label for="inputEmail4" class="form-label">Nombre Almacén</label>
               <input
               type="text"
               [(ngModel)]="almacenes[0].nombre_alamcen"
@@ -26,7 +26,7 @@
             />
             </div>
             <div class="form-group">
-              <label for="inputAddress" class="form-label">Codigo Sede</label>
+              <label for="inputAddress" class="form-label">Codigo Almacén</label>
               <input
               type="text"
               [(ngModel)]="almacenes[0].cod_alamcen"
@@ -37,9 +37,11 @@
               />
             </div>
           </div>
-          <div class="col-md-4">
+
+          
+          <div class="col-md-6">
             <div class="form-group">
-              <label for="inputPassword4" class="form-label">Dirección Sede</label>
+              <label for="inputPassword4" class="form-label">Dirección Almacén</label>
               <input 
               type="text"
               [(ngModel)]="almacenes[0].direccion_almacen"
@@ -49,27 +51,6 @@
               id="direccion_almacen"/>
             </div>
                  
-          <div class="form-group">
-            <label for="inputAddress" class="form-label">Tipo Sede</label>
-            <select 
-            type="text" 
-            [(ngModel)]="almacenes[0].tipoAlmacen"
-            id="tipoAlmacen"
-             formControlName="tipoAlmacen"
-              class="form-control"> 
-              <option value="0">---Seleccione Tipo Sede---</option>
-              <option value="1">Principal</option>
-              <option value="2">Tienda</option>
-              <!-- <option *ngFor="let pais of paises" value="{{ pais.id }}">
-                {{ pais.nombre_pais }}
-              </option> -->
-            </select>
-          </div>
-          
-          </div>
- 
-        </form>
-
         <div class="form-group">
           <label for="inputAddress" class="form-label">PAIS</label>
           <select 
@@ -84,6 +65,25 @@
             </option>
           </select>
         </div>
+          <!-- <div class="form-group">
+            <label for="inputAddress" class="form-label">Tipo Almacén</label>
+            <select 
+            type="text" 
+            [(ngModel)]="almacenes[0].tipoAlmacen"
+            id="tipoAlmacen"
+             formControlName="tipoAlmacen"
+              class="form-control"> 
+              <option value="0">---Seleccione Tipo Sede---</option>
+              <option value="1">Principal</option>
+              <option value="2">Tienda</option>
+              
+            </select>
+          </div> -->
+          
+          </div>
+ 
+        </form>
+
 
         
         <div class="form-group">

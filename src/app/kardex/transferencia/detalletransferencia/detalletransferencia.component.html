@@ -1,4 +1,4 @@
-<h4 class="dispaly-4">Devolución Producto</h4>
+<h4 class="dispaly-4">Transferencias Producto</h4>
 <hr />
 <form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
  
@@ -21,6 +21,13 @@
   #nombreSedeSecundario="ngModel"
   [(ngModel)]="formData.nombreSedeSecundario"
   />
+   
+<input
+type="hidden" 
+name="nombre_alamcen"
+#nombre_alamcen="ngModel"
+[(ngModel)]="formData.nombre_alamcen"
+/>
   <input
 type="hidden"
 name="idSedeSecundaria"
@@ -87,10 +94,10 @@ name="idSedeSecundaria"
   
   <div class="form-row">
       <div class="form-group col-md-3">
-        <label>Sede Secundario</label>  
+        <label>Almacén Destino</label>  
         <ng-select 
-         [items]="almacenesSecundario"    
-        bindLabel="nombreSedeSecundario"
+         [items]="almacenes"    
+        bindLabel="nombre_alamcen"
         bindValue="id"   
         placeholder="Buscar Almacén Secundario" 
         [(ngModel)]="formData.idSedeSecundaria"
@@ -128,7 +135,7 @@ name="idSedeSecundaria"
       
       
         <input
-        matInput
+        
         [matDatepicker]="picker"
         placeholder="DD/MM/YYYY" 
         name="fechaTransferencia"

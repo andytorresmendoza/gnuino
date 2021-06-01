@@ -9,6 +9,7 @@ import { DataProducto } from '../../../models/producto';
 import { DataDetalleTransferencias } from '../../../models/detalletransferencias';
 import { DataAlmacenSecundario } from '../../../models/almacenSecundario';
 import Swal from 'sweetalert2';
+import { DataTipoAlmacen } from '../../../models/tipoalmacen';
 @Component({
   selector: 'app-detalletransferencia',
   templateUrl: './detalletransferencia.component.html',
@@ -23,6 +24,7 @@ export class DetalletransferenciaComponent implements OnInit {
     formData: DataDetalleTransferencias;
     productos: DataProducto[];
     almacenesSecundario: DataAlmacenSecundario[]; 
+    almacenes: DataTipoAlmacen[]; 
     // tipodevoluciones: DataTipodevolucion[];
   ngOnInit(): void {
     this.mantenimientosService.getProducto()
@@ -37,6 +39,12 @@ export class DetalletransferenciaComponent implements OnInit {
     this.almacenesSecundario = resp as DataAlmacenSecundario[]  
 
  });
+
+ this.mantenimientosService.getTipoAlmacen()
+ .subscribe(resp => {
+   this.almacenes = resp as DataTipoAlmacen[]   
+   console.log('principal', this.almacenes);
+});
    this.formData = Object.assign({
     id:null,
     idDetalleIngresoAlmacen:this.data.id, 
@@ -49,13 +57,14 @@ export class DetalletransferenciaComponent implements OnInit {
     detalleTransferencia:'',  
     fechaTransferencia:'',
     idProducto:'',//agreagr
+    nombre_alamcen:''
 
    },
    
    this.kardexService.detalleTransferencia[this.data.orderItemIndex]);
   }
   onChange = ($event: any): void => {
-    this.formData.nombreSedeSecundario= $event.nombreSedeSecundario;  
+    this.formData.nombre_alamcen = $event.nombre_alamcen 
      
    }
 

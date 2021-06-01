@@ -30,7 +30,7 @@ export interface DataDetalleDevolucion {
  
 
   descripcion_devolucion:string;
- 
+  isAvailable?:boolean;
 
 
   

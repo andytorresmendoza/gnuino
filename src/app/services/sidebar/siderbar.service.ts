@@ -52,9 +52,9 @@ export class SiderbarService {
         {titulo:'Orden Compra', url:'../kardex/listarordencompra'},
         {titulo:'Entrada Almacén', url:'../kardex/listarentrada'},
         {titulo:'Entrada Sin Orden', url:'../kardex/listarentradasinoc'},
-        {titulo:'Devolución de Productos', url:'../kardex/devoluciones'},
-        {titulo:'Kardex', url:'../kardex/kardex'},
+        {titulo:'Devolución de Productos', url:'../kardex/devoluciones'}, 
         {titulo:'Transferencias', url:'../kardex/transferencias'},
+        {titulo:'Kardex', url:'../kardex/Listarkardex'},
         // {titulo:'Kardex O/C', url:'../kardex/kardex'},
         // {titulo:'Kardex sin O/C', url:'../kardex/kardexsinoc'}, 
         // {titulo:'TABLE PRUEBA', url:'../kardex/lista'}, 
@@ -66,6 +66,7 @@ export class SiderbarService {
       icono:'mdi mdi-cart',
       submenu: [  
       {titulo:'Cotización Venta', url:'../venta/listarventa'},
+      {titulo:'Orden Venta', url:'../venta/listarventa'},
         // {titulo:'Venta', url:'../kardex/listarordencompra'}, 
        
       ]

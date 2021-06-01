@@ -4,7 +4,7 @@ import { KardexService } from '../../../services/kardex/kardex.service';
 import { Router, ActivatedRoute } from '@angular/router'; 
 import { DataOrdenCompra } from '../../../models/ordencompra';
 import Swal from 'sweetalert2';
-
+import {MatTableDataSource} from '@angular/material/table';
 @Component({
   selector: 'app-listarordencompra',
   templateUrl: './listarordencompra.component.html',
@@ -14,6 +14,13 @@ export class ListarordencompraComponent implements OnInit {
 
   Ordenes:DataOrdenCompra[]=[];
   cargando = true; 
+
+  displayedColumns: string[] = ['Orden Nro', 'Nro Cotizacion', 'Empleado', 'Proveedor','Estado','details','Anular'];
+  dataSource = new MatTableDataSource<DataOrdenCompra>();
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   constructor
   (private servicioKardex: KardexService , private router:Router) { }
 
@@ -25,7 +32,7 @@ export class ListarordencompraComponent implements OnInit {
 
     this.servicioKardex.getOrdenCompra()
    .subscribe(resp => {
-     
+    this.dataSource.data = resp as DataOrdenCompra[]; 
       this.Ordenes = resp; 
       this.cargando = false;
     //  console.log(resp);

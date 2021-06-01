@@ -39,7 +39,7 @@ export class AddentradasinocComponent implements OnInit {
         // console.log('editar',res[0] );
          this.kardexService.formDataIngresosinOc = res[0]; 
         this.kardexService.detalleIngresosinOc = res[0].detalleIngresoSinOc;
-      //  console.log('res',res[0]);
+        console.log('res', this.kardexService.detalleIngresosinOc);
         //  console.log('detalle',res[0].detalleIngresoSinOc[0].estadoflujo);
         if (res[0].idFlujo ==  2 || res[0].idFlujo ==  3 ) {
         this.isButtonVisible=false;

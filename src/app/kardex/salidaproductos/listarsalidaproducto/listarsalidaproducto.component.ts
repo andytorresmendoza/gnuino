@@ -35,32 +35,26 @@ export class ListarsalidaproductoComponent implements OnInit {
     this.kardexService.getListKardex()
    .subscribe(resp => {
     this.dataSource.data = resp as DataSalidaProductos[]; 
-      this.ListIngresosCerrados = resp; 
+      // this.ListIngresosCerrados = resp; 
+      this.kardexService.detalleSalida = resp;
       this.cargando = false;
       // this.cargando = false;
-        console.log(resp);
+        // console.log(resp,'listado');
   });
  }
 
- AddDetalleSalida(orderItemIndex, id:number) {  
-/*  this.kardexService.getkardexById(+id).subscribe(res => {
-   console.log(res,'respuesta'); 
-// this.kardexService.formDataSalida = res[0];    
-this.kardexService.detalleSalida = res[0]; 
-// this.kardexService.formDataSalida.descripcion_ingreso = res[0].detalleTipoIngreso[0].descripcion_ingreso; 
-}); */
+ AddDetalleSalida(orderItemIndex, id:number) {   
   //  console.log(id,'detalle');
   const dialogConfig = new MatDialogConfig();
   dialogConfig.autoFocus = true;
   dialogConfig.disableClose = true;
   dialogConfig.width = "55%";
   dialogConfig.data = {orderItemIndex,id };
-  console.log( orderItemIndex,id);
+  // console.log( orderItemIndex,id);
   // afterClosed().subscribe; es para cuando se cierre el poput actualize el rpecio
    this.dialog.open(DetallesalidaproductoComponent, dialogConfig).afterClosed().subscribe(resp=>{
-  //  console.log(resp);
-    // this.updateTotal();
-    // this. updateMontoTotal();
+//  console.log(resp,'cierra popup');
+ this.getListIngresosCerrados();
    });
  
   } 

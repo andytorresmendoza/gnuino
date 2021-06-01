@@ -1,4 +1,4 @@
-<h1>Listado Sedes Almacenes</h1>
+<h1>Listado Almacenes</h1>
 <hr />
 <div class="row">
   <div class="col text-right">
@@ -14,10 +14,10 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
-      <th scope="col">CODIGO SEDE</th>
-      <th scope="col">NOMBRE SEDE</th>
-      <th scope="col">DIRECCIÓN</th> 
-      <th scope="col">TIPO TIENDA</th> 
+      <th scope="col">Codigo Almacén</th>
+      <th scope="col">Nombre Almacén</th>
+      <th scope="col">Dirección</th> 
+      <!-- <th scope="col">TIPO TIENDA</th>  -->
       <th scope="col">Estado</th>
       <th scope="col">Opciones</th>
     </tr>
@@ -29,14 +29,14 @@
       <td>{{ almacen.nombre_alamcen }}</td> 
       <td>{{ almacen.direccion_almacen}}</td>
  
-      <td>
+      <!-- <td>
         <label *ngIf="almacen.tipoAlmacen == 1 "
           >PRINCIPAL</label
         >
         <label *ngIf="almacen.tipoAlmacen == 2 "
           >TIENDA</label
         >
-      </td>
+      </td> -->
       <td>
         <label *ngIf="almacen.estado" class="badge badge-success"
           >Activo</label

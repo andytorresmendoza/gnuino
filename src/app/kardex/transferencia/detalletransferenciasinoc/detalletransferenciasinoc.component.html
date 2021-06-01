@@ -1,4 +1,4 @@
-<h4 class="dispaly-4">Transferencia Almacén</h4>
+<h4 class="dispaly-4">Transferencia Producto</h4>
 
 <form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
  
@@ -90,7 +90,7 @@ name="idSedeSecundaria"
 
 <div class="form-row">
     <div class="form-group col-md-3">
-        <label>Sede Secundario</label>  
+        <label>Almacén Destino</label>  
         <ng-select 
          [items]="almacenesSecundario"    
         bindLabel="nombreSedeSecundario"
@@ -129,7 +129,7 @@ name="idSedeSecundaria"
     
     
       <input
-      matInput
+      
       [matDatepicker]="picker"
       placeholder="DD/MM/YYYY" 
       name="fechaTransferencia"
