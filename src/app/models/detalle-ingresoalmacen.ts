@@ -13,7 +13,7 @@ export interface DataDetalleIngresoAlmacen {
   // idCotizacion:number;  
   nombre_producto: string;
   detalleNameProducto:string;  
-  // idSedePrincipal:number;
+  //idSedePrincipal:number;
   // idSedeSecundaria:number
   // nombreSedePrincipal:string;
   // nombreSedeSecundario:string 

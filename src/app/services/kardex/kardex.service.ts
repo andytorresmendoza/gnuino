@@ -315,7 +315,7 @@ console.log(body);
 
     this.detalleIngresoAlmacen?.map(
       res => {
-        res?.hasOwnProperty('idDetalleCotizacion') ? 
+        res?.hasOwnProperty('fechaDevolucion') ? 
         (res.isAvailable=false):
         (
           res.isAvailable=true
@@ -386,8 +386,8 @@ console.log(body);
     let fechaParseada: any;
     fechaParseada = moment(body.fechaIngreso).format('YYYY-MM-DD');
     body.fechaIngreso=fechaParseada;
-    delete body.id;
-    //  console.log('body',  delete body.id);
+  //  delete body.id;
+  console.log(body,'body');
       // console.log('servicio',formData.id);
     //  this.http.put(`${this.baseURL}cotizacion/`+ id, body);
      return this.http.put(`${this.baseURL}ingreso-sinoc-almacen/${formData.id}`, body).pipe(

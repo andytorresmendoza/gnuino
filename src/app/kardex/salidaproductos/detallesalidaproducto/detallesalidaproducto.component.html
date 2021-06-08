@@ -36,7 +36,7 @@ name="idProducto"
         />
     </div> 
     <div class="form-group col-md-4">
-      <label>Tipo Ingreso</label>
+      <label>Eliga Almacén</label>
       <select 
         name="idTipoIngreso"  
         #idTipoIngreso="ngModel"
@@ -45,7 +45,7 @@ name="idProducto"
         [class.is-invalid]="!isValid && formData.idTipoIngreso==0" 
         >
     
-          <option value="0">-Seleccione Tipo Ingreso-</option>
+          <option value="0">-Seleccione Almacén Salida-</option>
           <option value="1">Salida Por O/C</option>
           <option value="2">Salida Sin O/C</option>
         

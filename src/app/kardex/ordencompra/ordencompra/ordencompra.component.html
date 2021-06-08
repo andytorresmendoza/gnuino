@@ -236,7 +236,7 @@
     <!-- ORDER ITEMS TABLE -->
     <table class="table table-borderless" >
         <thead class="thead-light">
-          <th>#</th> 
+        
            <th>Nombre Producto</th> 
             <th>Cantidad</th>
             <th>Unidad Medida</th>
@@ -249,11 +249,7 @@
         <tbody>
  
               <tr *ngFor="let item of detalleCotizaciones;let i=index;">
-                <td>
-                  <p></p>
-                  <p>{{i + 1}}</p>
                 
-                </td>
               <td>
                 <p>{{item.nombre_producto}}</p>
                 <p *ngFor="let deta of item.detalleCotizacion">{{deta.nombre_producto}}</p>

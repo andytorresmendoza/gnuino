@@ -25,10 +25,12 @@ export class EditdetalleentradaalmacenComponent implements OnInit {
 
     this.formData = Object.assign({
       id:this.data.id, 
+
       idIngresoAlmacen: 0,
       idProducto: 0,
       cantidadGlobal:0,
-      // idSedePrincipal:0,
+      idDetalleCotizacion:0,
+       idSedePrincipal:0,
       // idSedeSecundaria:0,
       cantidadPrincipal:0,
       precio_unidad:0
@@ -36,7 +38,7 @@ export class EditdetalleentradaalmacenComponent implements OnInit {
       // cantidadDevuelta:0, 
   
      },this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]);
-    //  console.log('dataentrada',this.formData);
+     console.log('dataentrada',this.kardexService.detalleIngresoAlmacen);
   }
 
  

@@ -67,7 +67,7 @@ export class DetalleentradaalmacenComponent implements OnInit {
    }
   onSubmit(form: NgForm) {
     // console.log(form.value);
-    if(form.value.cantidadPrincipal > form.value.cantidad ||  form.value.cantidadPrincipal <= 0){
+    if(form.value.cantidadPrincipal > form.value.cantidad ||  form.value.cantidadPrincipal < 0){
     
       return   Swal.fire({
         title: form.value.cantidad+' Productos se solicito' ,
@@ -97,11 +97,6 @@ export class DetalleentradaalmacenComponent implements OnInit {
   }
 
 }
-
-
-
-
- 
  
   validateForm(FormDetalleA: DataDetalleIngresoAlmacen) {
     this.isValid = true;
