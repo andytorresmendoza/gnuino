@@ -13,19 +13,21 @@ import Swal from 'sweetalert2';
   styleUrls: ['./editdetalleentradaalmacen.component.css']
 })
 export class EditdetalleentradaalmacenComponent implements OnInit {
-
+  formData: DataDetalleIngresoAlmacen;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<DetalleentradaalmacenComponent>,/*verificar este componente */
     public kardexService: KardexService,
-    private mantenimientosService: MantenimientosService, private toastr: ToastrService) { }
-    formData: DataDetalleIngresoAlmacen;
+    private mantenimientosService: MantenimientosService, private toastr: ToastrService
+   
+    ) {  }
+   
+    
 
   ngOnInit(): void {
 
     this.formData = Object.assign({
-      id:this.data.id, 
-
+      id:this.data.id,  
       idIngresoAlmacen: 0,
       idProducto: 0,
       cantidadGlobal:0,
@@ -44,7 +46,7 @@ export class EditdetalleentradaalmacenComponent implements OnInit {
  
 
   onSubmit(form: NgForm) { 
- if(form.value.cantidadPrincipal > form.value.cantidadGlobal ||  form.value.cantidadPrincipal <= 0){
+ if((form.value.cantidadPrincipal + form.value.cantidadPendiente)   > form.value.cantidadGlobal ||  form.value.cantidadPendiente <= 0){
     
   return   Swal.fire({
     title:  form.value.cantidadGlobal+' Productos se solicito' ,

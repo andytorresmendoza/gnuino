@@ -13,6 +13,9 @@ export interface DataDetalleSalidaAlmacen {
   fechaSalida:string;  
   nombre_producto: string; 
   descripcion_salida:string;
+  //nuevo
+  idSedePrincipal:number;
+  cantidadIngresoOc: number;
   // cantidadPrincipal:number; //no implementado
   // cantidadPrincipal:number; 
   // cantidad:number;		 

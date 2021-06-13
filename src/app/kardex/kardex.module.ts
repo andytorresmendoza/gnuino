@@ -44,38 +44,38 @@ import { EditdetalleentradaalmacenComponent } from './entradaalmacen/editdetalle
 import { ListarentradasinocComponent } from './entradasinoc/listarentradasinoc/listarentradasinoc.component';
 import { AddentradasinocComponent } from './entradasinoc/addentradasinoc/addentradasinoc.component';
 import { DetalleentradasinocComponent } from './entradasinoc/detalleentradasinoc/detalleentradasinoc.component';
-import { ListarsalidaproductoComponent } from './salidaproductos/listarsalidaproducto/listarsalidaproducto.component';
-import { AddsalidaproductoComponent } from './salidaproductos/addsalidaproducto/addsalidaproducto.component';
+//import { ListarsalidaproductoComponent } from './salidaproductos/listarsalidaproducto/listarsalidaproducto.component';
+//import { AddsalidaproductoComponent } from './salidaproductos/addsalidaproducto/addsalidaproducto.component';
 import { ListarentradaanuladaComponent } from './entradaalmacen/listarentradaanulada/listarentradaanulada.component';
 import { ListarentradasinocanuladaComponent } from './entradasinoc/listarentradasinocanulada/listarentradasinocanulada.component';
-import { FiltroPipe } from './pipes/filtro.pipe';
-import { ListarsalidasinocComponent } from './salidaproductos/listarsalidasinoc/listarsalidasinoc.component';
-import { DetallesalidaproductoComponent } from './salidaproductos/detallesalidaproducto/detallesalidaproducto.component';
-import { AddsalidasinocComponent } from './salidaproductos/addsalidasinoc/addsalidasinoc.component';
-import { DetallesalidasinocComponent } from './salidaproductos/detallesalidasinoc/detallesalidasinoc.component';
+import { FiltroPipe } from './pipes/filtro.pipe'; 
+import { DetallesalidaproductoComponent } from './salidaproductos/detallesalidaproducto/detallesalidaproducto.component'; 
 import { ListardevolucionComponent } from './devolucion/listardevolucion/listardevolucion.component';
 import { AdddevolucionComponent } from './devolucion/adddevolucion/adddevolucion.component';
 import { DetalledevolucionComponent } from './devolucion/detalledevolucion/detalledevolucion.component';
-import { ListartransferenciaComponent } from './transferencia/listartransferencia/listartransferencia.component';
-import { AddtransferenciaComponent } from './transferencia/addtransferencia/addtransferencia.component';
+//import { ListartransferenciaComponent } from './transferencia/listartransferencia/listartransferencia.component';
+//import { AddtransferenciaComponent } from './transferencia/addtransferencia/addtransferencia.component';
 import { DetalletransferenciaComponent } from './transferencia/detalletransferencia/detalletransferencia.component';
-import { ListartransferenciasinocComponent } from './transferencia/listartransferenciasinoc/listartransferenciasinoc.component';
-import { AddtransferenciasinocComponent } from './transferencia/addtransferenciasinoc/addtransferenciasinoc.component';
-import { DetalletransferenciasinocComponent } from './transferencia/detalletransferenciasinoc/detalletransferenciasinoc.component';
+//import { ListartransferenciasinocComponent } from './transferencia/listartransferenciasinoc/listartransferenciasinoc.component';
+//import { AddtransferenciasinocComponent } from './transferencia/addtransferenciasinoc/addtransferenciasinoc.component';
+//import { DetalletransferenciasinocComponent } from './transferencia/detalletransferenciasinoc/detalletransferenciasinoc.component';
 import { ListardevolucionsinocComponent } from './devolucion/listardevolucionsinoc/listardevolucionsinoc.component';
 import { AdddevolucionsinocComponent } from './devolucion/adddevolucionsinoc/adddevolucionsinoc.component';
 import { DetalledevolucionsinocComponent } from './devolucion/detalledevolucionsinoc/detalledevolucionsinoc.component';
 import { TotaltransferenciasComponent } from './transferencia/totaltransferencias/totaltransferencias.component';
-import { TotaltransferenciassinocComponent } from './transferencia/totaltransferenciassinoc/totaltransferenciassinoc.component';
+//import { TotaltransferenciassinocComponent } from './transferencia/totaltransferenciassinoc/totaltransferenciassinoc.component';
 import { TotaldevolucionComponent } from './devolucion/totaldevolucion/totaldevolucion.component';
-import { TotaldevolucionsinocComponent } from './devolucion/totaldevolucionsinoc/totaldevolucionsinoc.component';
-import { TotalsalidasinocComponent } from './salidaproductos/totalsalidasinoc/totalsalidasinoc.component';
+import { TotaldevolucionsinocComponent } from './devolucion/totaldevolucionsinoc/totaldevolucionsinoc.component'; 
 import { TotalsalidasComponent } from './salidaproductos/totalsalidas/totalsalidas.component';
-import { KardexocComponent } from './kardexoc/kardexoc.component';
-import { KardexsinocComponent } from './kardexsinoc/kardexsinoc.component';
-import { ListapruebaComponent } from './listaprueba/listaprueba.component';
+//import { KardexocComponent } from './kardexoc/kardexoc.component';
+//import { KardexsinocComponent } from './kardexsinoc/kardexsinoc.component';
+//import { ListapruebaComponent } from './listaprueba/listaprueba.component';
 import { ListarkardexComponent } from './kardex/listarkardex/listarkardex.component';
 import { DetalleprecioventaComponent } from './kardex/detalleprecioventa/detalleprecioventa.component';
+import { EditentradasinocComponent } from './entradasinoc/editentradasinoc/editentradasinoc.component';
+import { EditdetalleentradasinocComponent } from './entradasinoc/editdetalleentradasinoc/editdetalleentradasinoc.component';
+import { HistoricoocComponent } from './entradaalmacen/historicooc/historicooc.component';
+import { HistoricosinocComponent } from './entradasinoc/historicosinoc/historicosinoc.component';
  
 @NgModule({
   declarations: 
@@ -96,38 +96,39 @@ import { DetalleprecioventaComponent } from './kardex/detalleprecioventa/detalle
      ListarentradasinocComponent,
      AddentradasinocComponent,
      DetalleentradasinocComponent,
-     ListarsalidaproductoComponent,
-     AddsalidaproductoComponent,
+    // ListarsalidaproductoComponent,
+     //AddsalidaproductoComponent,
      ListarentradaanuladaComponent,
      ListarentradasinocanuladaComponent,
-     FiltroPipe,
-     ListarsalidasinocComponent,
-     DetallesalidaproductoComponent,
-     AddsalidasinocComponent,
-     DetallesalidasinocComponent,
+     FiltroPipe, 
+     DetallesalidaproductoComponent, 
      ListardevolucionComponent,
      AdddevolucionComponent,
      DetalledevolucionComponent,
-     ListartransferenciaComponent,
-     AddtransferenciaComponent,
+    // ListartransferenciaComponent,
+    // AddtransferenciaComponent,
      DetalletransferenciaComponent,
-     ListartransferenciasinocComponent,
-     AddtransferenciasinocComponent,
-     DetalletransferenciasinocComponent,
+    // ListartransferenciasinocComponent,
+    // AddtransferenciasinocComponent,
+   //  DetalletransferenciasinocComponent,
      ListardevolucionsinocComponent,
      AdddevolucionsinocComponent,
      DetalledevolucionsinocComponent,
      TotaltransferenciasComponent,
-     TotaltransferenciassinocComponent,
+    // TotaltransferenciassinocComponent,
      TotaldevolucionComponent,
      TotaldevolucionsinocComponent,
-     TotalsalidasinocComponent,
+    // TotalsalidasinocComponent,
      TotalsalidasComponent,
-     KardexocComponent,
-     KardexsinocComponent,
-     ListapruebaComponent,
+    // KardexocComponent,
+    // KardexsinocComponent,
+ //    ListapruebaComponent,
      ListarkardexComponent,
-     DetalleprecioventaComponent
+     DetalleprecioventaComponent,
+     EditentradasinocComponent,
+     EditdetalleentradasinocComponent,
+     HistoricoocComponent,
+     HistoricosinocComponent
      ],
   imports: [
      CommonModule,

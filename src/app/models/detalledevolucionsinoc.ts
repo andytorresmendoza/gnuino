@@ -29,8 +29,8 @@ export interface DataDetalleDevolucionSinOc {
   idTipoDevolucion:number;
   cantidadDevolucion:number;
   detalleDevolucion:string;
- 
-  
+  cantidadPendiente:number;
+  idSedePrincipal:number;
  
 
   

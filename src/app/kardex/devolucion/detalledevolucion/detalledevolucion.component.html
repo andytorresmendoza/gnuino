@@ -32,19 +32,24 @@ name="idTipoDevolucion"
   name="idTipoIngreso"
   #idTipoIngreso="ngModel"
   [(ngModel)]="kardexService.formDataDevoluciones.idTipoIngreso"
-  />
-<!--   
+  />   
   <input
-  type="text"
-  name="idTipoIngreso"
-  #idTipoIngreso="ngModel"
-  [(ngModel)]="formData.idTipoIngreso"
-  /> -->
+  type="hidden"
+  name="idSedePrincipal"
+  #idSedePrincipal="ngModel"
+  [(ngModel)]="formData.idSedePrincipal"
+  /> 
   <input
-  type="hidden" 
+  type="hidden"
   name="idProducto"
   #idProducto="ngModel"
   [(ngModel)]="formData.idProducto"
+  /> 
+  <input
+  type="hidden" 
+  name="cantidadPrincipal"
+  #cantidadPrincipal="ngModel"
+  [(ngModel)]="formData.cantidadPrincipal"
   />
   
   <div class="form-row">
@@ -74,9 +79,9 @@ name="idTipoDevolucion"
       <div class="form-group col-md-4">
           <label>Stock</label>
           <input
-            name="cantidadPrincipal"
-            #cantidadPrincipal="ngModel"
-            [(ngModel)]="formData.cantidadPrincipal"
+            name="cantidadPendiente"
+            #cantidadPendiente="ngModel"
+            [(ngModel)]="formData.cantidadPendiente"
             class="form-control"
             readonly
           />

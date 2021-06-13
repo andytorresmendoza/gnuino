@@ -1,4 +1,5 @@
 <h4 class="dispaly-4">Salida Productos</h4>
+<h1>colocar Unidad de medida</h1>
 <hr />
 
 <form #form="ngForm" autocomplete="off"   *ngIf="formData" (submit)="onSubmit(form)">
@@ -8,6 +9,13 @@ type="hidden"
 name="idProducto"
 #idProducto="ngModel"
 [(ngModel)]="formData.idProducto"
+/> 
+
+<input
+type="hidden" 
+name="idAlmacen1"
+#idAlmacen1="ngModel"
+[(ngModel)]="formData.idAlmacen1"
 /> 
  
 <div class="form-row">
@@ -20,36 +28,31 @@ name="idProducto"
           [(ngModel)]="formData.nombre_producto"
           class="form-control"
           readonly
-        /> 
-
+        />  
     </div>
     <!-- 
     -->
     <div class="form-group col-md-4">
         <label>Stock</label>
         <input
-          name="cantidadGlobalKardex"
-          #cantidadGlobalKardex="ngModel"
-          [(ngModel)]="formData.cantidadGlobalKardex"
+          name="cantidadIngresoOc"
+          #cantidadIngresoOc="ngModel"
+          [(ngModel)]="formData.cantidadIngresoOc"
           class="form-control"
           readonly
         />
     </div> 
     <div class="form-group col-md-4">
-      <label>Eliga Almacén</label>
-      <select 
-        name="idTipoIngreso"  
-        #idTipoIngreso="ngModel"
-          [(ngModel)]="formData.idTipoIngreso"
-        class="form-control"  
-        [class.is-invalid]="!isValid && formData.idTipoIngreso==0" 
-        >
-    
-          <option value="0">-Seleccione Almacén Salida-</option>
-          <option value="1">Salida Por O/C</option>
-          <option value="2">Salida Sin O/C</option>
-        
-        </select> 
+      <label>Almacén</label>
+      <ng-select 
+    [items]="almacenes"  
+   bindLabel="nombre_alamcen"
+   bindValue="id"   
+   placeholder="Buscar Almacén" 
+   [(ngModel)]="formData.idAlmacen1" 
+   disabled
+   > 
+</ng-select>   
      
   </div>
 </div>

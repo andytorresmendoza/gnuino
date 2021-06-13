@@ -131,6 +131,7 @@ name="idEmpleado"
            <th>Unidad Medida</th>
              <th>Nombre Almacén</th>   
             <th>Cantidad Solicitada</th>  
+            <th>Cantidad en Almacén</th> 
             <th>Precio Unidad</th>
              <th>Precio Total</th>  
             <th>Cantidad Ingreso</th>
@@ -158,6 +159,11 @@ name="idEmpleado"
               </td>
               <td>
                 <p>{{item.cantidadGlobal}}</p>
+               
+              </td> 
+
+              <td>
+                <p>{{item.cantidadPendiente}}</p>
                
               </td> 
               <td>
@@ -199,8 +205,15 @@ name="idEmpleado"
                 <a
                   class="btn btn-sm btn-info text-white"
                   (click)="AddOrEditOrderItem(i,item.id) " [hidden] = "item.estadoflujo == 2 || item.estadoflujo == 3"><i class="fa fa-check-square"></i></a>
-                   
-             
+                    
+              </td>
+      
+
+              <td>
+                <a
+                  class="btn btn-sm btn-info text-white"
+                  (click)="HistoricoOc(item.idIngresoAlmacen) "  ><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    
               </td>
               <!-- {{item | json}}   -->
               </tr>   
@@ -209,7 +222,8 @@ name="idEmpleado"
  
       </table>
       <div class="form-group">
-        <button type="submit" class="btn btn-dark" *ngIf="this.isButtonVisible"><i class="fa fa-database"></i> Actualizar</button>
+        <!-- <button type="submit" class="btn btn-dark" *ngIf="this.isButtonVisible"><i class="fa fa-database"></i> Actualizar</button> VERIFICAR ESTE BAG -->
+        <button type="submit" class="btn btn-dark" ><i class="fa fa-database"></i> Actualizar</button>
          <a   class="btn btn-outline-dark ml-1" routerLink="../../listarentrada" ><i class="fa fa-close"></i> Ver Ingresos</a>  
         
         </div>

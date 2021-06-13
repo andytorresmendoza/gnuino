@@ -311,8 +311,6 @@ console.log(body);
   }
   GuardaEditIngresoAlmacen() {
     console.log(this.detalleIngresoAlmacen,'llego'); 
-
-
     this.detalleIngresoAlmacen?.map(
       res => {
         res?.hasOwnProperty('fechaDevolucion') ? 
@@ -379,6 +377,14 @@ console.log(body);
   }
 
   UpdateIngresoSinOC(formData: DataEntradaSinOC) {
+    this.detalleIngresosinOc?.map(
+      res => {
+        res?.hasOwnProperty('fechaDevolucion') ? 
+        (res.isAvailable=false):
+        (
+          res.isAvailable=true
+        )
+  });
     const body = {
       ...this.formDataIngresosinOc,
       detalleIngresoAlmacenSinOc: this.detalleIngresosinOc 
@@ -472,7 +478,7 @@ GuardaSalidaAlmacen() {
     var body = {  
       detallSalida: [this.detalleSalida]  
     };   
-      console.log(body , 'array'); 
+      console.log(body , 'salida'); 
       return this.http.post(`${this.baseURL}salida-productos`, body).pipe(
         map((resp) => 
       resp['data']) 
@@ -605,15 +611,17 @@ GuardaSalidaAlmacen() {
         resp['data']));
     }
     GuardaTransferenciaAlmacen() {
-      let nuevoArregloTemp=[];
-      this.detalleTransferencia?.map(
+     // let nuevoArregloTemp=[];
+    /*  this.detalleTransferencia?.map(
         res => {
           res.hasOwnProperty('idDetalleIngresoAlmacen') ? nuevoArregloTemp.push(res): '' 
         }); 
+        */
       var body = { 
         // ...this.detalleSalida
-        detalletransferencia: nuevoArregloTemp
+        detalletransferencia:  [this.detalleTransferencia] 
       }; 
+      console.log(body);
         return this.http.post(`${this.baseURL}transferencia-oc`, body).pipe(
           map((resp) =>
         //  console.log(resp ))
@@ -687,4 +695,24 @@ GuardaSalidaAlmacen() {
                     resp['data'])
                   );
                 }
+
+
+                /*Historico oc */
+                getHitoricoOcById(id: number) {
+                  console.log('llego al servicio',id);
+                  return this.http.get(`${this.baseURL}historico-oc/` + id).pipe(
+                    map((resp) => 
+                    // console.log( resp['data']))
+                    resp['data'])
+                  );
+                }
+                  /*Historico sin oc */
+                  getListHistoricoSinOcByid(id: number) {
+                    console.log('llego al servicio',id);
+                    return this.http.get(`${this.baseURL}historico-sinoc/` + id).pipe(
+                      map((resp) => 
+                      // console.log( resp['data']))
+                      resp['data'])
+                    );
+                  }
 }

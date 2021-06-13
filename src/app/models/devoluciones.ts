@@ -15,6 +15,7 @@ export interface DataDevolucion {
     idEmpleado:number;
     detalleIngreso:string;
     descripcion_ingreso:string; 
+    idSedePrincipal: number;
     // idTipoDevolucion:number;
  
 }

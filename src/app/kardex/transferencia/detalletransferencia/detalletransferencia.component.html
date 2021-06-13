@@ -1,123 +1,96 @@
 <h4 class="dispaly-4">Transferencias Producto</h4>
 <hr />
+<h1>colocar Unidad de medida</h1>
 <form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
  
-    <input
-    type="hidden" 
-    name="idDetalleIngresoAlmacen"
-    #idDetalleIngresoAlmacen="ngModel"
-    [(ngModel)]="formData.idDetalleIngresoAlmacen"
-  /> 
-  
-    <input
-    type="hidden" 
-    name="idIngresoAlmacen"
-    #idIngresoAlmacen="ngModel"
-    [(ngModel)]="formData.idIngresoAlmacen"
-  /> 
-  <input
-  type="hidden"
-  name="nombreSedeSecundario"
-  #nombreSedeSecundario="ngModel"
-  [(ngModel)]="formData.nombreSedeSecundario"
-  />
-   
-<input
-type="hidden" 
-name="nombre_alamcen"
-#nombre_alamcen="ngModel"
-[(ngModel)]="formData.nombre_alamcen"
-/>
-  <input
-type="hidden"
-name="idSedeSecundaria"
-#idSedeSecundaria="ngModel"
-[(ngModel)]="formData.idSedeSecundaria"
-/>
-  <input
-  type="hidden"
-  name="idTipoIngreso"
-  #idTipoIngreso="ngModel"
-  [(ngModel)]="kardexService.formDataTransferencia.idTipoIngreso"
-  />
-<!--   
-  <input
-  type="text"
-  name="idTipoIngreso"
-  #idTipoIngreso="ngModel"
-  [(ngModel)]="formData.idTipoIngreso"
-  /> -->
   <input
   type="hidden" 
   name="idProducto"
   #idProducto="ngModel"
   [(ngModel)]="formData.idProducto"
-  />
-  
+  /> 
+  <input
+  type="hidden" 
+  name="idAlmacen1"
+  #idAlmacen1="ngModel"
+  [(ngModel)]="formData.idAlmacen1"
+  /> 
   <div class="form-row">
+    <div class="form-group col-md-4">
+
+      <label>Producto</label>
+         <input
+           name="nombre_producto"
+           #nombre_producto="ngModel"
+           [(ngModel)]="formData.nombre_producto"
+           class="form-control"
+           readonly
+         />  
+     </div>
       <div class="form-group col-md-4">
   
-          <label>Producto</label>
-          <input
-            name="detalleNameProducto"
-            #detalleNameProducto="ngModel"
-            [(ngModel)]="formData.detalleNameProducto"
-            class="form-control"
-            readonly
-          />
+        <label>Stock</label>
+        <input
+          name="cantidadIngresoOc"
+          #cantidadIngresoOc="ngModel"
+          [(ngModel)]="formData.cantidadIngresoOc"
+          class="form-control"
+          readonly
+        />
+      </div>
   
-      </div>
       <div class="form-group col-md-4">
-          <label>Unidad Medida</label>
-          <input
-      type="text" 
-      name="detalleNameUnidadMedida"
-      #detalleNameUnidadMedida="ngModel"
-      [(ngModel)]="formData.detalleNameUnidadMedida"
-      class="form-control"
-      readonly
-      />
-  
-      </div>
-      <div class="form-group col-md-4">
-          <label>Stock</label>
-          <input
-            name="cantidadPrincipal"
-            #cantidadPrincipal="ngModel"
-            [(ngModel)]="formData.cantidadPrincipal"
-            class="form-control"
-            readonly
-          />
-      </div>
+        <label>Cantidad Transferencia</label>
+        <input
+        type="number"
+          name="cantidadTransferencia"
+          #cantidadTransferencia="ngModel"
+          [(ngModel)]="formData.cantidadTransferencia"
+          class="form-control"
+     
+        />
+    </div>
   
   </div>
   
   <div class="form-row">
+    <div class="form-group col-md-3">
+      <label>Almacén De:</label>
+      <ng-select 
+    [items]="almacenes"  
+   bindLabel="nombre_alamcen"
+   bindValue="id"   
+   placeholder="Buscar Almacén" 
+   [(ngModel)]="formData.idAlmacen1" 
+   disabled
+   > 
+</ng-select> 
+
+    </div>
       <div class="form-group col-md-3">
-        <label>Almacén Destino</label>  
-        <ng-select 
-         [items]="almacenes"    
-        bindLabel="nombre_alamcen"
-        bindValue="id"   
-        placeholder="Buscar Almacén Secundario" 
-        [(ngModel)]="formData.idSedeSecundaria"
-        (change)="onChange($event)">
+        <label>Almacén A:</label>  
+         <!-- <ng-select 
+        [items]="almacenes2"  
+   bindLabel="nombre_alamcen"
+   bindValue="id"   
+   placeholder="Buscar Almacén" 
+   [(ngModel)]="formData.idAlmacen2" 
+   disabled>
      
-     </ng-select> 
+     </ng-select>  
+     -->
     
+     <ng-select  
+     #idAlmacen2="ngModel"  
+     name="idAlmacen2" 
+     bindValue="idAlmacen2" 
+     placeholder="Buscar Almacén" 
+     [(ngModel)]="formData.idAlmacen2"  
+   >   
+       <ng-option *ngFor="let emp of almacenes2" [value]="emp.id">{{emp.nombre_alamcen}}</ng-option>
+    </ng-select> 
+      </div>
     
-      </div>
-      <div class="form-group col-md-3">
-          <label>Cantidad Transferencia</label>
-          <input
-          type="number"
-            name="cantidadTransferencia"
-            #cantidadTransferencia="ngModel"
-            [(ngModel)]="formData.cantidadTransferencia"
-            class="form-control"
-       
-          />
-      </div>
       <div class="form-group col-md-3">
         <label>Detalle Transferencia</label>
         <input

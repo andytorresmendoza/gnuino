@@ -34,5 +34,11 @@ export interface DataDetalleTransferencias {
   detalleTransferencia:string;
 
   nombre_alamcen:string;
+  //nuevos
+  cantidadGlobalKardex:number;
+
+  idAlmacen1:number;
+  idAlmacen2:number;
+  cantidadIngresoOc:number;
 }
  

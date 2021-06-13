@@ -12,14 +12,14 @@
   />  
 
   <input
-  type="text" 
+  type="hidden" 
   name="idDetalleCotizacion"
   #idDetalleCotizacion="ngModel"
   [(ngModel)]="formData.idDetalleCotizacion"
 />  
 
 <input
-type="text" 
+type="hidden" 
 name="idSedePrincipal"
 #idSedePrincipal="ngModel"
 [(ngModel)]="formData.idSedePrincipal"
@@ -44,9 +44,10 @@ name="precio_unidad"
 #precio_unidad="ngModel"
 [(ngModel)]="formData.precio_unidad"
 />
+ 
 
   <div class="form-row">
-    <div class="col-md-4">
+    <div class="col-md-3">
       <label>Producto</label>
       <input
         name="detalleNameProducto"
@@ -56,7 +57,7 @@ name="precio_unidad"
         readonly
       />
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <label>Unidad Medida</label>
       <input
         type="text"
@@ -68,7 +69,7 @@ name="precio_unidad"
       />
     </div>
  
-    <div class="col-md-4">
+    <div class="col-md-3">
       <label>Almacén</label>
   <input
   type="text" 
@@ -79,10 +80,6 @@ name="precio_unidad"
   readonly
   />
     </div>
-
-  </div>
-  <br>
-  <div class="form-row ">
     <div class="col-md-3">
       <label>Cantidad Solicitada</label> 
       <input
@@ -90,6 +87,22 @@ name="precio_unidad"
         name="cantidadGlobal"
         #cantidadGlobal="ngModel"
         [(ngModel)]="formData.cantidadGlobal"
+        class="form-control"
+        readonly
+  
+     
+      />
+    </div>
+  </div>
+  <br>
+  <div class="form-row ">
+    <div class="col-md-3">
+      <label>Cantidad en Almacén</label> 
+      <input
+      
+        name="cantidadPendiente"
+        #cantidadPendiente="ngModel"
+        [(ngModel)]="formData.cantidadPendiente"
         class="form-control"
         readonly
   

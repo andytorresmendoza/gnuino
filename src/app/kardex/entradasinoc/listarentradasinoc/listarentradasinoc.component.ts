@@ -64,7 +64,7 @@ export class ListarentradasinocComponent implements OnInit {
 }
  openForEdit(Entradaid: number) {
 
-  this.router.navigate(['kardex/entradasinoc/'+Entradaid]);
+  this.router.navigate(['kardex/editingresosinoc/'+Entradaid]);
 }
 
 

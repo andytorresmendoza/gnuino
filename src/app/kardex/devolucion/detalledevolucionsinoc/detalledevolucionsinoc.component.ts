@@ -46,7 +46,10 @@ export class DetalledevolucionsinocComponent implements OnInit {
         idTipoIngreso: 0,
         detalleDevolucion: '',
         fechaDevolucion: '',
-        idProducto: '', //agreagr
+        idProducto: 0, //agreagr
+        cantidadPendiente: 0,
+        idSedePrincipal: 0
+
       },
 
       this.kardexService.detalleDevolucionesSinOC[this.data.orderItemIndex]
@@ -57,7 +60,7 @@ export class DetalledevolucionsinocComponent implements OnInit {
   };
   onSubmit(form: NgForm) {
     if (
-      form.value.cantidadDevolucion > form.value.cantidadPrincipal ||
+      form.value.cantidadDevolucion > form.value.cantidadPendiente ||
       form.value.cantidadDevolucion <= 0
     ) {
       return Swal.fire({

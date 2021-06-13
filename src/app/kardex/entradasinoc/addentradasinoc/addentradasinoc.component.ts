@@ -30,8 +30,8 @@ export class AddentradasinocComponent implements OnInit {
     private toastr: ToastrService, private router: Router,private currentRoute: ActivatedRoute
     ) { }
   ngOnInit(): void {
-
-    let id = this.currentRoute.snapshot.paramMap.get('id');
+    this.resetForm();
+  /*  let id = this.currentRoute.snapshot.paramMap.get('id');
     if (id !== 'nuevo') {
 
       this.kardexService.getIngresoSinOCById(+id).subscribe(res => {
@@ -39,6 +39,7 @@ export class AddentradasinocComponent implements OnInit {
         // console.log('editar',res[0] );
          this.kardexService.formDataIngresosinOc = res[0]; 
         this.kardexService.detalleIngresosinOc = res[0].detalleIngresoSinOc;
+        console.log( res[0])
         console.log('res', this.kardexService.detalleIngresosinOc);
         //  console.log('detalle',res[0].detalleIngresoSinOc[0].estadoflujo);
         if (res[0].idFlujo ==  2 || res[0].idFlujo ==  3 ) {
@@ -51,7 +52,7 @@ export class AddentradasinocComponent implements OnInit {
    else{
       this.resetForm();
 
-  } 
+  } */
   
   this.mantenimientosService.getProducto()
   .subscribe(resp => {
@@ -65,7 +66,7 @@ export class AddentradasinocComponent implements OnInit {
    .subscribe(resp => {
     
      this.empleados = resp as DataEmpleado[]  
-    //  console.log(resp);
+   console.log(resp);
   });
   this.mantenimientosService.getTipoingreso()
   .subscribe(resp => {

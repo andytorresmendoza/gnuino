@@ -22,3 +22,8 @@ git push -u origin main
 
 PRODUCCION
 ng build --prod
+
+
+/*notas*/
+cuando se realiza un ingreso del mismo producto y mismo almacen se suma
+actualmante se insertan 2 registros con el mismo id y misma sede

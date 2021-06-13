@@ -10,6 +10,8 @@ import { DataDetalleTransferencias } from '../../../models/detalletransferencias
 import { DataAlmacenSecundario } from '../../../models/almacenSecundario';
 import Swal from 'sweetalert2';
 import { DataTipoAlmacen } from '../../../models/tipoalmacen';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-detalletransferencia',
   templateUrl: './detalletransferencia.component.html',
@@ -20,11 +22,12 @@ export class DetalletransferenciaComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<DetalletransferenciaComponent>,
-    public kardexService: KardexService,  private mantenimientosService: MantenimientosService)   { }
+    public kardexService: KardexService,  private mantenimientosService: MantenimientosService, private toastr: ToastrService, private router: Router)   { }
     formData: DataDetalleTransferencias;
     productos: DataProducto[];
-    almacenesSecundario: DataAlmacenSecundario[]; 
+   // almacenesSecundario: DataAlmacenSecundario[]; 
     almacenes: DataTipoAlmacen[]; 
+    almacenes2: DataTipoAlmacen[]; 
     // tipodevoluciones: DataTipodevolucion[];
   ngOnInit(): void {
     this.mantenimientosService.getProducto()
@@ -34,30 +37,34 @@ export class DetalletransferenciaComponent implements OnInit {
   
    });
     
-  this.kardexService.getAlmacenSecundario()
-  .subscribe(resp => { 
-    this.almacenesSecundario = resp as DataAlmacenSecundario[]  
-
+   this.mantenimientosService.getTipoAlmacen()
+    .subscribe(resp => {
+      this.almacenes = resp as DataTipoAlmacen[]   
+    //  console.log('principal', this.almacenes);
  });
 
- this.mantenimientosService.getTipoAlmacen()
+ this.mantenimientosService.getTipoAlmacen2()
  .subscribe(resp => {
-   this.almacenes = resp as DataTipoAlmacen[]   
-   console.log('principal', this.almacenes);
+   this.almacenes2 = resp as DataTipoAlmacen[]   
+  // console.log('sec', this.almacenes);
 });
+
+ 
    this.formData = Object.assign({
     id:null,
-    idDetalleIngresoAlmacen:this.data.id, 
-    idIngresoAlmacen: 0,
-    // cantidadGlobal:0, /*ver estas cantidades */
-    cantidadPrincipal:0,
+    idProducto:0, 
+    cantidadGlobal: 0, 
+   // cantidadPrincipal:0,
     cantidadTransferencia:0 , 
     idSedeSecundaria:0,
     idTipoIngreso:0,  
+    idAlmacen1: 0,
+    idAlmacen2: 0,
     detalleTransferencia:'',  
     fechaTransferencia:'',
-    idProducto:'',//agreagr
-    nombre_alamcen:''
+  //agreagr
+    nombre_alamcen:'',
+    nombre_producto: '' ,
 
    },
    
@@ -86,20 +93,18 @@ export class DetalletransferenciaComponent implements OnInit {
 
       return;
     } 
-      else  if (this.data.orderItemIndex == null) {
-        let fechaParseada: any;
-        fechaParseada = moment(form.value.fechaTransferencia).format('YYYY-MM-DD');
-        form.value.fechaTransferencia=fechaParseada;
-   this.kardexService.detalleTransferencia.push(form.value);  
-       }
+      
    else{
 
 
     let fechaParseada: any;
     fechaParseada = moment(form.value.fechaTransferencia).format('YYYY-MM-DD');
     form.value.fechaTransferencia=fechaParseada;
-   this.kardexService.detalleTransferencia[this.data.orderItemIndex] = form.value;
-
+  //  this.kardexService.detalleTransferencia[this.data.orderItemIndex] = form.value;
+  this.kardexService.detalleTransferencia = form.value 
+  this.kardexService.GuardaTransferenciaAlmacen().subscribe(resp =>{   
+    this.toastr.success('Transferencia Exitosamente');
+   });     
    this.dialogRef.close();
   //  console.log('id',this.data.orderItemIndex);
   //  console.log('submit',this.kardexService.detalleTransferencia);

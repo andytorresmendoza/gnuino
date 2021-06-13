@@ -49,12 +49,14 @@ export class DetalledevolucionComponent implements OnInit {
         detalleDevolucion: '',
         fechaDevolucion: '',
         idProducto: 0, //agreagr
+        cantidadPendiente: 0,
+        idSedePrincipal: 0,
       },
 
       this.kardexService.detalleDevoluciones[this.data.orderItemIndex]
 
     );
-    // console.log('form', this.formData);
+    console.log('form', this.formData);
   }
 
   onChange = ($event: any): void => {
@@ -64,7 +66,7 @@ export class DetalledevolucionComponent implements OnInit {
   onSubmit(form: NgForm) {
     // console.log(form);
     if (
-      form.value.cantidadDevolucion > form.value.cantidadPrincipal ||
+      form.value.cantidadDevolucion > form.value.cantidadPendiente ||
       form.value.cantidadDevolucion <= 0
     ) {
       return Swal.fire({

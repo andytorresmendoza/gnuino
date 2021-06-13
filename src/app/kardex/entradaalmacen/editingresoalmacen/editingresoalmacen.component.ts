@@ -9,6 +9,7 @@ import { NgForm } from '@angular/forms';
 import { DataProveedor } from '../../../models/proveedor';
 import { DataEmpleado } from '../../../models/empleado';
 import { DataTipoIngreso } from '../../../models/tipoingreso';
+import { HistoricoocComponent } from '../historicooc/historicooc.component';
 
 @Component({
   selector: 'app-editingresoalmacen',
@@ -77,6 +78,20 @@ this.kardexService.formOrdencompra
      });
    
     }
+    HistoricoOc( id) {
+       console.log(id,'historico');
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.autoFocus = true;
+      dialogConfig.disableClose = true;
+      dialogConfig.width = "50%";
+      dialogConfig.data = { id };
+      // afterClosed().subscribe; es para cuando se cierre el poput actualize el rpecio
+       this.dialog.open(HistoricoocComponent, dialogConfig).afterClosed().subscribe(resp=>{
+    // console.log(resp);
+        // this.updateTotal();
+       });
+     
+      }
     onSubmit(form:NgForm){
       // console.log(form);
   

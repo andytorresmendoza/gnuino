@@ -29,6 +29,8 @@ export interface DataDetalleIngresoAlmacen {
   idSedePrincipal: number;
   nombre_alamcen:string;
   isAvailable? :boolean;
+  cantidadPendiente:number;
+  created_at: string;
   // detalleNameSedePrincipal:string;
   // detalleNameSedeSecundaria: string;
   // stockTotal:number;

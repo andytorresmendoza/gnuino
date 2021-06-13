@@ -31,7 +31,8 @@ export interface DataDetalleDevolucion {
 
   descripcion_devolucion:string;
   isAvailable?:boolean;
-
+  cantidadPendiente:number;
+  idSedePrincipal: number;
 
   
 }

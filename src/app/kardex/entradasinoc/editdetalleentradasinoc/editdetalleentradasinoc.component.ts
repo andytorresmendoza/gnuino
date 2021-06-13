@@ -11,22 +11,21 @@ import Swal from 'sweetalert2';
 import { DataTipoAlmacen } from '../../../models/tipoalmacen';
 
 @Component({
-  selector: 'app-detalleentradasinoc',
-  templateUrl: './detalleentradasinoc.component.html',
-  styleUrls: ['./detalleentradasinoc.component.css'],
+  selector: 'app-editdetalleentradasinoc',
+  templateUrl: './editdetalleentradasinoc.component.html',
+  styleUrls: ['./editdetalleentradasinoc.component.css']
 })
-export class DetalleentradasinocComponent implements OnInit {
+export class EditdetalleentradasinocComponent implements OnInit {
   formDataOC: DataDetalleEntradasinOc;
   productos: DataProducto[];
   almacenes: DataTipoAlmacen[];
   isValid: boolean = true;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
-    public dialogRef: MatDialogRef<DetalleentradasinocComponent>,
+    public dialogRef: MatDialogRef<EditdetalleentradasinocComponent>,
     public kardexService: KardexService,
     private mantenimientosService: MantenimientosService
   ) {}
-
   ngOnInit(): void {
     this.mantenimientosService.getProducto()
     .subscribe(resp => {
@@ -60,7 +59,7 @@ export class DetalleentradasinocComponent implements OnInit {
       };
     else
       this.formDataOC = Object.assign(
-        {},
+        {cantidadPrincipal:0},
         this.kardexService.detalleIngresosinOc[this.data.orderItemIndex]
       );
       console.log(this.kardexService.detalleIngresosinOc,'servicio');
@@ -85,7 +84,7 @@ export class DetalleentradasinocComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    if(form.value.cantidadPrincipal > form.value.cantidad ||  form.value.cantidadPrincipal <= 0){
+    if((form.value.cantidadPrincipal+ form.value.cantidadPendiente) > form.value.cantidad ||  form.value.cantidadPrincipal <= 0){
     
       return   Swal.fire({
         title:  form.value.cantidad+' Productos se solicito' ,

@@ -8,6 +8,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { DetallesalidaproductoComponent } from '../../salidaproductos/detallesalidaproducto/detallesalidaproducto.component';
 import { DetalleprecioventaComponent } from '../detalleprecioventa/detalleprecioventa.component';
 import { DataKardex } from '../../../models/kardex';
+import { DetalletransferenciaComponent } from '../../transferencia/detalletransferencia/detalletransferencia.component';
  
 @Component({
   selector: 'app-listarkardex',
@@ -18,7 +19,7 @@ export class ListarkardexComponent implements OnInit {
   ListIngresosCerrados:DataKardex []= [];
   cargando = true; 
  
-  displayedColumns: string[] = ['Codigo Producto', 'Producto', 'Cantidad por O/C', 'Cantidad por sin O/C', 'Cantidad Total','Precio Unidad O/C','Precio Unidad sin O/C','Precio Promedio','Salida','Venta'];
+  displayedColumns: string[] = ['Codigo Producto', 'Producto','Cantidad en Almacen', 'Almacen','Salida','Transferencia','Venta'];
    dataSource = new MatTableDataSource<DataKardex>();
    applyFilter(event: Event) {
      const filterValue = (event.target as HTMLInputElement).value;
@@ -39,9 +40,11 @@ export class ListarkardexComponent implements OnInit {
      this.dataSource.data = resp as DataKardex[]; 
  
        this.kardexService.detalleSalida = resp;
+       this.kardexService.detalleTransferencia = resp;
        this.cargando = false;
        // this.cargando = false;
-         console.log(resp,'listado');
+         console.log(this.kardexService.detalleSalida,'Salida');
+       //  console.log( this.kardexService.detalleTransferencia  , 'transferencia');
    });
   }
  
@@ -56,11 +59,20 @@ export class ListarkardexComponent implements OnInit {
  //  console.log(resp,'cierra popup');
   this.getListKardex();
     });
-  
+  }  
+ 
+  AddDetalleTransferencia(orderItemIndex, id:number) {   
+    //  console.log(id,'detalle');
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.disableClose = true;
+    dialogConfig.width = "65%";
+    dialogConfig.data = {orderItemIndex,id }; 
+     this.dialog.open(DetalletransferenciaComponent, dialogConfig).afterClosed().subscribe(resp=>{
+  //  console.log(resp,'cierra popup');
+   this.getListKardex();
+     });
    }  
-
-
-
    AddDetallePrecioVenta(orderItemIndex, id:number) {   
     //  console.log(id,'detalle');
     const dialogConfig = new MatDialogConfig();

@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataSalidaProductos } from '../../../models/salidaproductoscerrados';
 import { ToastrService } from 'ngx-toastr';
+import { DataTipoAlmacen } from '../../../models/tipoalmacen';
 
 @Component({
   selector: 'app-detallesalidaproducto',
@@ -29,18 +30,16 @@ export class DetallesalidaproductoComponent implements OnInit {
   formData: DataDetalleSalidaAlmacen;
   productos: DataProducto[];
   tiposalidas: DataTipoSalida[];
+  almacenes: DataTipoAlmacen[]; 
   isValid: boolean = true;
   ngOnInit(): void {
  
-    // let id = this.currentRoute.snapshot.paramMap.get('id');
-  /*  this.kardexService.getkardexById(this.data.id).subscribe(res => {
-       
-    // this.formData= res[0];     
-    // this.formData = res[0];
-    console.log( this.formData,'servicio');
-     
-    });*/
-
+ 
+    this.mantenimientosService.getTipoAlmacen()
+    .subscribe(resp => {
+      this.almacenes = resp as DataTipoAlmacen[]   
+      console.log('principal', this.almacenes);
+ });
     
 
     this.mantenimientosService.getProducto().subscribe((resp) => {
@@ -59,11 +58,12 @@ this.formData = Object.assign({
   cantidadGlobal: 0, 
   cantidadSalida: 0,
   idTipoSalida: 0,
-  idTipoIngreso: 0,
+ // idTipoIngreso: 0,
   detalleSalida: '',
   fechaSalida: '',
   nombre_producto: '' ,
-  descripcion_salida:''
+  descripcion_salida:'',
+  idAlmacen1: 0
 },
 this.kardexService.detalleSalida[this.data.orderItemIndex]);
 

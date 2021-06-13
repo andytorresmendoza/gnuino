@@ -1,0 +1,170 @@
+<h4 class="dispaly-4">Insertar Productos</h4>
+<hr />
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+    <input type="hidden" name="id" #id="ngModel" [(ngModel)]="formDataOC.id" />
+    <input
+    type="hidden"
+    name="idEntradaSinOc"
+    #idEntradaSinOc="ngModel"
+    [(ngModel)]="formDataOC.idEntradaSinOc"
+  /> 
+ 
+
+<input
+type="hidden" 
+name="nombre_alamcen"
+#nombre_alamcen="ngModel"
+[(ngModel)]="formDataOC.nombre_alamcen"
+/>
+
+<input
+type="hidden" 
+name="idSedePrincipal"
+#idSedePrincipal="ngModel"
+[(ngModel)]="formDataOC.idSedePrincipal"
+/>
+<input
+type="hidden"
+name="idProducto"
+#idProducto="ngModel"
+[(ngModel)]="formDataOC.idProducto"
+/>
+ 
+<div class="form-row">
+    <div class="form-group col-md-4">
+        <label>Buscar Producto</label>
+  
+        <label>Producto</label>
+        <input
+          name="nombre_producto"
+          #nombre_producto="ngModel"
+          [(ngModel)]="formDataOC.nombre_producto"
+          class="form-control"
+          readonly
+        />
+       
+      </div>
+      <div class="form-group col-md-4">
+        <label>Unidad Medida </label> 
+        <input
+        type="text"
+          name="detalleNameUnidadMedida"
+          #detalleNameUnidadMedida="ngModel"
+          [(ngModel)]="formDataOC.detalleNameUnidadMedida"
+          class="form-control"
+          readonly
+       
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label>Cantidad Solicitada</label> 
+        <input
+        type="number"
+          name="cantidad"
+          #cantidad="ngModel"
+          [(ngModel)]="formDataOC.cantidad"
+          class="form-control" 
+          required
+          readonly
+        />
+      
+      </div>
+      <!-- <div class="form-group col-md-4">
+       <label>Almacén</label> 
+
+       <input
+       type="text" 
+       name="nombre_alamcen"
+       #nombre_alamcen="ngModel"
+       [(ngModel)]="formDataOC[].nombre_alamcen"
+       class="form-control" 
+       readonly
+       />
+ 
+      </div> -->
+      <div class="form-row">   
+        <div class="form-group col-md-4">
+          <label>Cantidad en Almacén</label> 
+          <input
+          type="number"
+            name="cantidadPendiente"
+            #cantidadPendiente="ngModel"
+            [(ngModel)]="formDataOC.cantidadPendiente"
+            class="form-control" 
+            required
+            readonly
+          />
+        
+        </div>
+      <div class="form-group col-md-4">
+        <label>Precio Unitario</label>
+        <input
+        type="number"
+          name="precioUnitario"
+          #precioUnitario="ngModel"
+          [(ngModel)]="formDataOC.precioUnitario"
+          class="form-control"
+          [class.is-invalid]="precioUnitario.invalid && precioUnitario.touched"
+          required
+          readonly
+          (keyup)="updateTotal()"
+        />
+        <small *ngIf="precioUnitario.invalid && precioUnitario.touched"
+        class="form-text text-danger">Ingrese Precio</small>
+      </div>
+      <div class="form-group col-md-4">
+        <label>Precio Total</label>
+        <input
+        type="number"
+          name="precioTotal"
+          #precioTotal="ngModel"
+          [(ngModel)]="formDataOC.precioTotal"
+          class="form-control"
+          readonly
+
+        />
+      </div>
+      </div>
+</div>
+
+<div class="form-row">
+  
+      <div class="form-group col-md-3">
+        <label>Cantidad Recibida</label> 
+        <input
+        
+        type="number"
+          name="cantidadPrincipal"
+          #cantidadPrincipal="ngModel"
+          [(ngModel)]="formDataOC.cantidadPrincipal" 
+          class="form-control" 
+          required
+        />
+        <!-- [class.is-invalid]="cantidadPrincipal.invalid && cantidadPrincipal.touched"
+        <small *ngIf="cantidadPrincipal.invalid && cantidadPrincipal.touched"
+        class="form-text text-danger">Ingrese Cantidad</small> -->
+      </div>
+      <div class="form-group col-md-9">
+        <label>Observaciones</label>
+        <input
+          name="observaciones"
+          #observaciones="ngModel"
+          [(ngModel)]="formDataOC.observaciones"
+          class="form-control"
+          [class.is-invalid]="observaciones.invalid && observaciones.touched"
+          required
+        />
+      </div>
+ 
+    
+</div>
+ 
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark">
+      <i class="fa fa-database"></i> Guardar
+    </button>
+    <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]>
+      <i class="fa fa-close"></i> Salir
+    </button>
+  </div>
+</form>

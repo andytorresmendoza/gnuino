@@ -3,7 +3,7 @@
 <hr />
 <div class="row text-right">
   <div class="col">
-    <button class="btn btn-danger" routerLink="../listarentradasinoc">
+    <button class="btn btn-danger" routerLink="../../listarentradasinoc">
       <i class="fa fa-arrow-left"></i>
       Regresar
     </button>
@@ -44,12 +44,7 @@ name="nombre_proovedor"
 #nombre_proovedor="ngModel"
 [(ngModel)]="kardexService.formDataIngresosinOc.nombre_proovedor"
 />
-<input
-type="hidden"
-name="idProveedor"
-#idProveedor="ngModel"
-[(ngModel)]="kardexService.formDataIngresosinOc.idProveedor"
-/>
+ 
 
 <div class="row">
     <div class="col-md-3">
@@ -79,17 +74,16 @@ name="idProveedor"
           <div class="form-group">
             <label>Empleado</label>
     
-            <ng-select 
-            [items]="empleados"
-           bindLabel="nombre_empleado"
-           bindValue="id" 
-           placeholder="Buscar Empleado"
-           [(ngModel)]="kardexService.formDataIngresosinOc.idEmpleado"
-           (change)="onChange($event)"
+            <input 
+            type="text"
+      name="nombre_empleado"
+      #nombre_empleado="ngModel"
+           [(ngModel)]="kardexService.formDataIngresosinOc.nombre_empleado"
+           class="form-control" 
+           disabled="disabled"
            
             >
-      
-      </ng-select>
+ 
      
           </div>
           <div class="form-group">
@@ -117,17 +111,13 @@ name="idProveedor"
 
         <div class="form-group">
             <label> Proveedor</label>
-    
-            <ng-select 
-            [items]="proveedores"
-           bindLabel="nombre_proovedor"
-           bindValue="id" 
-           placeholder="Buscar Proveedor"
-           [(ngModel)]="kardexService.formDataIngresosinOc.idProveedor"
-           (change)="onChangeProveedor($event)" 
-            >
-      
-      </ng-select>
+            <input
+            type="text"
+            name="nombre_proovedor"
+            #nombre_proovedor="ngModel"
+                 [(ngModel)]="kardexService.formDataIngresosinOc.nombre_proovedor"
+                 class="form-control" 
+                 disabled="disabled">
         </div>
 
         <div class="form-group">
@@ -140,6 +130,7 @@ name="idProveedor"
            placeholder="Buscar Tipo Ingreso"
            [(ngModel)]="kardexService.formDataIngresosinOc.idtipoIngreso"
            (change)="onChangeTipoIngreso($event)" 
+           disabled="disabled"
             >
       
       </ng-select>
@@ -157,6 +148,7 @@ name="idProveedor"
           [(ngModel)]="kardexService.formDataIngresosinOc.idTipoMoneda"
           [class.is-invalid]="!isValid && kardexService.formDataIngresosinOc.idTipoMoneda==0"
           class="form-control"  
+          disabled="disabled"
           >
             <option value="0">-Seleccione Tipo Moneda-</option>
             <option value="1">SOLES</option>
@@ -181,25 +173,21 @@ name="idProveedor"
       <th scope="col">#</th>
       <th>Nombre Producto</th>
       <th>Unidad Medida</th>
-      <th>Cantidad Solicitada</th>
-      
+      <th>Cantidad Solicitada</th> 
+      <th>Nombre en Almacén</th> 
+      <th>Cantidad en Almacén</th> 
       <th>Precio Unidad</th>
       <th>Precio Total</th>
       <th>Observaciones</th>
       <!-- <th>Sede Principal</th> -->
-      <th>Cantidad Recibida</th>
+      
+      <th>Cantidad Ingreso</th>
       <!-- <th>Sede Secundaria</th> -->
       <!-- <th>Cantidad Secundaria</th> -->
       <!-- <th>Cantidad Devuelta</th> -->
       <!-- <th scope="col">Estado</th> -->
      
-      <th>
-        <a
-          class="btn btn-sm btn-success text-white"
-          (click)="AddOrEditOrderItem(null, kardexService.formDataIngresosinOc.id)" *ngIf="this.isButtonVisible" 
-          ><i class="fa fa-plus"></i> Agregar Detalles</a
-        >
-      </th>
+      
     </thead>
     <tbody>
       <br>
@@ -216,6 +204,8 @@ name="idProveedor"
         <td>{{ item.nombre_producto }}</td>
         <td>{{item.detalleNameUnidadMedida}}</td>
         <td>{{ item.cantidad }}</td> 
+        <td>{{ item.detalleNameSedePrincipal }}</td> 
+        <td> {{item.cantidadPendiente}}</td> 
         <td>{{ item.precioUnitario }}</td>
         <td>{{ item.precioTotal }}</td>
         <td>{{ item.observaciones }}</td>
@@ -247,6 +237,12 @@ name="idProveedor"
             class="btn btn-sm btn-danger text-white ml-1"
             (click)="onDeleteOrderItem(item.id, i)"  
             ><i class="fa fa-trash"></i></a> -->
+        </td>
+        <td>
+          <a
+            class="btn btn-sm btn-info text-white"
+            (click)="HistoricoSinOc(item.idEntradaSinOc) "  ><i class="fa fa-eye" aria-hidden="true"></i></a>
+              
         </td>
       </tr>
     </tbody>

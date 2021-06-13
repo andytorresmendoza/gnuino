@@ -23,6 +23,8 @@ export interface DataDetalleEntradasinOc {
   detalleNameUnidadMedida:string;
   idSedePrincipal: number;
   nombre_alamcen:string;
+  cantidadPendiente:number; 
+  isAvailable?: boolean;
   // cantidaSecundaria:number;
   // cantidadDevuelta:number;
   // nombre_almacenS:string;
