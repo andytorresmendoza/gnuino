@@ -89,8 +89,8 @@ export class ListarkardexComponent implements OnInit {
 
     AddVerMovimientos( id:number) {   
       //  console.log(id,'detalle');
-      this.router.navigate(['kardex/movimientoproductos/'+id]);
-      // this.router.navigate(['kardex/ListarPrueba/'+id]);
+   this.router.navigate(['kardex/movimientoproductos/'+id]);
+    //   this.router.navigate(['kardex/ListarPrueba/'+id]);
       }  
 
   /*openForEdit(SalidaID: number) {

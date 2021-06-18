@@ -5,41 +5,24 @@ import { KardexService } from '../../services/kardex/kardex.service';
 import { MantenimientosService } from '../../services/mantenimientos/mantenimientos.service';
 import { DataMovimientoKardex } from '../../models/movimientoskardex';
  
-interface Transaction {
-  item: string;
-  cost: number;
-}
+ 
 @Component({
   selector: 'app-listaprueba',
   templateUrl: './listaprueba.component.html',
   styleUrls: ['./listaprueba.component.css']
 })
 export class ListapruebaComponent implements OnInit {
-  displayedColumns: string[] = ['precio'];
-  cabeceraProducto:any;
-  transactions: Transaction[] = [
-    {item: 'Beach ball', cost: 4},
-    {item: 'Towel', cost: 5},
-    {item: 'Frisbee', cost: 2},
-    {item: 'Sunscreen', cost: 4},
-    {item: 'Cooler', cost: 25},
-    {item: 'Swim suit', cost: 15},
-  ];
+  displayedColumns: string[] = ['Nombre Producto','codigo','cantidad','almacen','fecha','nroOrden','precio' ];
+  cabeceraProducto:any; 
   movimientosProductos: DataMovimientoKardex[] = [];
   
-  /*getTotalCost() {
-    return this.movimientosProductos.map(r => parseFloat(r.precio))
-    .reduce((acc, value,index,array ) => 
-     (acc + value ), 0)
-  
    
-  }*/
   getTotalCost() {
-    var suma =  this.movimientosProductos.map(r => parseFloat(r.precio))
-    .reduce((acc, value  ) => 
-     (acc + value ), 0) 
+    let suma: any;
+    const priceNotEmpty = this.movimientosProductos.filter((res)=> res.precio!='');
+    suma =  priceNotEmpty?.map(r => parseFloat(r.precio)).reduce(( acc, value ) =>  (acc + value ), 0); 
  
-  return   suma / this.movimientosProductos.length;
+    return suma / priceNotEmpty.length;
   }
 
   constructor(public kardexService: KardexService,  private mantenimientosService: MantenimientosService,
