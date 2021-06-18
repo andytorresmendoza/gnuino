@@ -1,35 +1,79 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+ 
 import { DataEmpleado } from '../../../models/empleado';
 import { MantenimientosService } from '../../../services/mantenimientos/mantenimientos.service';
 import Swal from 'sweetalert2';
+import { UsuarioForm, DataUsuario } from '../../../models/usuario';
+import { NgForm } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-addusuario',
   templateUrl: './addusuario.component.html',
   styleUrls: ['./addusuario.component.css']
 })
 export class AddusuarioComponent implements OnInit {
-  empleados: DataEmpleado[] = [];
+  empleados: DataEmpleado[] = []; 
+  formData: DataUsuario; 
   public formSubmitted = false;
-  public registerForm = this.fb.group({
-    username: ['Fernando', Validators.required ],
-    // email: ['test100@gmail.com', [ Validators.required, Validators.email ] ],
-    password: ['123456', Validators.required ],
-    password2: ['123456', Validators.required ],
-    idEmpleado: ['', Validators.required],
-    // terminos: [ true, Validators.required ],
-  }, {
-    validators: this.passwordsIguales('password', 'password2')
-  });
-  constructor(private fb: FormBuilder,private mantenimientosService: MantenimientosService) { }
+ 
+  constructor(private mantenimientosServices: MantenimientosService, private router:Router,private currentRoute: ActivatedRoute,private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.mantenimientosService.getEmpleado()
+    let id = this.currentRoute.snapshot.paramMap.get('id'); 
+    if (id !== 'nuevo') {
+      this.mantenimientosServices.getUsuariobyId(+id).subscribe(res => {
+        // this.formData= res; 
+      //console.log(  res,'form');
+         //console.log( this.formData);
+
+
+      });
+    }else{
+      this.resetForm();
+
+} 
+    this.mantenimientosServices.getEmpleado()
     .subscribe(resp => { 
        this.empleados = resp;  
     })
   }
-crearUsuario(){
+
+  resetForm(form?:NgForm){
+    if(form =null)
+    form.resetForm();
+     this.formData={    
+      username: '',
+      password: '',
+      idEmpleado: 0
+    
+
+ }; 
+}
+
+onSubmit(form:NgForm):void{
+ // console.log(form);
+ /* if (this.formData.id) {
+   this.mantenimientosServices.updateCliente(this.formData).subscribe(
+     resp=>{
+
+     this.toastr.success('Actualizado Exitosamente','Gnuino');
+      this.router.navigate(["../mantenimientos/listarcliente"]);
+     }
+   )
+} 
+else{
+*/
+  this.mantenimientosServices.CrearUsuario(this.formData).subscribe(res =>{
+ //console.log(res);
+   this.resetForm();
+   this.toastr.success('Guardado Exitosamente','Gnuino');
+   this.router.navigate(["../mantenimientos/listarusuarios"]);
+ }) ;
+// }
+}
+
+/*crearUsuario(){
   this.formSubmitted = true;
    console.log(this.registerForm.value);
   if(this.registerForm.invalid){
@@ -87,13 +131,13 @@ contrasenasNoValidas() {
   validateCombo() {
 
     const comboEmpleado = this.registerForm.get('idEmpleado').value;
-  // console.log(this.registerForm.get('idTipoEmpleado').value);
-    if ( (comboEmpleado ===  '' || comboEmpleado ===  0  ) && this.formSubmitted ) { 
+
+  if ( (comboEmpleado ===  '' || comboEmpleado ===  0  ) && this.formSubmitted ) { 
       return  true; 
     }else{
       false;
     }
   
   }
-
+*/
 }

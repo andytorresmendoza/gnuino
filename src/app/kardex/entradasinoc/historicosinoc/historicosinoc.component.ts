@@ -42,7 +42,7 @@ export class HistoricosinocComponent implements OnInit {
    //this.kardexService.detalleSalida = resp;
       //this.cargando = false;
       // this.cargando = false;
-        console.log(resp,'listado');
+      //  console.log(resp,'listado');
   });
  }
 

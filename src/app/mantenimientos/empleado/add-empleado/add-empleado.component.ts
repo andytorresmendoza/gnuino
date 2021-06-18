@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { PaisI } from '../../../models/pais';
 import { MantenimientosService } from 'src/app/services/mantenimientos/mantenimientos.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { EmpleadoI, DataEmpleado } from '../../../models/empleado';
 import { DataTipodocumento } from '../../../models/tipodocumento';
 import { DataPerfilusuario } from '../../../models/perfilUsuario';
-// import * as _moment from 'moment';
-// import { Moment } from 'moment';
 import * as moment from 'moment';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-empleado',
@@ -18,44 +16,55 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
   styleUrls: ['./add-empleado.component.css']
 })
 export class AddEmpleadoComponent implements OnInit {
-  loginForm = new FormGroup({
-    nombre_empleado: new FormControl('', Validators.required),
-    apellidos_pat_empleado: new FormControl('', Validators.required),
-    apellidos_mat_empleado: new FormControl('', Validators.required),
-    sexo_empleado: new FormControl('', Validators.required),
-    dni_empleado: new FormControl('', Validators.required),   
-    direccion_empleado: new FormControl('', Validators.required),
-    email_empleado: new FormControl('', Validators.required),
-    fecha_empleado: new FormControl('', Validators.required),
-    idTipoDocumento: new FormControl('', Validators.required), 
-    idPerfilUsuario: new FormControl('', Validators.required), 
-    idPais: new FormControl('', Validators.required), 
-  });
+ 
 
   public paises: PaisI[];
   tipodocumentos: DataTipodocumento[] = []; 
   perfiles: DataPerfilusuario[] = [];
   empleados: DataEmpleado[]=[];
-  selectedprovincias: DataEmpleado;
+  formData: DataEmpleado; 
   constructor(private mantenimientosServices: MantenimientosService
-    , private router:Router) { }
+    , private router:Router,private currentRoute: ActivatedRoute,private toastr: ToastrService) { }
+
  
   ngOnInit(): void {
+
+    let id = this.currentRoute.snapshot.paramMap.get('id'); 
+    if (id !== 'nuevo') {
+      this.mantenimientosServices.getEmpleadoId(+id).subscribe(res => {
+         this.formData = res[0];  
+         console.log(this.formData.id,'data');
+        });
+      }else{
+        this.resetForm(); 
+  }
     this.getPais();
     this.getTipodocumento();
     this.getPerfilusuario();
-    // console.log(moment().format('YYYY-MM-DD');
+   
   }
- 
-onChangeEvent(event){
 
-    const m = moment(event.value);
-    event = m.format("YYYY-MM-D" );
-    // console.log(event);
- this.selectedprovincias = event;
-   console.log(event);
+  resetForm(form?:NgForm){
+    if(form =null)
+    form.resetForm();
+     this.formData={        
+      id:null,
+      nombre_empleado: '',
+      apellidos_pat_empleado: '',
+      apellidos_mat_empleado:'',
+      sexo_empleado:'',
+      dni_empleado: '',
+      direccion_empleado: '',
+      email_empleado: '',
+      fecha_empleado: '',
+      idTipoDocumento:0,
+      idPerfilUsuario: 0,
+      idPais:0,
+      estado:0 
+  }; 
  
 }
+
  
   getPais(){ this.mantenimientosServices.getPais().subscribe(
     data=>(this.paises=data) 
@@ -81,14 +90,28 @@ getPerfilusuario(){this.mantenimientosServices.getPerfilusuario()
 });
 }
   
-  AddEmpleado(empleados: EmpleadoI):void{
-    console.log('entro',empleados);
-    // this.nrocuentas[0].id = 22;
-  this.mantenimientosServices.addEmpleado(empleados)
+onSubmit(form: NgForm):void{ 
+ 
+  if (this.formData.id) {
+  
+   this.mantenimientosServices.updateEmpleado(this.formData).subscribe(
+     resp=>{
+
+     this.toastr.success('Actualizado Exitosamente','Gnuino');
+   this.router.navigate(["../../mantenimientos/listarempleado"]);
+     }
+   )
+} 
+else{
+ 
+    let fechaParseada: any;
+    fechaParseada = moment(form.value.fecha_empleado).format('YYYY-MM-DD');
+    form.value.fecha_empleado = fechaParseada;  
+    this.formData = form.value;
+  this.mantenimientosServices.addEmpleado(this.formData)
     .subscribe(res=>{
      console.log(res);
-      Swal.fire({
-        //  title: this.nrocuentas[0].descripcion_cuenta,
+      Swal.fire({ 
         text: 'Se Guardo correctamente',
         icon: 'success',
       });
@@ -97,7 +120,7 @@ getPerfilusuario(){this.mantenimientosServices.getPerfilusuario()
       
     });
   
-   
+  }
   
   }
  

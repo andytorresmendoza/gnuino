@@ -37,22 +37,7 @@ name="idProducto"
  
 <div class="form-row">
     <div class="form-group col-md-4">
-        <label>Buscar Producto</label>
-      
-        <!-- <ng-select  
-        #idProducto="ngModel"  
-        name="idProducto" 
-        bindValue="idProducto" 
-        placeholder="Buscar Producto" 
-        [(ngModel)]="formDataOC.idProducto"  
-        (change)="onChange($event)"
-      >   
-          <ng-option *ngFor="let emp of productos" [value]="emp.id">{{emp.nombre_producto}}</ng-option>
-       </ng-select>  -->
-
-
- 
-
+        <label>Buscar Producto</label> 
         <ng-select 
         [items]="productos"
        bindLabel="nombre_producto"
@@ -89,19 +74,7 @@ name="idProducto"
      >   
          <ng-option *ngFor="let emp of almacenes" [value]="emp.id">{{emp.nombre_alamcen}}</ng-option>
       </ng-select> 
-
-
-<!-- 
-
-       <ng-select 
-       [items]="almacenes"  
-       bindLabel="nombre_alamcen"
-       bindValue="id"   
-       placeholder="Buscar Almacén" 
-       [(ngModel)]="formDataOC.idSedePrincipal" 
-       (change)="onChangeAlmacen($event)">
-    
-    </ng-select>    -->
+ 
       </div>
       <div class="form-row">   
       <div class="form-group col-md-4">
@@ -162,11 +135,9 @@ name="idProducto"
           class="form-control" 
           required
         />
-        <!-- [class.is-invalid]="cantidadPrincipal.invalid && cantidadPrincipal.touched"
-        <small *ngIf="cantidadPrincipal.invalid && cantidadPrincipal.touched"
-        class="form-text text-danger">Ingrese Cantidad</small> -->
+
       </div>
-      <div class="form-group col-md-9">
+      <div class="form-group col-md-12">
         <label>Observaciones</label>
         <input
           name="observaciones"

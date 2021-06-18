@@ -24,7 +24,7 @@ this.getListDevolucionessinoc();
       this.ListDevolucionessinoc = resp; 
       this.cargando = false;
       // this.cargando = false;
-      console.log(resp);
+     // console.log(resp);
   });
   }
 }

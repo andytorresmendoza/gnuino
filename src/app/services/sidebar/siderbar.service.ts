@@ -12,7 +12,7 @@ export class SiderbarService {
       icono:'mdi mdi-account-key',
       submenu: [
         // {titulo:'Main', url:'mantenimientos'},
-        {titulo:'Usuarios', url:'../mantenimientos/addusuario'},
+        {titulo:'Usuarios', url:'../mantenimientos/listarusuarios'},
         {titulo:'Perfil Usuarios', url:'../mantenimientos/listarperfilusuario'},
         {titulo:'Empleado', url:'../mantenimientos/listarempleado'},
         {titulo:'Estado FLujo', url:'../mantenimientos/listarestadoflujo'},
@@ -37,7 +37,7 @@ export class SiderbarService {
         {titulo:'Tipo Salida', url:'../mantenimientos/listartiposalida'},
         {titulo:'Tipo Pago', url:'../mantenimientos/listartipopago'},
         {titulo:'Unidad de Medida', url:'../mantenimientos/listarunidadmedida'},
-        {titulo:'Sede Almacén', url:'../mantenimientos/listaralmacen'},
+        {titulo:'Almacén', url:'../mantenimientos/listaralmacen'},
         {titulo:'Cliente', url:'../mantenimientos/listarcliente'},
         
       ]
@@ -53,11 +53,12 @@ export class SiderbarService {
         {titulo:'Entrada Almacén', url:'../kardex/listarentrada'},
         {titulo:'Entrada Sin Orden', url:'../kardex/listarentradasinoc'},
         {titulo:'Devolución de Productos', url:'../kardex/devoluciones'}, 
-        {titulo:'Transferencias', url:'../kardex/transferencias'},
+       // {titulo:'Transferencias', url:'../kardex/transferencias'},
         {titulo:'Kardex', url:'../kardex/Listarkardex'},
-        // {titulo:'Kardex O/C', url:'../kardex/kardex'},
-        // {titulo:'Kardex sin O/C', url:'../kardex/kardexsinoc'}, 
-        // {titulo:'TABLE PRUEBA', url:'../kardex/lista'}, 
+      //  {titulo:'Prueba', url:'../kardex/ListarPrueba'},
+
+    
+ 
       ]
       
     },

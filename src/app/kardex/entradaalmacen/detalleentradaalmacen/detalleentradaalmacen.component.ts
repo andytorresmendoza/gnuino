@@ -38,7 +38,7 @@ export class DetalleentradaalmacenComponent implements OnInit {
    this.mantenimientosService.getTipoAlmacen()
    .subscribe(resp => {
      this.almacenes = resp as DataTipoAlmacen[]   
-     console.log('principal', this.almacenes);
+   //  console.log('principal', this.almacenes);
 });
  
    this.formData = Object.assign({ 
@@ -91,9 +91,9 @@ export class DetalleentradaalmacenComponent implements OnInit {
   }
   else{
   this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex] = form.value;
-  console.log(this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex],'component');
+  //console.log(this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex],'component');
   this.dialogRef.close();
-   console.log('submit', ( this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]));
+  // console.log('submit', ( this.kardexService.detalleIngresoAlmacen[this.data.orderItemIndex]));
   }
 
 }

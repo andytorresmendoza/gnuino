@@ -22,8 +22,8 @@ export class TotaldevolucionComponent implements OnInit {
      
       this.ListDevoluciones = resp; 
       this.cargando = false;
-      // this.cargando = false;
-      console.log(resp);
+    //  // this.cargando = false;
+     // console.log(resp);
   });
   }
 }

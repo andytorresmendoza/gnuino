@@ -1,5 +1,10 @@
 export interface UsuarioForm{
-    username: string
-	password: string
-	idEmpleado: number;
+	id:number; 
+	data:DataUsuario[];
 }
+	export interface DataUsuario{
+		username: string
+		password: string
+		idEmpleado: number;
+	}
+ 

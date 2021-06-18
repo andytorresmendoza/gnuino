@@ -56,7 +56,7 @@ export class DetalledevolucionComponent implements OnInit {
       this.kardexService.detalleDevoluciones[this.data.orderItemIndex]
 
     );
-    console.log('form', this.formData);
+  //  console.log('form', this.formData);
   }
 
   onChange = ($event: any): void => {

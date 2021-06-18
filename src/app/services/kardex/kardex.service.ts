@@ -715,4 +715,16 @@ GuardaSalidaAlmacen() {
                       resp['data'])
                     );
                   }
+
+                  /*MOVIMIENTOS DE PRODUCTOS */
+
+                  getMovimientoProductos(id: number) {
+                    return this.http.get(`${this.baseURL}movimientos/` + id).pipe(
+                      map((resp) =>
+                      // console.log(resp,'kardex')
+                       resp['data']),
+                      // catchError(this.manejarError)
+                     
+                    )
+                  }
 }

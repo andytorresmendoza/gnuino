@@ -33,7 +33,7 @@ export interface DataDetalleDevolucion {
   isAvailable?:boolean;
   cantidadPendiente:number;
   idSedePrincipal: number;
-
-  
+  nombre_alamcen:string;
+  detalleNameSedePrincipal:string;
 }
  

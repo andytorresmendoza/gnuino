@@ -1,5 +1,79 @@
-<!-- Main wrapper - style you can find in pages.scss -->
-<!-- ============================================================== -->
+
+<h1><small>Agregar Usuario</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger"  routerLink="../../listarusuarios"  >
+ 
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<form #form="ngForm" autocomplete="off"   *ngIf="formData" (submit)="onSubmit(form)">
+  
+  <div class="form-row">
+      <div class="form-group col-md-4">
+  
+       <label>Usuario</label>
+          <input
+            name="username"
+            #username="ngModel"
+            [(ngModel)]="formData.username"
+            class="form-control"
+            placeholder="Nombre Usuario"
+          />  
+      </div>
+  
+      <div class="form-group col-md-4">
+  
+        <label>Contraseña</label>
+           <input
+             name="password"
+             #password="ngModel"
+             [(ngModel)]="formData.password"
+             class="form-control"
+             placeholder="Contraseña"
+             type="password" 
+           />  
+       </div>
+ 
+      <div class="form-group col-md-4">
+          
+          <label>Empleado</label>
+     
+          <ng-select 
+          [items]="empleados"
+         bindLabel="nombre_empleado"
+         bindValue="id" 
+         placeholder="Buscar Empleado"
+         name="idEmpleado"  
+         #idEmpleado="ngModel"
+         [(ngModel)]="formData.idEmpleado"  
+          >
+          <!-- (change)="onChange($event)"  ver esto para q sirve-->
+    </ng-select>
+      </div> 
+  
+  </div>
+ 
+    
+  <br>
+  
+  
+    <div class="form-group">
+      <button type="submit" class="btn btn-dark">
+        <i class="fa fa-database"></i> Guardar
+      </button>
+    
+    </div>
+  </form>
+  
+
+
+
+<!--  
 <section
   id="wrapper"
   class="login-register login-sidebar"
@@ -93,5 +167,4 @@
     </div>
   </div>
 </section>
-<!-- ============================================================== -->
-<!-- End Wrapper -->
+  -->

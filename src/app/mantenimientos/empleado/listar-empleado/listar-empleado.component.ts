@@ -29,9 +29,9 @@ export class ListarEmpleadoComponent implements OnInit {
 
   }
 
-  Editar(empleado:DataEmpleado):void{
-    localStorage.setItem("id",empleado.id.toString());
-    this.router.navigate(["../mantenimientos/editempleado"]);
+  Editar(id:number):void{
+    //localStorage.setItem("id",empleado.id.toString());
+    this.router.navigate(['mantenimientos/addempleado/'+id]);
   
   }
 }

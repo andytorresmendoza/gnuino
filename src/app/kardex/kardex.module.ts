@@ -76,6 +76,8 @@ import { EditentradasinocComponent } from './entradasinoc/editentradasinoc/edite
 import { EditdetalleentradasinocComponent } from './entradasinoc/editdetalleentradasinoc/editdetalleentradasinoc.component';
 import { HistoricoocComponent } from './entradaalmacen/historicooc/historicooc.component';
 import { HistoricosinocComponent } from './entradasinoc/historicosinoc/historicosinoc.component';
+import { MovimientosproductosComponent } from './kardex/movimientosproductos/movimientosproductos.component';
+import { ListapruebaComponent } from './listaprueba/listaprueba.component';
  
 @NgModule({
   declarations: 
@@ -128,7 +130,9 @@ import { HistoricosinocComponent } from './entradasinoc/historicosinoc/historico
      EditentradasinocComponent,
      EditdetalleentradasinocComponent,
      HistoricoocComponent,
-     HistoricosinocComponent
+     HistoricosinocComponent,
+     MovimientosproductosComponent,
+     ListapruebaComponent
      ],
   imports: [
      CommonModule,

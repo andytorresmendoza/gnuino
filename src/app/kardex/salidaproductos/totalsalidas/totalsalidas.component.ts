@@ -24,7 +24,7 @@ export class TotalsalidasComponent implements OnInit {
       this.ListSalida = resp; 
       this.cargando = false;
       // this.cargando = false;
-      // console.log(resp);
+      //  console.log(resp);
   });
   }
 }

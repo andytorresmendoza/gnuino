@@ -1,0 +1,56 @@
+<h1>
+  <small>Movimientos del Producto -
+    <b>{{ cabeceraProducto?.detalleNameProducto }} </b></small>
+</h1>
+<!-- /*- {{movimientosProductos[0].detalleNameProducto}} -->
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../../Listarkardex">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre Producto</th>
+      <th scope="col">Codigo</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Almacén</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Nro Orden</th>
+      <th scope="col">Precio</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let deta of movimientosProductos; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ deta?.producto }}</td>
+
+      <td>
+        {{ deta?.codigo }}
+      </td>
+      <td *ngIf="deta?.signo == '+'" style="color: #3145ff">
+        <p>{{ deta?.cantidad }}</p>
+      </td>
+      <td *ngIf="deta?.signo == '-'" style="color: #fb0000">
+        <p>{{ deta?.cantidad }}</p>
+      </td>
+      <td>{{ deta?.almacen }}</td>
+      <td>
+        {{ deta?.fecha | date: "short" }}
+      </td>
+      <td>
+        {{ deta?.nroOrden }}
+      </td>
+      <td>
+        {{ deta?.precio | currency }}
+      </td>
+    </tr>
+  </tbody>
+</table>

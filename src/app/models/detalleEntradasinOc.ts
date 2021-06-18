@@ -25,6 +25,7 @@ export interface DataDetalleEntradasinOc {
   nombre_alamcen:string;
   cantidadPendiente:number; 
   isAvailable?: boolean;
+  detalleNameSedePrincipal:string;
   // cantidaSecundaria:number;
   // cantidadDevuelta:number;
   // nombre_almacenS:string;

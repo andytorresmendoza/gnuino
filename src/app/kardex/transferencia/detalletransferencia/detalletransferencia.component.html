@@ -1,6 +1,6 @@
 <h4 class="dispaly-4">Transferencias Producto</h4>
 <hr />
-<h1>colocar Unidad de medida</h1>
+ 
 <form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
  
   <input
@@ -16,7 +16,7 @@
   [(ngModel)]="formData.idAlmacen1"
   /> 
   <div class="form-row">
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-3">
 
       <label>Producto</label>
          <input
@@ -27,7 +27,18 @@
            readonly
          />  
      </div>
-      <div class="form-group col-md-4">
+     <div class="form-group col-md-3">
+
+      <label>Unidad Medida</label>
+         <input
+           name="detalleNameUnidadMedida"
+           #detalleNameUnidadMedida="ngModel"
+           [(ngModel)]="formData.detalleNameUnidadMedida"
+           class="form-control"
+           readonly
+         />  
+     </div>
+      <div class="form-group col-md-3">
   
         <label>Stock</label>
         <input
@@ -39,7 +50,7 @@
         />
       </div>
   
-      <div class="form-group col-md-4">
+      <div class="form-group col-md-3">
         <label>Cantidad Transferencia</label>
         <input
         type="number"

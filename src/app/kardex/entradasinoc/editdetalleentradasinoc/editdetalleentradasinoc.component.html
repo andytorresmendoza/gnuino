@@ -31,9 +31,8 @@ name="idProducto"
 />
  
 <div class="form-row">
-    <div class="form-group col-md-4">
-        <label>Buscar Producto</label>
-  
+    <div class="form-group col-md-3">
+        
         <label>Producto</label>
         <input
           name="nombre_producto"
@@ -44,7 +43,7 @@ name="idProducto"
         />
        
       </div>
-      <div class="form-group col-md-4">
+      <div class="form-group col-md-3">
         <label>Unidad Medida </label> 
         <input
         type="text"
@@ -56,7 +55,20 @@ name="idProducto"
        
         />
       </div>
-      <div class="form-group col-md-4">
+
+      <div class="form-group col-md-3">
+        <label>Almacén </label> 
+        <input
+        type="text"
+          name="detalleNameSedePrincipal"
+          #detalleNameSedePrincipal="ngModel"
+          [(ngModel)]="formDataOC.detalleNameSedePrincipal"
+          class="form-control"
+          readonly
+       
+        />
+      </div>
+      <div class="form-group col-md-3">
         <label>Cantidad Solicitada</label> 
         <input
         type="number"
@@ -69,21 +81,9 @@ name="idProducto"
         />
       
       </div>
-      <!-- <div class="form-group col-md-4">
-       <label>Almacén</label> 
-
-       <input
-       type="text" 
-       name="nombre_alamcen"
-       #nombre_alamcen="ngModel"
-       [(ngModel)]="formDataOC[].nombre_alamcen"
-       class="form-control" 
-       readonly
-       />
- 
-      </div> -->
+    
       <div class="form-row">   
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-3">
           <label>Cantidad en Almacén</label> 
           <input
           type="number"
@@ -96,7 +96,7 @@ name="idProducto"
           />
         
         </div>
-      <div class="form-group col-md-4">
+      <div class="form-group col-md-3">
         <label>Precio Unitario</label>
         <input
         type="number"
@@ -112,7 +112,7 @@ name="idProducto"
         <small *ngIf="precioUnitario.invalid && precioUnitario.touched"
         class="form-text text-danger">Ingrese Precio</small>
       </div>
-      <div class="form-group col-md-4">
+      <div class="form-group col-md-3">
         <label>Precio Total</label>
         <input
         type="number"
@@ -124,11 +124,7 @@ name="idProducto"
 
         />
       </div>
-      </div>
-</div>
-
-<div class="form-row">
-  
+      
       <div class="form-group col-md-3">
         <label>Cantidad Recibida</label> 
         <input
@@ -140,10 +136,13 @@ name="idProducto"
           class="form-control" 
           required
         />
-        <!-- [class.is-invalid]="cantidadPrincipal.invalid && cantidadPrincipal.touched"
-        <small *ngIf="cantidadPrincipal.invalid && cantidadPrincipal.touched"
-        class="form-text text-danger">Ingrese Cantidad</small> -->
+      
       </div>
+      </div>
+</div>
+
+<div class="form-row">
+  
       <div class="form-group col-md-9">
         <label>Observaciones</label>
         <input

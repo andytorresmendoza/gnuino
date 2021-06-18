@@ -152,7 +152,7 @@ export class EditarordencompraComponent implements OnInit {
     } 
   // console.log(form);
   if (this.kardexService.formOrdencompra.id) {
-    console.log('submit', this.kardexService.formOrdencompra.id);
+  //  console.log('submit', this.kardexService.formOrdencompra.id);
     this.kardexService.UpdateOrderCompra(this.kardexService.formOrdencompra.id).subscribe(
       resp=>{
     

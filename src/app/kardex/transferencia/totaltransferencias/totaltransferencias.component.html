@@ -1,27 +1,24 @@
-<div class="col-md-12">
+   
+ 
+  <div class="col-md-12">
     <div class="card"> 
   
             <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <!-- <img src="../../../../assets/images/icono-devolucion.png" width="35" height="30" alt=""> -->
+      
                     <li class="nav-item dropdown" >
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        <span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Transferencia O/C</span>
+                        <span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Kardex</span>
                     </a>
                     <div class="dropdown-menu"> 
-                      <a class="dropdown-item" id="dropdown1-tab"[routerLink]="['../transferencias']" role="tab" data-toggle="tab" aria-controls="dropdown1">Listado Transferencias</a> 
-                      <a class="dropdown-item" id="dropdown2-tab" [routerLink]="['../listartransferencia']"  role="tab" data-toggle="tab" aria-controls="dropdown2">Ingresos Almacén</a> </div>
+                      <a class="dropdown-item" id="dropdown2-tab" [routerLink]="['../Listarkardex']"  role="tab" data-toggle="tab" aria-controls="dropdown2">Listado Kardex</a> 
+                      <a class="dropdown-item" id="dropdown1-tab"[routerLink]="['../salidas']" role="tab" data-toggle="tab" aria-controls="dropdown1">Listado Salida</a> 
+                      <a class="dropdown-item" id="dropdown1-tab"[routerLink]="['../transferencias']" role="tab" data-toggle="tab" aria-controls="dropdown1">Listado Transferencias</a> </div>
+                           
                 </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                      <span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Transferencia sin O/C</span>
-                  </a>
-                  <div class="dropdown-menu"> <a class="dropdown-item" id="dropdown1-tab" [routerLink]="['../transferenciassinoc']" role="tab" data-toggle="tab" aria-controls="dropdown1">Listado Transferencias sin OC</a> 
-                    <a class="dropdown-item" id="dropdown2-tab" [routerLink]="['../listartransferenciasinoc']" role="tab" data-toggle="tab" aria-controls="dropdown2">Ingresos Almacén sin O/C</a> </div>
-              </li>
+ 
             </ul> 
     </div>
-  </div> 
-
+  </div>  
 
   <h1>Listado Transferencias</h1>
 
@@ -31,13 +28,15 @@
   <thead class="thead-dark">
     <th scope="col">#</th>
       <th scope="col">#Nro Transferencia</th>
-      <th scope="col">#Nro Ingreso</th>
-        <th scope="col">Tipo Movimiento</th>
+    
         <th scope="col">Producto</th> 
      <th scope="col">Fecha Transferencia</th>  
-     <th scope="col">Sede</th>
-     <th scope="col">Cantidad Transferencia</th>
+     <th scope="col">Almacén Saliente</th>
+     <th scope="col">Cantidad Saliente</th>
+     <th scope="col">Almacén Entrante</th>
+     <th scope="col">Cantidad Entrante</th>
      <th scope="col">Detalle Transferencia</th>
+   
       <!--  <th scope="col">Total</th>
       <th scope="col">Estado</th> -->
     
@@ -45,13 +44,13 @@
   <tbody>
       <tr *ngFor="let item of ListTranferencia; let i = index" >
         <th scope="row">{{ i + 1 }}</th>
-        <th>{{item.codigoTransfer}}</th>
-        <td>{{item.detalleIngresoAlmacen[0].codigoIngreso}}</td> 
-         <td>{{item.detalleTipoIngreso[0].descripcion_ingreso}}</td>
-         <td>{{item.detalleNameProducto}}</td> 
-         <td>{{item.fechaTransferencia}}</td>    
+        <th><b>{{item.codigoTransfer}}</b></th> 
+         <td><b>{{item.detalleNameProducto}}</b></td> 
+         <td>{{item.fechaTransferencia}}</td>     
+         <td>{{item.detalleSedePrincipal[0].nombre_alamcen}}</td>
+         <td style="color:#fb0000">-{{item.cantidadTransferencia}}</td> 
          <td>{{item.detalleSedeSecundaria[0].nombre_alamcen}}</td>
-         <td>{{item.cantidadTransferencia}}</td> 
+         <td style="color:#3145FF">{{item.cantidadTransferencia}}</td> 
          <td>{{item.detalleTransferencia}}</td> 
         
          </tr>

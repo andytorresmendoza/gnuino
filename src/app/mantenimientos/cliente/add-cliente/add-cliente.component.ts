@@ -24,15 +24,16 @@ export class AddClienteComponent implements OnInit {
   public formData : DataCliente;
   tipodocumentos: DataTipodocumento[] = [];
   cargando = true; 
-  constructor(private mantenimientosServices: MantenimientosService, private router:Router,private currentRoute: ActivatedRoute,private toastr: ToastrService) { }
+  constructor(private mantenimientosServices: MantenimientosService
+    , private router:Router,private currentRoute: ActivatedRoute,private toastr: ToastrService) { }
 
   ngOnInit(): void {
     let id = this.currentRoute.snapshot.paramMap.get('id'); 
     if (id !== 'nuevo') {
       this.mantenimientosServices.getClientebyId(+id).subscribe(res => {
          this.formData = res[0]; 
-         console.log(res[0].id,'id');
-         console.log( this.formData);
+         //console.log(res[0].id,'id');
+        // console.log( this.formData);
 
 
       });
@@ -117,7 +118,7 @@ getProvinciaAll(){
  
     this.mantenimientosServices.getProvincia($event)
     .subscribe(response=>{   
-      console.log(response,'response');
+    //  console.log(response,'response');
       this.provincias = response;
 
     });
@@ -134,7 +135,7 @@ getProvinciaAll(){
   } 
 
  onSubmit(form:NgForm):void{
-     console.log(form);
+    // console.log(form);
      if (this.formData.id) {
       this.mantenimientosServices.updateCliente(this.formData).subscribe(
         resp=>{
@@ -147,7 +148,7 @@ getProvinciaAll(){
   else{
 
      this.mantenimientosServices.saveCliente(this.formData).subscribe(res =>{
-    console.log(res);
+    //console.log(res);
       this.resetForm();
       this.toastr.success('Guardado Exitosamente','Gnuino');
       this.router.navigate(["../mantenimientos/listarcliente"]);

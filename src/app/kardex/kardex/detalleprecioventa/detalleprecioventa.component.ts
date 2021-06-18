@@ -63,7 +63,7 @@ validateForm() {
   this.isValid = true;
   if (this.formData.idTipoIngreso == 0)
     this.isValid = false; 
-    console.log(this.formData.idTipoIngreso);
+   // console.log(this.formData.idTipoIngreso);
   return this.isValid;
 }
 onSubmit(form: NgForm) {

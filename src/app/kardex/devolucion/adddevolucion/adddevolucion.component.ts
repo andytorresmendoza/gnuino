@@ -27,7 +27,7 @@ export class AdddevolucionComponent implements OnInit {
     this.kardexService.formDataDevoluciones = res[0];  
      
     this.kardexService.detalleDevoluciones = res[0].detalleIngresoSedeAlamacen;  
-    console.log( this.kardexService.detalleDevoluciones,'detalle');
+ //   console.log( this.kardexService.detalleDevoluciones,'detalle');
     this.kardexService.formDataDevoluciones.descripcion_ingreso = res[0].detalleTipoIngreso[0].descripcion_ingreso; 
     });
 

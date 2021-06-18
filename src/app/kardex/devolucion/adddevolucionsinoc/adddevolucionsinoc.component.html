@@ -54,6 +54,7 @@
           <th scope="col">#</th>
           <th>Nombre Producto</th> 
          <th>Unidad Medida</th>
+         <th>Almacén</th>
           <th>Stock</th>
           <th>Tipo Devolución</th>
           <th>Cantidad Devolución</th>
@@ -67,8 +68,11 @@
               <tr *ngFor="let item of kardexService.detalleDevolucionesSinOC  ;let i=index;">
                 <th scope="row">{{ i + 1 }}</th>
                 <td>
-                    <p>{{item.nombre_producto}}</p>
-                      <!-- <p *ngFor="let deta of item.detalleCotizacion">{{deta.nombre_producto}}</p>   -->
+                    <p>{{item.nombre_producto}}</p> 
+                  </td>
+                  <td>
+                    <p>{{item.detalleNameSedePrincipal}}</p>
+                   
                   </td>
                   <td>
                     <p>{{item.detalleNameUnidadMedida}}</p>

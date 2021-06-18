@@ -28,7 +28,8 @@ import { EmpleadoI, DataEmpleado } from '../../models/empleado';
 import { DataTipoAlmacen, TipoAlmacenI } from '../../models/tipoalmacen';
 import { UsuarioForm } from 'src/app/models/usuario';
 import { DataCliente } from '../../models/cliente';
- 
+import { DataUsuario } from '../../models/usuario';
+import * as moment from 'moment';
  
 @Injectable({
   providedIn: 'root'
@@ -616,16 +617,8 @@ getProveedor() {
       catchError(this.manejarError)
     );
    }
-   addEmpleado(empleados: EmpleadoI):Observable<EmpleadoI>{
-    console.log('del servicio',empleados);
-    return this.http.post<EmpleadoI>(`${this.baseURL}empleado`,empleados).
-    pipe(tap(
-      (res:EmpleadoI) =>{
-        if(res){
-       console.log(res );
-        }
-      })
-   );
+   addEmpleado(data: DataEmpleado){ 
+   return this.http.post(`${this.baseURL}empleado`,data) 
     }
     getEmpleadoId(id:number){
       return this.http.get<EmpleadoI>(`${this.baseURL}empleado/`+id)
@@ -634,11 +627,13 @@ getProveedor() {
         catchError(this.manejarError)
       );
     }
-    updateEmpleado(empleados: DataEmpleado){
-    console.log('desdeservic',empleados);
-      // console.log('desdeservic2',nrocuenta[0].id);
-      // console.log('desdeservic2',nrocuenta.estado);
-      return this.http.put<DataProducto>(`${this.baseURL}empleado/`+empleados[0].id,empleados[0])
+    updateEmpleado(data: DataEmpleado){
+      let fechaParseada: any;
+    fechaParseada = moment(data.fecha_empleado).format('YYYY-MM-DD');
+    data.fecha_empleado=fechaParseada;
+    console.log('desdeservic',data.fecha_empleado); 
+      //return this.http.put<DataProducto>(`${this.baseURL}empleado/`+data[0].id,empleados[0])
+      return this.http.put(`${this.baseURL}empleado/${data.id}`, data);
     
      
     }
@@ -691,9 +686,9 @@ getProveedor() {
       }
 
       /*USUARIOS */
-      CrearUsuario(formData: UsuarioForm){
+      CrearUsuario(data: DataUsuario){
         // console.log('creando');
-       return this.http.post(`${this.baseURL}register`,formData) 
+       return this.http.post(`${this.baseURL}register`,data) 
       
       }
   /*clientes */
@@ -726,6 +721,22 @@ getProveedor() {
     return this.http.put(`${this.baseURL}cliente/${data.id}`, data);
 
 }  
+getUsuario() {
+  return this.http
+    .get(this.baseURL + 'lista-usuarios')
+    .pipe(map((resp) =>
+    
+     resp)
+    );
+}
+getUsuariobyId(id: number) {
+  return this.http.get(this.baseURL+ 'lista-usuarios/'+ id)  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+  .pipe(
+    map(resp=>resp),
+    catchError(this.manejarError)
+  );
+
+}
 }
 
 

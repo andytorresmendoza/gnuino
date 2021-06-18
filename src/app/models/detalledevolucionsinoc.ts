@@ -31,7 +31,7 @@ export interface DataDetalleDevolucionSinOc {
   detalleDevolucion:string;
   cantidadPendiente:number;
   idSedePrincipal:number;
- 
+  detalleNameSedePrincipal:''
 
   
 }

@@ -56,19 +56,20 @@ export class DetalleentradasinocComponent implements OnInit {
         detalleNameUnidadMedida: '',
         idSedePrincipal: 0,
         nombre_alamcen: '',
-        cantidadPendiente:0
+        cantidadPendiente:0,
+        detalleNameSedePrincipal:''
       };
     else
       this.formDataOC = Object.assign(
         {},
         this.kardexService.detalleIngresosinOc[this.data.orderItemIndex]
       );
-      console.log(this.kardexService.detalleIngresosinOc,'servicio');
-     console.log('dataentrada', this.formDataOC );
+    //  console.log(this.kardexService.detalleIngresosinOc,'servicio');
+    // console.log('dataentrada', this.formDataOC );
   }
 
   onChange = ($event: any): void => {
-      console.log($event);
+     // console.log($event);
     this.formDataOC.nombre_producto = $event.nombre_producto;
     this.formDataOC.detalleNameUnidadMedida =
       $event.detalleUnidadMedida[0].detalle;

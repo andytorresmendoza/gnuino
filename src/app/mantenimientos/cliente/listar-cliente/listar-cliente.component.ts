@@ -36,7 +36,7 @@ export class ListarClienteComponent implements OnInit {
    .subscribe(resp => {
     this.dataSource.data = resp as DataCliente[]; 
       // this.cliente = resp; 
-      console.log(resp);
+     // console.log(resp);
       // this.cargando = false;
      //  console.log(resp);
   });

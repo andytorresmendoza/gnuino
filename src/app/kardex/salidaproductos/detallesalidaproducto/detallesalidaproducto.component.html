@@ -1,5 +1,5 @@
-<h4 class="dispaly-4">Salida Productos</h4>
-<h1>colocar Unidad de medida</h1>
+<h4 class="dispaly-4">Salida Productos</h4> 
+ 
 <hr />
 
 <form #form="ngForm" autocomplete="off"   *ngIf="formData" (submit)="onSubmit(form)">
@@ -19,7 +19,7 @@ name="idAlmacen1"
 /> 
  
 <div class="form-row">
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-3">
 
      <label>Producto</label>
         <input
@@ -30,9 +30,21 @@ name="idAlmacen1"
           readonly
         />  
     </div>
+
+    <div class="form-group col-md-3">
+
+      <label>Unidad Medida</label>
+         <input
+           name="detalleNameUnidadMedida"
+           #detalleNameUnidadMedida="ngModel"
+           [(ngModel)]="formData.detalleNameUnidadMedida"
+           class="form-control"
+           readonly
+         />  
+     </div>
     <!-- 
     -->
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-2">
         <label>Stock</label>
         <input
           name="cantidadIngresoOc"

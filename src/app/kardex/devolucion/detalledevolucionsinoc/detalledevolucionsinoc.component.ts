@@ -48,12 +48,15 @@ export class DetalledevolucionsinocComponent implements OnInit {
         fechaDevolucion: '',
         idProducto: 0, //agreagr
         cantidadPendiente: 0,
-        idSedePrincipal: 0
+        idSedePrincipal: 0,
+        detalleNameSedePrincipal:''
 
       },
 
       this.kardexService.detalleDevolucionesSinOC[this.data.orderItemIndex]
+   
     );
+    //console.log('form', this.formData);
   }
   onChange = ($event: any): void => {
     this.formData.descripcion_devolucion = $event.descripcion_devolucion;

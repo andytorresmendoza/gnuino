@@ -38,7 +38,7 @@ export class DetallesalidaproductoComponent implements OnInit {
     this.mantenimientosService.getTipoAlmacen()
     .subscribe(resp => {
       this.almacenes = resp as DataTipoAlmacen[]   
-      console.log('principal', this.almacenes);
+     // console.log('principal', this.almacenes);
  });
     
 

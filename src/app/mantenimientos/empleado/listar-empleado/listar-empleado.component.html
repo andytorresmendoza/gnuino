@@ -2,7 +2,7 @@
 <hr />
 <div class="row">
   <div class="col text-right">
-    <button routerLink="/mantenimientos/addempleado" class="btn btn-primary">
+    <button routerLink="/mantenimientos/addempleado/nuevo" class="btn btn-primary">
       <i class="fa fa-plus"> Agregar </i>
     </button>
   </div>
@@ -21,7 +21,7 @@
       <th scope="col">Dni</th>
       
 
-      <th scope="col">Estado</th>
+      <!-- <th scope="col">Estado</th> -->
       <th scope="col">Opciones</th>
     </tr>
   </thead>
@@ -35,17 +35,17 @@
       <td>{{ empleado.dni_empleado}}</td>
    
  
-      <td>
+      <!-- <td>
         <label *ngIf="empleado.estado" class="badge badge-success"
           >Activo</label
         >
         <label *ngIf="!empleado.estado" class="badge badge-danger"
           >Inactivo</label
         >
-      </td>
+      </td> -->
 
       <td>
-        <button class="btn btn-info mr-1" (click)="Editar(empleado, i)">
+        <button class="btn btn-info mr-1" (click)="Editar(empleado.id)">
           <!--" la ruta seria producto/nuevo pero la transfomamos a producto/id"--><!-- Mndando un id en la ruta la ruta se manda en [] porque es una ruta dinamica cuando no se envia con llaves es una ruta dinamica como la que esta arriba-->
           <i class="fa fa-pen"></i>
         </button>

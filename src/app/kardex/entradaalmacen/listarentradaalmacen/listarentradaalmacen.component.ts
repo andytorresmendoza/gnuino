@@ -36,7 +36,7 @@ export class ListarentradaalmacenComponent implements OnInit {
       this.ingresosAlmacen = resp; 
       this.cargando = false;
       // this.cargando = false;
-     console.log(resp);
+    // console.log(resp);
   });
  } 
 

@@ -23,7 +23,7 @@ export class AdddevolucionsinocComponent implements OnInit {
     this.kardexService.getSalidasinOCsById(+id).subscribe(res => {
       this.kardexService.formDataDevolucionesSinOc = res[0]; 
     this.kardexService.detalleDevolucionesSinOC =  res[0].detalleIngresoSinOc
-      //  console.log(res[0]); 
+     // console.log(this.kardexService.detalleDevolucionesSinOC); 
      });
   }
 

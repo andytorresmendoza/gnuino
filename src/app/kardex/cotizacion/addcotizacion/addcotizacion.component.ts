@@ -136,12 +136,10 @@ this.kardexService.detalleCotizacion = [];
      (prev,curr)=>{
    
     let prevparse =  prev.toString();
-    let total =  curr.precio_total.toString();
-    // console.log('prev', parseInt(prevparse),'-',curr.precio_total); 
+    let total =  curr.precio_total.toString(); 
        return   (parseFloat(prevparse)+ parseFloat(total)) 
        
-    } 
-    
+    }  
     ,0); 
     this.kardexService.formData.total_costo  = parseFloat(this.kardexService.formData.total_costo.toFixed(2));
  

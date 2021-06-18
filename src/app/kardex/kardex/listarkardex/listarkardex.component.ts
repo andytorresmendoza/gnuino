@@ -19,7 +19,7 @@ export class ListarkardexComponent implements OnInit {
   ListIngresosCerrados:DataKardex []= [];
   cargando = true; 
  
-  displayedColumns: string[] = ['Codigo Producto', 'Producto','Cantidad en Almacen', 'Almacen','Salida','Transferencia','Venta'];
+  displayedColumns: string[] = ['Codigo Producto', 'Producto','Cantidad en Almacen', 'Almacen','Salida','Transferencia','Movimientos','Venta'];
    dataSource = new MatTableDataSource<DataKardex>();
    applyFilter(event: Event) {
      const filterValue = (event.target as HTMLInputElement).value;
@@ -43,7 +43,7 @@ export class ListarkardexComponent implements OnInit {
        this.kardexService.detalleTransferencia = resp;
        this.cargando = false;
        // this.cargando = false;
-         console.log(this.kardexService.detalleSalida,'Salida');
+        // console.log(this.kardexService.detalleSalida,'Salida');
        //  console.log( this.kardexService.detalleTransferencia  , 'transferencia');
    });
   }
@@ -86,6 +86,13 @@ export class ListarkardexComponent implements OnInit {
      });
    
     }  
+
+    AddVerMovimientos( id:number) {   
+      //  console.log(id,'detalle');
+      this.router.navigate(['kardex/movimientoproductos/'+id]);
+      // this.router.navigate(['kardex/ListarPrueba/'+id]);
+      }  
+
   /*openForEdit(SalidaID: number) {
  
    this.router.navigate(['kardex/salidaProducto/'+SalidaID]);

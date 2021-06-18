@@ -1,26 +1,24 @@
-<div class="col-md-12">
+   
+ 
+  <div class="col-md-12">
     <div class="card"> 
   
-            <ul class="nav nav-tabs" id="myTab" role="tablist"> 
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+      
                     <li class="nav-item dropdown" >
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        <span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Kardex  </span>
+                        <span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Kardex</span>
                     </a>
                     <div class="dropdown-menu"> 
                       <a class="dropdown-item" id="dropdown2-tab" [routerLink]="['../Listarkardex']"  role="tab" data-toggle="tab" aria-controls="dropdown2">Listado Kardex</a> 
-                      <a class="dropdown-item" id="dropdown1-tab"[routerLink]="['../salidas']" role="tab" data-toggle="tab" aria-controls="dropdown1">Listado Salidas</a> </div>
+                      <a class="dropdown-item" id="dropdown1-tab"[routerLink]="['../salidas']" role="tab" data-toggle="tab" aria-controls="dropdown1">Listado Salida</a> 
+                      <a class="dropdown-item" id="dropdown1-tab"[routerLink]="['../transferencias']" role="tab" data-toggle="tab" aria-controls="dropdown1">Listado Transferencias</a> </div>
                       
                 </li>
-                <!-- <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                      <span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Salidas sin O/C</span>
-                  </a>
-                  <div class="dropdown-menu"> <a class="dropdown-item" id="dropdown1-tab" [routerLink]="['../salidassinoc']" role="tab" data-toggle="tab" aria-controls="dropdown1">Listado Devoluciones sin O/C</a> 
-                    <a class="dropdown-item" id="dropdown2-tab" [routerLink]="['../listarsalidasinoc']" role="tab" data-toggle="tab" aria-controls="dropdown2">Ingreso sin O/C</a> </div>
-              </li> -->
+ 
             </ul> 
     </div>
-  </div> 
+  </div>  
 
   <h1>Listado Salidas</h1> 
   
@@ -29,28 +27,26 @@
 <table class="table table-hover">
   <thead class="thead-dark">
     <th scope="col">#</th>
-      <th scope="col">#Nro Salida</th>
-      
-        <th scope="col">Tipo Movimiento</th>
+      <th scope="col">#Nro Salida</th> 
         <th scope="col">Producto</th> 
-     <th scope="col">Fecha Salida</th>  
-     <th scope="col">Tipo Salida</th>
-     <th scope="col">Cantidad Salida</th>
-     <th scope="col">Detalle Salida</th>
-      <!--  <th scope="col">Total</th>
-      <th scope="col">Estado</th> -->
+        <th scope="col">Tipo Salida</th>
+     <th scope="col">Fecha Salida</th>   
+     <th scope="col">Almacén Salida</th> 
+     <th scope="col">Cantidad Salida</th> 
+     <th scope="col">Descripcion Salida</th>
     
   </thead>
   <tbody>
       <tr *ngFor="let item of ListSalida; let i = index" >
         <th scope="row">{{ i + 1 }}</th>
-        <th>{{item.codigoSalida}}</th> 
-         <td>{{item.detalleTipoIngreso[0].descripcion_ingreso}}</td>
-         <td>{{item.detalleNameProducto}}</td> 
-         <td>{{item.fechaSalida}}</td>    
+        <th><b>{{item.codigoSalida}}</b></th> 
+         <td><b>{{item.detalleNameProducto}}</b></td> 
          <td>{{item.detalleTipoSalida[0].descripcion_salida}}</td>
-         <td style="color:#3145FF">{{item.cantidadSalida}}</td> 
-         <td>{{item.detalleSalida}}</td>
+         <td>{{item.fechaSalida}}</td>    
+         <td>{{item.detalleSede}}</td>   
+       <td style="color:#fd0000">-{{item.cantidadSalida}} </td> 
+       <td>{{item.detalleSalida}}</td>
+       <!-- //      <td>{{item.detalleSalida}}</td> -->
         
          </tr>
   </tbody>

@@ -37,7 +37,7 @@ export class EditentradasinocComponent implements OnInit {
              this.kardexService.formDataIngresosinOc.nombre_proovedor = res[0].detalleProovedor[0].nombre_proovedor; 
             this.kardexService.detalleIngresosinOc = res[0].detalleIngresoSinOc;
            // console.log( res[0])
-            console.log('res', this.kardexService.detalleIngresosinOc);
+           // console.log('res', this.kardexService.detalleIngresosinOc);
             //  console.log('detalle',res[0].detalleIngresoSinOc[0].estadoflujo);
             if (res[0].idFlujo ==  2 || res[0].idFlujo ==  3 ) {
             this.isButtonVisible=false;
@@ -58,7 +58,7 @@ export class EditentradasinocComponent implements OnInit {
            .subscribe(resp => {
             
              this.empleados = resp as DataEmpleado[]  
-           console.log(resp);
+         //  console.log(resp);
           });
           this.mantenimientosService.getTipoingreso()
           .subscribe(resp => {

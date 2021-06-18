@@ -34,6 +34,7 @@
           <th scope="col">Producto</th> 
        <th scope="col">Fecha Devolución</th>  
        <th scope="col">Tipo Devolución</th>
+       <th scope="col">Almacén Devolución</th>
        <th scope="col">Cantidad Devolucion</th>
        <th scope="col">Detalle Devolucion</th>
         <!--  <th scope="col">Total</th>
@@ -49,7 +50,8 @@
            <td>{{item.detalleNameProducto}}</td> 
            <td>{{item.fechaDevolucion}}</td>    
             <td>{{item.detalleTipoDevolucion[0].descripcion_devolucion}}</td>  
-           <td>{{item.cantidadDevolucion}}</td> 
+            <td>{{item.detalleNameSede}}</td> 
+           <td style="color:#fb0000">-{{item.cantidadDevolucion}}</td> 
            <td>{{item.detalleDevolucion}}</td> 
           
            </tr>

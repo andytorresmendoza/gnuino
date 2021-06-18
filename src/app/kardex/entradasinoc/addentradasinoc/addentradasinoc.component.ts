@@ -66,7 +66,7 @@ export class AddentradasinocComponent implements OnInit {
    .subscribe(resp => {
     
      this.empleados = resp as DataEmpleado[]  
-   console.log(resp);
+ //  console.log(resp);
   });
   this.mantenimientosService.getTipoingreso()
   .subscribe(resp => {

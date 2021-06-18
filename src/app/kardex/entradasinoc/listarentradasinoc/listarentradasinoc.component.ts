@@ -33,7 +33,7 @@ export class ListarentradasinocComponent implements OnInit {
     this.dataSource.data = resp as DataEntradaSinOC[]; 
       this.entradaSinOc = resp; 
       this.cargando = false;
-      console.log(resp);
+     // console.log(resp);
   });
  } 
 

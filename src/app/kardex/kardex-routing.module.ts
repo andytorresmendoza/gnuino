@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
-import { KardexComponent } from './kardex.component';
+import { NgModule } from '@angular/core'; 
+import { Routes, RouterModule } from '@angular/router'; 
 import { ListarcotizacionComponent } from './cotizacion/listarcotizacion/listarcotizacion.component';
 import { AddcotizacionComponent } from './cotizacion/addcotizacion/addcotizacion.component';
 import { ListarordencompraComponent } from './ordencompra/listarordencompra/listarordencompra.component';
@@ -13,33 +11,26 @@ import { ListarcotianuladasComponent } from './cotizacion/listarcotianuladas/lis
 import { ListarordanuladasComponent } from './ordencompra/listarordanuladas/listarordanuladas.component';
 import { EditingresoalmacenComponent } from './entradaalmacen/editingresoalmacen/editingresoalmacen.component';
 import { ListarentradasinocComponent } from './entradasinoc/listarentradasinoc/listarentradasinoc.component';
-import { AddentradasinocComponent } from './entradasinoc/addentradasinoc/addentradasinoc.component';
-//import { ListarsalidaproductoComponent } from './salidaproductos/listarsalidaproducto/listarsalidaproducto.component';
-//import { AddsalidaproductoComponent } from './salidaproductos/addsalidaproducto/addsalidaproducto.component';
+import { AddentradasinocComponent } from './entradasinoc/addentradasinoc/addentradasinoc.component'; 
 import { ListarentradaanuladaComponent } from './entradaalmacen/listarentradaanulada/listarentradaanulada.component';
 import { ListarentradasinocanuladaComponent } from './entradasinoc/listarentradasinocanulada/listarentradasinocanulada.component';
  
 import { ListardevolucionComponent } from './devolucion/listardevolucion/listardevolucion.component';
-import { AdddevolucionComponent } from './devolucion/adddevolucion/adddevolucion.component';
-//import { ListartransferenciaComponent } from './transferencia/listartransferencia/listartransferencia.component';
-//import { AddtransferenciaComponent } from './transferencia/addtransferencia/addtransferencia.component';
-//import { ListartransferenciasinocComponent } from './transferencia/listartransferenciasinoc/listartransferenciasinoc.component';
-//import { AddtransferenciasinocComponent } from './transferencia/addtransferenciasinoc/addtransferenciasinoc.component';
+import { AdddevolucionComponent } from './devolucion/adddevolucion/adddevolucion.component'; 
 import { ListardevolucionsinocComponent } from './devolucion/listardevolucionsinoc/listardevolucionsinoc.component';
 import { AdddevolucionsinocComponent } from './devolucion/adddevolucionsinoc/adddevolucionsinoc.component';
 import { TotaltransferenciasComponent } from './transferencia/totaltransferencias/totaltransferencias.component';
-//import { TotaltransferenciassinocComponent } from './transferencia/totaltransferenciassinoc/totaltransferenciassinoc.component';
+ 
 import { TotaldevolucionComponent } from './devolucion/totaldevolucion/totaldevolucion.component';
 import { TotaldevolucionsinocComponent } from './devolucion/totaldevolucionsinoc/totaldevolucionsinoc.component';
 import { TotalsalidasComponent } from './salidaproductos/totalsalidas/totalsalidas.component'; 
 import { DashboardComponent } from '../pages/dashboard/dashboard.component';
-import { PagesComponent } from '../pages/pages.component';
-//import { KardexocComponent } from './kardexoc/kardexoc.component';
-//import { KardexsinocComponent } from './kardexsinoc/kardexsinoc.component';
-//import { ListapruebaComponent } from './listaprueba/listaprueba.component';
+import { PagesComponent } from '../pages/pages.component'; 
 import { AuthGuard } from '../guards/auth.guard';
 import { ListarkardexComponent } from './kardex/listarkardex/listarkardex.component';
 import { EditentradasinocComponent } from './entradasinoc/editentradasinoc/editentradasinoc.component';
+import { MovimientosproductosComponent } from './kardex/movimientosproductos/movimientosproductos.component';
+import { ListapruebaComponent } from './listaprueba/listaprueba.component';
  
 const routes: Routes = [
  
@@ -63,33 +54,18 @@ const routes: Routes = [
    {path:'listarentradasinoc', component: ListarentradasinocComponent, data:{titulo:'Entradas sin O/C'}}, 
    {path:'listarentradasinanulada', component: ListarentradasinocanuladaComponent, data:{titulo:'Entradas sin O/C'}},
    {path:'entradasinoc', component: AddentradasinocComponent, data:{titulo:'Entradas sin O/C'}},
-   {path:'editingresosinoc/:id', component: EditentradasinocComponent, data:{titulo:'Entradas sin O/C'}}, 
-
-  // {path:'entradasinoc/:id', component: AddentradasinocComponent, data:{titulo:'Entradas sin O/C'}},
-  //  {path:'listarsalida', component: ListarsalidaproductoComponent, data:{titulo:'Salidas'}},
-  //  {path:'kardex', component: ListarsalidaproductoComponent, data:{titulo:'kardex'}},
-   {path:'salidas', component: TotalsalidasComponent, data:{titulo:'Salidas'}}, 
-   //{path:'salidaProducto/:id', component: AddsalidaproductoComponent, data:{titulo:'Salidas'}},
- 
+   {path:'editingresosinoc/:id', component: EditentradasinocComponent, data:{titulo:'Entradas sin O/C'}},  
+   {path:'salidas', component: TotalsalidasComponent, data:{titulo:'Salidas'}},   
     {path:'listardevolucion', component: ListardevolucionComponent, data:{titulo:'Devoluciones'}},   
     {path:'devoluciones', component: TotaldevolucionComponent, data:{titulo:'Devoluciones'}}, 
     {path:'devolucion/:id', component: AdddevolucionComponent, data:{titulo:'Devoluciones'}},
     {path:'listardevolucionsinoc', component: ListardevolucionsinocComponent, data:{titulo:'Devoluciones sin O/C'}},   
     {path:'devolucionessinoc', component: TotaldevolucionsinocComponent, data:{titulo:'Devoluciones sin O/C'}}, 
-    {path:'devolucionsinoc/:id', component: AdddevolucionsinocComponent, data:{titulo:'Devoluciones sin O/C'}},
-
-    //{path:'listartransferencia', component: ListartransferenciaComponent, data:{titulo:'Transferencias'}}, 
-    {path:'transferencias', component: TotaltransferenciasComponent, data:{titulo:'Transferencias'}}, 
-    //{path:'transferencia/:id', component: AddtransferenciaComponent, data:{titulo:'Transferencias'}}, 
-   // {path:'listartransferenciasinoc', component: ListartransferenciasinocComponent, data:{titulo:'Transferencias sin O/C'}}, 
-    //{path:'transferenciassinoc', component: TotaltransferenciassinocComponent, data:{titulo:'Transferencias sin O/C'}}, 
-   // {path:'transferenciasinoc/:id', component: AddtransferenciasinocComponent, data:{titulo:'Transferencias sin O/C'}}, 
-    //{path:'kardex', component: KardexocComponent, data:{titulo:'Kardex O/C'}}, 
-    //{path:'kardexsinoc', component: KardexsinocComponent, data:{titulo:'Kardex sin O/C'}}, 
-   // {path:'lista', component: ListapruebaComponent, data:{titulo:'Prueba'}}, 
+    {path:'devolucionsinoc/:id', component: AdddevolucionsinocComponent, data:{titulo:'Devoluciones sin O/C'}}, 
+    {path:'transferencias', component: TotaltransferenciasComponent, data:{titulo:'Transferencias'}},  
     {path:'Listarkardex', component: ListarkardexComponent, data:{titulo:'Kardex'}}, 
-  
-  //  {path:'**', pathMatch:'full', redirectTo:''}
+    {path:'movimientoproductos/:id', component: MovimientosproductosComponent, data:{titulo:'Movimientos'}}, 
+    {path:'ListarPrueba/:id', component: ListapruebaComponent, data:{titulo:'prueba'}}, 
    
    ]
   }

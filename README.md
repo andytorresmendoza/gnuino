@@ -25,5 +25,20 @@ ng build --prod
 
 
 /*notas*/
-cuando se realiza un ingreso del mismo producto y mismo almacen se suma
-actualmante se insertan 2 registros con el mismo id y misma sede
+revisar un ingreso almacen cuando hace el primer ingreso 1 cerrado y otro pendiente
+la cabezera se cierra verificar.
+ 
+ 
+/*ENDPO INTGENERAL*/
+TRABAJADNOLO:TRAER TODO EL LISTADO DE MENOR A MAYOR LAS FECHAS
+TRAER EL NOMBRE ALMACEN EN SALIDAS
+
+
+/*TRANSFERENCIA DE DONDE A DONDE SE FUE*/
+tenemos este dato en la tabla pero hay q mostrarlo en el endpoint DE DONDE SALE Y A DONDE VA
+
+/*EMPLEADOS*/
+hize un cambio en depa,distr,prov, en bd va esos campos null
+
+REASER EMPLEADOS TODO (GUIARSE DE USUARIO)
+VERIFICAR EL GUARDADO DE USUARIO
