@@ -4,6 +4,8 @@ import { ToastrService } from 'ngx-toastr';
 import { KardexService } from '../../../services/kardex/kardex.service';
 import { MantenimientosService } from '../../../services/mantenimientos/mantenimientos.service';
 import { DataMovimientoKardex } from '../../../models/movimientoskardex';
+import { ExporterService } from '../../../services/reportes/exporter.service';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-movimientosproductos',
@@ -13,6 +15,7 @@ import { DataMovimientoKardex } from '../../../models/movimientoskardex';
 
 export class MovimientosproductosComponent implements OnInit {
   displayedColumns: string[] = ['Nombre Producto','codigo','cantidad','almacen','fecha','nroOrden','precio' ];
+  dataSource = new MatTableDataSource<DataMovimientoKardex>();
   cabeceraProducto:any; 
   movimientosProductos: DataMovimientoKardex[] = [];
   
@@ -23,19 +26,26 @@ export class MovimientosproductosComponent implements OnInit {
  
     return suma / priceNotEmpty.length;
   }
+
+  
   constructor(public kardexService: KardexService,  private mantenimientosService: MantenimientosService,
-    private toastr: ToastrService, private router: Router,private currentRoute: ActivatedRoute)
+    private toastr: ToastrService, private router: Router,private currentRoute: ActivatedRoute,
+    private excelExportService: ExporterService)
   {}
 
   
   ngOnInit(): void {
-
+ 
     let id = this.currentRoute.snapshot.paramMap.get('id');
     this.kardexService.getMovimientoProductos(+id).subscribe(res => {
     this.cabeceraProducto = res[0].detalleKardex; 
       this.movimientosProductos = res[0].detalleMovs;  
-     //console.log(res[0] ); 
+    // console.log(this.movimientosProductos); 
     }); 
+  }
+ 
+  exportAsXLSX(){
+this.excelExportService.exportToExcel(this.movimientosProductos,'MovimientosProductos');
   }
 
 }

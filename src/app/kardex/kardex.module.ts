@@ -70,6 +70,7 @@ import { TotalsalidasComponent } from './salidaproductos/totalsalidas/totalsalid
 //import { KardexocComponent } from './kardexoc/kardexoc.component';
 //import { KardexsinocComponent } from './kardexsinoc/kardexsinoc.component';
 //import { ListapruebaComponent } from './listaprueba/listaprueba.component';
+import { ExporterService } from '../services/reportes/exporter.service';
 import { ListarkardexComponent } from './kardex/listarkardex/listarkardex.component';
 import { DetalleprecioventaComponent } from './kardex/detalleprecioventa/detalleprecioventa.component';
 import { EditentradasinocComponent } from './entradasinoc/editentradasinoc/editentradasinoc.component';
@@ -156,7 +157,7 @@ import { ListapruebaComponent } from './listaprueba/listaprueba.component';
   exports:[     
     KardexComponent
   ],
-  providers:[KardexService, {provide: MAT_DATE_LOCALE, useValue: 'es-ES'}]
+  providers:[KardexService,ExporterService, {provide: MAT_DATE_LOCALE, useValue: 'es-ES'}]
   
 })
 export class KardexModule { }

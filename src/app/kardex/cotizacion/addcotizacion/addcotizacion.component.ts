@@ -1,4 +1,4 @@
- import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog , MatDialogConfig} from '@angular/material/dialog'; 
 import { KardexService } from '../../../services/kardex/kardex.service';
@@ -11,6 +11,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router'; 
 import { DataProducto } from 'src/app/models/producto'; 
 import Swal from 'sweetalert2'; 
+import { DataLinea } from 'src/app/models/linea';
+import { DataTipoCoti } from 'src/app/models/tipo-cotizacion';
 @Component({
   selector: 'app-addcotizacion',
   templateUrl: './addcotizacion.component.html',
@@ -21,6 +23,8 @@ export class AddcotizacionComponent implements OnInit {
   proveedores: DataProveedor[];
   empleados: DataEmpleado[];
   productos: DataProducto[];   
+   linea: DataLinea[];
+   tipocotizacion: DataTipoCoti[];
   isValid:boolean = true;
   isButtonVisible:boolean=true; 
  
@@ -62,12 +66,19 @@ export class AddcotizacionComponent implements OnInit {
       this.proveedores = resp as DataProveedor[]  
    });
    this.mantenimientosService.getEmpleado()
-   .subscribe(resp => {
-    
-       this.empleados = resp as DataEmpleado[]  
- 
+   .subscribe(resp => { 
+       this.empleados = resp as DataEmpleado[]   
   });
+ 
+  this.mantenimientosService.getLinea()
+  .subscribe(resp => {
+    this.linea = resp as DataLinea[]  
+ });
 
+ this.mantenimientosService.getTipCotizacion()
+ .subscribe(resp => {
+   this.tipocotizacion = resp as DataTipoCoti[]  
+});
   }
 
 
@@ -89,7 +100,9 @@ export class AddcotizacionComponent implements OnInit {
       nombre_empleado:'',
       nombre_proovedor:'',
       idTipoMoneda:0,
-      totalGeneral:0
+      totalGeneral:0,
+      idTipoCotizacion:0,
+      idLinea:0
 
  };
 this.kardexService.detalleCotizacion = [];
@@ -101,7 +114,7 @@ this.kardexService.detalleCotizacion = [];
   const dialogConfig = new MatDialogConfig();
   dialogConfig.autoFocus = true;
   dialogConfig.disableClose = true;
-  dialogConfig.width = "50%";
+  dialogConfig.width = "35%";
   dialogConfig.data = { orderItemIndex, id };
   // console.log(orderItemIndex, id);
   // afterClosed().subscribe; es para cuando se cierre el poput actualize el rpecio
@@ -112,6 +125,9 @@ this.kardexService.detalleCotizacion = [];
    });
  
   } 
+
+
+
   onDeleteOrderItem(id:number, i:number){
     // console.log(id);
     Swal.fire({
@@ -130,22 +146,20 @@ this.kardexService.detalleCotizacion = [];
       }
     });
   }
-  
   updateTotal(){
-   this.kardexService.formData.total_costo = this.kardexService.detalleCotizacion.reduce(
-     (prev,curr)=>{
-   
-    let prevparse =  prev.toString();
-    let total =  curr.precio_total.toString(); 
-       return   (parseFloat(prevparse)+ parseFloat(total)) 
-       
-    }  
-    ,0); 
-    this.kardexService.formData.total_costo  = parseFloat(this.kardexService.formData.total_costo.toFixed(2));
+    this.kardexService.formData.total_costo = this.kardexService.detalleCotizacion.reduce(
+      (prev,curr)=>{
+    
+     let prevparse =  prev.toString();
+     let total =  curr.precio_total.toString(); 
+        return   (parseFloat(prevparse)+ parseFloat(total)) 
+        
+     }  
+     ,0); 
+     this.kardexService.formData.total_costo  = parseFloat(this.kardexService.formData.total_costo.toFixed(2));
+  
  
-
-  }
-
+   }
    updateMontoTotal(){
 
     let porcentaje = (this.kardexService.formData.total_costo - (this.kardexService.formData.total_costo * (this.kardexService.formData.descuento_cot/100))).toString();

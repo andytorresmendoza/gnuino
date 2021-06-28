@@ -23,36 +23,14 @@ export class AddentradasinocComponent implements OnInit {
   empleados: DataEmpleado[];
   productos: DataProducto[]; 
   tipoingresos:DataTipoIngreso[] ;
-  isButtonVisible:boolean=true;
+  isButtonVisible:boolean=true; 
   // detalleIngresosinOc: DataDetalleEntradasinOc[] = [];
   isValid:boolean = true;
   constructor(public kardexService: KardexService,   private dialog: MatDialog, private mantenimientosService: MantenimientosService,
     private toastr: ToastrService, private router: Router,private currentRoute: ActivatedRoute
     ) { }
   ngOnInit(): void {
-    this.resetForm();
-  /*  let id = this.currentRoute.snapshot.paramMap.get('id');
-    if (id !== 'nuevo') {
-
-      this.kardexService.getIngresoSinOCById(+id).subscribe(res => {
-  // console.log('editar',res[0]); 
-        // console.log('editar',res[0] );
-         this.kardexService.formDataIngresosinOc = res[0]; 
-        this.kardexService.detalleIngresosinOc = res[0].detalleIngresoSinOc;
-        console.log( res[0])
-        console.log('res', this.kardexService.detalleIngresosinOc);
-        //  console.log('detalle',res[0].detalleIngresoSinOc[0].estadoflujo);
-        if (res[0].idFlujo ==  2 || res[0].idFlujo ==  3 ) {
-        this.isButtonVisible=false;
-       } else { 
-        this.isButtonVisible=true;
-       }  
-      });
-    }
-   else{
-      this.resetForm();
-
-  } */
+    this.resetForm(); 
   
   this.mantenimientosService.getProducto()
   .subscribe(resp => {
@@ -71,7 +49,7 @@ export class AddentradasinocComponent implements OnInit {
   this.mantenimientosService.getTipoingreso()
   .subscribe(resp => {
    
-    this.tipoingresos = resp as DataTipoIngreso[]  
+    this.tipoingresos = resp as DataTipoIngreso[]   
    //  console.log(resp);
  });
     

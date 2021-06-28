@@ -11,4 +11,5 @@ export interface MovimientoKardex {
     fecha:string;
     nroOrden:string;
     precio:string;
+    signo:string;
   }

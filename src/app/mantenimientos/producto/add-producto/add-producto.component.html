@@ -1,15 +1,158 @@
-<h1><small>Agregar Producto</small></h1>
+<h1><small>Material</small></h1>
 <hr />
 <div class="row text-right">
   <div class="col">
-    <button class="btn btn-danger" routerLink="../listarproducto">
+    <button class="btn btn-danger" routerLink="../../listarproducto">
       <i class="fa fa-arrow-left"></i>
       Regresar
     </button>
   </div>
 </div>
 <br />
-<div class="row animated fadeIn faster">
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="formData"
+  (submit)="onSubmit(form)"
+>
+
+ 
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label> Codigo Producto *</label>
+        <input
+          name="codigoProductoBarra"
+          #codigoProductoBarra="ngModel"
+          [(ngModel)]="formData.codigoProductoBarra"
+          class="form-control"
+          placeholder="Codigo Producto"
+        />
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label> Nombre Material</label>
+        <input
+          name="nombre_producto"
+          #nombre_producto="ngModel"
+          [(ngModel)]="formData.nombre_producto"
+          class="form-control"
+          placeholder="Ingresar Nombre Material"
+        />
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label> Linea*</label>
+      
+        <ng-select  
+        #idLinea="ngModel"  
+        name="idLinea" 
+        bindValue="idLinea" 
+        placeholder="Buscar Linea" 
+        [(ngModel)]="formData.idLinea"  
+      >   
+          <ng-option *ngFor="let emp of linea" 
+          [value]="emp.id">{{emp.detalle_linea}}</ng-option>
+       </ng-select> 
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label> Tipo</label>
+      
+        <ng-select  
+        #idTipoProducto="ngModel"  
+        name="idTipoProducto" 
+        bindValue="idTipoProducto" 
+        placeholder="Buscar Tipo Producto" 
+        [(ngModel)]="formData.idTipoProducto"  
+      >   
+          <ng-option *ngFor="let emp of tproducto" 
+          [value]="emp.id">{{emp.detalle_tprod}}</ng-option>
+       </ng-select> 
+      </div>
+    </div>
+    <!-- -->
+    
+      <!-- -->
+  </div>
+  <div class="row"> 
+      <div class="col-md-3">
+        <div class="form-group">
+          <label> Categoria</label>
+          <ng-select  
+          #idCategoria="ngModel"  
+          name="idCategoria" 
+          bindValue="idCategoria" 
+          placeholder="Buscar Categoria" 
+          [(ngModel)]="formData.idCategoria"  
+        >   
+            <ng-option *ngFor="let emp of categorias" 
+            [value]="emp.id">{{emp.nombre_categoria}}</ng-option>
+         </ng-select> 
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label> Modelo</label>
+        
+          <ng-select  
+          #idModelo="ngModel"  
+          name="idModelo" 
+          bindValue="idModelo" 
+          placeholder="Buscar Modelo" 
+          [(ngModel)]="formData.idModelo"  
+        >   
+            <ng-option *ngFor="let emp of modelos" [value]="emp.id">{{emp.nombre_modelo}}</ng-option>
+         </ng-select> 
+        </div>
+      </div> 
+      <div class="col-md-3">
+        <div class="form-group">
+            <label> Unidad Medida</label>
+            <ng-select  
+            #idUnidadMedida="ngModel"  
+            name="idUnidadMedida" 
+            bindValue="idUnidadMedida" 
+            placeholder="Buscar Unidad Medida" 
+            [(ngModel)]="formData.idUnidadMedida"  
+          >   
+              <ng-option *ngFor="let emp of unidadmedidas" [value]="emp.id">{{emp.detalle}}</ng-option>
+           </ng-select> 
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label> Detalle*</label>
+          <input
+          name="detalle_prod"
+          #detalle_prod="ngModel"
+          [(ngModel)]="formData.detalle_prod"
+          class="form-control"
+          placeholder="Ingresar Detalle"
+        />
+        </div>
+      </div> 
+      <!---->
+     
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark" 
+  >
+    <i class="fa fa-database"></i> Guardar </button>
+   
+  </div>
+</form>
+
+
+
+
+
+
+<!--<div class="row animated fadeIn faster">
   <div class="col">
     <form [formGroup]="loginForm" (ngSubmit)="AddProducto(loginForm.value)">
       <form class="row g-3" [formGroup]="loginForm">
@@ -85,4 +228,4 @@
       </div>
     </form>
   </div>
-</div>
+</div> -->

@@ -42,7 +42,7 @@ import { AddbancoComponent } from './banco/addbanco/addbanco.component';
 import { EditarbancoComponent } from './banco/editarbanco/editarbanco.component';
 import { ListarProductoComponent } from './producto/listar-producto/listar-producto.component';
 import { AddProductoComponent } from './producto/add-producto/add-producto.component';
-import { EditarProductoComponent } from './producto/editar-producto/editar-producto.component';
+// import { EditarProductoComponent } from './producto/editar-producto/editar-producto.component';
 import { ListarProveedorComponent } from './proveedor/listar-proveedor/listar-proveedor.component';
 import { AddProveedorComponent } from './proveedor/add-proveedor/add-proveedor.component';
 import { EditarProveedorComponent } from './proveedor/editar-proveedor/editar-proveedor.component';
@@ -103,8 +103,8 @@ const routes: Routes = [
      {path:'addbanco', component: AddbancoComponent, data:{titulo:'Banco'}},
      {path:'editbanco', component: EditarbancoComponent, data:{titulo:'Banco'}},
      {path:'listarproducto', component: ListarProductoComponent, data:{titulo:'Productos'}},
-     {path:'addproducto', component: AddProductoComponent, data:{titulo:'Productos'}},
-     {path:'editproducto', component: EditarProductoComponent, data:{titulo:'Productos'}},
+     {path:'addproducto/:id', component: AddProductoComponent, data:{titulo:'Productos'}},
+    //  {path:'editproducto', component: EditarProductoComponent, data:{titulo:'Productos'}},
      {path:'listarproveedor', component: ListarProveedorComponent, data:{titulo:'Proveedor'}},
      {path:'addproveedor', component: AddProveedorComponent, data:{titulo:'Proveedora'}},
      {path:'editproveedor', component: EditarProveedorComponent, data:{titulo:'Proveedor'}},

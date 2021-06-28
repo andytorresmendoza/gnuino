@@ -1,0 +1,26 @@
+EN LA TABLA PRODUCTOS AGREGAR LO SIGUIENTES CAMPOS 
+GET,PUT,POST,GETBYID
+codigoProducto:string
+idLinea: Number
+idTipo:Number
+Detalle:string
+
+Crear nuevas tablas y Hacer Match
+table.LINEA(Masculino, Femenino) y Endpoint GET
+table.TipoProducto(Mercaderia, Materia Prima, Producto Terminado)y Endpoint GET
+
+-------------------------
+EN LA TABLA COTIZACIÓN
+GET,PUT,POST,GETBYID
+idTipoCotizacion:Number;
+idLinea:Number(VIENE DE LA TABLA QUE CREASTES ARRIBA)
+
+table.TipoCotizacion(COT-SERVICIOS Y COT-MATERIALES)y Endpoint GET
+
+----------------
+
+EN LA TABLA ORDEN
+GET,PUT,POST,GETBYID
+IdTipoOc:Numbe;
+
+table.TipoOrdenCompra(NACIONAL/INTERNACIONAL)y Endpoint GET

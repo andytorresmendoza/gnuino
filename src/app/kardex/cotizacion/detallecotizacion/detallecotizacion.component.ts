@@ -15,6 +15,8 @@ export class DetallecotizacionComponent implements OnInit {
   formData: DataDetalleCotizacion;
   productos: DataProducto[];
   isValid: boolean = true;
+
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<DetallecotizacionComponent>,
@@ -30,7 +32,9 @@ export class DetallecotizacionComponent implements OnInit {
       //  console.log(this.productos,'producto');
     
      });
-   
+
+ 
+  
 if (this.data.orderItemIndex == null)
     this.formData = {
       id: null,
@@ -53,8 +57,15 @@ if (this.data.orderItemIndex == null)
   // UpdateNombre(ctrl) {     
   //     this.formData.nombre_producto = this.productos[ctrl.selectedIndex - 1].nombre_producto;
   // }
+
+  onChangeDecimal() {
+    // this.formData.precio_unidad= parseFloat((this.formData.precio_unidad).toFixed(2));
+     this.formData.precio_unidad  =   parseFloat((this.formData.precio_unidad ).toExponential(2)); 
+   } 
+
   updateTotal(){
     this.formData.precio_total = parseFloat((this.formData.cantidad * this.formData.precio_unidad).toFixed(2));
+    
   }
   onChange = ($event: any): void => {
     this.formData.nombre_producto= $event.nombre_producto; 

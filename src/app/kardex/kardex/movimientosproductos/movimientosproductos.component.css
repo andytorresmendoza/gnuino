@@ -1,9 +1,23 @@
 /* Structure */
 table {
     width: 100%;
+    /* border-collapse: collapse;  
+    margin: 25px 0;
+    font-size:0.9cm;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0 */
+    
      
   } 
   th.mat-header-cell {
     /* text-align: left; */
     max-width: 300px;
+    /* background-color: #009879; */
+    
+    
 }
+/* td.mat-cell {
+   text-align: left;  
+ background-color: #009879;
+  
+} */

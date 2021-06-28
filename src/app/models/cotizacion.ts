@@ -17,10 +17,12 @@ export interface DataCotizacion {
     descuento_cot:         number;
     costo_envio:           number;
     total_costo:           number; 
-    estadoCotizacion: string;
-// NUEVO
+    estadoCotizacion: string; 
    idTipoMoneda:number;
    totalGeneral: number;
+   // NUEVO
+   idTipoCotizacion:number;
+   idLinea:number;
     // detalleCotizacion: DataDetalleCotizacion[];
     
     

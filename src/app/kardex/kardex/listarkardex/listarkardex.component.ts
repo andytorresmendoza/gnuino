@@ -42,6 +42,7 @@ export class ListarkardexComponent implements OnInit {
        this.kardexService.detalleSalida = resp;
        this.kardexService.detalleTransferencia = resp;
        this.cargando = false;
+      // console.log(this.dataSource.data);
        // this.cargando = false;
         // console.log(this.kardexService.detalleSalida,'Salida');
        //  console.log( this.kardexService.detalleTransferencia  , 'transferencia');

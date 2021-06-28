@@ -500,17 +500,13 @@ getProducto() {
     catchError(this.manejarError)
   );
  }
- addProducto(productos: ProductoI):Observable<ProductoI>{
-  console.log(productos);
-  return this.http.post<ProductoI>(`${this.baseURL}producto`,productos).
-  pipe(tap(
-    (res:ProductoI) =>{
-      if(res){
-      //  console.log(res );
-      }
-    })
- );
-  }
+ addProducto(data: DataProducto){
+  // console.log(productos);
+  return this.http.post<ProductoI>(`${this.baseURL}producto`,data).pipe(
+    map(
+      (resp) => resp['data']) 
+  );
+}  
   getProductoId(id:number){
     return this.http.get<ProductoI>(`${this.baseURL}producto/`+id)
     .pipe(
@@ -518,11 +514,11 @@ getProducto() {
       catchError(this.manejarError)
     );
   }
-  updateProducto(productos: DataProducto){
-  console.log('desdeservic',productos);
+  updateProducto(data: DataProducto){
+  // console.log('desdeservic',productos);
     // console.log('desdeservic2',nrocuenta[0].id);
     // console.log('desdeservic2',nrocuenta.estado);
-    return this.http.put<DataProducto>(`${this.baseURL}producto/`+productos[0].id,productos[0])
+    return this.http.put<DataProducto>(`${this.baseURL}producto/${data.id}`, data);
   
    
   }
@@ -737,6 +733,29 @@ getUsuariobyId(id: number) {
   );
 
 }
+getLinea() {
+  return this.http.get(this.baseURL+ 'linea')  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+  .pipe(
+    map(resp=>resp['data']),
+    catchError(this.manejarError)
+  );
+ }
+
+ getTipoProducto() {
+  return this.http.get(this.baseURL+ 'tipo-producto')  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+  .pipe(
+    map(resp=>resp['data']),
+    catchError(this.manejarError)
+  );
+ }
+ getTipCotizacion() {
+  return this.http.get(this.baseURL+ 'tipo-cotizacion')  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+  .pipe(
+    map(resp=>resp['data']),
+    catchError(this.manejarError)
+  );
+ }
+
 }
 
 

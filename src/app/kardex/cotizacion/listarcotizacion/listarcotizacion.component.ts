@@ -37,7 +37,7 @@ export class ListarcotizacionComponent implements OnInit {
     this.dataSource.data = resp as DataCotizacion[]; 
       this.cotizaciones = resp; 
      this.cargando = false;
-      console.log(resp);
+      // console.log(resp);
  });
 } 
   

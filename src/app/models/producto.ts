@@ -8,9 +8,11 @@ export interface ProductoI {
     idCategoria: number;
     idModelo: number;
     idUnidadMedida: number;
-    estado: number;
-    created_at: Date;
-    updated_at: Date;
+    estado: number; 
     codigo_producto: string;
     codigo_producto_num: string;
+    detalle_prod:string;
+    idTipoProducto:number;
+    codigoProductoBarra:string;
+    idLinea:number;
   }

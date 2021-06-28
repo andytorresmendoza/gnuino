@@ -40,8 +40,8 @@ const routes: Routes =[
 
   ],
   imports: [
-    // RouterModule.forRoot(routes,{useHash:true})
-     RouterModule.forRoot(routes ),
+   RouterModule.forRoot(routes,{useHash:true}),
+    // RouterModule.forRoot(routes ),
      AuthRoutingModule,
      PagesRoutingModule,
      MantenimientosRoutingModule,
