@@ -15,7 +15,9 @@ import { DataTipoPago } from '../../../models/tipopago';
 import { DataBanco } from '../../../models/banco';
 import { DataNrocuenta } from '../../../models/nrocuenta';
 import * as moment from 'moment';
-import { DataTipoAlmacen } from '../../../models/tipoalmacen';
+import { DataTipoAlmacen } from '../../../models/tipoalmacen'; 
+import { DataTipoOrden } from 'src/app/models/tipo-orden';
+import { DataTipoMoneda } from 'src/app/models/tipo-moneda';
  
 
 @Component({
@@ -34,6 +36,8 @@ export class OrdencompraComponent implements OnInit {
   cuentas: DataNrocuenta[]; 
   detalleCotizaciones: DataDetalleCotizacion[]; 
   almacenes: DataTipoAlmacen[]=[];
+  tiporden: DataTipoOrden[]=[];
+  tipoMoneda:DataTipoMoneda[]=[];
   isValid: boolean = true;
 
   constructor(
@@ -70,10 +74,7 @@ export class OrdencompraComponent implements OnInit {
  
 
     });
-    // this.mantenimientosService.getTipopago().subscribe((resp) => {
-    //   this.tipopagos = resp as DataTipoPago[];
-    //   // console.log(this.productos);
-    // });
+ 
     this.mantenimientosService.getBanco().subscribe((resp) => {
       this.bancos = resp as DataBanco[];
       //  console.log(this.bancos);
@@ -88,7 +89,17 @@ export class OrdencompraComponent implements OnInit {
       this.almacenes = resp as DataTipoAlmacen[];
       // console.log(this.cuentas);
     });
+
+    this.mantenimientosService.getTipOrden().subscribe((resp) => {
+      this.tiporden = resp as DataTipoOrden[];
+   //  console.log(this.tiporden);
+    });
+
+    this.mantenimientosService.getTipoMoneda().subscribe((resp) => {
+      this.tipoMoneda = resp as DataTipoMoneda[]  
  
+
+    });
   }
  
  
@@ -96,7 +107,7 @@ export class OrdencompraComponent implements OnInit {
   getCotizacionEstadoPendiente() {
     this.kardexService.getCotizacionEstadoPendiente().subscribe((resp) => {
       this.cotizaciones = resp as DataCotizacion[];
-      // console.log(resp);
+    //  console.log(this.cotizaciones);
    
     });
   }
@@ -127,7 +138,9 @@ export class OrdencompraComponent implements OnInit {
       direccionOrden:'',
       totalGeneral:0,
       nombre_empleado:'',
-      nombre_proovedor:''
+      nombre_proovedor:'',
+      idTipoOc:0,
+      idTipoMoneda:0
     };
   }
  onChange = ($event: any): void => {
@@ -135,6 +148,7 @@ export class OrdencompraComponent implements OnInit {
    this.kardexService.formOrdencompra.idCotizacion = $event.id; 
   this.kardexService.formOrdencompra.idProovedor = $event.idProovedor;  
   this.kardexService.formOrdencompra.idEmpleado = $event.idEmpleado;
+  this.kardexService.formOrdencompra.idTipoMoneda = $event.idTipoMoneda;
   this.kardexService.formOrdencompra.costo_envio = $event.costo_envio;
   this.kardexService.formOrdencompra.descuento_cot = $event.descuento_cot;
   this.kardexService.formOrdencompra.total_costo = $event.total_costo; 

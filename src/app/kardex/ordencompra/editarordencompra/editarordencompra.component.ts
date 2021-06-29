@@ -13,6 +13,8 @@ import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 import { DataTipoAlmacen } from '../../../models/tipoalmacen';
+import { DataTipoOrden } from 'src/app/models/tipo-orden';
+import { DataTipoMoneda } from 'src/app/models/tipo-moneda';
 
 @Component({
   selector: 'app-editarordencompra',
@@ -30,6 +32,9 @@ export class EditarordencompraComponent implements OnInit {
   totales:DataCotizacion[];
   detalleCotizaciones: DataDetalleCotizacion[];
   almacenes: DataTipoAlmacen[]=[];
+  tiporden: DataTipoOrden[]=[];
+  tipoMoneda:DataTipoMoneda[]=[];
+  detalleTipoMoneda:DataTipoMoneda[]=[];
   isButtonVisible:boolean=true;
   constructor( public kardexService: KardexService,  
     private currentRoute: ActivatedRoute,  
@@ -42,10 +47,12 @@ export class EditarordencompraComponent implements OnInit {
  
     this.kardexService.getOrdenCompraById(+id).subscribe((res) => {
     //  console.log('editar',res[0] );
-      this.kardexService.formOrdencompra = res[0];  
+      this.kardexService.formOrdencompra = res[0];   
       this.detalleCotizaciones  = res[0].detalleCotizacion[0].detCotizacion;
+      this.detalleTipoMoneda = res[0].detalleCotizacion[0].detalleTipoMoneda;
       this.totales  = res[0].detalleCotizacion[0];
-      // console.log(res[0].detalleCotizacion[0]);
+     console.log(this.kardexService.formOrdencompra);
+     console.log(this.detalleTipoMoneda);
       if (res[0].idEstadoFlujo ==  2 || res[0].idEstadoFlujo ==  3 ) {
         this.isButtonVisible=false;
        } else { /*implementar  EN ORDEN Y COTIZAICON ANULADA*/
@@ -88,7 +95,16 @@ export class EditarordencompraComponent implements OnInit {
     this.almacenes = resp as DataTipoAlmacen[];
     // console.log(this.cuentas);
   });
+  this.mantenimientosService.getTipOrden().subscribe((resp) => {
+    this.tiporden = resp as DataTipoOrden[];
+ //  console.log(this.tiporden);
+  });
 
+  // this.mantenimientosService.getTipoMoneda().subscribe((resp) => {
+  //   this.tipoMoneda = resp as DataTipoMoneda[]  
+
+
+  // });
   }
   resetForm(form?: NgForm) {
     if ((form = null)) form.resetForm();
@@ -114,7 +130,9 @@ export class EditarordencompraComponent implements OnInit {
       direccionOrden:'',
        totalGeneral: 0,
        nombre_empleado:'',
-       nombre_proovedor:''
+       nombre_proovedor:'',
+       idTipoOc:0,
+       idTipoMoneda:0
     };
   }
   UpdateBanco(ctrl) {

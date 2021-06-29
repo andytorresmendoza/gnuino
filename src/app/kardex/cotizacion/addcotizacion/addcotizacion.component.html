@@ -72,20 +72,7 @@ name="costo_envio"
 />
 
 
-<div class="row">
-   <!-- <div class="col-md-4">
-    <div class="form-group">
-      <label> Cotización Nro.  </label>
-      <input
-        name="codigo_cotizacion_num"
-        #codigo_cotizacion_num="ngModel"
-        [(ngModel)]="kardexService.formData.codigo_cotizacion_num"
-        class="form-control"
-        readonly
-      />
-    </div> 
-  </div>   -->
-
+<div class="row"> 
   <div class="col-md-4">
     <div class="form-group">
       <label> Tipo Cotización  </label>
@@ -182,8 +169,16 @@ name="costo_envio"
   <div class="col-md-4">
   <div class="form-group">
     <label> Tipo Moneda</label>
-
-    <select 
+    <ng-select  
+    #idTipoMoneda="ngModel"  
+    name="idTipoMoneda" 
+    bindValue="idTipoMoneda" 
+    placeholder="Buscar Tipo Moneda" 
+    [(ngModel)]="kardexService.formData.idTipoMoneda"  
+  >   
+      <ng-option *ngFor="let emp of tipoMoneda" [value]="emp.id">{{emp.nombre_moneda}}</ng-option>
+   </ng-select> 
+    <!-- <select 
     name="idTipoMoneda" 
     #idTipoMoneda="ngModel" 
     [(ngModel)]="kardexService.formData.idTipoMoneda"
@@ -195,7 +190,7 @@ name="costo_envio"
       <option value="1">SOLES</option>
       <option value="2">DOLARES</option>
     
-    </select> 
+    </select>  -->
   </div> </div>
 </div>
 
@@ -217,7 +212,7 @@ name="costo_envio"
   </div>
   <div class="col-md-4">
     <div class="form-group">
-      <label> Linea*  </label>
+      <label> Linea </label>
       <ng-select  
         #idLinea="ngModel"  
         name="idLinea" 

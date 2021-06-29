@@ -13,6 +13,7 @@ import { DataProducto } from 'src/app/models/producto';
 import Swal from 'sweetalert2'; 
 import { DataLinea } from 'src/app/models/linea';
 import { DataTipoCoti } from 'src/app/models/tipo-cotizacion';
+import { DataTipoMoneda } from 'src/app/models/tipo-moneda';
 @Component({
   selector: 'app-addcotizacion',
   templateUrl: './addcotizacion.component.html',
@@ -25,6 +26,7 @@ export class AddcotizacionComponent implements OnInit {
   productos: DataProducto[];   
    linea: DataLinea[];
    tipocotizacion: DataTipoCoti[];
+   tipoMoneda:DataTipoMoneda[];
   isValid:boolean = true;
   isButtonVisible:boolean=true; 
  
@@ -74,6 +76,10 @@ export class AddcotizacionComponent implements OnInit {
   .subscribe(resp => {
     this.linea = resp as DataLinea[]  
  });
+ this.mantenimientosService.getTipoMoneda()
+ .subscribe(resp => {
+   this.tipoMoneda = resp as DataTipoMoneda[]  
+});
 
  this.mantenimientosService.getTipCotizacion()
  .subscribe(resp => {

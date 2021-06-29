@@ -30,5 +30,7 @@ export interface DataOrdenCompra {
   totalGeneral:number;
   nombre_empleado:string;
   nombre_proovedor:string;
+  idTipoOc:number;
+  idTipoMoneda:number;
    
 }

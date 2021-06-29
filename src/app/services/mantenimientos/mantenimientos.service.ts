@@ -753,9 +753,24 @@ getLinea() {
   .pipe(
     map(resp=>resp['data']),
     catchError(this.manejarError)
+  );  
+ }
+ 
+
+ getTipOrden() {
+  return this.http.get(this.baseURL+ 'tipo-orden-compra')  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+  .pipe(
+    map(resp=>resp['data']),
+    catchError(this.manejarError)
+  );  
+ }
+ getTipoMoneda() {
+  return this.http.get(this.baseURL+ 'tipo-moneda')  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+  .pipe(
+    map(resp=>resp['data']),
+    catchError(this.manejarError)
   );
  }
-
 }
 
 

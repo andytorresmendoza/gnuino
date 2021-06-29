@@ -102,12 +102,12 @@ name="idEmpleado"
       />
       </div>
       <div class="form-group">
-        <label> Detalle</label>
+        <label> Nota</label>
         <input
         class="form-control" 
           type="text"
           name="detalleIngreso"
-          placeholder="Detalle" 
+          placeholder="Nota" 
           #detalleIngreso="ngModel"
           [(ngModel)]="kardexService.formDataEntrada.detalleIngreso"
           class="form-control" 
@@ -222,8 +222,9 @@ name="idEmpleado"
  
       </table>
       <div class="form-group">
-        <!-- <button type="submit" class="btn btn-dark" *ngIf="this.isButtonVisible"><i class="fa fa-database"></i> Actualizar</button> VERIFICAR ESTE BAG -->
-        <button type="submit" class="btn btn-dark" ><i class="fa fa-database"></i> Actualizar</button>
+       <button type="submit" class="btn btn-dark" *ngIf="this.isButtonVisible"><i class="fa fa-database"></i> Actualizar</button> 
+       <!-- VERIFICAR ESTE BAG --> -->
+        <!-- <button type="submit" class="btn btn-dark" ><i class="fa fa-database"></i> Actualizar</button> -->
          <a   class="btn btn-outline-dark ml-1" routerLink="../../listarentrada" ><i class="fa fa-close"></i> Ver Ingresos</a>  
         
         </div>
