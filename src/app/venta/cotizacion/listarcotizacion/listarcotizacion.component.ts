@@ -1,27 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { KardexService } from '../../../services/kardex/kardex.service';
-import { DataCotizacion } from '../../../models/cotizacion';
+ 
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import {MatTableDataSource} from '@angular/material/table';
+import { VentaService } from 'src/app/services/venta/venta.service';
+import { DataCotizacionVenta } from 'src/app/models/cotizacionventa';
 @Component({
   selector: 'app-listarcotizacion',
   templateUrl: './listarcotizacion.component.html',
   styleUrls: ['./listarcotizacion.component.css']
 })
 export class ListarcotizacionComponent implements OnInit {
-  cotizaciones:DataCotizacion[]=[];
+  cotizaciones:DataCotizacionVenta[]=[];
   cargando = true; 
 
   displayedColumns: string[] = ['Nro Cotizacion', 'Proveedor', 'Empleado', 'Total', 'Fecha Entrega','Estado','details','Anular'];
-  dataSource = new MatTableDataSource<DataCotizacion>();
+  dataSource = new MatTableDataSource<DataCotizacionVenta>();
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   constructor
-  (private servicioKardex: KardexService , private router:Router,  private toastr: ToastrService ) { }
+  (private ventaService: VentaService, private router:Router,  private toastr: ToastrService ) { }
 
   ngOnInit(): void {
     this. getCotizacion();
@@ -30,9 +32,9 @@ export class ListarcotizacionComponent implements OnInit {
 
  getCotizacion(){
 
-  this.servicioKardex.getCotizacion()
+  this.ventaService.getCotizacionVenta()
  .subscribe(resp => {
-   this.dataSource.data = resp as DataCotizacion[]; 
+   this.dataSource.data = resp as DataCotizacionVenta[]; 
      this.cotizaciones = resp; 
     this.cargando = false;
      console.log(resp);
@@ -42,10 +44,10 @@ export class ListarcotizacionComponent implements OnInit {
 
 openForEdit(CotizacionId: number) {
 console.log(CotizacionId,'editar');
-   this.router.navigate(['kardex/cotizacion/'+CotizacionId]);
+   this.router.navigate(['venta/venta/'+CotizacionId]);
 }
 
-borrarCotizacion(cotizaciones: DataCotizacion, i: number) {
+/*borrarCotizacion(cotizaciones: DataCotizacionVenta, i: number) {
  Swal.fire({
    title: 'Esta seguro?',
    text: `Que desea Eliminar la cotizacion Nro${cotizaciones.nroCotizacion}`,
@@ -55,12 +57,12 @@ borrarCotizacion(cotizaciones: DataCotizacion, i: number) {
  }).then((resp) => {
    if (resp.value) {
      this.cotizaciones.splice(i, 1);
-     this.servicioKardex.deleteCotizacion(cotizaciones.id).subscribe();
+     this.ventaService.deleteCotizacion(cotizaciones.id).subscribe();
    }
  });
-} 
-
-EstadoCotizacionAnular(cotizaciones: DataCotizacion, i: number) {
+} */
+/*
+EstadoCotizacionAnular(cotizaciones: DataCotizacionVenta, i: number) {
 console.log(cotizaciones,'1');
 console.log(i,'index');
  const bodyform = {id:cotizaciones.id, estadoCotizacion: '3'}
@@ -76,7 +78,7 @@ console.log(i,'index');
      
      this.cotizaciones.splice(i, 1);
      console.log( this.cotizaciones.splice(i, 1),'slice');
-     this.servicioKardex.EstadoCotizacionAnular(cotizaciones.id,bodyform).subscribe(
+     this.ventaService.EstadoCotizacionAnular(cotizaciones.id,bodyform).subscribe(
        resp => {
          this.toastr.error('Cotización Anulada');
           this.ngOnInit();
@@ -86,5 +88,5 @@ console.log(i,'index');
      );
    }
  });
-} 
+} */
 }

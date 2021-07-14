@@ -141,8 +141,10 @@ detalleTransferenciasinoc: DataDetalleTransferenciasinOc[];
     fechaParseada = moment(body.fecha_entrega).format('YYYY-MM-DD');
     body.fecha_entrega=fechaParseada;
     delete body.id;
-    //  console.log('body',  delete body.id);
-      // console.log('servicio',formData.id);
+
+    console.log('delete',  delete body.id);
+    console.log('cuerpo',body);
+    console.log('detalle',body.detalleCotizacion);
     //  this.http.put(`${this.baseURL}cotizacion/`+ id, body);
      return this.http.put(`${this.baseURL}cotizacion/${formData.id}`, body);
 

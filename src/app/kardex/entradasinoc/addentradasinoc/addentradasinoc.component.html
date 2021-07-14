@@ -100,8 +100,7 @@ name="idProveedor"
               [matDatepicker]="picker"
               placeholder="DD/MM/YYYY" 
               name="fechaIngreso"
-              #fechaIngreso="ngModel"
-              placeholder=""
+              #fechaIngreso="ngModel" 
               [(ngModel)]="kardexService.formDataIngresosinOc.fechaIngreso"
               class="form-control"
               [class.is-invalid]="fechaIngreso.invalid && fechaIngreso.touched"
@@ -149,20 +148,17 @@ name="idProveedor"
       <div class="col-md-3">
 
         <div class="form-group">
-          <label> Tipo Moneda</label>
-  
-          <select 
+          <label> Tipo Moneda</label>  
+          <ng-select  
+          #idTipoMoneda="ngModel"  
           name="idTipoMoneda" 
-          #idTipoMoneda="ngModel" 
+          bindValue="idTipoMoneda" 
+          placeholder="Buscar Tipo Moneda" 
           [(ngModel)]="kardexService.formDataIngresosinOc.idTipoMoneda"
-          [class.is-invalid]="!isValid && kardexService.formDataIngresosinOc.idTipoMoneda==0"
-          class="form-control"  
-          >
-            <option value="0">-Seleccione Tipo Moneda-</option>
-            <option value="1">SOLES</option>
-            <option value="2">DOLARES</option>
-          
-          </select> 
+        >   
+            <ng-option *ngFor="let emp of tipoMoneda" [value]="emp.id">{{emp.nombre_moneda}}</ng-option>
+         </ng-select>  
+
         </div> 
         <div class="form-group">
             <label> Total</label>

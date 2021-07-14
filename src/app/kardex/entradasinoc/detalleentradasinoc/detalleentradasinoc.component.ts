@@ -45,7 +45,7 @@ export class DetalleentradasinocComponent implements OnInit {
         id: null,
         idEntradaSinOc: this.data.id,
         codigoIngresoSinOc: '',
-        idProducto: 0,
+        idProducto: null,
         nombre_producto: '',
         cantidad: 0,
         precioUnitario: 0,
@@ -54,7 +54,7 @@ export class DetalleentradasinocComponent implements OnInit {
         cantidadGlobal: 0,
         cantidadPrincipal: 0,
         detalleNameUnidadMedida: '',
-        idSedePrincipal: 0,
+        idSedePrincipal: null,
         nombre_alamcen: '',
         cantidadPendiente:0,
         detalleNameSedePrincipal:''

@@ -39,7 +39,7 @@ export class AddProductoComponent implements OnInit {
       this.mantenimientoService.getProductoId(+id).subscribe(res => {
          this.formData = res[0]; 
          //console.log(res[0].id,'id');
-           console.log( this.formData);
+          //  console.log( this.formData);
 
 
       });
@@ -63,14 +63,14 @@ export class AddProductoComponent implements OnInit {
      this.formData={        
       id:null,
       nombre_producto: '',
-      idCategoria: 0,
-      idModelo:0,
-      idUnidadMedida:0,
+      idCategoria: null,
+      idModelo:null,
+      idUnidadMedida:null,
       codigo_producto: '',
       codigo_producto_num: '',
       estado:0, 
-      idLinea:0,
-      idTipoProducto:0,
+      idLinea:null,
+      idTipoProducto:null,
       detalle_prod:'', 
       codigoProductoBarra:'',
   }; 
@@ -83,7 +83,7 @@ export class AddProductoComponent implements OnInit {
         // console.log(resp);
       },
       (err) => {
-        console.log('Erro en la categoria');
+        // console.log('Erro en la categoria');
       }
     );
   }
@@ -96,7 +96,7 @@ export class AddProductoComponent implements OnInit {
         // console.log(resp);
       },
       (err) => {
-        console.log('Erro en la categoria');
+        // console.log('Erro en la categoria');
       }
     );
   }
@@ -128,7 +128,7 @@ export class AddProductoComponent implements OnInit {
       (resp) => {
         this.tproducto = resp;
      //   this.cargando = false;
-     console.log(resp);
+    //  console.log(resp);
       },
      
     );

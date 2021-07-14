@@ -37,12 +37,18 @@ export class VentaService {
     // console.log('error');
     return throwError('error personalizado');
   }
+  
+  getCotizacionVenta() {
+    return this.http
+      .get(this.baseURL + 'cotizacion-venta')
+      .pipe(map((resp) => resp['data']));
+  }
 
   getCotizacionById(id: number) {
-    return this.http.get(`${this.baseURL}cotizacion/` + id).pipe(
-      map((resp) => resp['data']),
+    return this.http.get(`${this.baseURL}cotizacion-venta/` + id).pipe(
+      map((resp) => resp['data'])
       //ACA VER COMO TRANSFORMAR EL FECHA_ENTREGA GUIARSE DE FORMULARIOS FERNANDO
-      catchError(this.manejarError)
+      
     );
   }
   
@@ -52,13 +58,17 @@ export class VentaService {
       detalleCotizacion: this.detalleCotizacion 
     };
     let fechaParseada: any;
-    fechaParseada = moment(body.fecha_entrega).format('YYYY-MM-DD');
-    body.fecha_entrega=fechaParseada;
+    fechaParseada = moment(body.fechaCotizacion).format('YYYY-MM-DD');
+    body.fechaCotizacion=fechaParseada;
+
+    let fechaParseada2: any;
+    fechaParseada2 = moment(body.fechaEntrega).format('YYYY-MM-DD');
+    body.fechaEntrega=fechaParseada2;
     delete body.id;
-    //  console.log('body',  delete body.id);
-      // console.log('servicio',formData.id);
-    //  this.http.put(`${this.baseURL}cotizacion/`+ id, body);
-     return this.http.put(`${this.baseURL}cotizacion/${formData.id}`, body);
+    console.log('delete',  delete body.id);
+    console.log('cuerpoventa',body);
+    console.log('detalleventa',body.detalleCotizacion);
+     return this.http.put(`${this.baseURL}cotizacion-venta/${formData.id}`, body);
 
   }
 
@@ -68,10 +78,15 @@ export class VentaService {
       detalleCotizacion: this.detalleCotizacion,
     };
     let fechaParseada: any;
-    fechaParseada = moment(body.fecha_entrega).format('YYYY-MM-DD');
-    body.fecha_entrega=fechaParseada;
+    fechaParseada = moment(body.fechaCotizacion).format('YYYY-MM-DD');
+    body.fechaCotizacion=fechaParseada;
+
+    let fechaParseada2: any;
+    fechaParseada2 = moment(body.fechaEntrega).format('YYYY-MM-DD');
+    body.fechaEntrega=fechaParseada2;
+
      console.log(body);
-    return this.http.post(`${this.baseURL}cotizacion`, body).pipe(
+    return this.http.post(`${this.baseURL}cotizacion-venta`, body).pipe(
       map(
         (resp) => resp['data'])
         // console.log(resp['data']))
@@ -82,6 +97,17 @@ export class VentaService {
 
   deleteDetalleCotizacion(id: number) {
     return this.http.delete(`${this.baseURL}cotizacion-detalle/${id}`);
+  }
+
+  MatchKardex(idProducto: number,idAlmacen:number) {
+
+    // let nuevoArregloTemp=[];
+    return this.http.get(`${this.baseURL}precio/producto/`+idProducto +`/almacen/`+ idAlmacen).pipe(
+    //  map((resp) => nuevoArregloTemp.push(resp)) 
+    map((resp) => resp)
+    );
+    
+    
   }
 }
 

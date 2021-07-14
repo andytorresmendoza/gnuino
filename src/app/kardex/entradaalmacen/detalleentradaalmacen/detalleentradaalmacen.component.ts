@@ -47,7 +47,7 @@ export class DetalleentradaalmacenComponent implements OnInit {
     idProducto: 0,
     cantidad:0, 
     cantidadPrincipal:0, 
-    idSedePrincipal: 0,
+    idSedePrincipal: null,
     precio_unidad:0
 
    },

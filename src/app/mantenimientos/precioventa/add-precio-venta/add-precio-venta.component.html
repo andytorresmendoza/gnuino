@@ -1,0 +1,93 @@
+<h1><small>Precio Venta Producto</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../../listarprecioventa">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="formData"
+  (submit)="onSubmit(form)"
+>
+
+ 
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label> Nombre Producto</label>
+        <ng-select  
+        #idProducto="ngModel"  
+        name="idProducto" 
+        bindValue="idProducto" 
+        placeholder="Buscar Producto" 
+        [(ngModel)]="formData.idProducto"  
+      >   
+          <ng-option *ngFor="let emp of tipoproducto" 
+          [value]="emp.id">{{emp.nombre_producto}}</ng-option>
+       </ng-select> 
+      </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+          <label> Nombre Almacén</label>
+          <ng-select  
+        #idAlmacen="ngModel"  
+        name="idAlmacen" 
+        bindValue="idAlmacen" 
+        placeholder="Buscar Almacén" 
+        [(ngModel)]="formData.idAlmacen"  
+      >   
+          <ng-option *ngFor="let emp of almacen" 
+          [value]="emp.id">{{emp.nombre_alamcen}}</ng-option>
+       </ng-select> 
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Precio Venta</label>
+          <input
+          type="number"
+            name="precioVenta"
+            #precioVenta="ngModel"
+            [(ngModel)]="formData.precioVenta"
+            class="form-control"  
+          />
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-md-3">
+        <div class="form-group">
+          <label for="">Fecha</label>
+          <div class="input-group">
+            <input 
+            [matDatepicker]="picker"
+            placeholder="DD/MM/YYYY" 
+            name="fechaVenta"
+            #fechaVenta="ngModel" 
+            [(ngModel)]="formData.fechaVenta"
+            class="form-control"  
+              required 
+          />  
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          </div> 
+        </div>
+      </div>
+    
+  </div>
+ 
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark" 
+  >
+    <i class="fa fa-database"></i> Guardar </button>
+   
+  </div>
+</form>

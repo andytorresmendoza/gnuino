@@ -119,12 +119,12 @@ export class OrdencompraComponent implements OnInit {
     this.kardexService.formOrdencompra = {
       id: null,
       codigo_orden_num: '',
-      idCotizacion: 0,
+      idCotizacion: null,
       idProovedor: 0,
       idEmpleado: 0,
       //  detalle: '',
       fechaEntrega: '',
-      idTipoPago: 0,
+      idTipoPago: null,
       idBanco: 0,
       idNroCuenta: 0,
       descuento_cot: 0,
@@ -139,7 +139,7 @@ export class OrdencompraComponent implements OnInit {
       totalGeneral:0,
       nombre_empleado:'',
       nombre_proovedor:'',
-      idTipoOc:0,
+      idTipoOc:null,
       idTipoMoneda:0
     };
   }

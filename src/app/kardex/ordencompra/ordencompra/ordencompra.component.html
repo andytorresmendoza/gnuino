@@ -253,26 +253,30 @@
     <div class="col-md-4">
       <div class="form-group">
         <label> Forma Pago</label>
-        <select
-          name="idTipoPago"
-          #idTipoPago="ngModel"
-          [(ngModel)]="kardexService.formOrdencompra.idTipoPago"
-          class="form-control"
-          [class.is-invalid]="
-            !isValid && kardexService.formOrdencompra.idTipoPago == 0
-          "
-        >
-          <option value="0">-Select-</option>
-          <option *ngFor="let tipopago of tipopagos" value="{{ tipopago.id }}">
-            {{ tipopago.descripcion_pago }}
-          </option>
-        </select>
+    
+
+        <ng-select
+        #idTipoPago="ngModel"
+        name="idTipoPago"
+        bindValue="idTipoPago"
+        placeholder="Buscar Forma de Pago"
+        [(ngModel)]="kardexService.formOrdencompra.idTipoPago"
+      >
+        <ng-option *ngFor="let emp of tipopagos" [value]="emp.id">{{
+          emp.descripcion_pago
+        }}</ng-option>
+      </ng-select>
+
+
+
+
+
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
         <label> Banco</label>
-        <select
+         <select
           name="idBanco"
           #idBanco="ngModel"
           [(ngModel)]="kardexService.formOrdencompra.idBanco"
@@ -286,7 +290,14 @@
           <option *ngFor="let banco of bancos" value="{{ banco.id }}">
             {{ banco.descripcion_banco }}
           </option>
-        </select>
+        </select>  
+    
+
+
+
+
+
+
       </div>
     </div>
     <div class="col-md-4">

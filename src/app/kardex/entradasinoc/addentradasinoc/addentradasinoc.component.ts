@@ -12,6 +12,7 @@ import { DataEmpleado } from '../../../models/empleado';
 import { DataTipoIngreso } from '../../../models/tipoingreso';
 import { DetalleentradasinocComponent } from '../detalleentradasinoc/detalleentradasinoc.component';
 import { DataDetalleEntradasinOc } from '../../../models/detalleEntradasinOc';
+import { DataTipoMoneda } from '../../../models/tipo-moneda';
 
 @Component({
   selector: 'app-addentradasinoc',
@@ -23,6 +24,7 @@ export class AddentradasinocComponent implements OnInit {
   empleados: DataEmpleado[];
   productos: DataProducto[]; 
   tipoingresos:DataTipoIngreso[] ;
+  tipoMoneda:DataTipoMoneda[]=[];
   isButtonVisible:boolean=true; 
   // detalleIngresosinOc: DataDetalleEntradasinOc[] = [];
   isValid:boolean = true;
@@ -52,7 +54,11 @@ export class AddentradasinocComponent implements OnInit {
     this.tipoingresos = resp as DataTipoIngreso[]   
    //  console.log(resp);
  });
-    
+ this.mantenimientosService.getTipoMoneda().subscribe((resp) => {
+  this.tipoMoneda = resp as DataTipoMoneda[]  
+
+
+});
   }
 
 
@@ -62,16 +68,16 @@ export class AddentradasinocComponent implements OnInit {
      this.kardexService.formDataIngresosinOc={        
       id:null,
       codigoIngresoSinOc: '',
-      idProveedor: 0,
-      idEmpleado:0,
-      idtipoIngreso:0,
+      idProveedor: null,
+      idEmpleado:null,
+      idtipoIngreso:null, //VER QUE SOLO FILTRE TODOS MENOS INGRESO NORMAL
       detalle:'',
       fechaIngreso:'',
       totalCosto:0,
        nombre_empleado:'',
       nombre_proovedor:'',
       descripcion_ingreso:'',
-      idTipoMoneda:0
+      idTipoMoneda:null
       // descuento_cot:0,
       // costo_envio:0,
      

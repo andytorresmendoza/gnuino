@@ -59,6 +59,10 @@ import { AddusuarioComponent } from './usuario/addusuario/addusuario.component';
 import { AuthGuard } from '../guards/auth.guard'; 
 import { ListarClienteComponent } from './cliente/listar-cliente/listar-cliente.component';
 import { AddClienteComponent } from './cliente/add-cliente/add-cliente.component';
+import { ListarPrecioVentaComponent } from './precioventa/listar-precio-venta/listar-precio-venta.component';
+import { AddPrecioVentaComponent } from './precioventa/add-precio-venta/add-precio-venta.component';
+import { ListarPrecioDeliveryComponent } from './preciodelivery/listar-precio-delivery/listar-precio-delivery.component';
+import { AddPrecioDeliveryComponent } from './preciodelivery/add-precio-delivery/add-precio-delivery.component';
  
 const routes: Routes = [
  
@@ -120,6 +124,11 @@ const routes: Routes = [
     //  {path:'editcliente', component: EditarClienteComponent, data:{titulo:'Cliente'}},
      {path:'listarcliente', component: ListarClienteComponent, data:{titulo:'Cliente'}},
      {path:'cliente/:id', component: AddClienteComponent, data:{titulo:'Cliente'}},
+     {path:'listarprecioventa', component: ListarPrecioVentaComponent, data:{titulo:'Precio Venta'}},
+     {path:'precioventa/:id', component: AddPrecioVentaComponent, data:{titulo:'Precio Venta'}},
+   
+     {path:'listarpreciodelivery', component: ListarPrecioDeliveryComponent, data:{titulo:'Precio Venta'}},
+     {path:'preciodelivery/:id', component: AddPrecioDeliveryComponent, data:{titulo:'Precio Delivery'}},
   ]
 
  },

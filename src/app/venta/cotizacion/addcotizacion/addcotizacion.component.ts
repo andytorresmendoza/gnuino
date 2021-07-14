@@ -14,15 +14,23 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DataProducto } from 'src/app/models/producto'; 
 import Swal from 'sweetalert2'; 
 import { DataCliente } from '../../../models/cliente';
+import { DataLinea } from '../../../models/linea';
+import { DataTipoCoti } from '../../../models/tipo-cotizacion';
+import { DataTipoMoneda } from '../../../models/tipo-moneda';
+import { DataDistrito } from '../../../models/countries';
 @Component({
   selector: 'app-addcotizacion',
   templateUrl: './addcotizacion.component.html',
   styleUrls: ['./addcotizacion.component.css']
 })
 export class AddcotizacionComponent implements OnInit {
-  proveedores: DataCliente[];
+  clientes: DataCliente[];
   empleados: DataEmpleado[];
   productos: DataProducto[];   
+  linea: DataLinea[];
+  tipocotizacion: DataTipoCoti[];
+  tipoMoneda:DataTipoMoneda[];
+  distritos: DataDistrito[] ;
   isValid:boolean = true;
   isButtonVisible:boolean=true; 
  
@@ -30,7 +38,9 @@ export class AddcotizacionComponent implements OnInit {
     // public kardexService: KardexService,  
      private dialog: MatDialog, private mantenimientosService: MantenimientosService,
     private toastr: ToastrService, private router: Router,private currentRoute: ActivatedRoute 
-    ) { }
+    ) {
+
+     }
 
   ngOnInit(): void {
 
@@ -38,8 +48,9 @@ export class AddcotizacionComponent implements OnInit {
     let id = this.currentRoute.snapshot.paramMap.get('id');
     if (id !== 'nuevo') {
       this.ventaService.getCotizacionById(+id).subscribe(res => {
+        console.log(res);
          this.ventaService.formData = res[0]; 
-        
+         
         this.ventaService.detalleCotizacion = res[0].detalleCotizacion;
  
        if (res[0].idEstadoFlujo ==  2 || res[0].idEstadoFlujo ==  3 ) {
@@ -61,7 +72,8 @@ export class AddcotizacionComponent implements OnInit {
  
    this.mantenimientosService.getCliente()
    .subscribe(resp => {
-     this.proveedores = resp as DataCliente[]  
+     this.clientes = resp as DataCliente[]  
+    //  console.log(this.clientes);
   });
    this.mantenimientosService.getEmpleado()
    .subscribe(resp => {
@@ -69,7 +81,46 @@ export class AddcotizacionComponent implements OnInit {
        this.empleados = resp as DataEmpleado[]  
  
   });
+  this.mantenimientosService.getLinea()
+  .subscribe(resp => {
+    this.linea = resp as DataLinea[]  
+ });
+ this.mantenimientosService.getTipoMoneda()
+ .subscribe(resp => {
+   this.tipoMoneda = resp as DataTipoMoneda[]  
+  //  console.log(resp);
+});
 
+ this.mantenimientosService.getTipCotizacion()
+ .subscribe(resp => {
+   this.tipocotizacion = resp as DataTipoCoti[]  
+});
+/*this.mantenimientosService.getDistritoAll()
+   .subscribe(resp => {  
+   this.distritos = (resp as DataDistrito[]).filter(
+     distritos=>distritos[0].idProvincia == 1401
+
+   ); 
+   }
+ );*/
+
+ this.mantenimientosService.getDistritoAll()
+   .subscribe(resp => {  
+   this.distritos = (resp).
+   filter(valor => valor.idProvincia === 1401 );
+  //  console.log( this.distritos);
+   } );
+
+
+
+/* console.log( this.distritos );
+ this.mantenimientosService.getProveedor().subscribe((resp) => {
+  this.proveedores = (resp as DataProveedor[])
+  .map(proveedores=>{
+    proveedores.nombre_proovedor = proveedores.nombre_proovedor.toUpperCase();
+    return proveedores;
+  });
+});*/
   }
 
 
@@ -79,21 +130,27 @@ export class AddcotizacionComponent implements OnInit {
      this.ventaService.formData={        
       id:null,
       nroCotizacion: '',
-      idProovedor: 0,
-      idEmpleado:0,
-      detalle:'',
-      fecha_entrega: '',
-      descuento_cot:0,
-      costo_envio:0,
-      total_costo:0,
-      codigo_cotizacion_num:'',
+      idTipoCotizacion:null, //ok
+      idCliente: null,//ok
+      idEmpleado:null,//ok
+      idLinea:null,//ok
+      detalle:'',//ok
+      fechaCotizacion: '',//ok
+      descuento_cot:0,//ok
+      costo_delivery:0,//ok
+      total_productos:0,//ok
+      idDistrito:null,//ok
+      totalGeneral:0,//ok
+      codigo_cotizacion_num_venta:'',
       estadoCotizacion: '',
       nombre_empleado:'',
-      nombre_proovedor:'',
-      idTipoMoneda:0,
-      totalGeneral:0,
-      telefono: '',
-      direccion:''
+      nombre_cliente:'',
+      idTipoMoneda:null,//ok
+      fechaEntrega:''
+     
+   //   telefono: '',
+     // direccion:''
+      
 
  };
 this.ventaService.detalleCotizacion = [];
@@ -136,26 +193,27 @@ this.ventaService.detalleCotizacion = [];
   }
   
   updateTotal(){
-   this.ventaService.formData.total_costo = this.ventaService.detalleCotizacion.reduce(
+   this.ventaService.formData.total_productos = this.ventaService.detalleCotizacion.reduce(
      (prev,curr)=>{
    
     let prevparse =  prev.toString();
-    let total =  curr.precio_total.toString();
-    // console.log('prev', parseInt(prevparse),'-',curr.precio_total); 
-       return   (parseFloat(prevparse)+ parseFloat(total)) 
-       
+    let total =  curr.precioVenta.toString(); 
+    let cantidad =  curr.cantidad.toString();  
+ 
+       return   (parseFloat(prevparse)+ (parseFloat(total) * parseFloat(cantidad))) 
+      //  return   (parseFloat(prevparse)+ ((parseFloat(total)) * (parseFloat(cantidad))) 
     } 
     
     ,0); 
-    this.ventaService.formData.total_costo  = parseFloat(this.ventaService.formData.total_costo.toFixed(2));
+    this.ventaService.formData.total_productos  = parseFloat(this.ventaService.formData.total_productos.toFixed(2));
  
 
   }
 
    updateMontoTotal(){
 
-    let porcentaje = (this.ventaService.formData.total_costo - (this.ventaService.formData.total_costo * (this.ventaService.formData.descuento_cot/100))).toString();
-    let costo_envio = this.ventaService.formData.costo_envio.toString()
+    let porcentaje = (this.ventaService.formData.total_productos - (this.ventaService.formData.total_productos * (this.ventaService.formData.descuento_cot/100))).toString();
+    let costo_envio = this.ventaService.formData.costo_delivery.toString()
 
     this.ventaService.formData.totalGeneral = (parseFloat(porcentaje) + parseFloat(costo_envio));
 
@@ -164,8 +222,8 @@ this.ventaService.detalleCotizacion = [];
   // console.log(this.kardexService.formData.totalGeneral );
     }
 
-   onChangeProveedor = ($event: any): void => {
-    this.ventaService.formData.nombre_proovedor= $event.nombre_proovedor; 
+    onChangeCliente = ($event: any): void => {
+    this.ventaService.formData.nombre_cliente= $event.nombre_cliente; 
      
    } 
   validateForm(){
@@ -182,7 +240,8 @@ this.ventaService.detalleCotizacion = [];
   
 
 onSubmit(form:NgForm) {
-  this.validateForm();
+  console.log(form.value);
+ this.validateForm();
   if ( form.invalid ) {
 
     Object.values( form.controls ).forEach( control => {
@@ -199,7 +258,7 @@ onSubmit(form:NgForm) {
       resp=>{
  
         this.toastr.success('Actualizado Exitosamente','Gnuino');
-       this.router.navigate(["../kardex/listarcotizacion"]);
+       this.router.navigate(["../venta/listarventa"]);
       }
     )
 }else{
@@ -208,9 +267,9 @@ onSubmit(form:NgForm) {
    this.ventaService.saveUpdateOrder().subscribe(res =>{
   
     this.resetForm();
-      this.toastr.success(res.msg );
-       this.router.navigate(["../kardex/listarcotizacion"]);
+    this.toastr.success(res.msg );
+        this.router.navigate(["../venta/listarventa"]);
   })
-}
+} 
 } 
 }

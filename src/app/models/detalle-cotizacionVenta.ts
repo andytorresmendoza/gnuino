@@ -6,16 +6,19 @@ export class DetalleCotizacionVentaI {
 
 export interface DataDetalleCotizacionVenta {
   id:number;/*hidenn */
-  idCotizacion:number;/*hidenn */
+  idCotizacionVenta:number;/*hidenn */
   codigo_cotizacion_num:string;
   idProducto:number;
   nombre_producto:string;
+  nombre_alamcen:string;
   cantidad:number;		
-  precio_unidad:number;
-  precio_total:number;
-  observaciones:string;   
+  precioVenta:number;
+  stock:number;
+//  cantidad precio_total:number;
+  observacion:string;   
   /*nuevo */
   detalleNameUnidadMedida :string;
+  idAlmacen:number;
 }
  
  

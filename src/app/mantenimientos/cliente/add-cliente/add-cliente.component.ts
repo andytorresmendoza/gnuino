@@ -66,16 +66,16 @@ this.mantenimientosServices.getTipodocumento()
       nombre_cliente: '',
       apellidos_pat_cliente: '',
       apellidos_mat_cliente:'',
-      sexo_cliente:'',
+      sexo_cliente: '',
       dni_cliente: '',
       direccion_cliente: '',
       telefono_cliente: '',
       email_cliente: '',
-      idTipoDocumento:0,
-      idPais: 0,
-      idDepartamento: 0,
-      idProvincia:0,
-      idDistrito:0,
+      idTipoDocumento:null,
+      idPais: null,
+      idDepartamento: null,
+      idProvincia:null,
+      idDistrito:null,
      
   }; 
   } 
@@ -95,6 +95,8 @@ this.mantenimientosServices.getTipodocumento()
 );
 } 
 
+
+ 
 getProvinciaAll(){ 
   this.mantenimientosServices.getProvinciaAll()
    .subscribe(response => { 

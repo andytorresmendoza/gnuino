@@ -30,6 +30,8 @@ import { UsuarioForm } from 'src/app/models/usuario';
 import { DataCliente } from '../../models/cliente';
 import { DataUsuario } from '../../models/usuario';
 import * as moment from 'moment';
+import { DataPrecioVenta } from 'src/app/models/precioVenta';
+import { DataPrecioDelivery } from 'src/app/models/precioDelivery';
  
 @Injectable({
   providedIn: 'root'
@@ -771,6 +773,73 @@ getLinea() {
     catchError(this.manejarError)
   );
  }
+
+ //PRECIO VENTA 
+ getPrecioVenta() {
+  return this.http
+    .get(this.baseURL + 'precio-venta')
+    .pipe(
+      map(resp=>resp['data']),
+      catchError(this.manejarError)
+    );  
+}
+getPrecioVentabyId(id: number) {
+  return this.http.get(this.baseURL+'precio-venta/'+ id)  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+  .pipe(
+    map(resp=>resp['data'])  
+  );
+
+}
+ updatePrecioVenta(data:DataPrecioVenta) {
+  let fechaParseada: any;
+  fechaParseada = moment(data.fechaVenta).format('YYYY-MM-DD');
+  data.fechaVenta=fechaParseada;
+  // console.log(data);
+return this.http.put(`${this.baseURL}precio-venta/${data.id}`, data);
+
+}  
+
+savePrecioVenta(data:DataPrecioVenta) {
+
+  let fechaParseada: any;
+  fechaParseada = moment(data.fechaVenta).format('YYYY-MM-DD');
+  data.fechaVenta=fechaParseada;
+  // console.log('desdeservic',data.fechaVenta); 
+  // console.log(data);
+return this.http.post(`${this.baseURL}precio-venta`, data).pipe(
+  map(
+    (resp) => resp['data']) 
+);
+} 
+//PRECIO DELIVERY 
+getPrecioDelivery() {
+  return this.http
+    .get(this.baseURL + 'costo-delivery')
+    .pipe(
+      map(resp=>resp['data']),
+      catchError(this.manejarError)
+    );  
+}
+getPrecioDeliverybyId(id: number) {
+  return this.http.get(this.baseURL+'costo-delivery/'+ id)  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+  .pipe(
+    map(resp=>resp['data'])  
+  );
+
+}
+ updatePrecioDelivery(data:DataPrecioDelivery) {
+ 
+return this.http.put(`${this.baseURL}costo-delivery/${data.id}`, data);
+
+}  
+
+savePrecioDelivery(data:DataPrecioDelivery) {
+ 
+return this.http.post(`${this.baseURL}costo-delivery`, data).pipe(
+  map(
+    (resp) => resp['data']) 
+);
+} 
 }
 
 

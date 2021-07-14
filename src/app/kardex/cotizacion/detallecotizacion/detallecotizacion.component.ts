@@ -39,7 +39,7 @@ if (this.data.orderItemIndex == null)
     this.formData = {
       id: null,
       idCotizacion: this.data.id,
-      idProducto: 0,
+      idProducto: null,
       nombre_producto: '',
       cantidad: 0,
       precio_unidad: 0,
@@ -68,11 +68,10 @@ if (this.data.orderItemIndex == null)
     
   }
   onChange = ($event: any): void => {
+    console.log($event);
     this.formData.nombre_producto= $event.nombre_producto; 
     this.formData.detalleNameUnidadMedida = $event.detalleUnidadMedida[0].detalle 
-    // console.log('nuevo',$event.nombre_producto);
-    // console.log($event.detalleUnidadMedida[0].detalle);
-    // console.log($event);
+ 
      
    }
 

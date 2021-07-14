@@ -28,7 +28,7 @@ export class ListarProductoComponent implements OnInit {
       this.dataSource.data = resp as DataProducto[]; 
       //  this.productos = resp; 
       // this.cargando = false;
-   console.log(resp); 
+  //  console.log(resp); 
    });
 
   }

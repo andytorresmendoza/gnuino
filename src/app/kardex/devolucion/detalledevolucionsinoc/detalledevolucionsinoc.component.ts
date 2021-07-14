@@ -42,7 +42,7 @@ export class DetalledevolucionsinocComponent implements OnInit {
         // cantidadGlobal:0,
         cantidadPrincipal: 0,
         cantidadDevolucion: 0,
-        idTipoDevolucion: 0,
+        idTipoDevolucion: null,
         idTipoIngreso: 0,
         detalleDevolucion: '',
         fechaDevolucion: '',

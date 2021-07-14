@@ -71,7 +71,7 @@ export class AddentradaalmacenComponent implements OnInit {
     this.kardexService.formDataEntrada = {
       id: null,  
       idCotizacion: 0,
-      idOrden: 0,
+      idOrden: null,
       idTipoIngreso:1  ,
       codigoIngreso:'',
       fechaIngreso:'',

@@ -1,0 +1,75 @@
+<h1><small>Precio Delivery</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../../listarpreciodelivery">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="formData"
+  (submit)="onSubmit(form)"
+>
+
+ 
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label> Nombre Empleado</label>
+        <ng-select  
+        #idEmpleado="ngModel"  
+        name="idEmpleado" 
+        bindValue="idEmpleado" 
+        placeholder="Buscar Empleado" 
+        [(ngModel)]="formData.idEmpleado"  
+      >   
+          <ng-option *ngFor="let emp of empleado" 
+          [value]="emp.id">{{emp.nombre_empleado}}</ng-option>
+       </ng-select> 
+      </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+          <label> Distrito</label>
+          <ng-select  
+        #idDistrito="ngModel"  
+        name="idDistrito" 
+        bindValue="idDistrito" 
+        placeholder="Buscar Distrito" 
+        [(ngModel)]="formData.idDistrito"  
+     
+      >   
+          <ng-option *ngFor="let emp of distritos" 
+          [value]="emp.id">{{emp.nombre_distrito}}</ng-option>
+       </ng-select> 
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Precio Delivery</label>
+          <input
+          type="number"
+            name="precioDelivery"
+            #precioDelivery="ngModel"
+            [(ngModel)]="formData.precioDelivery"
+            class="form-control"  
+          />
+        </div>
+      </div>
+    
+  </div>
+ 
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark" 
+  >
+    <i class="fa fa-database"></i> Guardar </button>
+   
+  </div>
+</form>

@@ -23,13 +23,13 @@
     #id="ngModel"
     [(ngModel)]="ventaService.formData.id"
   />
-  <input
+  <!-- <input
   type="hidden"
   name="fecha_entrega"
   #fecha_entrega="ngModel"
   [(ngModel)]="ventaService.formData.fecha_entrega"
 />
-<!-- EMPLEADO -->
+ 
    <input
   type="hidden"
   name="nombre_empleado"
@@ -42,22 +42,19 @@ name="idEmpleado"
 #idEmpleado="ngModel"
 [(ngModel)]="ventaService.formData.idEmpleado"
 />
-<!-- PROVEEDOR -->
+ 
   <input
 type="hidden"
-name="nombre_proovedor"
-#nombre_proovedor="ngModel"
-[(ngModel)]="ventaService.formData.nombre_proovedor"
+name="nombre_cliente"
+#nombre_cliente="ngModel"
+[(ngModel)]="ventaService.formData.nombre_cliente"
 />  
 <input
 type="hidden"
 name="idProovedor"
 #idProovedor="ngModel"
 [(ngModel)]="ventaService.formData.idProovedor"
-/>
-
- 
-
+/> 
 <input
 type="hidden"
 name="total_costo"
@@ -69,28 +66,183 @@ type="hidden"
 name="costo_envio"
 #costo_envio="ngModel"
 [(ngModel)]="ventaService.formData.costo_envio"
-/>
-
-
-<div class="row">
-  <div class="col-md-4">
+/> -->
+<div class="row"> 
+  <div class="col-xs-12 col-md-4">
     <div class="form-group">
-      <label> Cotización Nro.</label>
-      <input
-        name="codigo_cotizacion_num"
-        #codigo_cotizacion_num="ngModel"
-        [(ngModel)]="ventaService.formData.codigo_cotizacion_num"
-        class="form-control"
-        readonly
-      />
+      <label for="">Fecha Cotización</label>
+      <div class="input-group">
+        <input 
+        [matDatepicker]="picker2"
+        placeholder="DD/MM/YYYY" 
+        name="fechaCotizacion"
+        #fechaCotizacion="ngModel" 
+        [(ngModel)]="ventaService.formData.fechaCotizacion"
+        class="form-control"  
+        [class.is-invalid]="fechaCotizacion.invalid && fechaCotizacion.touched"
+          required 
+      />  
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+      </div>
+      <small *ngIf="fechaCotizacion.invalid && fechaCotizacion.touched"
+      class="form-text text-danger">Ingrese Fecha</small>
     </div>
-  </div></div>
+  </div>
+</div>
+ 
+  <div class="row"> 
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Tipo Cotización  </label>
+        <ng-select  
+          #idTipoCotizacion="ngModel"  
+          name="idTipoCotizacion" 
+          bindValue="idTipoCotizacion" 
+          placeholder="Buscar Tipo Cotización" 
+          [(ngModel)]="ventaService.formData.idTipoCotizacion"  
+        >   
+            <ng-option *ngFor="let emp of tipocotizacion" 
+            [value]="emp.id">{{emp.detalle_tcotizacion}}</ng-option>
+         </ng-select> 
+      </div> 
+    </div>
+    <div class="col-xs-12 col-md-4">
+      <div class="form-group">
+        <label for="">Fecha Entrega</label>
+        <div class="input-group">
+          <input 
+          [matDatepicker]="picker"
+          placeholder="DD/MM/YYYY" 
+          name="fechaEntrega"
+          #fechaEntrega="ngModel" 
+          [(ngModel)]="ventaService.formData.fechaEntrega"
+          class="form-control"  
+          [class.is-invalid]="fechaEntrega.invalid && fechaEntrega.touched"
+            required 
+        />  
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        </div>
+        <small *ngIf="fechaEntrega.invalid && fechaEntrega.touched"
+        class="form-text text-danger">Ingrese Fecha</small>
+      </div>
+    </div>
+  
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Distrito</label>
+        <ng-select  
+        #idDistrito="ngModel"  
+        name="idDistrito" 
+        bindValue="idDistrito" 
+        placeholder="Buscar Distrito" 
+        [(ngModel)]="ventaService.formData.idDistrito"  
+      >   
+          <ng-option *ngFor="let emp of distritos" [value]="emp.id">{{emp.nombre_distrito}}</ng-option>
+       </ng-select> 
+   
+      </div> </div>
+  </div>
 
+  <div class="row">
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Cotización Nro.  </label>
+        <input
+          name="codigo_cotizacion_num_venta"
+          #codigo_cotizacion_num_venta="ngModel"
+          [(ngModel)]="ventaService.formData.codigo_cotizacion_num_venta"
+          class="form-control"
+          readonly
+        />
+      </div> 
+    </div>
+  
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Cliente</label> 
+        <ng-select 
+        [items]="clientes"
+       bindLabel="nombre_cliente"
+       bindValue="id" 
+       placeholder="Buscar Clientes"
+       [(ngModel)]="ventaService.formData.idCliente"
+      
+        >
+        <!-- (change)="onChangeCliente($event)"  -->
+  
+  </ng-select>  
+      </div>
+    </div>
+    <div class="col-md-4">
+    <div class="form-group">
+      <label> Tipo Moneda</label>
+      <ng-select  
+      #idTipoMoneda="ngModel"  
+      name="idTipoMoneda" 
+      bindValue="idTipoMoneda" 
+      placeholder="Buscar Tipo Moneda" 
+      [(ngModel)]="ventaService.formData.idTipoMoneda"  
+    >   
+        <ng-option *ngFor="let emp of tipoMoneda" [value]="emp.id">{{emp.nombre_moneda}}</ng-option>
+     </ng-select> 
+ 
+    </div> </div>
+  </div>
 
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <label> Detalle</label>
+        <label>Empleado</label>
+  
+        <ng-select  
+        #idEmpleado="ngModel"  
+        name="idEmpleado" 
+        bindValue="idEmpleado" 
+        placeholder="Buscar Empleado" 
+        [(ngModel)]="ventaService.formData.idEmpleado"  
+      >   
+          <ng-option *ngFor="let emp of empleados" [value]="emp.id">{{emp.nombre_empleado}}</ng-option>
+       </ng-select> 
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Linea </label>
+        <ng-select  
+          #idLinea="ngModel"  
+          name="idLinea" 
+          bindValue="idLinea" 
+          placeholder="Buscar Linea" 
+          [(ngModel)]="ventaService.formData.idLinea"  
+        >   
+            <ng-option *ngFor="let emp of linea" 
+            [value]="emp.id">{{emp.detalle_linea}}</ng-option>
+         </ng-select> 
+      </div> 
+    </div>
+    <div class="col-md-4">
+    <div class="form-group">
+      <label> Monto Total</label>
+      <input
+        name="totalGeneral"
+        #totalGeneral="ngModel"
+        [(ngModel)]="ventaService.formData.totalGeneral"
+        class="form-control" 
+        readonly
+      /> 
+    </div>
+  
+    </div>
+    
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label> Detalle Cabecera</label>
         <input
         class="form-control" 
           type="text"
@@ -105,139 +257,65 @@ name="costo_envio"
         
         />
       
-       
       </div>
-      <!-- cambiar -->
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
       <div class="form-group">
-        <label> Telefono</label>
+        <label> Descuento Cotización %</label>
         <input
         type="number"
-          name="telefono"
-          #telefono="ngModel"
-          [(ngModel)]="ventaService.formData.telefono"
+          name="descuento_cot"
+          #descuento_cot="ngModel"
+          [(ngModel)]="ventaService.formData.descuento_cot"
           class="form-control"
           (keyup)="updateMontoTotal()"
         />
       </div>
-
-      <div class="form-group">
-        <label  for="inputAddress" class="form-label"> Fecha Cotización</label>
-        <!-- matInput -->
-        <input
-
-          [matDatepicker]="picker"
-          placeholder="DD/MM/YYYY" 
-          name="fecha_entrega"
-          #fecha_entrega="ngModel" 
-          [(ngModel)]="ventaService.formData.fecha_entrega"
-          class="form-control"  
-          [class.is-invalid]="fecha_entrega.invalid && fecha_entrega.touched"
-            required
-      
-        />
-        <small *ngIf="fecha_entrega.invalid && fecha_entrega.touched"
-        class="form-text text-danger">Ingrese Fecha</small>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </div>
     </div>
     <div class="col-md-4">
-      <div class="form-group">
-        <label>Empleado</label>
-
-        <ng-select  
-        #idEmpleado="ngModel"  
-        name="idEmpleado" 
-        bindValue="idEmpleado" 
-        placeholder="Buscar Empleado" 
-        [(ngModel)]="ventaService.formData.idEmpleado"  
-      >   
-          <ng-option *ngFor="let emp of empleados" [value]="emp.id">{{emp.nombre_empleado}}</ng-option>
-       </ng-select> 
-      </div>
-      <!-- cambiar -->
-      <div class="form-group">
-        <label> Dirección </label>
-        <input
-        type="number"
-          name="direccion"
-          #direccion="ngModel"
-          [(ngModel)]="ventaService.formData.direccion"
-          class="form-control"
-          (keyup)="updateMontoTotal()" 
-        />
-        <!-- (keyup)="updateMontoTotal()" -->
-      </div>
-      <div class="form-group">
-        <label> Tipo Moneda</label>
-
-        <select 
-        name="idTipoMoneda" 
-        #idTipoMoneda="ngModel" 
-        [(ngModel)]="ventaService.formData.idTipoMoneda"
-        class="form-control" 
-        [class.is-invalid]="!isValid && ventaService.formData.idTipoMoneda==0"
-      
-        >
-          <option value="0">-Seleccione Tipo Moneda-</option>
-          <option value="1">SOLES</option>
-          <option value="2">DOLARES</option>
-        
-        </select> 
-      </div> 
-      
+    <div class="form-group">
+      <label> Costo Delivery </label>
+      <input
+      type="number"
+        name="costo_delivery"
+        #costo_delivery="ngModel"
+        [(ngModel)]="ventaService.formData.costo_delivery"
+        class="form-control"
+        (keyup)="updateMontoTotal()" 
+      />
+ 
     </div>
-    <!-- {{ventaService.formData.fecha_entrega|| json}} -->
-    <!-- faltan -->
-    <div class="col-md-4">
-      <div class="form-group">
-        <label> Cliente</label> 
-        <ng-select 
-        [items]="proveedores"
-       bindLabel="nombre_cliente"
-       bindValue="id" 
-       placeholder="Buscar Cliente"
-       [(ngModel)]="ventaService.formData.idProovedor"
-       (change)="onChangeProveedor($event)" 
-        >
-         
-  
-  </ng-select>  
-      </div>
-      <div class="form-group">
-        <label> Total Producto</label>
+  </div>
+  <div class="col-md-4">
+  <div class="form-group">
+    <label> Total Producto</label>
         <input
-          name="total_costo"
-          #total_costo="ngModel"
-          [(ngModel)]="ventaService.formData.total_costo"
+          name="total_productos"
+          #total_productos="ngModel"
+          [(ngModel)]="ventaService.formData.total_productos"
           class="form-control"
           readonly
         />
-      </div>
-
-      <div class="form-group">
-        <label> Monto Total</label>
-        <input
-          name="totalGeneral"
-          #totalGeneral="ngModel"
-          [(ngModel)]="ventaService.formData.totalGeneral"
-          class="form-control"
-       
-        />
-        <!-- readonly -->
-      </div>
-    </div>
   </div>
+  </div>
+
+    </div>
+
+
 
   <!-- ORDER ITEMS TABLE -->
   <table class="table table-borderless">
     <thead class="thead-light">
       <th scope="col">#</th>
       <th>Nombre Producto</th>
-      <th>Cantidad</th>
-      <th>Unidad Medida</th>
+      <th>Unidad Medida</th> 
+      <th>Nombre Almacén</th>
+      <th>Cantidad Venta</th> 
       <th>Precio Venta</th>
-      <th>Precio Total</th>
+      <!-- <th>Precio Total</th> -->
       <th>Observaciones</th>
       <th>
         <a
@@ -261,12 +339,13 @@ name="costo_envio"
         <!--  <td>{{item.detalleProducto[0].nombre_producto}}</td>  detalleProducto[0].nombre_producto}}</td>   -->
         <!-- <td>{{item.detalleNameProducto}}</td>  -->
         <th scope="row">{{ i + 1 }}</th>
-        <td>{{ item.nombre_producto }}</td>
-        <td>{{ item.cantidad }}</td>
+        <td>{{ item.nombre_producto }}</td> 
         <td>{{item.detalleNameUnidadMedida}}</td>
-        <td>{{ item.precio_unidad }}</td>
-        <td>{{ item.precio_total }}</td>
-        <td>{{ item.observaciones }}</td>
+        <td>{{ item.nombre_alamcen }}</td> 
+        <td>{{ item.cantidad }}</td>
+        <td>{{ item.precioVenta }}</td>
+        <!-- <td>{{ item.precio_total }}</td> -->
+        <td>{{ item.observacion }}</td>
         <!-- {{item | json}}    -->
         <td>
           <a

@@ -1,20 +1,20 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MantenimientosComponent } from './mantenimientos.component';
- import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
- import { HomeComponent } from './home/home.component'; 
+import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import{AutocompleteLibModule} from 'angular-ng-autocomplete'
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 //nuevos
- import { MatDatepickerModule} from '@angular/material/datepicker';
-   import { MatNativeDateModule } from '@angular/material/core';
- 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 // MANTENIMIENTOS
 import { ListarNrocuentaComponent } from './nrocuenta/listar-nrocuenta/listar-nrocuenta.component';
-import { EditarNrocuentaComponent } from './nrocuenta/editar-nrocuenta/editar-nrocuenta.component'; 
+import { EditarNrocuentaComponent } from './nrocuenta/editar-nrocuenta/editar-nrocuenta.component';
 import { AddNrocuentaComponent } from './nrocuenta/add-nrocuenta/add-nrocuenta.component';
 import { AddCategoriaComponent } from './categoria/add-categoria/add-categoria.component';
 import { ListarCategoriaComponent } from './categoria/listar-categoria/listar-categoria.component';
@@ -64,45 +64,96 @@ import { EditaralmacenComponent } from './tipoalmacen/editaralmacen/editaralmace
 import { AddalmacenComponent } from './tipoalmacen/addalmacen/addalmacen.component';
 import { ListarusuarioComponent } from './usuario/listarusuario/listarusuario.component';
 import { AddusuarioComponent } from './usuario/addusuario/addusuario.component';
-import { AddClienteComponent } from './cliente/add-cliente/add-cliente.component'; 
+import { AddClienteComponent } from './cliente/add-cliente/add-cliente.component';
 import { ListarClienteComponent } from './cliente/listar-cliente/listar-cliente.component';
- 
 
 //material
-import {MatInputModule} from '@angular/material/input';
-   import { MatTableModule} from '@angular/material/table';
-   import {MatIconModule} from '@angular/material/icon';
-   import {MatButtonModule} from '@angular/material/button';
-   import { NgSelectModule } from '@ng-select/ng-select';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { ListarPrecioDeliveryComponent } from './preciodelivery/listar-precio-delivery/listar-precio-delivery.component';
+import { AddPrecioDeliveryComponent } from './preciodelivery/add-precio-delivery/add-precio-delivery.component';
+import { AddPrecioVentaComponent } from './precioventa/add-precio-venta/add-precio-venta.component';
+import { ListarPrecioVentaComponent } from './precioventa/listar-precio-venta/listar-precio-venta.component';
+
 @NgModule({
   declarations: [
     HomeComponent,
-    MantenimientosComponent,  
+    MantenimientosComponent,
     ListarNrocuentaComponent,
-    EditarNrocuentaComponent, 
-    AddNrocuentaComponent, AddCategoriaComponent, ListarCategoriaComponent, EditarCategoriaComponent, ListarModeloComponent, EditarModeloComponent, AddModeloComponent, ListarPerfilusuarioComponent, AddPerfilusuarioComponent, EditarPerfilusuarioComponent, ListarTipodocumentoComponent, EditarTipodocumentoComponent, AddTipodocumentoComponent, ListarEstadoflujoComponent, EditarEstadoflujoComponent, AddEstadoflujoComponent, ListarTipodevolucionComponent, EditarTipodevolucionComponent, AddTipodevolucionComponent, ListarTipoingresoComponent, EditarTipoingresoComponent, AddTipoingresoComponent, ListarTiposalidaComponent, EditarTiposalidaComponent, AddTiposalidaComponent, ListarTipopagoComponent, EditarTipopagoComponent, AddTipopagoComponent, AddUnidadmedidaComponent, ListarUnidadmedidaComponent, EditarUnidadmedidaComponent, ListarbancoComponent, EditarbancoComponent, AddbancoComponent, ListarProductoComponent, AddProductoComponent, ListarProveedorComponent, EditarProveedorComponent, AddProveedorComponent, ListarEmpleadoComponent, EditarEmpleadoComponent, AddEmpleadoComponent, ListaralmacenComponent, EditaralmacenComponent, AddalmacenComponent, ListarusuarioComponent, AddusuarioComponent, AddClienteComponent, ListarClienteComponent
-  
+    EditarNrocuentaComponent,
+    AddNrocuentaComponent,
+    AddCategoriaComponent,
+    ListarCategoriaComponent,
+    EditarCategoriaComponent,
+    ListarModeloComponent,
+    EditarModeloComponent,
+    AddModeloComponent,
+    ListarPerfilusuarioComponent,
+    AddPerfilusuarioComponent,
+    EditarPerfilusuarioComponent,
+    ListarTipodocumentoComponent,
+    EditarTipodocumentoComponent,
+    AddTipodocumentoComponent,
+    ListarEstadoflujoComponent,
+    EditarEstadoflujoComponent,
+    AddEstadoflujoComponent,
+    ListarTipodevolucionComponent,
+    EditarTipodevolucionComponent,
+    AddTipodevolucionComponent,
+    ListarTipoingresoComponent,
+    EditarTipoingresoComponent,
+    AddTipoingresoComponent,
+    ListarTiposalidaComponent,
+    EditarTiposalidaComponent,
+    AddTiposalidaComponent,
+    ListarTipopagoComponent,
+    EditarTipopagoComponent,
+    AddTipopagoComponent,
+    AddUnidadmedidaComponent,
+    ListarUnidadmedidaComponent,
+    EditarUnidadmedidaComponent,
+    ListarbancoComponent,
+    EditarbancoComponent,
+    AddbancoComponent,
+    ListarProductoComponent,
+    AddProductoComponent,
+    ListarProveedorComponent,
+    EditarProveedorComponent,
+    AddProveedorComponent,
+    ListarEmpleadoComponent,
+    EditarEmpleadoComponent,
+    AddEmpleadoComponent,
+    ListaralmacenComponent,
+    EditaralmacenComponent,
+    AddalmacenComponent,
+    ListarusuarioComponent,
+    AddusuarioComponent,
+    AddClienteComponent,
+    ListarClienteComponent,
+    ListarPrecioDeliveryComponent,
+    AddPrecioDeliveryComponent,
+    AddPrecioVentaComponent,
+    ListarPrecioVentaComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule,    
+    RouterModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     AutocompleteLibModule,
-  MatDatepickerModule,
+    MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
     MatTableModule,
     MatIconModule,
     MatButtonModule,
-    NgSelectModule
-   
+    NgSelectModule,
   ],
-  exports:[
-    HomeComponent,
-    MantenimientosComponent, 
-  ], 
+  exports: [HomeComponent, MantenimientosComponent],
 })
-export class MantenimientosModule { }
+export class MantenimientosModule {}

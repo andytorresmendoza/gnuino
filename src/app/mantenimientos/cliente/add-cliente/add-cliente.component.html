@@ -73,16 +73,20 @@
     <div class="col-md-3">
       <div class="form-group">
         <label> Tipo Documento</label>
-        <select  
-                name="idTipoDocumento" 
-                #idTipoDocumento="ngModel" 
-                [(ngModel)]="formData.idTipoDocumento"
-                class="form-control"  
-                >
- 
-                  <option value="0">-Select-</option>
-                  <option *ngFor="let tipodocumento of tipodocumentos" value="{{tipodocumento.id}}">{{tipodocumento.tipo_documento}}</option>
-                        </select>
+
+
+        <ng-select  
+        #idTipoDocumento="ngModel"  
+        name="idTipoDocumento" 
+        bindValue="idTipoDocumento" 
+        placeholder="Buscar Tipo Documento" 
+        [(ngModel)]="formData.idTipoDocumento"  
+     
+      >   
+          <ng-option *ngFor="let emp of tipodocumentos" 
+          [value]="emp.id">{{emp.tipo_documento}}</ng-option>
+       </ng-select> 
+      
       </div>
     </div>
     <div class="col-md-3">
@@ -197,7 +201,7 @@
           
           
             >
-              <option value="0">-Seleccione Sexo-</option>
+              <option value="">-Seleccione Sexo-</option>
               <option value="F">Femenino</option>
               <option value="M">Masculino</option>
             

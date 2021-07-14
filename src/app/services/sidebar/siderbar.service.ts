@@ -39,6 +39,8 @@ export class SiderbarService {
         {titulo:'Unidad de Medida', url:'../mantenimientos/listarunidadmedida'},
         {titulo:'Almacén', url:'../mantenimientos/listaralmacen'},
         {titulo:'Cliente', url:'../mantenimientos/listarcliente'},
+        {titulo:'Precio Venta', url:'../mantenimientos/listarprecioventa'},
+        {titulo:'Precio Delivery', url:'../mantenimientos/listarpreciodelivery'},
         
       ]
       
