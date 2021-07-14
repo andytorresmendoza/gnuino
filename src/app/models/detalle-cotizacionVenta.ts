@@ -10,7 +10,6 @@ export interface DataDetalleCotizacionVenta {
   codigo_cotizacion_num:string;
   idProducto:number;
   nombre_producto:string;
-  nombre_alamcen:string;
   cantidad:number;		
   precioVenta:number;
   stock:number;

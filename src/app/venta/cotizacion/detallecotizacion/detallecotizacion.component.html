@@ -19,12 +19,7 @@
   #nombre_producto="ngModel"
   [(ngModel)]="formData.nombre_producto"
 />
-<input
-type="hidden"
-name="nombre_alamcen"
-#nombre_alamcen="ngModel"
-[(ngModel)]="formData.nombre_alamcen"
-/>
+
 <!-- <input
 type="hidden"
 name="detalleProducto"
@@ -104,34 +99,17 @@ name="idAlmacen"
     <div class="col-md-4">
       <div class="form-group">
         <label> Almacén</label>
-
-
-       <ng-select 
-        [items]="almacen"
-       bindLabel="nombre_alamcen"
-       bindValue="idAlmacen" 
-       placeholder="Buscar Almacen"
-       [(ngModel)]="formData.idAlmacen" 
-       (change)="onChangeMatch(formData.idProducto, formData.idAlmacen)"
-       (change)="onChange2($event)"
-       
-        >
-  
-  </ng-select> 
-
-
-        <!-- <ng-select  
+        <ng-select  
       #idAlmacen="ngModel"  
       name="idAlmacen" 
       bindValue="idAlmacen" 
       placeholder="Eliga Almacén" 
       [(ngModel)]="formData.idAlmacen"   
       (change)="onChangeMatch(formData.idProducto, formData.idAlmacen)"
-      (change)="onChange2($event)"
     >   
         <ng-option *ngFor="let emp of almacen" 
         [value]="emp.id">{{emp.nombre_alamcen}}</ng-option>
-     </ng-select>   -->
+     </ng-select> 
       </div>
     
     </div> 

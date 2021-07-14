@@ -61,8 +61,7 @@ if (this.data.orderItemIndex == null)
     observacion: '',
     codigo_cotizacion_num: '',
     detalleNameUnidadMedida: '',
-    idAlmacen:null,
-    nombre_alamcen:''
+    idAlmacen:null
   }
 
   else
@@ -103,17 +102,6 @@ onChange = ($event: any): void => {
   // console.log($event);
    
  }
-
- onChange2 = ($event: any): void => {
-  this.formData.nombre_alamcen= $event.nombre_alamcen; 
-  console.log($event);
-  // this.formData.detalleNameUnidadMedida = $event.detalleUnidadMedida[0].detalle 
-  // console.log('nuevo',$event.nombre_producto);
-  // console.log($event.detalleUnidadMedida[0].detalle);
-  // console.log($event);
-   
- }
-
 
 onSubmit(form: NgForm) {
    console.log(form.value);
