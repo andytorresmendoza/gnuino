@@ -107,7 +107,7 @@ export class OrdencompraComponent implements OnInit {
   getCotizacionEstadoPendiente() {
     this.kardexService.getCotizacionEstadoPendiente().subscribe((resp) => {
       this.cotizaciones = resp as DataCotizacion[];
-    //  console.log(this.cotizaciones);
+     console.log(this.cotizaciones);
    
     });
   }
@@ -153,6 +153,9 @@ export class OrdencompraComponent implements OnInit {
   this.kardexService.formOrdencompra.descuento_cot = $event.descuento_cot;
   this.kardexService.formOrdencompra.total_costo = $event.total_costo; 
   this.kardexService.formOrdencompra.totalGeneral = $event.totalGeneral; 
+
+
+  
   let total_costo =  $event.total_costo.toString();
   let descuento_cot =  $event.descuento_cot.toString();
   let costo_envio =  $event.costo_envio.toString();
@@ -181,7 +184,7 @@ export class OrdencompraComponent implements OnInit {
     // console.log($event.id);
       this.kardexService.getCotizacionDetalleById($event.id).subscribe((response) => {
      this.detalleCotizaciones = response;
-      //  console.log('cotizaciondetalle', response);
+     console.log('cotizaciondetalle', response);
      });
   }
 

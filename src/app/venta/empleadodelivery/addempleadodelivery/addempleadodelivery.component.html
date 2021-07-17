@@ -1,0 +1,169 @@
+<h4 class="dispaly-4">Derivar Delivery - <b>{{formData.codigo_orden_num_venta}}</b></h4> 
+ 
+<hr />
+
+<form #form="ngForm" autocomplete="off"   *ngIf="formData" (submit)="onSubmit(form)">
+ 
+<input
+type="hidden" 
+name="idOrdenVenta"
+#idOrdenVenta="ngModel"
+[(ngModel)]="formData.id"
+/> 
+
+<!-- <input
+type="text" 
+name="idTipoPago"
+#idTipoPago="ngModel"
+[(ngModel)]="formData.idTipoPago"
+/>  -->
+<!-- <input
+type="text" 
+name="tipo"
+#tipo="ngModel"
+[(ngModel)]="formData.detalleTipoPago[0].descripcion_pago"
+/>  -->
+
+<!-- <input
+type="hidden" 
+name="idAlmacen1"
+#idAlmacen1="ngModel"
+[(ngModel)]="formData.idAlmacen1"
+/> 
+  -->
+  <div class="form-row"> 
+    <div class="col-md-4">
+        <div class="form-group">
+
+        <label>Nombre Cliente</label>
+    <input
+    type="text" 
+    name="nombreCliente"
+    #nombreCliente="ngModel"
+    [(ngModel)]="formData.detalleCotizacion[0].nombreCliente"
+    class="form-control"
+    disabled="disabled"
+    />
+</div>
+</div>    
+    <div class="col-md-4">
+        <div class="form-group">
+
+        <label>Tipo de Pago</label>
+    <input
+    type="text" 
+    name="tipoPago"
+    #tipoPago="ngModel"
+    [(ngModel)]="formData.detalleTipoPago[0].descripcion_pago"
+    class="form-control"
+    disabled="disabled"
+    />
+</div>
+</div>
+<div class="col-md-4">
+    <div class="form-group">
+
+    <label>Saldo A cobrar</label>
+<input
+type="number" 
+name="pagoParcial"
+#pagoParcial="ngModel"
+[(ngModel)]="formData.detalleCotizacion[0].totalGeneral - formData.pagoParcial"
+class="form-control"
+disabled="disabled"
+/>
+</div>
+</div>
+  </div>
+  <div class="form-row"> 
+
+    <div class="form-group col-md-4">
+
+        <label>Empleado</label>
+  
+        <ng-select  
+        #idEmpleado="ngModel"  
+        name="idEmpleado" 
+        bindValue="idEmpleado" 
+        placeholder="Buscar Empleado" 
+        [(ngModel)]="formData.idEmpleado"  
+        (change)="onChangeMatch(formData.idEmpleado, formData.idDistrito)"
+      >   
+          <ng-option *ngFor="let emp of empleados" [value]="emp.id">{{emp.nombre_empleado}}</ng-option>
+       </ng-select> 
+     </div>
+
+  <div class="form-group col-md-4"> 
+  
+        <label> Distrito</label>
+        <ng-select  
+        #idDistrito="ngModel"  
+        name="idDistrito" 
+        bindValue="idDistrito" 
+        placeholder="Buscar Distrito" 
+        [(ngModel)]=" formData.idDistrito"  
+        (change)="onChangeMatch(formData.idEmpleado, formData.idDistrito)"
+      >   
+          <ng-option *ngFor="let emp of distritos" [value]="emp.id">{{emp.nombre_distrito}}</ng-option>
+       </ng-select> 
+     </div>
+
+     <div class="form-group col-md-4">
+        <label>Precio Delivery </label>
+        <input
+          name="preciodelivery"
+          #preciodelivery="ngModel"
+          [(ngModel)]="formData.preciodelivery"
+          class="form-control"
+          readonly
+        />
+    </div> 
+     
+</div>  
+ 
+<div class="form-row"> 
+
+  <div class="col-xs-12 col-md-4">
+    <div class="form-group">
+      <label for="">Fecha Envio</label>
+      <div class="input-group">
+        <input 
+        [matDatepicker]="picker"
+        placeholder="DD/MM/YYYY" 
+        name="fechaEnvio"
+        #fechaEnvio="ngModel" 
+        [(ngModel)]="formData.fechaEnvio"
+        class="form-control"  
+        [class.is-invalid]="fechaEnvio.invalid && fechaEnvio.touched"
+          required 
+      />  
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      </div>
+      <small *ngIf="fechaEnvio.invalid && fechaEnvio.touched"
+      class="form-text text-danger">Ingrese Fecha</small>
+    </div>
+  </div>
+ 
+  <div class="col-md-8">
+    <label>Detalle Envio</label>
+    <input
+    type="text"
+      name="detalleEmpDev"
+      #detalleEmpDev="ngModel"
+      [(ngModel)]="formData.detalleEmpDev"
+      class="form-control"
+  
+    />
+  </div>
+</div>
+<br>
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark">
+      <i class="fa fa-database"></i> Guardar
+    </button>
+    <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]>
+      <i class="fa fa-close"></i> Salir
+    </button>
+  </div>
+</form>

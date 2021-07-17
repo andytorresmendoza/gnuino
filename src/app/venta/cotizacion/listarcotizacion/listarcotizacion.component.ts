@@ -37,13 +37,13 @@ export class ListarcotizacionComponent implements OnInit {
    this.dataSource.data = resp as DataCotizacionVenta[]; 
      this.cotizaciones = resp; 
     this.cargando = false;
-     console.log(resp);
+    //  console.log(resp);
 });
 } 
  
 
 openForEdit(CotizacionId: number) {
-console.log(CotizacionId,'editar');
+// console.log(CotizacionId,'editar');
    this.router.navigate(['venta/venta/'+CotizacionId]);
 }
 

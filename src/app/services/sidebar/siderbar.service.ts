@@ -69,7 +69,8 @@ export class SiderbarService {
       icono:'mdi mdi-cart',
       submenu: [  
       {titulo:'Cotización Venta', url:'../venta/listarventa'},
-      {titulo:'Orden Venta', url:'../venta/listarventa'},
+      {titulo:'Orden Venta', url:'../venta/listarordenventa'},
+      {titulo:'Pre-Delivery', url:'../venta/listarpredelivery'},
         // {titulo:'Venta', url:'../kardex/listarordencompra'}, 
        
       ]

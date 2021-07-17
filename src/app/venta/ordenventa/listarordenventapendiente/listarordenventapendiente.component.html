@@ -1,0 +1,110 @@
+<div class="col-md-12">
+    <div class="card"> 
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">Opciones</span>
+                    </a>
+                    <div class="dropdown-menu"> 
+                      <a class="dropdown-item" id="dropdown1-tab"[routerLink]="['../listarempleadoDelivery']" role="tab" data-toggle="tab" aria-controls="dropdown1">Listado Delivery</a> 
+                      <!-- <a class="dropdown-item" id="dropdown2-tab" [routerLink]="['../listarordenanulada']"  role="tab" data-toggle="tab" aria-controls="dropdown2">Anuladas</a>  -->
+                    </div>
+                </li> 
+            </ul> 
+    </div>
+    <!-- <div class="col text-right">
+      <button routerLink="/venta/ordenventa" class="btn btn-primary">
+        <i class="fa fa-plus"> Agregar </i>
+      </button>
+    </div> -->
+  </div> 
+   
+  <h1>Asignar Empleado Delivery</h1>
+  <mat-form-field>
+    <mat-label>Buscar</mat-label> 
+    <input matInput (keyup)="applyFilter($event)"   placeholder="Ingrese dato" #input>
+   
+  </mat-form-field>
+   
+   
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+    <!-- Position Column -->
+    <ng-container matColumnDef="Nro Orden">
+      <th mat-header-cell *matHeaderCellDef> Nro Orden </th>
+      <td mat-cell *matCellDef="let element" > {{element.codigo_orden_num_venta}} </td>
+     
+    </ng-container>
+  
+    
+   <ng-container matColumnDef="Cliente">
+      <th mat-header-cell *matHeaderCellDef> Cliente </th>
+      <td mat-cell *matCellDef="let element"> {{element.detalleCotizacion[0].nombreCliente}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="Empleado">
+      <th mat-header-cell *matHeaderCellDef> Empleado </th>
+      <td mat-cell *matCellDef="let element"> {{element.detalleCotizacion[0].nombreEmpleado}} </td>
+    </ng-container>
+  
+   
+   
+  
+    <ng-container matColumnDef="Fecha Entrega">
+      <th mat-header-cell *matHeaderCellDef> Fecha Entrega </th>
+      <td mat-cell *matCellDef="let element" > {{element.fechaEntrega }} </td>
+     
+    </ng-container>  
+
+    <ng-container matColumnDef="Pago Parcial">
+      <th mat-header-cell *matHeaderCellDef> Pago Parcial </th>
+      <td mat-cell *matCellDef="let element" > {{element.pagoParcial}} </td>
+     
+    </ng-container>
+    <ng-container matColumnDef="Total Orden">
+      <th mat-header-cell *matHeaderCellDef> Total </th>
+      <td mat-cell *matCellDef="let element" style="color:#0011fb" > {{element.detalleCotizacion[0].totalGeneral}} </td>
+     
+    </ng-container>
+
+    
+    <ng-container matColumnDef="Estado">
+      <th mat-header-cell *matHeaderCellDef> Estado </th>
+      <td mat-cell *matCellDef="let element">
+       
+          <label *ngIf="element.idEstadoFlujo == 2" class="badge bg-success"
+            >
+  
+            Cerrado</label
+          >
+          <label *ngIf="element.idEstadoFlujo == 1" class="badge bg-warning text-dark"
+            >Pendiente</label
+          >
+          <label *ngIf="element.idEstadoFlujo == 3" class="badge badge-danger"
+          >Anulado</label
+        > 
+      </td>
+    
+    </ng-container>
+
+
+    <ng-container matColumnDef="delivery" >
+      <th mat-header-cell *matHeaderCellDef> Delivery </th>
+      <td mat-cell *matCellDef="let element; let i = index " >
+        <button mat-icon-button color="black" (click)="openDelivery(i,element.id)"> 
+          <mat-icon> local_shipping</mat-icon>
+        </button>
+      </td>
+    
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No existe coincidencia con "{{input.value}}"</td>
+    </tr>
+   
+  </table>
+  

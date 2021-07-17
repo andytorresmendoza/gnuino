@@ -1,0 +1,384 @@
+<h1><small>Editar Orden Compra</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../../listarordenventa">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="ventaService.formOrdenVenta"
+  (submit)="onSubmit(form)"
+>
+
+<input type="hidden" name="idCotizacion" #idCotizacion="ngModel"
+[(ngModel)]="ventaService.formOrdenVenta.idCotizacion" />
+
+
+<div class="row">
+    <div class="col-md-4"> 
+        <label> Nro Orden </label>
+        <input 
+          name="codigo_orden_num_venta"
+          #codigo_orden_num_venta="ngModel"
+          [(ngModel)]="ventaService.formOrdenVenta.codigo_orden_num_venta"
+          class="form-control"  
+          readonly
+        />
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+          <label> Cliente </label>
+          <input 
+            name="nombreCliente"
+            #nombreCliente="ngModel"
+            [(ngModel)]="cotizacion.nombreCliente"
+            class="form-control"  
+            readonly
+          />
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-4">
+        <div class="form-group">
+          <label for="">Fecha Orden Compra</label>
+          <div class="input-group">
+            <input
+              [matDatepicker]="picker"
+              placeholder="DD/MM/YYYY"
+              name="fechaOrden"
+              #fechaOrden="ngModel"
+              [(ngModel)]="ventaService.formOrdenVenta.fechaOrden"
+              class="form-control"
+              [class.is-invalid]="fechaOrden.invalid && fechaOrden.touched"
+              required
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker
+              #picker 
+            ></mat-datepicker>
+          </div>
+          <small
+            *ngIf="fechaOrden.invalid && fechaOrden.touched"
+            class="form-text text-danger"
+            >Ingrese Fecha</small
+          >
+        </div>
+      </div>  
+     
+</div>
+
+<div class="row"> 
+    <div class="col-md-4">
+        <div class="form-group">
+          <label> Empleado </label>
+          <input
+         
+            name="nombreEmpleado"
+            #nombreEmpleado="ngModel"
+            [(ngModel)]="cotizacion.nombreEmpleado"
+            class="form-control"  
+            readonly
+          />
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="inputAddress" class="form-label">Tipo Linea</label>
+          <select
+            name="idLinea"
+            #idLinea="ngModel"
+            [(ngModel)]="cotizacion.idLinea"
+            class="form-control"
+            disabled="disabled"
+          >
+            >
+  
+            <option value="0">-Select-</option>
+            <option *ngFor="let li of linea" value="{{ li.id }}">
+              {{ li.detalle_linea }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="inputAddress" class="form-label">Moneda</label>
+          <select
+            name="idTipoMoneda"
+            #idTipoMoneda="ngModel"
+            [(ngModel)]="cotizacion.idTipoMoneda"
+            class="form-control"
+            disabled="disabled"
+          >
+            <option value="0">-Select-</option>
+            <option
+              *ngFor="let moneda of tipoMoneda"
+              value="{{ moneda.id }}"
+            >
+              {{ moneda.nombre_moneda }}
+            </option>
+          </select>
+        </div>
+      </div>
+  </div>
+  <div class="row"> 
+    <div class="col-md-4">
+        <div class="form-group">
+          <label> Distrito</label>
+          <select
+          name="idDistrito"
+          #idDistrito="ngModel"
+          [(ngModel)]="cotizacion.idDistrito"
+          class="form-control"
+          disabled="disabled"
+        >
+          <option value="0">-Select-</option>
+          <option
+            *ngFor="let dist of distritos"
+            value="{{ dist.id }}"
+          >
+            {{ dist.nombre_distrito }}
+          </option>
+        </select>
+        </div>
+      </div>  
+      <div class="col-xs-12 col-md-4">
+        <div class="form-group">
+          <label for="">Fecha Entrega</label>
+          <div class="input-group">
+            <input
+              [matDatepicker]="picker2"
+              placeholder="DD/MM/YYYY"
+              name="fechaEntrega"
+              #fechaEntrega="ngModel"
+              [(ngModel)]="ventaService.formOrdenVenta.fechaEntrega"
+              class="form-control"
+              [class.is-invalid]="fechaEntrega.invalid && fechaEntrega.touched"
+              required
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker2"
+            ></mat-datepicker-toggle>
+            <mat-datepicker
+              #picker2 
+            ></mat-datepicker>
+          </div>
+          <small
+            *ngIf="fechaEntrega.invalid && fechaEntrega.touched"
+            class="form-text text-danger"
+            >Ingrese Fecha</small
+          >
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label> Dirección Entrega</label>
+          <input
+            type="text"
+            name="direccion"
+            #direccion="ngModel"
+            [(ngModel)]="ventaService.formOrdenVenta.direccion"
+            class="form-control"
+          
+          />
+        </div>
+      </div> 
+  </div>
+  <div class="row"> 
+    <div class="col-md-4">
+        <div class="form-group">
+          <label> Pago a Cuenta</label>
+          <input
+            type="number"
+            name="pagoParcial"
+            #pagoParcial="ngModel"
+            [(ngModel)]="ventaService.formOrdenVenta.pagoParcial"
+            class="form-control"
+          
+          />
+        </div>
+      </div>  
+      <div class="col-md-4">
+        <div class="form-group">
+          <label> Forma Pago</label>
+      
+  
+          <ng-select
+          #idTipoPago="ngModel"
+          name="idTipoPago"
+          bindValue="idTipoPago"
+          placeholder="Buscar Forma de Pago"
+          [(ngModel)]="ventaService.formOrdenVenta.idTipoPago"
+        >
+          <ng-option *ngFor="let emp of tipopagos" [value]="emp.id">{{
+            emp.descripcion_pago
+          }}</ng-option>
+        </ng-select>
+  
+  
+  
+  
+  
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label> Banco</label>
+          <ng-select
+          #idBanco="ngModel"
+          name="idBanco"
+          bindValue="idBanco"
+          placeholder="Buscar Banco"
+          [(ngModel)]="ventaService.formOrdenVenta.idBanco"
+        >
+          <ng-option *ngFor="let banco of bancos" [value]="banco.id">{{
+            banco.descripcion_banco
+          }}</ng-option>
+        </ng-select> 
+        </div>
+      </div>
+  </div>
+
+  <div class="row"> 
+    <div class="col-md-4">
+        <div class="form-group">
+          <label> Nro Voucher</label>
+          <input
+            type="text"
+            name="numVoucher"
+            #numVoucher="ngModel"
+            [(ngModel)]="ventaService.formOrdenVenta.numVoucher"
+            class="form-control"
+          
+          />
+        </div>
+      </div> 
+      <div class="col-md-8">
+        <div class="form-group">
+          <label> Detalle</label>
+          <input
+            class="form-control"
+            type="text"
+            name="detalle"
+            placeholder="Detalle"
+            #detalle="ngModel"
+            [(ngModel)]="ventaService.formOrdenVenta.detalle"
+            class="form-control"
+            [class.is-invalid]="detalle.invalid && detalle.touched"
+            required
+            minlength="3"
+          />
+        </div>
+      </div>  
+  </div>
+  <table class="table table-borderless">
+    <thead class="thead-light">
+      <th scope="col">#</th>
+      <th>Nombre Producto</th>
+      <th>Unidad Medida</th> 
+      <th>Almacén</th>
+      <th>Cantidad</th> 
+      <th>Precio x Unidad</th> 
+      <th>Total x Producto</th> 
+      <th>Observaciones</th>
+
+
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let item of detalleCotizacionesVenta ;let i=index;">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>
+          <p>{{item.nombre_producto}}</p>
+          <!-- <p *ngFor="let deta of item.detalleCotizacion">{{deta.nombre_producto}}</p> -->
+        </td>
+        <td>
+            <p>{{item.detalleNameUnidadMedida}}</p>
+            <!-- <p *ngFor="let deta of item.detCotizacion">{{deta.detalleNameUnidadMedida}}</p> -->
+          </td>
+      
+       
+        <td>
+            <p>{{item.detalleNameAlmacen}}</p>
+            <!-- <p *ngFor="let deta of item.detCotizacion">{{deta.detalleNameUnidadMedida}}</p> -->
+          </td>
+          <td>
+            <p>{{item.cantidad}}</p>
+  
+          </td>
+
+        <td>
+          <p>{{item.precioVenta}}</p>
+
+        </td> 
+        <td>
+            <p>{{item.cantidad * item.precioVenta | number : '1.2-2'}}</p>
+  
+          </td> 
+        <td>
+          <p>{{item.observacion}}</p>
+
+        </td>
+
+        <!-- {{item | json}}   -->
+      </tr>
+    </tbody>
+  </table>
+  <hr />
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="form-label">Descuento Cotización</label>
+        <input type="text" name="descuento_cot" #descuento_cot="ngModel" 
+        [(ngModel)]="cotizacion.descuento_cot"
+          class="form-control" disabled="disabled" />
+      </div>
+
+    </div>
+
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="form-label">Costo Delivery</label>
+        <input type="text" name="costo_delivery" #costo_delivery="ngModel" 
+        [(ngModel)]="cotizacion.costo_delivery"
+          class="form-control" disabled="disabled" />
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="form-label">Total Productos</label>
+        <input type="text" name="total_productos" #total_productos="ngModel"
+         [(ngModel)]="cotizacion.total_productos"
+          class="form-control" disabled="disabled" />
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label class="form-label">Total General</label>
+        <input type="text" name="totalGeneral" #totalGeneral="ngModel"
+         [(ngModel)]="cotizacion.totalGeneral"
+          class="form-control" disabled="disabled" />
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark" *ngIf="this.isButtonVisible"><i class="fa fa-database"></i>
+      Actualizar</button>
+    <a class="btn btn-outline-dark ml-1" routerLink="../../listarordenventa"><i class="fa fa-close"></i> Ver
+      Ordenes</a>
+
+  </div>
+
+</form>

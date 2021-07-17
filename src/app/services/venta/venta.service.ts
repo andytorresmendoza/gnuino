@@ -12,6 +12,8 @@ import { ToastrService } from 'ngx-toastr';
 import { DataCotizacionVenta } from '../../models/cotizacionventa';
 import { DataDetalleCotizacionVenta } from '../../models/detalle-cotizacionVenta';
 import { map, tap, delay, catchError, repeat } from 'rxjs/operators';
+import { DataOrdenVenta } from 'src/app/models/ordenVenta';
+import { DatEmpleadoDelivery } from 'src/app/models/empleadodelivery';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +24,13 @@ export class VentaService {
  formData: DataCotizacionVenta; 
   detalleCotizacion: DataDetalleCotizacionVenta[];
 
+// ORDEN VENTA
 
+  // Orden Compra
+  formOrdenVenta: DataOrdenVenta; 
+ //PRE DELIVERY
+ 
+ detalleDelivery:DatEmpleadoDelivery[];
 
   constructor(private http: HttpClient, private toastr: ToastrService) {
     this.headers.append('Content-Type', 'application/json');
@@ -109,5 +117,116 @@ export class VentaService {
     
     
   }
+
+  MatcPrecioVelivery(idEmpleado: number,idDistrito:number) {
+
+    // let nuevoArregloTemp=[];
+    return this.http.get(`${this.baseURL}precio-delivery/empleado/`+idEmpleado +`/distrito/`+ idDistrito).pipe(
+    //  map((resp) => nuevoArregloTemp.push(resp)) 
+    map((resp) => resp)
+    );
+    
+    
+  }
+
+// COTIZACIONES PENDIENTES
+
+getCotizacionVentaEstadoPendiente() {
+  return this.http
+    .get(this.baseURL + 'cotizaciones-venta-pendientes')
+    .pipe(map((resp) => resp['data']));
+}
+
+getCotizacionVentaDetalleById(id: number) {
+  return this.http.get(`${this.baseURL}cotizacion-venta-detalle/` + id).pipe(
+    map((resp) => resp['data']),
+    catchError(this.manejarError)
+  );
+}
+  //ORDEN 
+
+  getOrdenVentaPendiente() {
+    return this.http
+      .get(this.baseURL + 'orden-venta-pendientes')
+      .pipe(map((resp) => resp['data']));
+  }
+  getOrdenVenta() {
+    return this.http
+      .get(this.baseURL + 'orden-venta')
+      .pipe(map((resp) => resp['data']));
+  }
+  SaveOrdenVenta() {
+    var body = {
+      ...this.formOrdenVenta,
+    };
+    let fechaParseada: any;
+    fechaParseada = moment(body.fechaEntrega).format('YYYY-MM-DD');
+    body.fechaEntrega=fechaParseada;
+    let fechaParseada2: any;
+    fechaParseada2 = moment(body.fechaOrden).format('YYYY-MM-DD');
+    body.fechaOrden=fechaParseada2;
+     
+    // console.log(body);
+    return this.http.post(`${this.baseURL}orden-venta`, body);
+  }
+
+  getOrdenCompraVentaById(id: number) {
+    return this.http.get(`${this.baseURL}orden-venta/` + id).pipe(
+      map((resp) => resp['data']),
+      catchError(this.manejarError)
+    );
+  }
+  UpdateOrderVenta(id: number) {
+    const body = {
+      ...this.formOrdenVenta,
+    };
+    let fechaParseada: any;
+    fechaParseada = moment(body.fechaEntrega).format('YYYY-MM-DD');
+    body.fechaEntrega=fechaParseada;
+    let fechaParseada2: any;
+    fechaParseada2 = moment(body.fechaOrden).format('YYYY-MM-DD');
+    body.fechaOrden=fechaParseada2;
+    // console.log('servicio', id);
+    return this.http.put(`${this.baseURL}orden-venta/` + id, body).pipe(
+      map((resp) => resp['data'])
+       
+    );
+  }
+// ASIGNACION DELIVERY
+
+ //ORDEN 
+ getListarPreDelivery() {
+  return this.http
+    .get(this.baseURL + 'empleado-delivery')
+    .pipe(map((resp) => resp['data']));
+}
+GuardaEmpleadoDelivery(data:DatEmpleadoDelivery) {   
+  // console.log(data , 'salida');  
+
+  const body ={
+    ...this.detalleDelivery
+  }
+  // console.log(body,'body');
+  return this.http.post(`${this.baseURL}empleado-delivery`, body).pipe(
+    map((resp) => 
+  resp['data']) 
+  ); 
+} 
+getEditarPreDeliveryId(id: number) {
+  return this.http.get(`${this.baseURL}empleado-delivery/` + id).pipe(
+    map((resp) => resp['data']),
+    catchError(this.manejarError)
+  );
+}
+updateEmpleadoDelivery(data:DatEmpleadoDelivery) {
+    
+  // console.log(data);
+return this.http.put(`${this.baseURL}empleado-delivery/${data.id}`, data);
+
+} 
+EstadoAnularDelivery(id: number, bodyform:any) {
+  // console.log(id,bodyform );
+  return this.http.put(`${this.baseURL}empleado-delivery/` + id, bodyform);
+}
 }
 

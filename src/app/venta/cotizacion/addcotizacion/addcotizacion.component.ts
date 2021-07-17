@@ -240,7 +240,7 @@ this.ventaService.detalleCotizacion = [];
   
 
 onSubmit(form:NgForm) {
-  console.log(form.value);
+  // console.log(form.value);
  this.validateForm();
   if ( form.invalid ) {
 

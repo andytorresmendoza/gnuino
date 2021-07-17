@@ -1,0 +1,122 @@
+ <h4 class="dispaly-4">Derivar Delivery  </h4>  
+
+ 
+<hr />
+
+<form #form="ngForm" autocomplete="off"   *ngIf="formData" (submit)="onSubmit(form)">
+ 
+<input
+type="hidden" 
+name="id"
+#id="ngModel"
+[(ngModel)]="formData.id"
+/> 
+
+ 
+<div class="form-row">   
+  <div class="form-group col-md-4">
+    <label>Nro Delivery</label>
+    <input
+    type="text"
+      name="codigo_empdel_num_venta"
+      #codigo_empdel_num_venta="ngModel"
+      [(ngModel)]="formData.codigo_empdel_num_venta"
+      class="form-control"
+      readonly
+    />
+</div>
+</div>
+  <div class="form-row">   
+
+    <div class="form-group col-md-4">
+
+        <label>Empleado</label>
+  
+        <ng-select  
+        #idEmpleado="ngModel"  
+        name="idEmpleado" 
+        bindValue="idEmpleado" 
+        placeholder="Buscar Empleado" 
+        [(ngModel)]="formData.idEmpleado"  
+        (change)="onChangeMatch(formData.idEmpleado, formData.idDistrito)"
+      >   
+          <ng-option *ngFor="let emp of empleados" [value]="emp.id">{{emp.nombre_empleado}}</ng-option>
+       </ng-select> 
+     </div>
+
+  <div class="form-group col-md-4"> 
+  
+        <label> Distrito</label>
+        <ng-select  
+        #idDistrito="ngModel"  
+        name="idDistrito" 
+        bindValue="idDistrito" 
+        placeholder="Buscar Distrito" 
+        [(ngModel)]=" formData.idDistrito"  
+        (change)="onChangeMatch(formData.idEmpleado, formData.idDistrito)"
+      >   
+          <ng-option *ngFor="let emp of distritos" [value]="emp.id">{{emp.nombre_distrito}}</ng-option>
+       </ng-select> 
+     </div>
+
+     <div class="form-group col-md-4">
+        <label>Precio Delivery </label>
+        <input
+          name="preciodelivery"
+          #preciodelivery="ngModel"
+          [(ngModel)]="formData.preciodelivery"
+          class="form-control"
+          readonly
+        />
+    </div> 
+     
+</div>  
+<!--SEGUNDA FILA-->
+<div class="form-row"> 
+
+  <div class="col-xs-12 col-md-4">
+    <div class="form-group">
+      <label for="">Fecha Envio</label>
+      <div class="input-group">
+        <input 
+        [matDatepicker]="picker"
+        placeholder="DD/MM/YYYY" 
+        name="fechaEnvio"
+        #fechaEnvio="ngModel" 
+        [(ngModel)]="formData.fechaEnvio"
+        class="form-control"  
+        [class.is-invalid]="fechaEnvio.invalid && fechaEnvio.touched"
+          required 
+      />  
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      </div>
+      <small *ngIf="fechaEnvio.invalid && fechaEnvio.touched"
+      class="form-text text-danger">Ingrese Fecha</small>
+    </div>
+  </div>
+ 
+  <div class="col-md-8">
+    <label>Detalle Envio</label>
+    <input
+    type="text"
+      name="detalleEmpDev"
+      #detalleEmpDev="ngModel"
+      [(ngModel)]="formData.detalleEmpDev"
+      class="form-control"
+  
+    />
+  </div>
+</div>
+<br>
+
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark">
+      <i class="fa fa-database"></i> Guardar
+    </button>
+    <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]>
+      <i class="fa fa-close"></i> Salir
+    </button>
+  </div>
+</form>

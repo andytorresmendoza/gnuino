@@ -104,7 +104,7 @@ onChange = ($event: any): void => {
  }
 
 onSubmit(form: NgForm) {
-   console.log(form.value);
+  //  console.log(form.value);
   if (this.validateForm(form.value)) {
     if (this.data.orderItemIndex == null) 
 this.ventaService.detalleCotizacion.push(form.value);  
