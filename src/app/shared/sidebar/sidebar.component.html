@@ -5,15 +5,10 @@
     <nav class="sidebar-nav">
       <ul id="sidebarnav">
         <li class="user-profile">
-          <a
-            class="has-arrow waves-effect waves-dark"
-            href="#"
-            aria-expanded="false"
-            ><img src="./assets/images/users/profile.png" alt="user" /><span
-              class="hide-menu"
-              >Andy Torres
-            </span></a
-          >
+          <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img
+              src="./assets/images/users/profile.png" alt="user" /><span
+              class="hide-menu">{{perfilUsuario[0].nombre_empleado}}
+            </span></a>
           <ul aria-expanded="false" class="collapse">
             <!-- <li><a href="javascript:void()">My Profile </a></li>
                         <li><a href="javascript:void()">My Balance</a></li>
@@ -26,26 +21,21 @@
         <li class="nav-devider"></li>
         <li class="nav-small-cap">PERSONAL</li>
         <li *ngFor="let item of menuItems">
-            <a
-              class="has-arrow waves-effect waves-dark"
-              href="#"
-              aria-expanded="false">
-              <i class="{{item.icono}}"></i
-              ><span class="hide-menu" routerLinkActive="active"
-                >{{item.titulo}}
-                <span class="label label-rouded label-themecolor pull-right">
-                  {{item.submenu.length}}
-                </span></span></a>
-            <ul aria-expanded="false" class="collapse">
-              <li  *ngFor="let subMenuItem of item.submenu">
-                <a routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="subMenuItem.url">
+          <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+            <i class="{{item.icono}}"></i><span class="hide-menu" routerLinkActive="active">{{item.titulo}}
+              <span class="label label-rouded label-themecolor pull-right">
+                {{item.submenu.length}}
+              </span></span></a>
+          <ul aria-expanded="false" class="collapse">
+            <li *ngFor="let subMenuItem of item.submenu">
+              <a routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" [routerLink]="subMenuItem.url">
                 {{subMenuItem.titulo}}
-                </a>
-              </li>
-  
-             
-            </ul>
-          </li>
+              </a>
+            </li>
+
+
+          </ul>
+        </li>
         <!-- <li>
           <a
             class="has-arrow waves-effect waves-dark"

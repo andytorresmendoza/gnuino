@@ -14,6 +14,7 @@ export interface DatEmpleadoDelivery {
   fechaEnvio:string;
   detalleEmpDev:string;
   codigo_empdel_num_venta:string;
+  idDistrito:number;
 
   
 

@@ -19,6 +19,7 @@ export class EditarempleadodeliveryComponent implements OnInit {
   empleados: DataEmpleado[];
   distritos: DataDistrito[] ;
   numeracion:any[];
+  isButtonVisible:boolean=true;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<EditarempleadodeliveryComponent>,
@@ -33,8 +34,15 @@ export class EditarempleadodeliveryComponent implements OnInit {
   //  let id = this.currentRoute.snapshot.paramMap.get('id');
 
     this.ventaService.getEditarPreDeliveryId(this.data.id).subscribe(res => {
-      // console.log(res,'poppup'); 
+    // console.log(res,'poppup'); 
         this.formData = res[0]; 
+        this.onChangeMatch (this.formData.idEmpleado, this.formData.idDistrito);
+        
+        if (res[0].idEstadoFlujo ==  2 || res[0].idEstadoFlujo ==  3 ) {
+          this.isButtonVisible=false;
+         } else { 
+          this.isButtonVisible=true;
+         } 
         // this.numeracion =res[0].detalleOrdenVenta[0];
         // console.log(res[0].detalleOrdenVenta[0].codigo_orden_num_venta);
       }); 

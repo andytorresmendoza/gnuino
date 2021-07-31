@@ -3,6 +3,7 @@ npm install sweetalert2
 npm install datetimepicker 
  npm install xlsx --save
 npm install file-saver --save
+npm install jwt-decode --save
 git add .
 git status
 git remote add origin https://github.com/andytorresmendoza/Gnuinov1.git

@@ -25,6 +25,7 @@ export interface DataOrdenVenta {
   costo_delivery:number;
   total_productos:number;
   totalGeneral:number;
+  codigo_orden_num_venta:string;
  
   /*idProovedor:           number;
   idEmpleado:            number;

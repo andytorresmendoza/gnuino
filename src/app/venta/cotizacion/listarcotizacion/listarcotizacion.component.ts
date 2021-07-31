@@ -15,7 +15,7 @@ import { DataCotizacionVenta } from 'src/app/models/cotizacionventa';
 export class ListarcotizacionComponent implements OnInit {
   cotizaciones:DataCotizacionVenta[]=[];
   cargando = true; 
-
+  // isButtonVisible:boolean=true;
   displayedColumns: string[] = ['Nro Cotizacion', 'Proveedor', 'Empleado', 'Total', 'Fecha Entrega','Estado','details','Anular'];
   dataSource = new MatTableDataSource<DataCotizacionVenta>();
   applyFilter(event: Event) {
@@ -36,8 +36,13 @@ export class ListarcotizacionComponent implements OnInit {
  .subscribe(resp => {
    this.dataSource.data = resp as DataCotizacionVenta[]; 
      this.cotizaciones = resp; 
-    this.cargando = false;
-    //  console.log(resp);
+    //  if (resp[0].idEstadoFlujo ==  2 ) {
+    //   this.isButtonVisible=false;
+    //  } else { 
+    //   this.isButtonVisible=true;
+    //  } 
+    // this.cargando = false;
+    //   console.log(resp);
 });
 } 
  
@@ -61,7 +66,7 @@ openForEdit(CotizacionId: number) {
    }
  });
 } */
-/*
+ 
 EstadoCotizacionAnular(cotizaciones: DataCotizacionVenta, i: number) {
 console.log(cotizaciones,'1');
 console.log(i,'index');
@@ -69,7 +74,7 @@ console.log(i,'index');
  console.log(cotizaciones.id);
  Swal.fire({
    title: 'Esta seguro?',
-   text: `Que desea Anular la cotizacion Nro${cotizaciones.nroCotizacion}`,
+   text: `Que desea Anular la cotizacion Venta Nro${cotizaciones.nroCotizacion}`,
    icon: 'question',
    showConfirmButton: true,
    showCancelButton: true,
@@ -78,9 +83,9 @@ console.log(i,'index');
      
      this.cotizaciones.splice(i, 1);
      console.log( this.cotizaciones.splice(i, 1),'slice');
-     this.ventaService.EstadoCotizacionAnular(cotizaciones.id,bodyform).subscribe(
+     this.ventaService.EstadoCotizacionVentaAnular(cotizaciones.id,bodyform).subscribe(
        resp => {
-         this.toastr.error('Cotización Anulada');
+         this.toastr.error('Cotización Venta Anulada');
           this.ngOnInit();
 
      }
@@ -88,5 +93,5 @@ console.log(i,'index');
      );
    }
  });
-} */
+}  
 }

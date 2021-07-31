@@ -8,7 +8,7 @@ import { DataTipoAlmacen } from 'src/app/models/tipoalmacen';
 // import { KardexService } from 'src/app/services/kardex/kardex.service';
 import { MantenimientosService } from 'src/app/services/mantenimientos/mantenimientos.service';
 import { VentaService } from '../../../services/venta/venta.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-detallecotizacion',
   templateUrl: './detallecotizacion.component.html',
@@ -26,10 +26,7 @@ export class DetallecotizacionComponent implements OnInit {
     // public kardexService: KardexService,
     public ventaService: VentaService,
     private mantenimientosService: MantenimientosService
-  ) {
-
-
-   
+  ) { 
 
   }
 
@@ -61,12 +58,17 @@ if (this.data.orderItemIndex == null)
     observacion: '',
     codigo_cotizacion_num: '',
     detalleNameUnidadMedida: '',
-    idAlmacen:null
+    idAlmacen:null,
+    nombre_alamcen:''
   }
 
   else
-  this.formData = Object.assign({}, this.ventaService.detalleCotizacion[this.data.orderItemIndex]);
-    // console.log('dataentrada',this.formData);
+  // console.log(this.ventaService.detalleCotizacion,'QUE TRAE');
+  
+//  console.log(almacen, producto);
+  this.formData = Object.assign({},this.ventaService.detalleCotizacion[this.data.orderItemIndex]); 
+    this.onChangeMatch (this.ventaService.detalleCotizacion [this.data.orderItemIndex].idProducto, this.ventaService.detalleCotizacion[this.data.orderItemIndex].idAlmacen);
+ 
 }
 
  
@@ -88,13 +90,16 @@ if (this.data.orderItemIndex == null)
  
   }*/
 onChangeMatch (idProducto:number, idAlmacen:number)  {
+
   this.ventaService.MatchKardex(idProducto,idAlmacen).subscribe((resp:any) => { 
     this.formData.precioVenta = resp.precioVenta  
    this.formData.stock = resp.cantidad   
+  //  console.log(resp);
   }); 
  
    }
 onChange = ($event: any): void => {
+  
   this.formData.nombre_producto= $event.nombre_producto; 
   this.formData.detalleNameUnidadMedida = $event.detalleUnidadMedida[0].detalle 
   // console.log('nuevo',$event.nombre_producto);
@@ -103,9 +108,24 @@ onChange = ($event: any): void => {
    
  }
 
+ onChangeAlmacen = ($event: any): void => {
+  //  console.log($event);
+  this.formData.nombre_alamcen= $event.nombre_alamcen;  
+   
+ }
+
 onSubmit(form: NgForm) {
-  //  console.log(form.value);
-  if (this.validateForm(form.value)) {
+  console.log(form.value);
+  if(form.value.cantidad > form.value.stock ||  form.value.cantidad <= 0){
+    
+    return   Swal.fire({
+      title: 'Ingresar Cantidad Correcta' , 
+      icon: 'error',
+    });
+    // this.toastr.error('CANTIDAD INVALIDA');
+   }
+
+  else if (this.validateForm(form.value)) {
     if (this.data.orderItemIndex == null) 
 this.ventaService.detalleCotizacion.push(form.value);  
 

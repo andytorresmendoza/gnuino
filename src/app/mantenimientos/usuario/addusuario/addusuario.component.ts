@@ -45,7 +45,7 @@ export class AddusuarioComponent implements OnInit {
      this.formData={    
       username: '',
       password: '',
-      idEmpleado: 0
+      idEmpleado: null
     
 
  }; 

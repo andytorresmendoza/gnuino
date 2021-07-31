@@ -58,7 +58,28 @@
       <th mat-header-cell *matHeaderCellDef> Detalle Envio </th>
       <td mat-cell *matCellDef="let element"> {{element.detalleEmpDev}} </td>
     </ng-container>
- 
+    <ng-container matColumnDef="Estado">
+      <th mat-header-cell *matHeaderCellDef> Estado </th>
+      <td mat-cell *matCellDef="let element">
+       
+          <label *ngIf="element.idEstadoFlujo == 2" class="badge bg-success"
+            >
+  
+            Cerrado</label
+          >
+          <label *ngIf="element.idEstadoFlujo == 1" class="badge bg-warning text-dark"
+            >Pendiente</label
+          >
+         
+          <label *ngIf="element.idEstadoFlujo == 3" class="badge badge-danger"
+          >Anulado</label
+        > 
+        <label *ngIf="element.idEstadoFlujo == 4" class="badge bg-info text-dark"
+        >En Despacho</label
+      >
+      </td>
+    
+    </ng-container>
  
     <ng-container matColumnDef="details">
       <th mat-header-cell *matHeaderCellDef> Editar </th>
@@ -72,7 +93,7 @@
     <ng-container matColumnDef="Anular">
       <th mat-header-cell *matHeaderCellDef> Anular </th>
       <td mat-cell *matCellDef="let element; let i = index ">
-        <button mat-icon-button color="warn" (click)="EstadoAnular(element, i)"> 
+        <button mat-icon-button color="warn" (click)="EstadoAnularDelivery(element, i)"> 
           <mat-icon>delete_sweep</mat-icon>
         </button>
       </td>

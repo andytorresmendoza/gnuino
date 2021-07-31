@@ -58,8 +58,8 @@ export class AddEmpleadoComponent implements OnInit {
       email_empleado: '',
       fecha_empleado: '',
       idTipoDocumento:0,
-      idPerfilUsuario: 0,
-      idPais:0,
+      idPerfilUsuario: null,
+      idPais:null,
       estado:0 
   }; 
  

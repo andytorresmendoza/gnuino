@@ -2,13 +2,10 @@ import { Component,Inject, OnInit } from '@angular/core';
 import { KardexService } from '../../../services/kardex/kardex.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MantenimientosService } from '../../../services/mantenimientos/mantenimientos.service';
-import { DataProducto } from '../../../models/producto';
-import { DataDetalleCotizacion } from '../../../models/detalle-cotizacion';
+import { DataProducto } from '../../../models/producto'; 
 import { NgForm } from '@angular/forms';
 import { DataDetalleIngresoAlmacen } from '../../../models/detalle-ingresoalmacen';
  
-import { DataAlmacenPrincipal } from '../../../models/almacenPrincipal';
-import { DataAlmacenSecundario } from 'src/app/models/almacenSecundario';
 import Swal from 'sweetalert2';
 import { DataTipoAlmacen } from '../../../models/tipoalmacen';
 @Component({

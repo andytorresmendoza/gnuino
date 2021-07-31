@@ -13,7 +13,7 @@ import { DataUsuario } from '../../../models/usuario';
 })
 export class ListarusuarioComponent implements OnInit {
  
- displayedColumns: string[] = ['username','tipo_usuario'];
+ displayedColumns: string[] = ['username','Nombre Empleado','tipo_usuario'];
  dataSource = new MatTableDataSource<DataUsuario>();
   formdata:any[];
   applyFilter(event: Event) {
@@ -32,7 +32,7 @@ export class ListarusuarioComponent implements OnInit {
     this.mantenientoservice.getUsuario()
    .subscribe(resp => { 
     this.dataSource.data = resp as DataUsuario[]; 
-     // console.log(this.dataSource.data,'nuevo');
+     console.log(resp);
  
   });
  } 

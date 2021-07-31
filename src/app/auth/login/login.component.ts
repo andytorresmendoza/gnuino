@@ -15,8 +15,8 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent implements OnInit {
   // Respuesta :any
   public loginForm = this.fb.group({
-    username: [localStorage.getItem('username')|| '', Validators.required ], 
-    password: ['', Validators.required ],
+    username: [localStorage.getItem('username')|| 'soporte', Validators.required ], 
+    password: ['secret', Validators.required ],
     remember:[false]
      
     // terminos: [ true, Validators.required ],
@@ -27,24 +27,25 @@ export class LoginComponent implements OnInit {
   }
  
 login(){
-  // console.log(this.loginForm.value);
+ 
   this.authService.Login(this.loginForm.value)
   .subscribe((resp:any) => {  
     if(this.loginForm.get('remember').value){
       localStorage.setItem('username',this.loginForm.get('username').value);
     
-    }else{
+    }
+    else{
       localStorage.removeItem('username');
     }
-    // console.log(resp)
-    resp.code === 404 ?  
+  //  console.log(resp,'resouesta')
+    resp.code === 404 || resp.status === 422  ?  
     Swal.fire({
       title: resp.userMessage , 
       icon: 'error',
     }): 
     this.toastr.success('Bienvenido al Sistema');
-     this.router.navigate(['/dashboard']);
-  // console.log(this.loginForm.value);
+   this.router.navigate(['/dashboard']);
+ 
 
 }
   )

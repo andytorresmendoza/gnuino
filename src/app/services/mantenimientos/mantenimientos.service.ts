@@ -840,6 +840,13 @@ return this.http.post(`${this.baseURL}costo-delivery`, data).pipe(
     (resp) => resp['data']) 
 );
 } 
+getEstadoDelivery() {
+  return this.http.get(this.baseURL+ 'estado-delivery')  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+  .pipe(
+    map(resp=>resp['data']),
+    catchError(this.manejarError)
+  );
+ }
 }
 
 

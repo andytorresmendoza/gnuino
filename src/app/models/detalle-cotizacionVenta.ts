@@ -18,6 +18,7 @@ export interface DataDetalleCotizacionVenta {
   /*nuevo */
   detalleNameUnidadMedida :string;
   idAlmacen:number;
+  nombre_alamcen:string;
 }
  
  

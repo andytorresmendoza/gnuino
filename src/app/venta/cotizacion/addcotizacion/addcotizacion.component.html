@@ -312,6 +312,7 @@ name="costo_envio"
       <th scope="col">#</th>
       <th>Nombre Producto</th>
       <th>Unidad Medida</th>
+      <th>Almacén</th>
       <th>Cantidad Venta</th> 
       <th>Precio Venta</th>
       <!-- <th>Precio Total</th> -->
@@ -340,6 +341,7 @@ name="costo_envio"
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ item.nombre_producto }}</td> 
         <td>{{item.detalleNameUnidadMedida}}</td>
+        <td>{{item.nombre_alamcen}}</td>
         <td>{{ item.cantidad }}</td>
         <td>{{ item.precioVenta }}</td>
         <!-- <td>{{ item.precio_total }}</td> -->

@@ -51,6 +51,11 @@ export class VentaService {
       .get(this.baseURL + 'cotizacion-venta')
       .pipe(map((resp) => resp['data']));
   }
+  getCotizacionVentaAnulada() {
+    return this.http
+      .get(this.baseURL + 'cotizaciones-venta-inactivas')
+      .pipe(map((resp) => resp['data']));
+  }
 
   getCotizacionById(id: number) {
     return this.http.get(`${this.baseURL}cotizacion-venta/` + id).pipe(
@@ -104,8 +109,13 @@ export class VentaService {
   }
 
   deleteDetalleCotizacion(id: number) {
-    return this.http.delete(`${this.baseURL}cotizacion-detalle/${id}`);
+    return this.http.delete(`${this.baseURL}cotizacion-venta/${id}`);
   }
+
+  EstadoCotizacionVentaAnular(id: number, bodyform:any) {
+    // console.log(id,bodyform );
+    return this.http.put(`${this.baseURL}cotizacion-venta-estado/` + id, bodyform);
+ }
 
   MatchKardex(idProducto: number,idAlmacen:number) {
 
@@ -226,7 +236,39 @@ return this.http.put(`${this.baseURL}empleado-delivery/${data.id}`, data);
 } 
 EstadoAnularDelivery(id: number, bodyform:any) {
   // console.log(id,bodyform );
-  return this.http.put(`${this.baseURL}empleado-delivery/` + id, bodyform);
+  return this.http.put(`${this.baseURL}estado-delivery-empleado/` + id, bodyform);
+}
+
+getListarDeliveryById(id: number) {
+  return this.http.get(`${this.baseURL}pre-delivery/empleado/` + id).pipe(
+    map((resp) => resp['data']),
+    catchError(this.manejarError)
+  );
+}
+
+getListarDetalleDeliveryById(id: number,id2: number) {
+
+  // return this.http.get(`${this.baseURL}precio-delivery/empleado/`+idEmpleado +`/distrito/`+ idDistrito).pipe(
+  return this.http.get(`${this.baseURL}pre-delivery/empleado/` + id+`/`+id2).pipe(
+    map((resp) => resp['data']),
+    catchError(this.manejarError)
+  );
+}
+
+EstadoDelivery(id: number, bodyform:any) {
+  // console.log(id,bodyform );
+  return this.http.put(`${this.baseURL}estado-delivery-empleado/` + id, bodyform);
+}
+
+EstadoOrdenVentaAnular(id: number, bodyform:any) {
+  // console.log(id,bodyform );
+  return this.http.put(`${this.baseURL}orden-estado-venta/` + id, bodyform);
+}
+
+getOrdenVentaAnulada() {
+  return this.http
+    .get(this.baseURL + 'orden-venta-inactivas')
+    .pipe(map((resp) => resp['data']));
 }
 }
 

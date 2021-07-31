@@ -22,8 +22,14 @@
      
     </ng-container> 
 
+    <ng-container matColumnDef="Nombre Empleado">
+      <th mat-header-cell *matHeaderCellDef> Nombre Empleado </th>
+      <td mat-cell *matCellDef="let element" > {{element.detalleEmpleado[0].nombre_empleado}}, {{element.detalleEmpleado[0].apellidos_pat_empleado}} {{element.detalleEmpleado[0].apellidos_mat_empleado}} </td>
+     
+    </ng-container> 
+
     <ng-container matColumnDef="tipo_usuario">
-        <th mat-header-cell *matHeaderCellDef> Nombre Usuario </th>
+        <th mat-header-cell *matHeaderCellDef> Perfil </th>
         <td mat-cell *matCellDef="let element" > {{element.detalleEmpleado[0].detallePerfilUsuario[0].tipo_usuario}} </td>
        
       </ng-container> 

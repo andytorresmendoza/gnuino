@@ -13,7 +13,7 @@ export class AuthService {
   baseURL: string = environment.apiURL;
   authSubject = new BehaviorSubject(false);
   public token: string;
-
+ 
   constructor(private httpClient: HttpClient) {
     // console.log('entro auth');
   }

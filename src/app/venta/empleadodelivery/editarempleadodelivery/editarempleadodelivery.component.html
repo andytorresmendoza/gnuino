@@ -112,7 +112,7 @@ name="id"
 
 
   <div class="form-group">
-    <button type="submit" class="btn btn-dark">
+    <button type="submit" class="btn btn-dark" *ngIf="this.isButtonVisible">
       <i class="fa fa-database"></i> Guardar
     </button>
     <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]>

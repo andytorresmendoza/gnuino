@@ -8,20 +8,27 @@ export class SiderbarService {
 
   menu: any[] = [
     {
+      titulo:'Legajo',
+      icono:'mdi mdi-account',
+      submenu: [  
+        {titulo:'Empleado', url:'../mantenimientos/listarempleado'},
+ 
+      ]
+      
+    },
+    {
       titulo:'Seguridad',
       icono:'mdi mdi-account-key',
       submenu: [
         // {titulo:'Main', url:'mantenimientos'},
         {titulo:'Usuarios', url:'../mantenimientos/listarusuarios'},
-        {titulo:'Perfil Usuarios', url:'../mantenimientos/listarperfilusuario'},
-        {titulo:'Empleado', url:'../mantenimientos/listarempleado'},
-        {titulo:'Estado FLujo', url:'../mantenimientos/listarestadoflujo'},
+        {titulo:'Perfil Usuarios', url:'../mantenimientos/listarperfilusuario'}, 
         {titulo:'Tema', url:'../dashboard/account-settings'},
       ]
       
     },
     {
-      titulo:'Mantenimientos',
+      titulo:'Mantenimientos 1',
       icono:'mdi mdi-folder-multiple-outline',
       submenu: [
         // {titulo:'Main', url:'mantenimientos'},
@@ -31,13 +38,24 @@ export class SiderbarService {
         {titulo:'Modelo', url:'../mantenimientos/listarmodelo'},
         {titulo:'Producto', url:'../mantenimientos/listarproducto'},
         {titulo:'Proveedor', url:'../mantenimientos/listarproveedor'},
+        {titulo:'Estado FLujo', url:'../mantenimientos/listarestadoflujo'},
         {titulo:'Tipo Documento', url:'../mantenimientos/listartipodocumento'},
         {titulo:'Tipo Devolucion', url:'../mantenimientos/listartipodevolucion'},
         {titulo:'Tipo Ingreso', url:'../mantenimientos/listartipoingreso'},
         {titulo:'Tipo Salida', url:'../mantenimientos/listartiposalida'},
         {titulo:'Tipo Pago', url:'../mantenimientos/listartipopago'},
         {titulo:'Unidad de Medida', url:'../mantenimientos/listarunidadmedida'},
-        {titulo:'Almacén', url:'../mantenimientos/listaralmacen'},
+        {titulo:'Almacén', url:'../mantenimientos/listaralmacen'}
+     
+        
+      ]
+      
+    },
+    {
+      titulo:'Mantenimientos 2',
+      icono:'mdi mdi-folder-multiple-outline',
+      submenu: [
+
         {titulo:'Cliente', url:'../mantenimientos/listarcliente'},
         {titulo:'Precio Venta', url:'../mantenimientos/listarprecioventa'},
         {titulo:'Precio Delivery', url:'../mantenimientos/listarpreciodelivery'},
@@ -81,8 +99,8 @@ export class SiderbarService {
       icono:'mdi mdi-motorbike',
       submenu: [
    
-        // {titulo:'Entrega Producto', url:'../kardex/listarcotizacion'}, 
-        {titulo:'Entrega Producto'}, 
+      {titulo:'Entrega Producto', url:'../venta/listardelivery'}, 
+        // {titulo:'Entrega Producto'}, 
       ]
       
     }

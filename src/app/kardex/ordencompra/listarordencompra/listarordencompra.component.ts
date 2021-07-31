@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DataOrdenCompra } from '../../../models/ordencompra';
 import Swal from 'sweetalert2';
 import {MatTableDataSource} from '@angular/material/table';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-listarordencompra',
   templateUrl: './listarordencompra.component.html',
@@ -22,7 +23,7 @@ export class ListarordencompraComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   constructor
-  (private servicioKardex: KardexService , private router:Router) { }
+  (private servicioKardex: KardexService , private router:Router,  private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getOrdenCompra(); 
@@ -73,10 +74,11 @@ EstadoOrdenAnular(ordenes: DataOrdenCompra, i: number) {
       
       this.Ordenes.splice(i, 1);
       this.servicioKardex.EstadoOrdenAnular(ordenes.id,bodyform).subscribe(
-        resp => {
-       
-    //  resp   console.log(resp);
-         //  console.log(resp);
+        resp => { 
+          this.toastr.error('Orden Venta Anulada');
+          this.ngOnInit();
+    
+    
       }
 
       );

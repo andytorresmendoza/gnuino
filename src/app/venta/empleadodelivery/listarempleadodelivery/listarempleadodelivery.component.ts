@@ -18,7 +18,7 @@ import { EditarempleadodeliveryComponent } from '../editarempleadodelivery/edita
 export class ListarempleadodeliveryComponent implements OnInit {
   ordenes:any[]=[];
   cargando = true; 
-  displayedColumns: string[] = ['Nro Despacho','Nro Orden Venta','Empleado','Distrito','Fecha Envio','Detalle Envio','details','Anular'];
+  displayedColumns: string[] = ['Nro Despacho','Nro Orden Venta','Empleado','Distrito','Fecha Envio','Detalle Envio','Estado','details','Anular'];
   dataSource = new MatTableDataSource<DatEmpleadoDelivery>();
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -32,14 +32,13 @@ export class ListarempleadodeliveryComponent implements OnInit {
     this.getOrden();
   }
 
-  getOrden(){
-
+  getOrden(){ 
     this.ventaService.getListarPreDelivery()
    .subscribe(resp => {
      this.dataSource.data = resp as DatEmpleadoDelivery[]; 
        this.ordenes = resp;  
       this.cargando = false;
-      //  console.log(resp);
+      // console.log(resp);
   });
   } 
 
@@ -57,14 +56,14 @@ export class ListarempleadodeliveryComponent implements OnInit {
      
       }  
 
-      EstadoAnular(delivery: DatEmpleadoDelivery, i: number) {
+      EstadoAnularDelivery(delivery: DatEmpleadoDelivery, i: number) {
         // console.log(cotizaciones,'1');
         // console.log(i,'index');
-          const bodyform = {id:delivery.id, estadoCotizacion: '3'}
-          // console.log(cotizaciones.id);
+          const bodyform = {id:delivery.id, valorEstado: '3'}
+         console.log(delivery);
           Swal.fire({
             title: 'Esta seguro?',
-            // text: `Que desea Anular la cotizacion Nro${delivery.nroCotizacion}`,
+           text: `Que desea Anular  el depacho ${delivery.codigo_empdel_num_venta}`,
             icon: 'question',
             showConfirmButton: true,
             showCancelButton: true,
@@ -72,10 +71,10 @@ export class ListarempleadodeliveryComponent implements OnInit {
             if (resp.value) {
               
               this.ordenes.splice(i, 1);
-              console.log( this.ordenes.splice(i, 1),'slice');
+              // console.log( this.ordenes.splice(i, 1),'slice');
               this.ventaService.EstadoAnularDelivery(delivery.id,bodyform).subscribe(
                 resp => {
-                  this.toastr.error('Cotización Anulada');
+                  this.toastr.error('Depacho Anulada');
                    this.ngOnInit();
          
               }

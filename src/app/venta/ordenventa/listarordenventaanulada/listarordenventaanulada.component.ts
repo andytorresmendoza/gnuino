@@ -9,15 +9,16 @@ import { MatDialog , MatDialogConfig} from '@angular/material/dialog';
 import { AddempleadodeliveryComponent } from '../../empleadodelivery/addempleadodelivery/addempleadodelivery.component';
 import Swal from 'sweetalert2';
 @Component({
-  selector: 'app-listarordenventa',
-  templateUrl: './listarordenventa.component.html',
-  styleUrls: ['./listarordenventa.component.css']
+  selector: 'app-listarordenventaanulada',
+  templateUrl: './listarordenventaanulada.component.html',
+  styleUrls: ['./listarordenventaanulada.component.css']
 })
-export class ListarordenventaComponent implements OnInit {
+export class ListarordenventaanuladaComponent implements OnInit {
+
   ordenes:any[]=[];
   cargando = true; 
   isButtonVisible:boolean=true;
-  displayedColumns: string[] = ['Nro Orden','Cliente','Empleado','Fecha Entrega','Pago Parcial','Total Orden','Estado','details','Anular'];
+  displayedColumns: string[] = ['Nro Orden','Cliente','Empleado','Fecha Entrega','Pago Parcial','Total Orden','Estado','details'];
   dataSource = new MatTableDataSource<DataOrdenVenta>();
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -33,7 +34,7 @@ export class ListarordenventaComponent implements OnInit {
 
   getOrden(){
 
-    this.ventaService.getOrdenVenta()
+    this.ventaService.getOrdenVentaAnulada()
    .subscribe(resp => {
      this.dataSource.data = resp as DataOrdenVenta[]; 
        this.ordenes = resp; 
@@ -68,30 +69,5 @@ export class ListarordenventaComponent implements OnInit {
      
       }  
 
-     
-EstadoOrdenAnular(ordenes: DataOrdenVenta, i: number) {
 
-  const bodyform = {id:ordenes.id, estadoOrden: '3'}
-  // console.log(ordenes);
-  Swal.fire({
-    title: 'Esta seguro?',
-    text: `Que desea Anular ${ordenes.codigo_orden_num_venta}`,
-    icon: 'question',
-    showConfirmButton: true,
-    showCancelButton: true,
-  }).then((resp) => {
-    if (resp.value) {
-      
-      this.ordenes.splice(i, 1);
-      this.ventaService.EstadoOrdenVentaAnular(ordenes.id,bodyform).subscribe(
-        resp => { 
-          this.toastr.error('Orden Venta Anulada');
-          this.ngOnInit();
-    
-      }
-
-      );
-    }
-  });
-} 
 }

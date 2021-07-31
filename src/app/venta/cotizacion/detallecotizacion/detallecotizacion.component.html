@@ -1,7 +1,7 @@
-<h4 class="dispaly-6">Insertar Productos 
- 
-<!-- <button class="btn btn-secondary pull-right" (click)="MatchKardex(formData.idProducto, formData.idAlmacen) ">Consultar</button> -->
+<h4 class="dispaly-6">
+  Insertar Productos
 
+  <!-- <button class="btn btn-secondary pull-right" (click)="MatchKardex(formData.idProducto, formData.idAlmacen) ">Consultar</button> -->
 </h4>
 
 <hr />
@@ -14,106 +14,64 @@
     [(ngModel)]="formData.idCotizacionVenta"
   />
   <input
-  type="hidden"
-  name="nombre_producto"
-  #nombre_producto="ngModel"
-  [(ngModel)]="formData.nombre_producto"
-/>
-
-<!-- <input
-type="hidden"
-name="detalleProducto"
-#detalleProducto="ngModel"
-[(ngModel)]="formData.detalleProducto"
-/> -->
-<input
-type="hidden"
-name="idProducto"
-#idProducto="ngModel"
-[(ngModel)]="formData.idProducto"
-/>
-
-<input
-type="hidden"
-name="idAlmacen"
-#idAlmacen="ngModel"
-[(ngModel)]="formData.idAlmacen"
-/>
+    type="hidden"
+    name="nombre_producto"
+    #nombre_producto="ngModel"
+    [(ngModel)]="formData.nombre_producto"
+  />
+  <input
+    type="hidden"
+    name="nombre_alamcen"
+    #nombre_alamcen="ngModel"
+    [(ngModel)]="formData.nombre_alamcen"
+  />
 
   <div class="form-row">
-   
     <div class="form-group col-md-4">
       <label>Buscar Producto</label>
-    
-      <ng-select 
-      [items]="productos"
-     bindLabel="nombre_producto"
-     bindValue="id" 
-     placeholder="Buscar Producto"
-     [(ngModel)]="formData.idProducto"
-     (change)="onChange($event)"
-     (change)="onChangeMatch(formData.idProducto, formData.idAlmacen)"
-     
+
+      <ng-select
+        [items]="productos"
+        bindLabel="nombre_producto"
+        bindValue="id"
+        name="idProducto"
+        #idProducto="ngModel"
+        placeholder="Buscar Producto"
+        [(ngModel)]="formData.idProducto"
+        (change)="onChange($event)"
+        (change)="onChangeMatch(formData.idProducto, formData.idAlmacen)"
       >
-
-</ng-select>
-
-
-
+      </ng-select>
     </div>
     <div class="form-group col-md-4">
-      <label>Unidad Medida </label> 
+      <label>Unidad Medida </label>
       <input
-      type="text"
+        type="text"
         name="detalleNameUnidadMedida"
         #detalleNameUnidadMedida="ngModel"
         [(ngModel)]="formData.detalleNameUnidadMedida"
         class="form-control"
         readonly
-     
       />
     </div>
-    <!-- <div class="col-xs-7 col-md-4">
-      <div class="form-group">
-        <label> Distrito</label>
-        <div class="input-group">
-          <ng-select  
-          #idAlmacen="ngModel"  
-          name="idAlmacen" 
-          bindValue="idAlmacen" 
-          placeholder="Eliga Almacén" 
-          [(ngModel)]="formData.idAlmacen"   
-        >   
-            <ng-option *ngFor="let emp of almacen" 
-            [value]="emp.id">{{emp.nombre_alamcen}}</ng-option>
-         </ng-select> 
-         <a
-         class="btn btn-sm btn-info text-white"
-         (click)="MatchKardex(cantidad, precio_total) "  >
-         <i class="fa fa-eye" aria-hidden="true"></i></a>
-        </div>
-      </div>
-
-    </div> -->
 
     <div class="col-md-4">
       <div class="form-group">
         <label> Almacén</label>
-        <ng-select  
-      #idAlmacen="ngModel"  
-      name="idAlmacen" 
-      bindValue="idAlmacen" 
-      placeholder="Eliga Almacén" 
-      [(ngModel)]="formData.idAlmacen"   
-      (change)="onChangeMatch(formData.idProducto, formData.idAlmacen)"
-    >   
-        <ng-option *ngFor="let emp of almacen" 
-        [value]="emp.id">{{emp.nombre_alamcen}}</ng-option>
-     </ng-select> 
+        <ng-select
+          [items]="almacen"
+          bindLabel="nombre_alamcen"
+          bindValue="id"
+          name="idAlmacen"
+          #idAlmacen="ngModel"
+          placeholder="Buscar Almacén"
+          [(ngModel)]="formData.idAlmacen"
+          (change)="onChangeMatch(formData.idProducto, formData.idAlmacen)"
+          (change)="onChangeAlmacen($event)"
+        >
+        </ng-select>
       </div>
-    
-    </div> 
-   
+    </div>
   </div>
 
   <div class="form-row">
@@ -121,43 +79,37 @@ name="idAlmacen"
       <label>Precio Venta</label>
       <!-- (keyup)="updateTotal()" -->
       <input
-      type="number"
+        type="number"
         name="precioVenta"
         #precioVenta="ngModel"
         [(ngModel)]="formData.precioVenta"
         class="form-control"
-        [class.is-invalid]="!isValid && formData.precioVenta == 0" 
+        [class.is-invalid]="!isValid && formData.precioVenta == 0"
         readonly
       />
     </div>
     <div class="form-group col-md-4">
-      <label>Stock Kardex</label> 
+      <label>Stock Kardex</label>
       <input
-      
-      name="stock"
-      #stock="ngModel"
-      [(ngModel)]="formData.stock"
-      class="form-control"
-      readonly
-    />
-     
+        name="stock"
+        #stock="ngModel"
+        [(ngModel)]="formData.stock"
+        class="form-control"
+        readonly
+      />
     </div>
-  
 
-     <div class="form-group col-md-4">
+    <div class="form-group col-md-4">
       <label>Cantidad Venta</label>
       <input
-      type="number"
+        type="number"
         name="cantidad"
         #cantidad="ngModel"
         [(ngModel)]="formData.cantidad"
         class="form-control"
         [class.is-invalid]="!isValid && formData.cantidad == 0"
-        
       />
-    </div> 
-   
-  
+    </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-12">
@@ -170,7 +122,6 @@ name="idAlmacen"
       />
     </div>
   </div>
-
 
   <div class="form-group">
     <button type="submit" class="btn btn-dark">

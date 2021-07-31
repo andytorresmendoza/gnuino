@@ -37,8 +37,7 @@ export class ListarordenventapendienteComponent implements OnInit {
     this.ventaService.getOrdenVentaPendiente()
    .subscribe(resp => {
      this.dataSource.data = resp as DataOrdenVenta[]; 
-       this.ordenes = resp; 
-      //  console.log(resp);
+       this.ordenes = resp;  
       this.ventaService.detalleDelivery = resp;
  
   });

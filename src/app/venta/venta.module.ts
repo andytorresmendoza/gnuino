@@ -26,11 +26,15 @@ import { AddempleadodeliveryComponent } from './empleadodelivery/addempleadodeli
 import { ListarempleadodeliveryComponent } from './empleadodelivery/listarempleadodelivery/listarempleadodelivery.component';
 import { ListarordenventapendienteComponent } from './ordenventa/listarordenventapendiente/listarordenventapendiente.component';
 import { EditarempleadodeliveryComponent } from './empleadodelivery/editarempleadodelivery/editarempleadodelivery.component';
+import { ListarcotiventaanuladaComponent } from './cotizacion/listarcotiventaanulada/listarcotiventaanulada.component';
+import { ListardeliveryComponent } from './delivery/listardelivery/listardelivery.component';
+import { AdddeliveryComponent } from './delivery/adddelivery/adddelivery.component';
+import { ListarordenventaanuladaComponent } from './ordenventa/listarordenventaanulada/listarordenventaanulada.component';
 
 
 
 @NgModule({
-  declarations: [VentaComponent, ListarcotizacionComponent, AddcotizacionComponent, DetallecotizacionComponent, ListarordenventaComponent, AddordenventaComponent, EditarordenventaComponent, AddempleadodeliveryComponent, ListarempleadodeliveryComponent, ListarordenventapendienteComponent, EditarempleadodeliveryComponent],
+  declarations: [VentaComponent, ListarcotizacionComponent, AddcotizacionComponent, DetallecotizacionComponent, ListarordenventaComponent, AddordenventaComponent, EditarordenventaComponent, AddempleadodeliveryComponent, ListarempleadodeliveryComponent, ListarordenventapendienteComponent, EditarempleadodeliveryComponent, ListarcotiventaanuladaComponent, ListardeliveryComponent, AdddeliveryComponent, ListarordenventaanuladaComponent],
   imports: [ 
     CommonModule,
     SharedModule,

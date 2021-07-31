@@ -42,15 +42,13 @@ export class AddcotizacionComponent implements OnInit {
 
      }
 
-  ngOnInit(): void {
-
+  ngOnInit(): void { 
     
     let id = this.currentRoute.snapshot.paramMap.get('id');
     if (id !== 'nuevo') {
       this.ventaService.getCotizacionById(+id).subscribe(res => {
         console.log(res);
-         this.ventaService.formData = res[0]; 
-         
+         this.ventaService.formData = res[0];  
         this.ventaService.detalleCotizacion = res[0].detalleCotizacion;
  
        if (res[0].idEstadoFlujo ==  2 || res[0].idEstadoFlujo ==  3 ) {
@@ -95,14 +93,7 @@ export class AddcotizacionComponent implements OnInit {
  .subscribe(resp => {
    this.tipocotizacion = resp as DataTipoCoti[]  
 });
-/*this.mantenimientosService.getDistritoAll()
-   .subscribe(resp => {  
-   this.distritos = (resp as DataDistrito[]).filter(
-     distritos=>distritos[0].idProvincia == 1401
-
-   ); 
-   }
- );*/
+ 
 
  this.mantenimientosService.getDistritoAll()
    .subscribe(resp => {  
@@ -111,16 +102,7 @@ export class AddcotizacionComponent implements OnInit {
   //  console.log( this.distritos);
    } );
 
-
-
-/* console.log( this.distritos );
- this.mantenimientosService.getProveedor().subscribe((resp) => {
-  this.proveedores = (resp as DataProveedor[])
-  .map(proveedores=>{
-    proveedores.nombre_proovedor = proveedores.nombre_proovedor.toUpperCase();
-    return proveedores;
-  });
-});*/
+ 
   }
 
 

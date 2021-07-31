@@ -92,7 +92,8 @@ export class AddordenventaComponent implements OnInit {
       descuento_cot:0,
       costo_delivery:0,
       total_productos:0,
-      totalGeneral:0
+      totalGeneral:0,
+      codigo_orden_num_venta:''
     /*  idEmpleado: 0,
       //  detalle: '',
       fechaEntrega: '',

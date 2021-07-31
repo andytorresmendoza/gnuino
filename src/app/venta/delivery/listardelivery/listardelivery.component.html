@@ -1,0 +1,96 @@
+<h1>Delivery</h1>
+<mat-form-field>
+  <mat-label>Buscar</mat-label> 
+  <input matInput (keyup)="applyFilter($event)"   placeholder="Ingrese dato" #input>
+ 
+</mat-form-field>
+ 
+ 
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="Nro">
+    <th mat-header-cell *matHeaderCellDef> Nro</th>
+    <td mat-cell *matCellDef="let element" > {{element.codigo_empdel_num_venta}} </td> 
+  </ng-container>
+
+  
+  <ng-container matColumnDef="Cliente">
+    <th mat-header-cell *matHeaderCellDef> Cliente </th>
+    <td mat-cell *matCellDef="let element"> {{element.detalleOrdenVenta[0].detalleCotizacion[0].nombreCliente }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="Distrito">
+    <th mat-header-cell *matHeaderCellDef> Distrito </th>
+    <td mat-cell *matCellDef="let element"> {{element.nombreDistrito | uppercase }} </td>
+  </ng-container> 
+
+  
+  <!-- <ng-container matColumnDef="Precio General">
+    <th mat-header-cell *matHeaderCellDef> Precio General </th>
+    <td mat-cell *matCellDef="let element"> {{element.detalleOrdenVenta[0].detalleCotizacion[0].totalGeneral }} </td>
+  </ng-container> 
+
+<ng-container matColumnDef="Pago Parcial">
+    <th mat-header-cell *matHeaderCellDef> Pago Parcial </th>
+    <td mat-cell *matCellDef="let element"> {{element.detalleOrdenVenta[0].pagoParcial}} </td>
+  </ng-container>  -->
+
+    <ng-container matColumnDef="Total">
+    <th mat-header-cell *matHeaderCellDef> Total </th>
+    <td mat-cell *matCellDef="let element" style="color: #3145ff"> {{element.detalleOrdenVenta[0].detalleCotizacion[0].totalGeneral  - element.detalleOrdenVenta[0].pagoParcial | currency}} </td>
+  </ng-container>  
+  
+  <ng-container matColumnDef="Venta" >
+    <th mat-header-cell *matHeaderCellDef> Venta </th>
+    <td mat-cell *matCellDef="let element; let i = index " >
+      <button mat-icon-button color="black" (click)="openDelivery(element.id)"> 
+        <mat-icon>lock</mat-icon>
+      </button>
+    </td>
+  
+  </ng-container>  
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <!-- Row shown when there is no matching data. -->
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">No existe coincidencia con "{{input.value}}"</td>
+  </tr>
+ 
+</table>
+
+
+
+<!-- <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Codigo</th>
+        <th scope="col">Distrito</th>
+        <th scope="col">Cliente</th>
+        <th scope="col">Producto</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Precio General</th>
+        <th scope="col">Pago Parcial</th>
+        <th scope="col">Total a Cobrar</th>
+        <th scope="col">Detalle</th>
+ 
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let lista of listaDelivery; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ lista.codigo_empdel_num_venta }}</td> 
+        <td>{{ lista.nombreDistrito | uppercase}}</td> 
+       <td>{{ lista.detalleOrdenVenta[0].detalleCotizacion[0].nombreCliente }}</td>  
+       <td>{{ lista.detalleOrdenVenta[0].detalleCotizacion[0].detalleCotizacion[0].nombre_producto }}</td> 
+       <td>{{ lista.detalleOrdenVenta[0].detalleCotizacion[0].detalleCotizacion[0].cantidad }}</td> 
+       <td>{{ lista.detalleOrdenVenta[0].detalleCotizacion[0].totalGeneral }}</td> 
+       <td>{{ lista.detalleOrdenVenta[0].pagoParcial}}</td> 
+       <td style="color: #3145ff">{{ lista.detalleOrdenVenta[0].detalleCotizacion[0].totalGeneral  - lista.detalleOrdenVenta[0].pagoParcial | currency}}</td> 
+       <td>{{ lista.detalleEmpDev}}</td>  
+      </tr>
+      
+    </tbody>
+  </table> -->
