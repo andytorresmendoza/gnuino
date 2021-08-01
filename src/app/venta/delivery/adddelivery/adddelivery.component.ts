@@ -40,14 +40,15 @@ export class AdddeliveryComponent implements OnInit {
         console.log(res);
         this.formDataDelivery = res[0]; 
         this.formDetalleDelivery = res[0].detalleOrdenVenta[0].detalleCotizacion[0].detalleCotizacion; 
-        // this.formDetalleEstadoDelivery =res[0];
+       this.ventaService.detalleDelivery =res[0].detalleOrdenVenta[0].detalleCotizacion[0].detalleCotizacion;
+       console.log(res[0]);
       });
 
       this.mantenimientosServices.getEstadoDelivery()
       .subscribe(resp => {
        
           this.estadoDelivery = resp as DataEstadoDelivery[]  
-    console.log(resp);
+    // console.log(resp);
      });
     
     
@@ -55,7 +56,7 @@ export class AdddeliveryComponent implements OnInit {
 
 
     onSubmit(form:NgForm) {
-   const bodyform = {id:form.value.id, valorEstado: form.value.valorEstado}
+   const bodyform = {id:form.value.id, valorEstado: form.value.valorEstado, idOrdenVenta: form.value.idOrdenVenta}
 
       // const bodyform = {id:ordenes.id, estadoOrden: '3'}
       // console.log(ordenes.id);
@@ -71,8 +72,9 @@ export class AdddeliveryComponent implements OnInit {
           // this.Ordenes.splice(i, 1);
           this.ventaService.EstadoDelivery(form.value.id, bodyform).subscribe(
             resp => { 
+              console.log(resp);
 
-              this.toastr.success('Guardado Exitosamente');
+             this.toastr.success('Guardado Exitosamente');
               this.router.navigate(["../venta/listardelivery"]);
           }
     

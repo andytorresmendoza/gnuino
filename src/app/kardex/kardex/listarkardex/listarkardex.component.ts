@@ -19,7 +19,7 @@ export class ListarkardexComponent implements OnInit {
   ListIngresosCerrados:DataKardex []= [];
   cargando = true; 
  
-  displayedColumns: string[] = ['Codigo Producto', 'Producto','Cantidad en Almacen', 'Almacen','Salida','Transferencia','Movimientos','Venta'];
+  displayedColumns: string[] = ['Codigo Producto', 'Producto','Cantidad en Almacen','Cantidad en Reserva', 'Almacen','Salida','Transferencia','Movimientos','Venta'];
    dataSource = new MatTableDataSource<DataKardex>();
    applyFilter(event: Event) {
      const filterValue = (event.target as HTMLInputElement).value;
@@ -37,6 +37,7 @@ export class ListarkardexComponent implements OnInit {
    getListKardex(){ 
      this.kardexService.getListKardex()
     .subscribe(resp => {
+      console.log(resp);
      this.dataSource.data = resp as DataKardex[]; 
  
        this.kardexService.detalleSalida = resp;

@@ -13,7 +13,7 @@ export class ListardeliveryComponent implements OnInit {
   private iddelivery:any;
   public listaDelivery:any[]=[];
 
-  displayedColumns: string[] = ['Nro','Cliente','Distrito','Total','Venta'];
+  displayedColumns: string[] = ['Nro','Cliente','Distrito','Total','Estado','Venta'];
   dataSource = new MatTableDataSource<any>();
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

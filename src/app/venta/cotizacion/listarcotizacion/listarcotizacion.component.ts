@@ -36,6 +36,9 @@ export class ListarcotizacionComponent implements OnInit {
  .subscribe(resp => {
    this.dataSource.data = resp as DataCotizacionVenta[]; 
      this.cotizaciones = resp; 
+     this.ventaService.detalleCotizacion = resp[0].detalleCotizacion
+
+     console.log(resp);
     //  if (resp[0].idEstadoFlujo ==  2 ) {
     //   this.isButtonVisible=false;
     //  } else { 

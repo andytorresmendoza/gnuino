@@ -114,9 +114,25 @@ export class VentaService {
 
   EstadoCotizacionVentaAnular(id: number, bodyform:any) {
     // console.log(id,bodyform );
-    return this.http.put(`${this.baseURL}cotizacion-venta-estado/` + id, bodyform);
+    var body = {
+      ...bodyform,
+      detalleCotizacion: this.detalleCotizacion
+    };
+    console.log(body,'body');
+    return this.http.put(`${this.baseURL}cotizacion-venta-estado/` + id, body);
  }
 
+
+
+
+ /*EstadoDelivery(id: number, bodyform:any) {  
+  var body = {
+    ...bodyform,
+    detalleCotizacion: this.detalleDelivery
+  };
+  console.log(body,'BODY');
+  return this.http.put(`${this.baseURL}estado-delivery-empleado/` + id, body);
+}*/
   MatchKardex(idProducto: number,idAlmacen:number) {
 
     // let nuevoArregloTemp=[];
@@ -246,6 +262,7 @@ getListarDeliveryById(id: number) {
   );
 }
 
+
 getListarDetalleDeliveryById(id: number,id2: number) {
 
   // return this.http.get(`${this.baseURL}precio-delivery/empleado/`+idEmpleado +`/distrito/`+ idDistrito).pipe(
@@ -255,14 +272,27 @@ getListarDetalleDeliveryById(id: number,id2: number) {
   );
 }
 
-EstadoDelivery(id: number, bodyform:any) {
+/*EstadoDelivery(id: number, bodyform:any) {
   // console.log(id,bodyform );
   return this.http.put(`${this.baseURL}estado-delivery-empleado/` + id, bodyform);
 }
+*/
+EstadoDelivery(id: number, bodyform:any) {  
+  var body = {
+    ...bodyform,
+    detalleCotizacion: this.detalleDelivery
+  };
+  console.log(body,'BODY');
+  return this.http.put(`${this.baseURL}estado-delivery-empleado/` + id, body);
+}
 
 EstadoOrdenVentaAnular(id: number, bodyform:any) {
-  // console.log(id,bodyform );
-  return this.http.put(`${this.baseURL}orden-estado-venta/` + id, bodyform);
+  var body = {
+    ...bodyform,
+    detalleCotizacion: this.detalleCotizacion
+  };
+  console.log(body,'body');
+  return this.http.put(`${this.baseURL}orden-estado-venta/` + id, body);
 }
 
 getOrdenVentaAnulada() {

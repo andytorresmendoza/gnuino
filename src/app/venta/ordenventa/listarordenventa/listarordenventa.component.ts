@@ -38,7 +38,8 @@ export class ListarordenventaComponent implements OnInit {
      this.dataSource.data = resp as DataOrdenVenta[]; 
        this.ordenes = resp; 
        this.ventaService.detalleDelivery = resp;
-       console.log(resp);
+       this.ventaService.detalleCotizacion =  resp[0].detalleCotizacion[0].detalleCotizacion;
+       console.log(this.ventaService.detalleCotizacion);
       this.cargando = false;
       //  console.log(resp[0].idEstadoFlujo );
     /*  if (resp[0].idEstadoFlujo ==  2 || resp[0].idEstadoFlujo ==  3 ) {
