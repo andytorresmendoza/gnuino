@@ -14,6 +14,8 @@ import { DataDetalleCotizacionVenta } from '../../models/detalle-cotizacionVenta
 import { map, tap, delay, catchError, repeat } from 'rxjs/operators';
 import { DataOrdenVenta } from 'src/app/models/ordenVenta';
 import { DatEmpleadoDelivery } from 'src/app/models/empleadodelivery';
+import { DataVentaDirecta } from '../../models/ventadirecta';
+import { DataDetalleVentaDirecta } from '../../models/detalle-ventaDirecta';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,6 +33,12 @@ export class VentaService {
  //PRE DELIVERY
  
  detalleDelivery:DatEmpleadoDelivery[];
+
+ // VENTA DIRECTA
+ formVenta: DataVentaDirecta; 
+  detalleVentaDirecta: DataDetalleVentaDirecta[];
+
+
 
   constructor(private http: HttpClient, private toastr: ToastrService) {
     this.headers.append('Content-Type', 'application/json');
@@ -109,7 +117,7 @@ export class VentaService {
   }
 
   deleteDetalleCotizacion(id: number) {
-    return this.http.delete(`${this.baseURL}cotizacion-venta/${id}`);
+    return this.http.delete(`${this.baseURL}cotizacion-detalle-venta/${id}`);
   }
 
   EstadoCotizacionVentaAnular(id: number, bodyform:any) {
@@ -298,6 +306,76 @@ EstadoOrdenVentaAnular(id: number, bodyform:any) {
 getOrdenVentaAnulada() {
   return this.http
     .get(this.baseURL + 'orden-venta-inactivas')
+    .pipe(map((resp) => resp['data']));
+}
+//VENTA DIRECTA
+
+saveVentaDirecta() {
+  var body = {
+    ...this.formVenta,
+    detalleCotizacionDirecta: this.detalleVentaDirecta,
+  };
+  let fechaParseada: any;
+  fechaParseada = moment(body.fechaVentaDirecta).format('YYYY-MM-DD');
+  body.fechaVentaDirecta=fechaParseada;
+
+ 
+
+   console.log(body);
+  return this.http.post(`${this.baseURL}venta-directa-cot`, body).pipe(
+    map(
+      (resp) => resp['data'])
+      // console.log(resp['data']))
+      
+    // catchError(this.manejarError)
+  );
+}
+UpdateVentaDirecta(formData: DataVentaDirecta) {
+  const body = {
+    ...this.formVenta,
+    detalleCotizacionDirecta: this.detalleVentaDirecta 
+  };
+
+  let fechaParseada2: any;
+  fechaParseada2 = moment(body.fechaVentaDirecta).format('YYYY-MM-DD');
+  body.fechaVentaDirecta=fechaParseada2;
+  delete body.id;
+  console.log('delete',  delete body.id);
+  console.log('cuerpoventa',body);
+  console.log('detalleventa',body.detalleCotizacionDirecta);
+   return this.http.put(`${this.baseURL}venta-directa-cot/${formData.id}`, body);
+
+}
+getVentaDirecta() {
+  return this.http
+    .get(this.baseURL + 'venta-directa-cot')
+    .pipe(map((resp) => resp['data']));
+}
+
+getVentaDirectaById(id: number) {
+  return this.http.get(`${this.baseURL}venta-directa-cot/` + id).pipe(
+    map((resp) => resp['data'])
+    //ACA VER COMO TRANSFORMAR EL FECHA_ENTREGA GUIARSE DE FORMULARIOS FERNANDO
+    
+  );
+}
+deleteDetalleVentaDirecta(id: number) {
+  return this.http.delete(`${this.baseURL}ventacot-detalle-directa/${id}`);
+}
+
+EstadoVentaDirectaAnular(id: number, bodyform:any) {
+  // console.log(id,bodyform );
+  var body = {
+    ...bodyform,
+    detalleCotizacionDirecta: this.detalleVentaDirecta
+  };
+  console.log(body,'body');
+  return this.http.put(`${this.baseURL}venta-directa-estado/` + id, body);
+}
+
+getVentaDirectaAnuladas() {
+  return this.http
+    .get(this.baseURL + 'cot-directa-venta-inactivas')
     .pipe(map((resp) => resp['data']));
 }
 }

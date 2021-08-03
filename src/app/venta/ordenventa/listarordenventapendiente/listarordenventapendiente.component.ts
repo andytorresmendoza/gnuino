@@ -39,6 +39,13 @@ export class ListarordenventapendienteComponent implements OnInit {
      this.dataSource.data = resp as DataOrdenVenta[]; 
        this.ordenes = resp;  
       this.ventaService.detalleDelivery = resp;
+      console.log(resp);
+
+       if (resp[0].idEstadoFlujo ==  4 ) {
+        this.isButtonVisible=false;
+       } else {
+        this.isButtonVisible=true;
+       } 
  
   });
   } 
@@ -57,7 +64,7 @@ export class ListarordenventapendienteComponent implements OnInit {
       dialogConfig.data = {orderItemIndex,id}; 
        this.dialog.open(AddempleadodeliveryComponent, dialogConfig).afterClosed().subscribe(resp=>{
     //  console.log(resp,'cierra popup');
-    //  this.getListKardex();
+      this.getOrden();
        });
      
       }  

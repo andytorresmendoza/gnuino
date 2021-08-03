@@ -103,6 +103,16 @@ export class SiderbarService {
         // {titulo:'Entrega Producto'}, 
       ]
       
+    },
+    {
+      titulo:'Venta Tienda',
+      icono:'mdi mdi-cart',
+      submenu: [
+   
+      {titulo:'Venta Directa', url:'../venta/listarventadirecta'}, 
+        // {titulo:'Entrega Producto'}, 
+      ]
+      
     }
   ]
   constructor() { }

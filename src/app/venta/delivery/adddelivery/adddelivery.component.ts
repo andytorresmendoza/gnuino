@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MantenimientosService } from 'src/app/services/mantenimientos/mantenimientos.service';
 import { DataEstadoDelivery } from 'src/app/models/estadodelivery';
 import Swal from 'sweetalert2';
+import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-adddelivery',
   templateUrl: './adddelivery.component.html',
@@ -47,8 +48,8 @@ export class AdddeliveryComponent implements OnInit {
       this.mantenimientosServices.getEstadoDelivery()
       .subscribe(resp => {
        
-          this.estadoDelivery = resp as DataEstadoDelivery[]  
-    // console.log(resp);
+          this.estadoDelivery = (resp).filter(valor => valor.id === 2 || valor.id === 3);
+     console.log(resp);
      });
     
     

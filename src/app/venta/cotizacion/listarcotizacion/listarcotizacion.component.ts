@@ -77,7 +77,7 @@ console.log(i,'index');
  console.log(cotizaciones.id);
  Swal.fire({
    title: 'Esta seguro?',
-   text: `Que desea Anular la cotizacion Venta Nro${cotizaciones.nroCotizacion}`,
+   text: `Que desea Anular la cotizacion Venta Nro${cotizaciones.codigo_cotizacion_num_venta}`,
    icon: 'question',
    showConfirmButton: true,
    showCancelButton: true,

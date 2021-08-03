@@ -141,7 +141,7 @@ export class AddordenventaComponent implements OnInit {
       // console.log($event.id);
         this.ventaService.getCotizacionVentaDetalleById($event.id).subscribe((response) => {
        this.detalleCotizacionesVenta = response;
-        //  console.log('cotizaciondetalle', response);
+       console.log('cotizaciondetalle', response);
        });
     } 
     validateForm() {

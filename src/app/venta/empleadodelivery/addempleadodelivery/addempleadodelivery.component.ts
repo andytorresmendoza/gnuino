@@ -94,8 +94,10 @@ export class AddempleadodeliveryComponent implements OnInit {
        this.ventaService.detalleDelivery = form.value  
          this.ventaService.GuardaEmpleadoDelivery(this.formData).subscribe(resp =>{   
         this.toastr.success('Asignado Exitosamente');
+        // this.ngOnInit();
        });     
        this.dialogRef.close();
+      //  this.ngOnInit();
      
       }   
     }

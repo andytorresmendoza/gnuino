@@ -1,0 +1,352 @@
+
+<h1><small>Agregar Detalles de Ventas</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../../listarventadirecta">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="ventaService.formVenta"
+  (submit)="onSubmit(form)"
+>
+  <input
+    type="hidden"
+    name="id"
+    #id="ngModel"
+    [(ngModel)]="ventaService.formVenta.id"
+  />
+ 
+<div class="row"> 
+  <div class="col-xs-12 col-md-4">
+    <div class="form-group">
+      <label for="">Fecha Venta</label>
+      <div class="input-group">
+        <input 
+        [matDatepicker]="picker2"
+        placeholder="DD/MM/YYYY" 
+        name="fechaVentaDirecta"
+        #fechaVentaDirecta="ngModel" 
+        [(ngModel)]="ventaService.formVenta.fechaVentaDirecta"
+        class="form-control"  
+        [class.is-invalid]="fechaVentaDirecta.invalid && fechaVentaDirecta.touched"
+          required 
+      />  
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+      </div>
+      <small *ngIf="fechaVentaDirecta.invalid && fechaVentaDirecta.touched"
+      class="form-text text-danger">Ingrese Fecha</small>
+    </div>
+  </div>
+</div>
+ 
+  <div class="row"> 
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Tipo Cotización  </label>
+        <ng-select  
+          #idTipoCotizacion="ngModel"  
+          name="idTipoCotizacion" 
+          bindValue="idTipoCotizacion" 
+          placeholder="Buscar Tipo Cotización" 
+          [(ngModel)]="ventaService.formVenta.idTipoCotizacion"  
+        >   
+            <ng-option *ngFor="let emp of tipocotizacion" 
+            [value]="emp.id">{{emp.detalle_tcotizacion}}</ng-option>
+         </ng-select> 
+      </div> 
+    </div>
+   
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Linea </label>
+        <ng-select  
+          #idLinea="ngModel"  
+          name="idLinea" 
+          bindValue="idLinea" 
+          placeholder="Buscar Linea" 
+          [(ngModel)]="ventaService.formVenta.idLinea"  
+        >   
+            <ng-option *ngFor="let emp of linea" 
+            [value]="emp.id">{{emp.detalle_linea}}</ng-option>
+         </ng-select> 
+      </div> 
+    </div>
+ 
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Empleado</label>
+    
+          <ng-select  
+          #idEmpleado="ngModel"  
+          name="idEmpleado" 
+          bindValue="idEmpleado" 
+          placeholder="Buscar Empleado" 
+          [(ngModel)]="ventaService.formVenta.idEmpleado"  
+        >   
+            <ng-option *ngFor="let emp of empleados" [value]="emp.id">{{emp.nombre_empleado}}</ng-option>
+         </ng-select> 
+        </div>
+      </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Cotización Nro.  </label>
+        <input
+          name="codigo_cotizacion_dir_num_venta"
+          #codigo_cotizacion_dir_num_venta="ngModel"
+          [(ngModel)]="ventaService.formVenta.codigo_cotizacion_dir_num_venta"
+          class="form-control"
+          readonly
+        />
+      </div> 
+    </div>
+  
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Cliente</label> 
+        <ng-select 
+        [items]="clientes"
+       bindLabel="nombre_cliente"
+       bindValue="id" 
+       placeholder="Buscar Clientes"
+       [(ngModel)]="ventaService.formVenta.idCliente"
+      
+        >
+        <!-- (change)="onChangeCliente($event)"  -->
+  
+  </ng-select>  
+      </div>
+    </div>
+    <div class="col-md-4">
+    <div class="form-group">
+      <label> Tipo Moneda</label>
+      <ng-select  
+      #idTipoMoneda="ngModel"  
+      name="idTipoMoneda" 
+      bindValue="idTipoMoneda" 
+      placeholder="Buscar Tipo Moneda" 
+      [(ngModel)]="ventaService.formVenta.idTipoMoneda"  
+    >   
+        <ng-option *ngFor="let emp of tipoMoneda" [value]="emp.id">{{emp.nombre_moneda}}</ng-option>
+     </ng-select> 
+ 
+    </div> </div>
+  </div>
+  <div class="row">
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Forma de Pago</label>
+        <ng-select
+        #idTipoPago="ngModel"
+        name="idTipoPago"
+        bindValue="idTipoPago"
+        placeholder="Buscar Forma de Pago"
+        [(ngModel)]="ventaService.formVenta.idTipoPago"
+      >
+        <ng-option *ngFor="let emp of tipopagos" [value]="emp.id">{{
+          emp.descripcion_pago
+        }}</ng-option>
+      </ng-select>
+   
+      </div> </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label> Banco</label>
+            <ng-select
+            #idBanco="ngModel"
+            name="idBanco"
+            bindValue="idBanco"
+            placeholder="Buscar Banco"
+            [(ngModel)]="ventaService.formVenta.idBanco"
+          >
+            <ng-option *ngFor="let banco of bancos" [value]="banco.id">{{
+              banco.descripcion_banco
+            }}</ng-option>
+          </ng-select> 
+          </div>
+    </div>
+ 
+
+   
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label> Nro Voucher</label>
+            <input
+              type="text"
+              name="nroVouher"
+              #nroVouher="ngModel"
+              [(ngModel)]="ventaService.formVenta.nroVouher"
+              class="form-control"
+            
+            />
+          </div>
+        </div> 
+  
+  </div>
+
+  <div class="row">
+  
+  
+
+
+ 
+    <div class="col-md-12">
+        <div class="form-group">
+          <label> Detalle Cabecera</label>
+          <input
+          class="form-control" 
+            type="text"
+            name="detalle"
+            placeholder="Detalle"
+            [class.is-invalid]="detalle.invalid && detalle.touched"
+            #detalle="ngModel"
+            [(ngModel)]="ventaService.formVenta.detalle"
+            class="form-control" 
+            required
+            minlength="5"
+          
+          />
+        
+        </div>
+        </div>
+    
+  </div>
+ 
+
+    <div class="row">
+      <div class="col-md-4">
+      <div class="form-group">
+        <label> Descuento Cotización %</label>
+        <input
+        type="number"
+          name="descuento_venta"
+          #descuento_venta="ngModel"
+          [(ngModel)]="ventaService.formVenta.descuento_venta"
+          class="form-control"
+          (keyup)="updateMontoTotal()"
+        />
+      </div>
+    </div>
+    <!-- <div class="col-md-4">
+    <div class="form-group">
+      <label> Costo Delivery </label>
+      <input
+      type="number"
+        name="costo_delivery"
+        #costo_delivery="ngModel"
+        [(ngModel)]="ventaService.formVenta.costo_delivery"
+        class="form-control"
+        (keyup)="updateMontoTotal()" 
+      />
+ 
+    </div>
+  </div> -->
+  <div class="col-md-4">
+  <div class="form-group">
+    <label> Total Producto</label>
+        <input
+          name="total_productos"
+          #total_productos="ngModel"
+          [(ngModel)]="ventaService.formVenta.total_productos"
+          class="form-control"
+          readonly
+        />
+  </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Monto Total</label>
+      <input
+        name="monto_total"
+        #monto_total="ngModel"
+        [(ngModel)]="ventaService.formVenta.monto_total"
+        class="form-control" 
+        readonly
+      /> 
+    </div>
+  
+    </div>
+
+    </div>
+
+
+
+  <!-- ORDER ITEMS TABLE -->
+  <table class="table table-borderless">
+    <thead class="thead-light">
+      <th scope="col">#</th>
+      <th>Nombre Producto</th>
+      <th>Unidad Medida</th>
+      <th>Almacén</th>
+      <th>Cantidad Venta</th> 
+      <th>Precio Venta</th>
+      <!-- <th>Precio Total</th> -->
+      <th>Observaciones</th>
+      <th>
+        <a
+          class="btn btn-sm btn-success text-white"
+          (click)="AddOrEditOrderItem(null, ventaService.formVenta.id)"  *ngIf="this.isButtonVisible"
+          ><i class="fa fa-plus"></i> Agregar Producto</a
+        >
+      </th>
+    </thead>
+    <tbody>
+      <tr
+        *ngIf="ventaService.detalleVentaDirecta.length == 0"
+        [class.text-danger]="!isValid && ventaService.detalleVentaDirecta.length == 0
+        "
+      >
+        <td class="font-italic text-center" colspan="5">
+          No ah seleccionado Ningun Producto
+        </td>
+      </tr>
+      <tr *ngFor="let item of ventaService.detalleVentaDirecta; let i = index">
+        <!--  <td>{{item.detalleProducto[0].nombre_producto}}</td>  detalleProducto[0].nombre_producto}}</td>   -->
+        <!-- <td>{{item.detalleNameProducto}}</td>  -->
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ item.nombre_producto }}</td> 
+        <td>{{item.detalleNameUnidadMedida}}</td>
+        <td>{{item.nombre_alamcen}}</td>
+        <td>{{ item.cantidad }}</td>
+        <td>{{ item.precioVenta }}</td>
+        <!-- <td>{{ item.precio_total }}</td> -->
+        <td>{{ item.observacion }}</td>
+        <!-- {{item | json}}    -->
+        <td>
+          <a
+            class="btn btn-sm btn-info text-white"
+            (click)="AddOrEditOrderItem(i, ventaService.formVenta.id)"  *ngIf="this.isButtonVisible"
+            ><i class="fa fa-pencil"></i
+          ></a>
+          <a
+            class="btn btn-sm btn-danger text-white ml-1"
+            (click)="onDeleteOrderItem(item.id, i)"  *ngIf="this.isButtonVisible"
+            ><i class="fa fa-trash"></i
+          ></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark" 
+    *ngIf="this.isButtonVisible">
+    <i class="fa fa-database"></i> Guardar </button>
+    
+    <a class="btn btn-outline-dark ml-1" routerLink="../../listarventa"
+      ><i class="fa fa-close"></i> Ver Cotizaciones</a
+    >
+  </div>
+</form>
