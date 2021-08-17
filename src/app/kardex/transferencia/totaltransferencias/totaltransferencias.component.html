@@ -45,13 +45,13 @@
       <tr *ngFor="let item of ListTranferencia; let i = index" >
         <th scope="row">{{ i + 1 }}</th>
         <th><b>{{item.codigoTransfer}}</b></th> 
-         <td><b>{{item.detalleNameProducto}}</b></td> 
+         <td><b>{{item.detalleNameProducto | uppercase}}</b></td> 
          <td>{{item.fechaTransferencia}}</td>     
-         <td>{{item.detalleSedePrincipal[0].nombre_alamcen}}</td>
+         <td>{{item.detalleSedePrincipal[0].nombre_alamcen | uppercase}}</td>
          <td style="color:#fb0000">-{{item.cantidadTransferencia}}</td> 
-         <td>{{item.detalleSedeSecundaria[0].nombre_alamcen}}</td>
+         <td>{{item.detalleSedeSecundaria[0].nombre_alamcen | uppercase}}</td>
          <td style="color:#3145FF">{{item.cantidadTransferencia}}</td> 
-         <td>{{item.detalleTransferencia}}</td> 
+         <td>{{item.detalleTransferencia | uppercase}}</td> 
         
          </tr>
   </tbody>

@@ -57,7 +57,7 @@ this.formData = Object.assign({
   idProducto:0, 
   cantidadGlobal: 0, 
   cantidadSalida: 0,
-  idTipoSalida: 0,
+  idTipoSalida: null,
  // idTipoIngreso: 0,
   detalleSalida: '',
   fechaSalida: '',
@@ -81,14 +81,27 @@ this.kardexService.detalleSalida[this.data.orderItemIndex]);
       console.log(this.formData.idTipoIngreso);
     return this.isValid;
   }
+
+  validateSelect(form:NgForm) {
+    if(this.formData.idTipoSalida == null )
+       return   Swal.fire({
+          title: 'Seleccionar Tipo Salida' , 
+          icon: 'error',
+        });   
+       
+  }
   onSubmit(form: NgForm) {
-  this.validateForm();
-    if (
-      form.value.cantidadSalida > form.value.cantidadGlobalKardex ||
+    console.log(form.value);
+    if (this.validateSelect(form)){
+      return;
+     }
+
+   else if (
+      form.value.cantidadSalida > form.value.cantidadIngresoOc ||
       form.value.cantidadSalida <= 0
     ) {
       return Swal.fire({
-        title: form.value.cantidadGlobalKardex + ' Productos en Stock',
+        title: form.value.cantidadIngresoOc + ' Productos en Stock',
         text: 'Cantidad Salida Invalida',
         icon: 'error',
       });
@@ -99,6 +112,7 @@ this.kardexService.detalleSalida[this.data.orderItemIndex]);
 
       return;
     } 
+   
     else{   
       let fechaParseada: any;
       fechaParseada = moment(form.value.fechaSalida).format('YYYY-MM-DD');

@@ -64,6 +64,7 @@ name="cantidadPrincipal"
 
       <label>Producto</label>
       <input
+      style="text-transform:uppercase"
         name="nombre_producto"
         #nombre_producto="ngModel"
         [(ngModel)]="formData.nombre_producto"
@@ -74,6 +75,7 @@ name="cantidadPrincipal"
   <div class="form-group col-md-3">
       <label>Unidad Medida</label>
       <input
+      style="text-transform:uppercase"
   type="text" 
   name="detalleNameUnidadMedida"
   #detalleNameUnidadMedida="ngModel"
@@ -86,6 +88,7 @@ name="cantidadPrincipal"
   <div class="form-group col-md-3">
     <label>Almacén</label>
     <input
+    style="text-transform:uppercase"
 type="text" 
 name="detalleNameSedePrincipal"
 #detalleNameSedePrincipal="ngModel"
@@ -113,10 +116,13 @@ readonly
       <label>Tipo Devolución</label>
    
       <ng-select 
+      style="text-transform:uppercase"
       [items]="tipodevoluciones"
      bindLabel="descripcion_devolucion"
      bindValue="id" 
      placeholder="Buscar Devolución"
+     name="idTipoDevolucion"  
+     #idTipoDevolucion="ngModel"
      [(ngModel)]="formData.idTipoDevolucion"
      (change)="onChange($event)"
      
@@ -138,6 +144,7 @@ readonly
   <div class="form-group col-md-3">
     <label>Detalle Devolución</label>
     <input
+    style="text-transform:uppercase"
     type="text"
       name="detalleDevolucion"
       #detalleDevolucion="ngModel"

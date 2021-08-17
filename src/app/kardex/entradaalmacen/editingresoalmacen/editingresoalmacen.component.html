@@ -67,6 +67,7 @@ name="idEmpleado"
     <label> Tipo Ingreso</label>
 
     <input
+    style="text-transform:uppercase"
       type="text"
       name="descripcion_ingreso"
       #descripcion_ingreso="ngModel"
@@ -80,6 +81,7 @@ name="idEmpleado"
     <div class="form-group" >
       <label for="inputAddress" class="form-label">Empleado</label>
       <input
+      style="text-transform:uppercase"
       type="text"
       name="nombre_empleado"
       #nombre_empleado="ngModel"
@@ -93,6 +95,7 @@ name="idEmpleado"
     <div class="form-group">
       <label for="inputAddress" class="form-label">Proveedor</label>
       <input
+      style="text-transform:uppercase"
       type="text"
       name="nombre_proovedor"
       #nombre_proovedor="ngModel"
@@ -102,18 +105,16 @@ name="idEmpleado"
       />
       </div>
       <div class="form-group">
-        <label> Nota</label>
+        <label> Detalle</label>
         <input
+        style="text-transform:uppercase"
         class="form-control" 
           type="text"
           name="detalleIngreso"
-          placeholder="Nota" 
+          placeholder="Ingresar detalle" 
           #detalleIngreso="ngModel"
           [(ngModel)]="kardexService.formDataEntrada.detalleIngreso"
-          class="form-control" 
-          [class.is-invalid]="detalleIngreso.invalid && detalleIngreso.touched"
-          required
-          minlength="5"
+          class="form-control"  
         
         />
       
@@ -146,15 +147,15 @@ name="idEmpleado"
               <tr *ngFor="let item of kardexService.detalleIngresoAlmacen  ;let i=index;">
                 <th scope="row">{{ i + 1 }}</th>
               <td>
-                <p>{{item.detalleNameProducto}}</p>
+                <p>{{item.detalleNameProducto | uppercase}}</p>
                   <!-- <p *ngFor="let deta of item.detalleCotizacion">{{deta.nombre_producto}}</p>   -->
               </td>
               <td>
-                <p>{{item.detalleNameUnidadMedida}}</p>
+                <p>{{item.detalleNameUnidadMedida | uppercase}}</p>
                
               </td>
               <td>
-                <p>{{item.nombre_alamcen}}</p>
+                <p>{{item.nombre_alamcen | uppercase}}</p>
                
               </td>
               <td>
@@ -224,7 +225,7 @@ name="idEmpleado"
       </table>
       <div class="form-group">
        <button type="submit" class="btn btn-dark" *ngIf="this.isButtonVisible"><i class="fa fa-database"></i> Actualizar</button> 
-       <!-- VERIFICAR ESTE BAG --> -->
+       <!-- VERIFICAR ESTE BAG --> 
         <!-- <button type="submit" class="btn btn-dark" ><i class="fa fa-database"></i> Actualizar</button> -->
          <a   class="btn btn-outline-dark ml-1" routerLink="../../listarentrada" ><i class="fa fa-close"></i> Ver Ingresos</a>  
         

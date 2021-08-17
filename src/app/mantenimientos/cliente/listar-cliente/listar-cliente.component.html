@@ -18,20 +18,20 @@
     <!-- Position Column -->
     <ng-container matColumnDef="Nombre">
       <th mat-header-cell *matHeaderCellDef> Nombre </th>
-      <td mat-cell *matCellDef="let element" > {{element.nombre_cliente}} </td>
+      <td mat-cell *matCellDef="let element" > {{element.nombre_cliente | uppercase}} </td>
      
     </ng-container>
   
     <!-- Name Column -->
     <ng-container matColumnDef="Apellido Paterno">
       <th mat-header-cell *matHeaderCellDef> Apellido Paterno </th>
-      <td mat-cell *matCellDef="let element"> {{element.apellidos_pat_cliente}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.apellidos_pat_cliente | uppercase}} </td>
     </ng-container>
   
     <!-- Weight Column -->
     <ng-container matColumnDef="Apellido Materno">
       <th mat-header-cell *matHeaderCellDef> Apellido Materno </th>
-      <td mat-cell *matCellDef="let element"> {{element.apellidos_mat_cliente}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.apellidos_mat_cliente | uppercase}} </td>
     </ng-container>
   
     <!-- Symbol Column -->

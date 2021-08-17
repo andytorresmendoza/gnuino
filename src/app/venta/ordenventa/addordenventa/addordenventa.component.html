@@ -49,7 +49,7 @@
       <div class="form-group">
         <label> Cliente </label>
         <input
-       
+        style="text-transform:uppercase"
           name="nombreCliente"
           #nombreCliente="ngModel"
           [(ngModel)]="ventaService.formOrdenVenta.nombreCliente"
@@ -91,7 +91,7 @@
         <div class="form-group">
           <label> Empleado </label>
           <input
-         
+          style="text-transform:uppercase"
             name="nombreEmpleado"
             #nombreEmpleado="ngModel"
             [(ngModel)]="ventaService.formOrdenVenta.nombreEmpleado"
@@ -107,6 +107,7 @@
       <div class="form-group">
         <label for="inputAddress" class="form-label">Tipo Linea</label>
         <select
+        style="text-transform:uppercase"
           name="idLinea"
           #idLinea="ngModel"
           [(ngModel)]="ventaService.formOrdenVenta.idLinea"
@@ -127,6 +128,7 @@
       <div class="form-group">
         <label for="inputAddress" class="form-label">Moneda</label>
         <select
+        style="text-transform:uppercase"
           name="idTipoMoneda"
           #idTipoMoneda="ngModel"
           [(ngModel)]="ventaService.formOrdenVenta.idTipoMoneda"
@@ -146,7 +148,7 @@
  <div class="col-md-4">
       <div class="form-group">
         <label> Distrito</label>
-        <select
+        <select style="text-transform:uppercase"
         name="idDistrito"
         #idDistrito="ngModel"
         [(ngModel)]="ventaService.formOrdenVenta.idDistrito"
@@ -200,11 +202,14 @@
       <div class="form-group">
         <label> Dirección Entrega</label>
         <input
+        style="text-transform:uppercase"
           type="text"
           name="direccion"
           #direccion="ngModel"
           [(ngModel)]="ventaService.formOrdenVenta.direccion"
           class="form-control"
+          [class.is-invalid]="direccion.invalid && direccion.touched"
+          required
         
         />
       </div>
@@ -232,6 +237,7 @@
     
 
         <ng-select
+        style="text-transform:uppercase"
         #idTipoPago="ngModel"
         name="idTipoPago"
         bindValue="idTipoPago"
@@ -253,6 +259,7 @@
       <div class="form-group">
         <label> Banco</label>
         <ng-select
+        style="text-transform:uppercase"
         #idBanco="ngModel"
         name="idBanco"
         bindValue="idBanco"
@@ -269,6 +276,7 @@
       <div class="form-group">
         <label> Nro Voucher</label>
         <input
+        style="text-transform:uppercase"
           type="text"
           name="numVoucher"
           #numVoucher="ngModel"
@@ -285,6 +293,7 @@
       <div class="form-group">
         <label> Detalle</label>
         <input
+        style="text-transform:uppercase"
           class="form-control"
           type="text"
           name="detalle"
@@ -292,9 +301,7 @@
           #detalle="ngModel"
           [(ngModel)]="ventaService.formOrdenVenta.detalle"
           class="form-control"
-          [class.is-invalid]="detalle.invalid && detalle.touched"
-          required
-          minlength="3"
+         
         />
       </div>
     </div>
@@ -312,9 +319,9 @@
     <tbody>
       <tr *ngFor="let item of detalleCotizacionesVenta; let i = index">
         <td>
-          <p>{{ item.nombre_producto }}</p>
+          <p>{{ item.nombre_producto | uppercase}}</p>
           <p *ngFor="let deta of item.detalleCotizacion">
-            {{ deta.nombre_producto }}
+            {{ deta.nombre_producto | uppercase }}
           </p>
         </td> 
         <td>
@@ -327,22 +334,22 @@
         </td>
       
         <td>
-          <p>{{ item.detalleNameUnidadMedida }}</p>
+          <p>{{ item.detalleNameUnidadMedida | uppercase}}</p>
           <p *ngFor="let deta of item.detalleCotizacion">
-            {{ deta.detalleNameUnidadMedida }}
+            {{ deta.detalleNameUnidadMedida | uppercase }}
           </p>
         </td>
         
         <td>
-          <p>{{ item.nombre_alamcen }}</p>
+          <p>{{ item.nombre_alamcen | uppercase }}</p>
           <p *ngFor="let deta of item.detalleCotizacion">
-            {{ deta.nombre_alamcen }}
+            {{ deta.nombre_alamcen | uppercase }}
           </p>
         </td>
         <td>
-          <p>{{ item.observacion }}</p>
+          <p>{{ item.observacion | uppercase}}</p>
           <p *ngFor="let deta of item.detalleCotizacion">
-            {{ deta.observacion }}
+            {{ deta.observacion | uppercase }}
           </p>
         </td>
  

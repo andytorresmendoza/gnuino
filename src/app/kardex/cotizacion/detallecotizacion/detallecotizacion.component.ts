@@ -5,7 +5,7 @@ import { DataDetalleCotizacion } from 'src/app/models/detalle-cotizacion';
 import { DataProducto } from 'src/app/models/producto';
 import { KardexService } from 'src/app/services/kardex/kardex.service';
 import { MantenimientosService } from 'src/app/services/mantenimientos/mantenimientos.service';
-
+import { filter, map }  from  'rxjs/operators';
 @Component({
   selector: 'app-detallecotizacion',
   templateUrl: './detallecotizacion.component.html',
@@ -28,13 +28,14 @@ export class DetallecotizacionComponent implements OnInit {
  
       this.mantenimientosService.getProducto()
       .subscribe(resp => {
-        this.productos = resp as DataProducto[]  
-      //  console.log(this.productos,'producto');
+        
+
+        this.productos = resp;
+           });
+
     
-     });
 
  
-  
 if (this.data.orderItemIndex == null)
     this.formData = {
       id: null,

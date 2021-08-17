@@ -35,6 +35,7 @@ name="idProducto"
         
         <label>Producto</label>
         <input
+        style="text-transform:uppercase"
           name="nombre_producto"
           #nombre_producto="ngModel"
           [(ngModel)]="formDataOC.nombre_producto"
@@ -46,6 +47,7 @@ name="idProducto"
       <div class="form-group col-md-3">
         <label>Unidad Medida </label> 
         <input
+        style="text-transform:uppercase"
         type="text"
           name="detalleNameUnidadMedida"
           #detalleNameUnidadMedida="ngModel"
@@ -59,6 +61,7 @@ name="idProducto"
       <div class="form-group col-md-3">
         <label>Almacén </label> 
         <input
+        style="text-transform:uppercase"
         type="text"
           name="detalleNameSedePrincipal"
           #detalleNameSedePrincipal="ngModel"
@@ -143,15 +146,15 @@ name="idProducto"
 
 <div class="form-row">
   
-      <div class="form-group col-md-9">
+      <div class="form-group col-md-12">
         <label>Observaciones</label>
         <input
+        style="text-transform:uppercase"
           name="observaciones"
           #observaciones="ngModel"
           [(ngModel)]="formDataOC.observaciones"
           class="form-control"
-          [class.is-invalid]="observaciones.invalid && observaciones.touched"
-          required
+       
         />
       </div>
  

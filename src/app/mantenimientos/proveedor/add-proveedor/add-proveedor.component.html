@@ -2,144 +2,190 @@
 <hr />
 <div class="row text-right">
   <div class="col">
-    <button class="btn btn-danger" routerLink="../listarproveedor">
+    <button class="btn btn-danger" routerLink="../../listarproveedor">
       <i class="fa fa-arrow-left"></i>
       Regresar
     </button>
   </div>
 </div>
 <br />
-<div class="row animated fadeIn faster">
-  <div class="col">
-    <form [formGroup]="loginForm" (ngSubmit)="AddProveedor(loginForm.value)">
-      <form class="row g-3" [formGroup]="loginForm">
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="formData"
+  (submit)="onSubmit(form)"
+>
 
-        
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="inputEmail4" class="form-label">Nombre Proveedor</label>
-            <input 
-             type="text"
-            id="nombre_proovedor"
-            class="form-control"         
-            formControlName="nombre_proovedor" />
-          </div>
-          <div class="form-group">
-            <label for="inputAddress" class="form-label">Direccion</label>
-            <input
-            type="text"
-            id="direccion_proovedor"
-            class="form-control"         
-            formControlName="direccion_proovedor"
-            />
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="inputPassword4" class="form-label">RUC</label>
-            <input    type="text"
-            id="ruc_proovedor"
-            class="form-control"         
-            formControlName="ruc_proovedor"/>
-          </div>
-          <div class="form-group">
-            <label for="inputAddress2" class="form-label">EMAIL</label>
-            <input
-            type="text"
-            id="email_proovedor"
-            class="form-control"         
-            formControlName="email_proovedor"
-            />
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="inputPassword4" class="form-label">TELEFONO</label>
-            <input  type="text"
-            id="telefono_proovedor"
-            class="form-control"         
-            formControlName="telefono_proovedor"/>
-          </div>
-          <div class="form-group">
-            <label for="inputAddress" class="form-label">PAIS</label>
-            <select
-             id="idPais"
-              formControlName="idPais"
-               class="form-control">
-              <option value="">---Seleccione Pais---</option>
-              <option *ngFor="let pais of paises" value="{{ pais.id }}">
-                {{ pais.nombre_pais }}
-              </option>
-            </select>
-          </div>
-        </div>
-      </form>
-
+ 
+  <div class="row">
+    <div class="col-md-4">
       <div class="form-group">
-        <label  class="form-label">Departamento</label>
-        <select
-          id="idDepartamento"
-          formControlName="idDepartamento"
+        <label> Nombre Proveedor</label>
+        <input
+        style="text-transform:uppercase"
+        type="text"
+          name="nombre_proovedor"
+          #nombre_proovedor="ngModel"
+          [(ngModel)]="formData.nombre_proovedor"
           class="form-control"
-          [(ngModel)]="selectedCountry.id"
-          (change)="onSelectDepartamento($event.target.value)"
-        >
-          <option value="0">---Seleccione Departamento---</option>
-          <option
-            *ngFor="let departamento of departamentos"
-            value="{{ departamento.id }}"
-          >
-            {{ departamento.nombre }}
-          </option>
-        </select>
+          placeholder="Ingresar Nombre Proveedor"
+          [class.is-invalid]="nombre_proovedor.invalid && nombre_proovedor.touched"           
+          required 
+          maxlength="15"
+     
+        />
+        <small *ngIf="nombre_proovedor.invalid && nombre_proovedor.touched"
+        class="form-text text-danger">Ingresar Nombre</small>
       </div>
+    </div>
 
-      <div class="form-group" *ngIf="provincias.length > 0">
-        <label for="inputAddress" class="form-label">Provincia</label>
-        <select
-          id="idProvincia"
-          formControlName="idProvincia"
-          class="form-control"
-          [(ngModel)]="selectedprovincias.id"
-          (change)="onSelectProvincia($event.target.value)"
-        >
-          <option
-            *ngFor="let provincia of provincias"
-            value="{{ provincia.id }}"
-          >
-            {{ provincia.nombre_provincia }}
-          </option>
-        </select>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label>Email</label>
+          <input
+          style="text-transform:uppercase"
+          type="email"
+            name="email_proovedor"
+            #email_proovedor="ngModel"
+            [(ngModel)]="formData.email_proovedor"
+            class="form-control"
+            placeholder="Ingresar Email"
+            [class.is-invalid]="email_proovedor.invalid && email_proovedor.touched"           
+            required 
+            
+          />
+          <small *ngIf="email_proovedor.invalid && email_proovedor.touched"
+          class="form-text text-danger">Ingresar Email</small>
+        </div>
       </div>
-
-      <div class="form-group" *ngIf="distritos.length > 0">
-        <label for="inputAddress" class="form-label">Distrito</label>
-        <select
-          id="idDistrito"
-          formControlName="idDistrito"
-          class="form-control"
-          class="form-control"
-          id="id"
-          formControlName="idDistrito"
-        >
-          <option
-            *ngFor="let distrito of distritos"
-            ngValue="{{ distrito.id }}"
-          >
-            {{ distrito.nombre_distrito }}
-          </option>
-        </select>
+      <div class="col-md-4">
+        <div class="form-group">
+            <label> Telefono</label>
+          <input
+          style="text-transform:uppercase"
+          type="number"
+            name="telefono_proovedor"
+            #telefono_proovedor="ngModel"
+            [(ngModel)]="formData.telefono_proovedor"
+            class="form-control"
+            placeholder="Ingresar Telefono"
+            autocomplete="off"
+          
+          />
+        </div>
       </div>
-
-      <br />
-      <div class="form-group text-center">
-        <button type="submit" class="btn btn-primary w-25">
-          <i class="fa fa-save"></i>
-          Guardar
-        </button>
-      </div>
-    </form>
   </div>
-</div>
+  <div class="row">
+    <div class="col-md-4"> 
+        <div class="form-group">
+          <label> RUC</label>
+          <input
+          class="form-control"
+          type="number"
+            name="ruc_proovedor"
+            #ruc_proovedor="ngModel"
+            [(ngModel)]="formData.ruc_proovedor"          
+            placeholder="Ingresar Ruc"
+            [class.is-invalid]="ruc_proovedor.invalid && ruc_proovedor.touched"           
+            required            
+          />
+          <small *ngIf="ruc_proovedor.invalid && ruc_proovedor.touched"
+          class="form-text text-danger">Ingresar Ruc</small>
+        </div>
+       
+      
+    </div>
+    <div class="col-md-4"> 
+      <div class="form-group">
+        <label> Direccion</label>
+        <input
+        style="text-transform:uppercase"
+        type="text"
+          name="direccion_proovedor"
+          #direccion_proovedor="ngModel"
+          [(ngModel)]="formData.direccion_proovedor"
+          class="form-control"
+          placeholder="Ingresar Dirección"
+          maxlength="30"
+        />
+      </div>
+    
+  </div>
+  <div class="col-md-4">
+    <label> Pais</label>
+    <ng-select  
+    #idPais="ngModel"  
+    name="idPais" 
+    bindValue="idPais" 
+    placeholder="Buscar Pais" 
+    [(ngModel)]="formData.idPais"  
+     
+  >   
+      <ng-option *ngFor="let emp of paises" [value]="emp.id">{{emp.nombre_pais}}</ng-option>
+   </ng-select> 
+   <!-- <small   *ngIf="!this.isValid"   
+          class="form-text text-danger">Ingresar Pais</small> -->
+
+
+  </div>
+  </div>
+  <div class="row">
+ 
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Departamento</label>
+        <ng-select  
+        #idDepartamento="ngModel"  
+        name="idDepartamento" 
+        bindValue="idDepartamento" 
+        placeholder="Buscar Departamento" 
+        [(ngModel)]="formData.idDepartamento"  
+        (change)="onSelectDepartamento($event)"
+      >   
+          <ng-option *ngFor="let emp of departamentos" [value]="emp.id">{{emp.nombre}}</ng-option>
+       </ng-select> 
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Provincia</label>
+        <ng-select  
+        #idProvincia="ngModel"  
+        name="idProvincia" 
+        bindValue="idProvincia" 
+        placeholder="Buscar Provincia" 
+        [(ngModel)]="formData.idProvincia" 
+        (change)="onSelectProvincia($event)"
+      >   
+     
+          <ng-option *ngFor="let emp of provincias" [value]="emp.id">{{emp.nombre_provincia}}</ng-option>
+       </ng-select> 
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Distrito</label>
+        <ng-select  
+        #idDistrito="ngModel"  
+        name="idDistrito" 
+        bindValue="idDistrito" 
+        placeholder="Buscar Distrito" 
+        [(ngModel)]="formData.idDistrito"  
+      >   
+     
+          <ng-option *ngFor="let emp of distritos" [value]="emp.id">{{emp.nombre_distrito}}</ng-option>
+       </ng-select> 
+      </div>
+    </div>
+  </div>
+
+ 
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark" 
+  >
+    <i class="fa fa-database"></i> Guardar </button>
+   
+  </div>
+</form>
+ 

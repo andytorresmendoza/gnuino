@@ -23,11 +23,14 @@
       <div class="form-group">
         <label> Nombre</label>
         <input
+        style="text-transform:uppercase"
           name="nombre_cliente"
           #nombre_cliente="ngModel"
           [(ngModel)]="formData.nombre_cliente"
           class="form-control"
           placeholder="Ingresar Nombre Cliente"
+          [class.is-invalid]="nombre_cliente.invalid && nombre_cliente.touched"
+          required
         />
       </div>
     </div>
@@ -35,11 +38,14 @@
         <div class="form-group">
           <label> Apellido Paterno</label>
           <input
+          style="text-transform:uppercase"
             name="apellidos_pat_cliente"
             #apellidos_pat_cliente="ngModel"
             [(ngModel)]="formData.apellidos_pat_cliente"
             class="form-control"
             placeholder="Ingresar Apellido Paterno"
+            [class.is-invalid]="apellidos_pat_cliente.invalid && apellidos_pat_cliente.touched"
+            required
           />
         </div>
       </div>
@@ -47,11 +53,14 @@
         <div class="form-group">
           <label> Apellido Materno</label>
           <input
+          style="text-transform:uppercase"
             name="apellidos_mat_cliente"
             #apellidos_mat_cliente="ngModel"
             [(ngModel)]="formData.apellidos_mat_cliente"
             class="form-control"
             placeholder="Ingresar Apellido Materno"
+            [class.is-invalid]="apellidos_mat_cliente.invalid && apellidos_mat_cliente.touched"
+            required
           />
         </div>
       </div>
@@ -59,11 +68,14 @@
         <div class="form-group">
             <label> Telefono</label>
           <input
+          type="number"
             name="telefono_cliente"
             #telefono_cliente="ngModel"
             [(ngModel)]="formData.telefono_cliente"
             class="form-control"
             placeholder="Ingresar Telefono"
+            [class.is-invalid]="telefono_cliente.invalid && telefono_cliente.touched"
+            required
           />
         </div>
       </div>
@@ -76,9 +88,10 @@
 
 
         <ng-select  
+        style="text-transform:uppercase"
         #idTipoDocumento="ngModel"  
         name="idTipoDocumento" 
-        bindValue="idTipoDocumento" 
+        bindValue="idTipoDocumento"       
         placeholder="Buscar Tipo Documento" 
         [(ngModel)]="formData.idTipoDocumento"  
      
@@ -93,11 +106,13 @@
         <div class="form-group">
           <label> Nro Documento</label>
           <input
+          type="number"
             name="dni_cliente"
             #dni_cliente="ngModel"
             [(ngModel)]="formData.dni_cliente"
             class="form-control"
             placeholder="Ingresar Nro Documento"
+          
           />
         </div>
       </div>
@@ -105,6 +120,7 @@
         <div class="form-group">
           <label> Dirección</label>
           <input
+          style="text-transform:uppercase"
             name="direccion_cliente"
             #direccion_cliente="ngModel"
             [(ngModel)]="formData.direccion_cliente"
@@ -136,11 +152,14 @@
       <div class="form-group">
         <label> Email</label>
         <input
+        style="text-transform:uppercase"
           name="email_cliente"
           #email_cliente="ngModel"
           [(ngModel)]="formData.email_cliente"
           class="form-control"
           placeholder="Ingresar Email"
+          [class.is-invalid]="email_cliente.invalid && email_cliente.touched"
+          required
         />
       </div>
     </div>
@@ -194,6 +213,7 @@
         <div class="form-group">
             <label> Sexo</label>
             <select 
+            
             name="sexo_cliente" 
             #sexo_cliente="ngModel" 
             [(ngModel)]="formData.sexo_cliente"

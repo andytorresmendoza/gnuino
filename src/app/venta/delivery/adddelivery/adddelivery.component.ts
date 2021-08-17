@@ -21,6 +21,7 @@ export class AdddeliveryComponent implements OnInit {
   public formDetalleDelivery:any[]=[];
   
   estadoDelivery: DataEstadoDelivery[] ;
+  isButtonVisible:boolean=true; 
 
   constructor(  private currentRoute: ActivatedRoute,private ventaService: VentaService,private toastr: ToastrService, private router: Router,private mantenimientosServices: MantenimientosService) {
 
@@ -42,7 +43,11 @@ export class AdddeliveryComponent implements OnInit {
         this.formDataDelivery = res[0]; 
         this.formDetalleDelivery = res[0].detalleOrdenVenta[0].detalleCotizacion[0].detalleCotizacion; 
        this.ventaService.detalleDelivery =res[0].detalleOrdenVenta[0].detalleCotizacion[0].detalleCotizacion;
-       console.log(res[0]);
+       if (res[0].idEstadoDelivery ==  2 || res[0].idEstadoDelivery ==  3 ) {
+        this.isButtonVisible=false;
+       } else {
+        this.isButtonVisible=true;
+       }
       });
 
       this.mantenimientosServices.getEstadoDelivery()

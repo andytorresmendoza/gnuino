@@ -38,19 +38,19 @@
   <!-- Position Column -->
   <ng-container matColumnDef="Nro Cotizacion">
     <th mat-header-cell *matHeaderCellDef> Nro Cotizacion </th>
-    <td mat-cell *matCellDef="let element" > {{element.codigo_cotizacion_num}} </td>
+    <td mat-cell *matCellDef="let element" > {{element.codigo_cotizacion_num | uppercase}} </td>
    
   </ng-container>
 
   
   <ng-container matColumnDef="Proveedor">
     <th mat-header-cell *matHeaderCellDef> Proveedor </th>
-    <td mat-cell *matCellDef="let element"> {{element.nombreProovedor}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.nombreProovedor | uppercase}} </td>
   </ng-container>
 
   <ng-container matColumnDef="Empleado">
     <th mat-header-cell *matHeaderCellDef> Empleado </th>
-    <td mat-cell *matCellDef="let element"> {{element.nombreEmpleado}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.nombreEmpleado | uppercase}} </td>
   </ng-container>
 
  

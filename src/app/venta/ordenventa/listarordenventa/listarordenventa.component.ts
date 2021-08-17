@@ -38,8 +38,8 @@ export class ListarordenventaComponent implements OnInit {
      this.dataSource.data = resp as DataOrdenVenta[]; 
        this.ordenes = resp; 
        this.ventaService.detalleDelivery = resp;
-       this.ventaService.detalleCotizacion =  resp[0].detalleCotizacion[0].detalleCotizacion;
-       console.log(this.ventaService.detalleCotizacion);
+      //  this.ventaService.detalleCotizacion =  resp.detalleCotizacion.detalleCotizacion;
+      //  console.log(this.ventaService.detalleCotizacion,'DETALLE');
       this.cargando = false;
       //  console.log(resp[0].idEstadoFlujo );
     /*  if (resp[0].idEstadoFlujo ==  2 || resp[0].idEstadoFlujo ==  3 ) {
@@ -50,7 +50,7 @@ export class ListarordenventaComponent implements OnInit {
   });
   } 
   openForEdit(OrdenId: number) {
-    // console.log(CotizacionId,'editar');
+     console.log(OrdenId,'editar');
        this.router.navigate(['venta/editarordenventa/'+OrdenId]);
     }
 
@@ -71,9 +71,13 @@ export class ListarordenventaComponent implements OnInit {
 
      
 EstadoOrdenAnular(ordenes: DataOrdenVenta, i: number) {
-
+// console.log(ordenes);
   const bodyform = {id:ordenes.id, estadoOrden: '3'}
-  // console.log(ordenes);
+  this.ventaService.getOrdenCompraVentaById(ordenes.id).subscribe((res) => {
+    this.ventaService.detalleCotizacionAnular = res[0].detalleCotizacion[0].detalleCotizacion;
+    // console.log(this.ventaService.detalleCotizacionAnular,'que trae')
+  
+  });
   Swal.fire({
     title: 'Esta seguro?',
     text: `Que desea Anular ${ordenes.codigo_orden_num_venta}`,
@@ -86,6 +90,7 @@ EstadoOrdenAnular(ordenes: DataOrdenVenta, i: number) {
       this.ordenes.splice(i, 1);
       this.ventaService.EstadoOrdenVentaAnular(ordenes.id,bodyform).subscribe(
         resp => { 
+          // console.log(resp);
           this.toastr.error('Orden Venta Anulada');
           this.ngOnInit();
     

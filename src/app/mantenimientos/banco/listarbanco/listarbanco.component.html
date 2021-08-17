@@ -23,7 +23,7 @@
   <tbody>
     <tr *ngFor="let banco of bancos; let i = index">
       <th scope="row">{{ i + 1 }}</th>
-      <td>{{ banco.descripcion_banco }}</td>
+      <td>{{ banco.descripcion_banco | uppercase}}</td>
       <td>{{ banco.detalleNroCuenta[0].descripcion_cuenta}}</td>
       <!-- <td>{{ producto.detalleCategoria[0].nombre_categoria}}</td>  -->
      

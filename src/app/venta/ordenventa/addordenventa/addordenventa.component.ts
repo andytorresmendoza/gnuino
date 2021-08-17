@@ -10,7 +10,7 @@ import { DataTipoMoneda } from 'src/app/models/tipo-moneda';
 import { DataTipoPago } from 'src/app/models/tipopago';
 import { MantenimientosService } from 'src/app/services/mantenimientos/mantenimientos.service';
 import { VentaService } from 'src/app/services/venta/venta.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-addordenventa',
   templateUrl: './addordenventa.component.html',
@@ -144,18 +144,25 @@ export class AddordenventaComponent implements OnInit {
        console.log('cotizaciondetalle', response);
        });
     } 
-    validateForm() {
-      this.isValid = true;
-      if (this.ventaService.formOrdenVenta.idTipoPago == 0)
-        this.isValid = false;
-        else if   (this.ventaService.formOrdenVenta.idBanco == 0)
-        this.isValid = false;
-      return this.isValid;
+    validateForm(form:NgForm) {
+      if(form.value.idTipoPago == null )
+      return   Swal.fire({
+         title: 'Seleccionar Forma Pago' , 
+         icon: 'error',
+       });   
+       else if  (form.value.idBanco == null )
+       return   Swal.fire({
+          title: 'Seleccionar Banco' , 
+          icon: 'error',
+        });   
+
     }
     onSubmit(form: NgForm) {
-      this.validateForm();
-      // console.log(form.value);
-      if ( form.invalid ) {
+     if( this.validateForm(form)){
+       return;
+     }
+
+     else if ( form.invalid ) {
   
         Object.values( form.controls ).forEach( control => {
           control.markAsTouched();//es para validar el guardar

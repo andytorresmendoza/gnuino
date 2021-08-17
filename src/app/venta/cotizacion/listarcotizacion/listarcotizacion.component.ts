@@ -36,16 +36,11 @@ export class ListarcotizacionComponent implements OnInit {
  .subscribe(resp => {
    this.dataSource.data = resp as DataCotizacionVenta[]; 
      this.cotizaciones = resp; 
-     this.ventaService.detalleCotizacion = resp[0].detalleCotizacion
+     this.ventaService.detalleCotizacion = resp;
+     //aca esta el error anula el arreglo [0]
+console.log( this.ventaService.detalleCotizacion);
 
-     console.log(resp);
-    //  if (resp[0].idEstadoFlujo ==  2 ) {
-    //   this.isButtonVisible=false;
-    //  } else { 
-    //   this.isButtonVisible=true;
-    //  } 
-    // this.cargando = false;
-    //   console.log(resp);
+  
 });
 } 
  
@@ -55,25 +50,19 @@ openForEdit(CotizacionId: number) {
    this.router.navigate(['venta/venta/'+CotizacionId]);
 }
 
-/*borrarCotizacion(cotizaciones: DataCotizacionVenta, i: number) {
- Swal.fire({
-   title: 'Esta seguro?',
-   text: `Que desea Eliminar la cotizacion Nro${cotizaciones.nroCotizacion}`,
-   icon: 'question',
-   showConfirmButton: true,
-   showCancelButton: true,
- }).then((resp) => {
-   if (resp.value) {
-     this.cotizaciones.splice(i, 1);
-     this.ventaService.deleteCotizacion(cotizaciones.id).subscribe();
-   }
- });
-} */
- 
+
 EstadoCotizacionAnular(cotizaciones: DataCotizacionVenta, i: number) {
-console.log(cotizaciones,'1');
-console.log(i,'index');
- const bodyform = {id:cotizaciones.id, estadoCotizacion: '3'}
+// console.log(cotizaciones,'1');
+// console.log(i,'index');
+const bodyform = {id:cotizaciones.id, estadoCotizacion: '3'} 
+this.ventaService.getCotizacionById(cotizaciones.id).subscribe(res => {
+  // console.log(res,'que trae ID');
+  this.ventaService.detalleCotizacionAnular = res[0].detalleCotizacion;
+ 
+  // console.log(this.ventaService.detalleCotizacionAnular,'que trae');
+});
+
+ 
  console.log(cotizaciones.id);
  Swal.fire({
    title: 'Esta seguro?',

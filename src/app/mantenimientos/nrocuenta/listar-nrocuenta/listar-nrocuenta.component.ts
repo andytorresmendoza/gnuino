@@ -3,6 +3,7 @@ import { DataNrocuenta, NrocuentaI } from 'src/app/models/nrocuenta';
 import { MantenimientosService } from 'src/app/services/mantenimientos/mantenimientos.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-listar-nrocuenta',
@@ -10,7 +11,15 @@ import Swal from 'sweetalert2';
   styleUrls: ['./listar-nrocuenta.component.css']
 })
 export class ListarNrocuentaComponent implements OnInit {
-  nrocuentas: DataNrocuenta[] = [];
+  displayedColumns: string[] = ['Nro de Cuenta','Empleado Cuenta','details'];
+  dataSource = new MatTableDataSource<DataNrocuenta>();
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  // nrocuentas: DataNrocuenta[] = [];
   cargando = true; 
   constructor(private mantemientosService: MantenimientosService, private router:Router) { }
  
@@ -20,14 +29,11 @@ export class ListarNrocuentaComponent implements OnInit {
  
     this.mantemientosService.getNroCuenta()
     .subscribe(resp => {
-      
-       this.nrocuentas = resp;
+      this.dataSource.data = resp as DataNrocuenta[]; 
+      //  this.nrocuentas = resp;
       this.cargando = false;
-      // console.log(resp);
+     console.log(resp);
   
- 
-   },(err)=>{
-     console.log('Erro en la categoria');
    });
     
  }
@@ -36,11 +42,17 @@ export class ListarNrocuentaComponent implements OnInit {
 
 //  }
  
-Editar(nrocuenta:DataNrocuenta):void{
+/*Editar(nrocuenta:DataNrocuenta):void{
   localStorage.setItem("id",nrocuenta.id.toString());
   this.router.navigate(["../mantenimientos/editnrocuenta"]);
 
+}*/
+openForEdit(nrocuenta: number) {
+
+  this.router.navigate(['mantenimientos/addnrocuenta/'+nrocuenta]);
 }
+
+
 /*no se usa */
 Delete(nrocuentas:DataNrocuenta, i: number  ){
 //  console.log('component',nrocuentas.id);

@@ -68,14 +68,14 @@
               <tr *ngFor="let item of kardexService.detalleDevolucionesSinOC  ;let i=index;">
                 <th scope="row">{{ i + 1 }}</th>
                 <td>
-                    <p>{{item.nombre_producto}}</p> 
+                    <p>{{item.nombre_producto | uppercase}}</p> 
                   </td>
                   <td>
-                    <p>{{item.detalleNameSedePrincipal}}</p>
+                    <p>{{item.detalleNameSedePrincipal | uppercase}}</p>
                    
                   </td>
                   <td>
-                    <p>{{item.detalleNameUnidadMedida}}</p>
+                    <p>{{item.detalleNameUnidadMedida | uppercase}}</p>
                    
                   </td>
                   <td>
@@ -83,7 +83,7 @@
                   
                   </td>
                   <td>
-                    <p>{{item.descripcion_devolucion}}</p>
+                    <p>{{item.descripcion_devolucion | uppercase}}</p>
                   
                   </td>
                   <td>
@@ -95,7 +95,7 @@
                   
                   </td>
                   <td>
-                    <p>{{item.detalleDevolucion}}</p>
+                    <p>{{item.detalleDevolucion | uppercase}}</p>
                   
                   </td>
                  

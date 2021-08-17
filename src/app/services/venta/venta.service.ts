@@ -37,7 +37,11 @@ export class VentaService {
  // VENTA DIRECTA
  formVenta: DataVentaDirecta; 
   detalleVentaDirecta: DataDetalleVentaDirecta[];
+// ANULAR cotizacion
+detalleCotizacionAnular: DataDetalleCotizacionVenta[];
 
+//ANULAR VENTA DIRECTA
+detalleVentaDirectaAnular: DataDetalleVentaDirecta[];
 
 
   constructor(private http: HttpClient, private toastr: ToastrService) {
@@ -124,7 +128,7 @@ export class VentaService {
     // console.log(id,bodyform );
     var body = {
       ...bodyform,
-      detalleCotizacion: this.detalleCotizacion
+      detalleCotizacion: this.detalleCotizacionAnular
     };
     console.log(body,'body');
     return this.http.put(`${this.baseURL}cotizacion-venta-estado/` + id, body);
@@ -297,11 +301,16 @@ EstadoDelivery(id: number, bodyform:any) {
 EstadoOrdenVentaAnular(id: number, bodyform:any) {
   var body = {
     ...bodyform,
-    detalleCotizacion: this.detalleCotizacion
+    detalleCotizacion: this.detalleCotizacionAnular
   };
-  console.log(body,'body');
-  return this.http.put(`${this.baseURL}orden-estado-venta/` + id, body);
+  // console.log(id,'id');
+  // console.log(body,'body');
+   return this.http.put(`${this.baseURL}orden-estado-venta/` + id, body);
 }
+/*EstadoOrdenVentaAnular(id: number, bodyform:any) {
+  
+  return this.http.put(`${this.baseURL}orden-estado-venta/` + id, bodyform);
+}*/
 
 getOrdenVentaAnulada() {
   return this.http
@@ -367,9 +376,9 @@ EstadoVentaDirectaAnular(id: number, bodyform:any) {
   // console.log(id,bodyform );
   var body = {
     ...bodyform,
-    detalleCotizacionDirecta: this.detalleVentaDirecta
+    detalleCotizacionDirecta: this.detalleVentaDirectaAnular
   };
-  console.log(body,'body');
+  // console.log(body,'body');
   return this.http.put(`${this.baseURL}venta-directa-estado/` + id, body);
 }
 

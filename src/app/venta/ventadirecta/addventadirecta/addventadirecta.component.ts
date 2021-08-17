@@ -138,7 +138,8 @@ export class AddventadirectaComponent implements OnInit {
         
         idTipoPago:null,//ok
         idBanco:null,//ok
-        nroVouher:''
+        nroVouher:'',
+        porcentajeDscto:0
        
      //   telefono: '',
        // direccion:''
@@ -205,11 +206,13 @@ export class AddventadirectaComponent implements OnInit {
      updateMontoTotal(){
   
       let porcentaje = (this.ventaService.formVenta.total_productos - (this.ventaService.formVenta.total_productos * (this.ventaService.formVenta.descuento_venta/100))).toString();
+      let porcentajeGeneral = (this.ventaService.formVenta.total_productos  * this.ventaService.formVenta.descuento_venta/100).toString();
       // let costo_envio = this.ventaService.formVenta.costo_delivery.toString()
   
       // this.ventaService.formVenta.totalGeneral = (parseFloat(porcentaje) + parseFloat(costo_envio));
       this.ventaService.formVenta.monto_total = (parseFloat(porcentaje)  );
-     
+      this.ventaService.formVenta.porcentajeDscto = (parseFloat(porcentajeGeneral));
+
      
     // console.log(this.kardexService.formData.totalGeneral );
       }
@@ -228,13 +231,45 @@ export class AddventadirectaComponent implements OnInit {
       return this.isValid;
     }
   
+    validateSelect(form:NgForm) {
+      if(form.value.idTipoCotizacion == null )
+         return   Swal.fire({
+            title: 'Seleccionar Tipo Cotización' , 
+            icon: 'error',
+          });   
+          else if  (form.value.idCliente == null )
+          return   Swal.fire({
+             title: 'Seleccionar Cliente' , 
+             icon: 'error',
+           });   
+           else if  (form.value.idTipoMoneda == null )
+           return   Swal.fire({
+              title: 'Seleccionar Moneda' , 
+              icon: 'error',
+            });   
+            else if  (form.value.idEmpleado == null )
+           return   Swal.fire({
+              title: 'Seleccionar Empleado' , 
+              icon: 'error',
+            });   
+            else if  (form.value.idLinea == null )
+           return   Swal.fire({
+              title: 'Seleccionar Linea' , 
+              icon: 'error',
+            });   
+            
+    }
   
     
   
   onSubmit(form:NgForm) {
-   console.log(form.value);
-  this.validateForm();
-    if ( form.invalid ) {
+  //  console.log(form.value);
+  // this.validateForm();
+  if (this.validateSelect(form)){
+    return;
+   }
+  
+  else if ( form.invalid ) {
   
       Object.values( form.controls ).forEach( control => {
         control.markAsTouched();//es para validar el guardar

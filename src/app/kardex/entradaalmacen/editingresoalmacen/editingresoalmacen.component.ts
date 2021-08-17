@@ -10,7 +10,7 @@ import { DataProveedor } from '../../../models/proveedor';
 import { DataEmpleado } from '../../../models/empleado';
 import { DataTipoIngreso } from '../../../models/tipoingreso';
 import { HistoricoocComponent } from '../historicooc/historicooc.component';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-editingresoalmacen',
   templateUrl: './editingresoalmacen.component.html',
@@ -92,8 +92,17 @@ this.kardexService.formOrdencompra
        });
      
       }
+
+      validateForm(form:NgForm) {
+        if(form.value.idOrden == null )
+           return   Swal.fire({
+              title: 'Seleccionar Orden' , 
+              icon: 'error',
+            });   
+           
+      }
     onSubmit(form:NgForm){
-      // console.log(form);
+      this.validateForm(form);
   
         this.kardexService.GuardaEditIngresoAlmacen().subscribe(res =>{
           // console.log('respuesta',res);

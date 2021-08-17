@@ -51,10 +51,11 @@ name="idSedePrincipal"
   <div class="col-md-4">
     <label>Producto</label>
     <input
+    style="text-transform:uppercase"
 type="text" 
-name="detalleNameProducto"
+name="nombre_producto"
 #id="ngModel"
-[(ngModel)]="formData.detalleNameProducto"
+[(ngModel)]="formData.nombre_producto"
 class="form-control"
 readonly
 />
@@ -63,6 +64,7 @@ readonly
   <div class="col-md-4">
     <label>Unidad Medida</label>
     <input
+    style="text-transform:uppercase"
 type="text" 
 name="detalleNameUnidadMedida"
 #detalleNameUnidadMedida="ngModel"
@@ -74,6 +76,7 @@ readonly
   <div class="col-md-4">
     <label>Almacén</label> 
     <ng-select 
+    style="text-transform:uppercase"
     [items]="almacenes"  
    bindLabel="nombre_alamcen"
    bindValue="id"   

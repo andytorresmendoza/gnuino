@@ -25,9 +25,9 @@
   <tbody>
     <tr *ngFor="let almacen of almacenes; let i = index">
       <th scope="row">{{ i + 1 }}</th>
-      <td>{{ almacen.cod_alamcen}}</td>
-      <td>{{ almacen.nombre_alamcen }}</td> 
-      <td>{{ almacen.direccion_almacen}}</td>
+      <td>{{ almacen.cod_alamcen  | uppercase}}</td>
+      <td>{{ almacen.nombre_alamcen  | uppercase}}</td> 
+      <td>{{ almacen.direccion_almacen  | uppercase}}</td>
  
       <!-- <td>
         <label *ngIf="almacen.tipoAlmacen == 1 "

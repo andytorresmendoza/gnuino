@@ -128,7 +128,8 @@ export class AddcotizacionComponent implements OnInit {
       nombre_empleado:'',
       nombre_cliente:'',
       idTipoMoneda:null,//ok
-      fechaEntrega:''
+      fechaEntrega:'',
+      porcentajeDscto:0
      
    //   telefono: '',
      // direccion:''
@@ -195,9 +196,10 @@ this.ventaService.detalleCotizacion = [];
    updateMontoTotal(){
 
     let porcentaje = (this.ventaService.formData.total_productos - (this.ventaService.formData.total_productos * (this.ventaService.formData.descuento_cot/100))).toString();
-    let costo_envio = this.ventaService.formData.costo_delivery.toString()
-
+    let costo_envio = this.ventaService.formData.costo_delivery.toString();
+    let porcentajeGeneral = (this.ventaService.formData.total_productos  * this.ventaService.formData.descuento_cot/100).toString();
     this.ventaService.formData.totalGeneral = (parseFloat(porcentaje) + parseFloat(costo_envio));
+    this.ventaService.formData.porcentajeDscto = (parseFloat(porcentajeGeneral));
 
    
    
@@ -210,25 +212,59 @@ this.ventaService.detalleCotizacion = [];
    } 
   validateForm(){
     this.isValid = true;
-    if(this.ventaService.formData.idEmpleado==0)
-    this.isValid=false;
-    else if(this.ventaService.detalleCotizacion.length==0)
+     if(this.ventaService.detalleCotizacion.length==0)
     this.isValid=false;
   
     return this.isValid;
   }
 
 
-  
+  validateSelect(form:NgForm) {
+    if(form.value.idTipoCotizacion == null )
+       return   Swal.fire({
+          title: 'Seleccionar Tipo Cotización' , 
+          icon: 'error',
+        });   
+        else if  (form.value.idCliente == null )
+        return   Swal.fire({
+           title: 'Seleccionar Cliente' , 
+           icon: 'error',
+         });   
+         else if  (form.value.idTipoMoneda == null )
+         return   Swal.fire({
+            title: 'Seleccionar Moneda' , 
+            icon: 'error',
+          });   
+          else if  (form.value.idEmpleado == null )
+         return   Swal.fire({
+            title: 'Seleccionar Empleado' , 
+            icon: 'error',
+          });   
+          else if  (form.value.idLinea == null )
+         return   Swal.fire({
+            title: 'Seleccionar Linea' , 
+            icon: 'error',
+          });   
+          else if  (form.value.idDistrito == null )
+          return   Swal.fire({
+             title: 'Seleccionar Distrito' , 
+             icon: 'error',
+           });   
+  }
 
 onSubmit(form:NgForm) {
   // console.log(form.value);
  this.validateForm();
-  if ( form.invalid ) {
+
+ if (this.validateSelect(form)){
+  return;
+ }
+
+else  if ( form.invalid ) {
 
     Object.values( form.controls ).forEach( control => {
       control.markAsTouched();//es para validar el guardar
-      //  console.log(control); //son todos mis controles del formulario
+      // console.log(control); //son todos mis controles del formulario
      });
 
     return;
@@ -252,6 +288,6 @@ onSubmit(form:NgForm) {
     this.toastr.success(res.msg );
         this.router.navigate(["../venta/listarventa"]);
   })
-} 
-} 
+}  
+}
 }

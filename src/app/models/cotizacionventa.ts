@@ -25,6 +25,7 @@ export interface DataCotizacionVenta {
   totalGeneral: number;
   nombre_empleado: string;
   nombre_cliente: string;
+  porcentajeDscto:number;
   // NUEVO
   //telefono: string;
   //direccion: string;

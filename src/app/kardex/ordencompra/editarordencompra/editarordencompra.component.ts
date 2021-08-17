@@ -15,6 +15,7 @@ import * as moment from 'moment';
 import { DataTipoAlmacen } from '../../../models/tipoalmacen';
 import { DataTipoOrden } from 'src/app/models/tipo-orden';
 import { DataTipoMoneda } from 'src/app/models/tipo-moneda';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-editarordencompra',
@@ -25,7 +26,7 @@ export class EditarordencompraComponent implements OnInit {
 
   proveedores: DataProveedor[];
   tipopagos: DataTipoPago[]; 
-  bancos: DataBanco[];
+  bancos: any[];
   cuentas: DataNrocuenta[]; 
   empleados: DataEmpleado[];
   cotizaciones: DataCotizacion[];
@@ -48,11 +49,12 @@ export class EditarordencompraComponent implements OnInit {
     this.kardexService.getOrdenCompraById(+id).subscribe((res) => {
     //  console.log('editar',res[0] );
       this.kardexService.formOrdencompra = res[0];   
-      this.detalleCotizaciones  = res[0].detalleCotizacion[0].detCotizacion;
+      this.detalleCotizaciones  = res[0].detalleCotizacion[0].detalleCotizacion;
       this.detalleTipoMoneda = res[0].detalleCotizacion[0].detalleTipoMoneda;
       this.totales  = res[0].detalleCotizacion[0];
-     console.log(this.kardexService.formOrdencompra);
-     console.log(this.detalleTipoMoneda);
+    //  console.log(this.kardexService.formOrdencompra);
+     console.log(this.detalleCotizaciones,'detalle');
+     console.log(res);
       if (res[0].idEstadoFlujo ==  2 || res[0].idEstadoFlujo ==  3 ) {
         this.isButtonVisible=false;
        } else { /*implementar  EN ORDEN Y COTIZAICON ANULADA*/
@@ -132,7 +134,8 @@ export class EditarordencompraComponent implements OnInit {
        nombre_empleado:'',
        nombre_proovedor:'',
        idTipoOc:0,
-       idTipoMoneda:0
+       idTipoMoneda:0,
+       cuentaPertenece:''
     };
   }
   UpdateBanco(ctrl) {
@@ -140,6 +143,7 @@ export class EditarordencompraComponent implements OnInit {
     this.kardexService.formOrdencompra.idNroCuenta = this.bancos[
       ctrl.selectedIndex - 1
     ].idNroCuenta;
+    this.kardexService.formOrdencompra.cuentaPertenece = this.bancos[ctrl.selectedIndex - 1].detalleNroCuenta[0].nombreEmpleado; 
   }
   // onChangeEvent(event) {
   //   const m = moment(event.value);
@@ -158,7 +162,21 @@ export class EditarordencompraComponent implements OnInit {
 }
 
 
+validateCombos(form:NgForm) {
+  if(form.value.idTipoOc == null )
+     return   Swal.fire({
+        title: 'Seleccionar Tipo Orden' , 
+        icon: 'error',
+      });   
+      else if  (form.value.idTipoPago == null )
+      return   Swal.fire({
+         title: 'Seleccionar Forma Pago' , 
+         icon: 'error',
+       });   
+       
+}
  onSubmit(form: NgForm) {
+  this.validateCombos(form);
     if ( form.invalid ) {
 
       Object.values( form.controls ).forEach( control => {

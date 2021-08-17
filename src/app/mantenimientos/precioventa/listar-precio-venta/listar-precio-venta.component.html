@@ -18,31 +18,31 @@
   <!-- Position Column -->
   <ng-container matColumnDef="Codigo Producto">
     <th mat-header-cell *matHeaderCellDef> Codigo Producto</th>
-    <td mat-cell *matCellDef="let element" > {{element.detalleProducto[0].codigoProductoBarra}} </td>
+    <td mat-cell *matCellDef="let element" > {{element.detalleProducto[0].codigoProductoBarra }} </td>
    
   </ng-container>
   <ng-container matColumnDef="Nombre">
     <th mat-header-cell *matHeaderCellDef> Nombre Producto</th>
-    <td mat-cell *matCellDef="let element" > {{element.NombreProducto}} </td>
+    <td mat-cell *matCellDef="let element" > {{element.NombreProducto  | uppercase}} </td>
    
   </ng-container>
 
   <!-- Name Column -->
   <ng-container matColumnDef="Nombre Almacen">
     <th mat-header-cell *matHeaderCellDef> Nombre Almacén </th>
-    <td mat-cell *matCellDef="let element"> {{element.detalleNameAlmacen}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.detalleNameAlmacen  | uppercase}} </td>
   </ng-container>
 
   <!-- Weight Column -->
   <ng-container matColumnDef="Precio Venta">
     <th mat-header-cell *matHeaderCellDef> Precio Venta </th>
-    <td mat-cell *matCellDef="let element"> {{element.precioVenta}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.precioVenta  | uppercase}} </td>
   </ng-container>
 
   <!-- Symbol Column -->
   <ng-container matColumnDef="Fecha">
     <th mat-header-cell *matHeaderCellDef> Fecha </th>
-    <td mat-cell *matCellDef="let element" > {{element.fechaVenta}} </td>
+    <td mat-cell *matCellDef="let element" > {{element.fechaVenta }} </td>
    
   </ng-container>
 

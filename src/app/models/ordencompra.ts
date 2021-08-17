@@ -32,5 +32,6 @@ export interface DataOrdenCompra {
   nombre_proovedor:string;
   idTipoOc:number;
   idTipoMoneda:number;
+  cuentaPertenece:string;
    
 }

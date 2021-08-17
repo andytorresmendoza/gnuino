@@ -28,10 +28,10 @@
   <tbody>
     <tr *ngFor="let empleado of empleados; let i = index">
       <th scope="row">{{ i + 1 }}</th>
-      <td>{{ empleado.nombre_empleado }}</td>
-      <td>{{ empleado.apellidos_pat_empleado  }}</td>
-      <td>{{ empleado.apellidos_mat_empleado  }}</td>
-      <td>{{ empleado.sexo_empleado }}</td>
+      <td>{{ empleado.nombre_empleado | uppercase}}</td>
+      <td>{{ empleado.apellidos_pat_empleado  | uppercase}}</td>
+      <td>{{ empleado.apellidos_mat_empleado | uppercase }}</td>
+      <td>{{ empleado.sexo_empleado | uppercase }}</td>
       <td>{{ empleado.dni_empleado}}</td>
    
  

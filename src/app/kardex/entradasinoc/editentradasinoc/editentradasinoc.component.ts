@@ -30,7 +30,7 @@ export class EditentradasinocComponent implements OnInit {
   ngOnInit(): void {
     let id = this.currentRoute.snapshot.paramMap.get('id');
     this.kardexService.getIngresoSinOCById(+id).subscribe(res => {
-      // console.log('editar',res[0]); 
+     console.log('editar',res[0]); 
             // console.log('editar',res[0] );
              this.kardexService.formDataIngresosinOc = res[0]; 
              this.kardexService.formDataIngresosinOc.nombre_empleado = res[0].detalleEmpleado[0].nombre_empleado; 

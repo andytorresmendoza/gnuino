@@ -23,6 +23,7 @@ export interface DataCotizacion {
    // NUEVO
    idTipoCotizacion:number;
    idLinea:number;
+   porcentajeDscto:number;
     // detalleCotizacion: DataDetalleCotizacion[];
     
     

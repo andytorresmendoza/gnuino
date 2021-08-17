@@ -6,7 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { ListarNrocuentaComponent } from './nrocuenta/listar-nrocuenta/listar-nrocuenta.component';
 import { AddNrocuentaComponent } from './nrocuenta/add-nrocuenta/add-nrocuenta.component';
-import { EditarNrocuentaComponent } from './nrocuenta/editar-nrocuenta/editar-nrocuenta.component';
+// import { EditarNrocuentaComponent } from './nrocuenta/editar-nrocuenta/editar-nrocuenta.component';
 import { ListarCategoriaComponent } from './categoria/listar-categoria/listar-categoria.component';
 import { AddCategoriaComponent } from './categoria/add-categoria/add-categoria.component';
 import { EditarCategoriaComponent } from './categoria/editar-categoria/editar-categoria.component';
@@ -45,7 +45,7 @@ import { AddProductoComponent } from './producto/add-producto/add-producto.compo
 // import { EditarProductoComponent } from './producto/editar-producto/editar-producto.component';
 import { ListarProveedorComponent } from './proveedor/listar-proveedor/listar-proveedor.component';
 import { AddProveedorComponent } from './proveedor/add-proveedor/add-proveedor.component';
-import { EditarProveedorComponent } from './proveedor/editar-proveedor/editar-proveedor.component';
+// import { EditarProveedorComponent } from './proveedor/editar-proveedor/editar-proveedor.component';
 import { ListarEmpleadoComponent } from './empleado/listar-empleado/listar-empleado.component';
 import { AddEmpleadoComponent } from './empleado/add-empleado/add-empleado.component';
 import { EditarEmpleadoComponent } from './empleado/editar-empleado/editar-empleado.component';
@@ -71,8 +71,8 @@ const routes: Routes = [
    children:[
         {path:'',component:DashboardComponent},     
      {path:'listarnrocuenta', component: ListarNrocuentaComponent, data:{titulo:'Numero Cuenta'}},
-     {path:'addnrocuenta', component: AddNrocuentaComponent, data:{titulo:'Numero Cuenta'}},
-     {path:'editnrocuenta', component: EditarNrocuentaComponent, data:{titulo:'Numero Cuenta'}},
+     {path:'addnrocuenta/:id', component: AddNrocuentaComponent, data:{titulo:'Numero Cuenta'}},
+    //  {path:'editnrocuenta', component: EditarNrocuentaComponent, data:{titulo:'Numero Cuenta'}},
      {path:'listarcategoria', component: ListarCategoriaComponent, data:{titulo:'Categoría'}},
      {path:'addcategoria', component: AddCategoriaComponent, data:{titulo:'Categoría'}},
      {path:'editcategoria', component: EditarCategoriaComponent, data:{titulo:'Categoría'}},
@@ -110,8 +110,9 @@ const routes: Routes = [
      {path:'addproducto/:id', component: AddProductoComponent, data:{titulo:'Productos'}},
     //  {path:'editproducto', component: EditarProductoComponent, data:{titulo:'Productos'}},
      {path:'listarproveedor', component: ListarProveedorComponent, data:{titulo:'Proveedor'}},
-     {path:'addproveedor', component: AddProveedorComponent, data:{titulo:'Proveedora'}},
-     {path:'editproveedor', component: EditarProveedorComponent, data:{titulo:'Proveedor'}},
+     {path:'addproveedor/:id', component: AddProveedorComponent, data:{titulo:'Proveedor'}},
+    //  {path:'proveedor/:id', component: AddClienteComponent, data:{titulo:'Cliente'}},
+    //  {path:'editproveedor', component: EditarProveedorComponent, data:{titulo:'Proveedor'}},
      {path:'listarempleado', component: ListarEmpleadoComponent, data:{titulo:'Empleado'}},
      {path:'addempleado/:id', component: AddEmpleadoComponent, data:{titulo:'Empleado'}},
     // {path:'addempleado', component: AddEmpleadoComponent, data:{titulo:'Empleado'}},

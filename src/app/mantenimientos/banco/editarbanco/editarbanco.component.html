@@ -17,6 +17,7 @@
         <div class="mb-3">
           <label  class="form-label">Descripción Banco</label>
           <input
+          style="text-transform:uppercase"
             type="text"
             [(ngModel)]="bancos[0].descripcion_banco"
             name="descripcion_banco"
@@ -28,7 +29,7 @@
         <div class="mb-3">
           <label  class="form-label">Nro Cuenta</label>
             <select
-              type="text"
+              type="number"
               [(ngModel)]="bancos[0].idNroCuenta"
               name="id"
               class="form-control"

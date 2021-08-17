@@ -22,7 +22,7 @@
   <tbody>
     <tr *ngFor="let perfil of perfiles; let i = index">
       <th scope="row">{{ i + 1 }}</th>
-      <td>{{ perfil.tipo_usuario }}</td>
+      <td>{{ perfil.tipo_usuario | uppercase }}</td>
       <td>
         <label *ngIf="perfil.estado" class="badge badge-success"
           >Activo</label

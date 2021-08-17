@@ -22,7 +22,7 @@
   <tbody>
     <tr *ngFor="let modelo of modelos; let i = index">
       <th scope="row">{{ i + 1 }}</th>
-      <td>{{ modelo.nombre_modelo }}</td>
+      <td>{{ modelo.nombre_modelo  | uppercase}}</td>
       <td>
         <label *ngIf="modelo.estado" class="badge badge-success"
           >Activo</label

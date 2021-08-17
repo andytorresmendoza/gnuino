@@ -61,13 +61,24 @@ export class DetalledevolucionsinocComponent implements OnInit {
   onChange = ($event: any): void => {
     this.formData.descripcion_devolucion = $event.descripcion_devolucion;
   };
+  validateSelect(form:NgForm) {
+    if(this.formData.idTipoDevolucion == null )
+       return   Swal.fire({
+          title: 'Seleccionar Tipo Devolución' , 
+          icon: 'error',
+        });   
+       
+  }
   onSubmit(form: NgForm) {
-    if (
+    if (this.validateSelect(form)){
+      return;
+     }
+   else  if (
       form.value.cantidadDevolucion > form.value.cantidadPendiente ||
       form.value.cantidadDevolucion <= 0
     ) {
       return Swal.fire({
-        title: form.value.cantidadPrincipal + ' Productos en Stock',
+        title: form.value.cantidadPendiente + ' Productos en Stock',
         text: 'Cantidad Devolución Invalida',
         icon: 'error',
       });

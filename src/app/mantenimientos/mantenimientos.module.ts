@@ -14,7 +14,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 // MANTENIMIENTOS
 import { ListarNrocuentaComponent } from './nrocuenta/listar-nrocuenta/listar-nrocuenta.component';
-import { EditarNrocuentaComponent } from './nrocuenta/editar-nrocuenta/editar-nrocuenta.component';
+// import { EditarNrocuentaComponent } from './nrocuenta/editar-nrocuenta/editar-nrocuenta.component';
 import { AddNrocuentaComponent } from './nrocuenta/add-nrocuenta/add-nrocuenta.component';
 import { AddCategoriaComponent } from './categoria/add-categoria/add-categoria.component';
 import { ListarCategoriaComponent } from './categoria/listar-categoria/listar-categoria.component';
@@ -53,7 +53,7 @@ import { ListarProductoComponent } from './producto/listar-producto/listar-produ
 // import { EditarProductoComponent } from './producto/editar-producto/editar-producto.component';
 import { AddProductoComponent } from './producto/add-producto/add-producto.component';
 import { ListarProveedorComponent } from './proveedor/listar-proveedor/listar-proveedor.component';
-import { EditarProveedorComponent } from './proveedor/editar-proveedor/editar-proveedor.component';
+// import { EditarProveedorComponent } from './proveedor/editar-proveedor/editar-proveedor.component';
 import { AddProveedorComponent } from './proveedor/add-proveedor/add-proveedor.component';
 import { ListarEmpleadoComponent } from './empleado/listar-empleado/listar-empleado.component';
 import { EditarEmpleadoComponent } from './empleado/editar-empleado/editar-empleado.component';
@@ -83,7 +83,7 @@ import { ListarPrecioVentaComponent } from './precioventa/listar-precio-venta/li
     HomeComponent,
     MantenimientosComponent,
     ListarNrocuentaComponent,
-    EditarNrocuentaComponent,
+    // EditarNrocuentaComponent,
     AddNrocuentaComponent,
     AddCategoriaComponent,
     ListarCategoriaComponent,
@@ -121,7 +121,7 @@ import { ListarPrecioVentaComponent } from './precioventa/listar-precio-venta/li
     ListarProductoComponent,
     AddProductoComponent,
     ListarProveedorComponent,
-    EditarProveedorComponent,
+    // EditarProveedorComponent,
     AddProveedorComponent,
     ListarEmpleadoComponent,
     EditarEmpleadoComponent,

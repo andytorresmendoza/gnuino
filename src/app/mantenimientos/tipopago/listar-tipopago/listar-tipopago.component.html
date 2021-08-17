@@ -22,7 +22,7 @@
   <tbody>
     <tr *ngFor="let tipopago of tipopagos; let i = index">
       <th scope="row">{{ i + 1 }}</th>
-      <td>{{ tipopago.descripcion_pago }}</td>
+      <td>{{ tipopago.descripcion_pago   | uppercase}}</td>
       <td>
         <label *ngIf="tipopago.estado" class="badge badge-success"
           >Activo</label

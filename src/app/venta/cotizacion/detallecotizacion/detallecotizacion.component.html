@@ -31,6 +31,7 @@
       <label>Buscar Producto</label>
 
       <ng-select
+      style="text-transform:uppercase"
         [items]="productos"
         bindLabel="nombre_producto"
         bindValue="id"
@@ -46,6 +47,7 @@
     <div class="form-group col-md-4">
       <label>Unidad Medida </label>
       <input
+      style="text-transform:uppercase"
         type="text"
         name="detalleNameUnidadMedida"
         #detalleNameUnidadMedida="ngModel"
@@ -59,6 +61,7 @@
       <div class="form-group">
         <label> Almacén</label>
         <ng-select
+        style="text-transform:uppercase"
           [items]="almacen"
           bindLabel="nombre_alamcen"
           bindValue="id"
@@ -115,6 +118,7 @@
     <div class="form-group col-md-12">
       <label>Observaciones</label>
       <input
+      style="text-transform:uppercase"
         name="observacion"
         #observacion="ngModel"
         [(ngModel)]="formData.observacion"

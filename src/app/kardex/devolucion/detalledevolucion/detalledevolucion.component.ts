@@ -44,15 +44,15 @@ export class DetalledevolucionComponent implements OnInit {
         // cantidadGlobal:0,
         cantidadPrincipal: 0,
         cantidadDevolucion: 0,
-        idTipoDevolucion: 0,
+        idTipoDevolucion: null,
         idTipoIngreso: 0,
         detalleDevolucion: '',
         fechaDevolucion: '',
         idProducto: 0, //agreagr
         cantidadPendiente: 0,
-        idSedePrincipal: 0,
+        idSedePrincipal: 0
       },
-
+/*ver que sale null en idtipodevolcuion */
       this.kardexService.detalleDevoluciones[this.data.orderItemIndex]
 
     );
@@ -63,14 +63,26 @@ export class DetalledevolucionComponent implements OnInit {
     this.formData.descripcion_devolucion = $event.descripcion_devolucion;
   };
 
+  validateSelect(form:NgForm) {
+    if(this.formData.idTipoDevolucion == null )
+       return   Swal.fire({
+          title: 'Seleccionar Tipo Devolución' , 
+          icon: 'error',
+        });   
+       
+  }
   onSubmit(form: NgForm) {
-    // console.log(form);
-    if (
+  console.log(form.value);
+
+    if (this.validateSelect(form)){
+      return;
+     }
+   else if (
       form.value.cantidadDevolucion > form.value.cantidadPendiente ||
       form.value.cantidadDevolucion <= 0
     ) {
       return Swal.fire({
-        title: form.value.cantidadPrincipal + ' Productos en Stock',
+        title: form.value.cantidadPendiente + ' Productos en Stock',
         text: 'Cantidad Devolución Invalida',
         icon: 'error',
       });

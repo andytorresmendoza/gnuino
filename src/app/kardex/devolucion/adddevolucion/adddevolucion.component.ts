@@ -22,7 +22,7 @@ export class AdddevolucionComponent implements OnInit {
   ngOnInit(): void {
     let id = this.currentRoute.snapshot.paramMap.get('id');
     this.kardexService.getSalidaProductosById(+id).subscribe(res => {
-        //  console.log(res[0]);
+      console.log(res[0]);
 
     this.kardexService.formDataDevoluciones = res[0];  
      
@@ -55,7 +55,7 @@ AddOrEditOrderItem( orderItemIndex,id) {
   onSubmit(form:NgForm){
 //  console.log(form.value);
     this.kardexService.GuardaDevolucionAlmacen().subscribe(resp =>{ /*falta */
-  // console.log('respuesta',resp); 
+   console.log('respuesta',resp); 
    this.toastr.success('Se realizo la Devolución Exitosamente');
     // resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
       this.router.navigate(["../kardex/devoluciones"]);

@@ -24,9 +24,9 @@
   <tbody>
     <tr *ngFor="let unidadmedida of unidadmedidas; let i = index">
       <th scope="row">{{ i + 1 }}</th>
-      <td>{{ unidadmedida.detalle }}</td>
-      <td>{{ unidadmedida.alto }}</td>
-      <td>{{ unidadmedida.ancho }}</td>
+      <td>{{ unidadmedida.detalle  | uppercase }}</td>
+      <td>{{ unidadmedida.alto   | uppercase}}</td>
+      <td>{{ unidadmedida.ancho   | uppercase}}</td>
       <td>
         <label *ngIf="unidadmedida.estado" class="badge badge-success"
           >Activo</label

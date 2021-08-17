@@ -15,6 +15,7 @@ export interface DatEmpleadoDelivery {
   detalleEmpDev:string;
   codigo_empdel_num_venta:string;
   idDistrito:number;
+  idEstadoFlujo:number;
 
   
 

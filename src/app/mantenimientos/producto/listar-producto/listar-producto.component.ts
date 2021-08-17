@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { DataProducto } from 'src/app/models/producto';
 import { MantenimientosService } from 'src/app/services/mantenimientos/mantenimientos.service';
 import {MatTableDataSource} from '@angular/material/table';
+import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-listar-producto',
@@ -10,7 +12,7 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./listar-producto.component.css']
 })
 export class ListarProductoComponent implements OnInit {
-  displayedColumns: string[] = ['Codigo Producto', 'Nombre Codigo', 'Nombre Producto', 'Unidad de Medida','details'];
+  displayedColumns: string[] = ['Codigo Producto', 'Nombre Codigo', 'Nombre Producto', 'Unidad de Medida','Estado','details','Anular'];
   dataSource = new MatTableDataSource<DataProducto>();
 
   applyFilter(event: Event) {
@@ -20,7 +22,7 @@ export class ListarProductoComponent implements OnInit {
 
   // productos: DataProducto[] = [];
   // cargando = true; 
-  constructor(private mantemientosService: MantenimientosService, private router:Router) { }
+  constructor(private mantemientosService: MantenimientosService, private router:Router,  private toastr: ToastrService ) { }
  
   ngOnInit(): void {
     this.mantemientosService.getProducto()
@@ -28,7 +30,7 @@ export class ListarProductoComponent implements OnInit {
       this.dataSource.data = resp as DataProducto[]; 
       //  this.productos = resp; 
       // this.cargando = false;
-  //  console.log(resp); 
+ console.log(resp); 
    });
 
   }
@@ -43,4 +45,24 @@ export class ListarProductoComponent implements OnInit {
 
     this.router.navigate(['mantenimientos/addproducto/'+ProductoId]);
   }
+  EstadoProductoAnular(productos: DataProducto) { 
+      Swal.fire({
+        title: 'Esta seguro?',
+        text: `Que desea Anular el Producto ${productos.nombre_producto}`,
+        icon: 'question',
+        showConfirmButton: true,
+        showCancelButton: true,
+      }).then((resp) => {
+        if (resp.value) {  
+          this.mantemientosService.AnularProducto(productos.id ).subscribe(
+            resp => {
+              this.toastr.error('Cotización Anulada');
+               this.ngOnInit();
+     
+          }
+    
+          );
+        }
+      });
+    } 
 }

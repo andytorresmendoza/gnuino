@@ -22,6 +22,12 @@
     #id="ngModel"
     [(ngModel)]="ventaService.formVenta.id"
   />
+  <input
+  type="hidden"
+  name="idCliente"
+  #idCliente="ngModel"
+  [(ngModel)]="ventaService.formVenta.idCliente"
+  />
  
 <div class="row"> 
   <div class="col-xs-12 col-md-4">
@@ -52,6 +58,7 @@
       <div class="form-group">
         <label> Tipo Cotización  </label>
         <ng-select  
+        style="text-transform:uppercase"
           #idTipoCotizacion="ngModel"  
           name="idTipoCotizacion" 
           bindValue="idTipoCotizacion" 
@@ -68,6 +75,7 @@
       <div class="form-group">
         <label> Linea </label>
         <ng-select  
+        style="text-transform:uppercase"
           #idLinea="ngModel"  
           name="idLinea" 
           bindValue="idLinea" 
@@ -85,6 +93,7 @@
           <label>Empleado</label>
     
           <ng-select  
+          style="text-transform:uppercase"
           #idEmpleado="ngModel"  
           name="idEmpleado" 
           bindValue="idEmpleado" 
@@ -116,6 +125,7 @@
       <div class="form-group">
         <label> Cliente</label> 
         <ng-select 
+        style="text-transform:uppercase"
         [items]="clientes"
        bindLabel="nombre_cliente"
        bindValue="id" 
@@ -131,7 +141,8 @@
     <div class="col-md-4">
     <div class="form-group">
       <label> Tipo Moneda</label>
-      <ng-select  
+      <ng-select 
+      style="text-transform:uppercase" 
       #idTipoMoneda="ngModel"  
       name="idTipoMoneda" 
       bindValue="idTipoMoneda" 
@@ -149,6 +160,7 @@
       <div class="form-group">
         <label> Forma de Pago</label>
         <ng-select
+        style="text-transform:uppercase"
         #idTipoPago="ngModel"
         name="idTipoPago"
         bindValue="idTipoPago"
@@ -165,6 +177,7 @@
         <div class="form-group">
             <label> Banco</label>
             <ng-select
+            style="text-transform:uppercase"
             #idBanco="ngModel"
             name="idBanco"
             bindValue="idBanco"
@@ -207,16 +220,15 @@
         <div class="form-group">
           <label> Detalle Cabecera</label>
           <input
+          style="text-transform:uppercase"
           class="form-control" 
             type="text"
             name="detalle"
-            placeholder="Detalle"
-            [class.is-invalid]="detalle.invalid && detalle.touched"
+            placeholder="Detalle"           
             #detalle="ngModel"
             [(ngModel)]="ventaService.formVenta.detalle"
             class="form-control" 
-            required
-            minlength="5"
+           
           
           />
         
@@ -227,7 +239,7 @@
  
 
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-3">
       <div class="form-group">
         <label> Descuento Cotización %</label>
         <input
@@ -240,21 +252,19 @@
         />
       </div>
     </div>
-    <!-- <div class="col-md-4">
-    <div class="form-group">
-      <label> Costo Delivery </label>
-      <input
-      type="number"
-        name="costo_delivery"
-        #costo_delivery="ngModel"
-        [(ngModel)]="ventaService.formVenta.costo_delivery"
-        class="form-control"
-        (keyup)="updateMontoTotal()" 
-      />
- 
-    </div>
-  </div> -->
-  <div class="col-md-4">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label> % Descuento</label>
+            <input
+              name="porcentajeDscto"
+              #porcentajeDscto="ngModel"
+              [(ngModel)]="ventaService.formVenta.porcentajeDscto"
+              class="form-control"
+              readonly
+            />
+      </div>
+      </div>
+  <div class="col-md-3">
   <div class="form-group">
     <label> Total Producto</label>
         <input
@@ -266,7 +276,7 @@
         />
   </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="form-group">
       <label> Monto Total</label>
       <input
@@ -317,9 +327,9 @@
         <!--  <td>{{item.detalleProducto[0].nombre_producto}}</td>  detalleProducto[0].nombre_producto}}</td>   -->
         <!-- <td>{{item.detalleNameProducto}}</td>  -->
         <th scope="row">{{ i + 1 }}</th>
-        <td>{{ item.nombre_producto }}</td> 
-        <td>{{item.detalleNameUnidadMedida}}</td>
-        <td>{{item.nombre_alamcen}}</td>
+        <td>{{ item.nombre_producto | uppercase }}</td> 
+        <td>{{item.detalleNameUnidadMedida | uppercase}}</td>
+        <td>{{item.nombre_alamcen | uppercase}}</td>
         <td>{{ item.cantidad }}</td>
         <td>{{ item.precioVenta }}</td>
         <!-- <td>{{ item.precio_total }}</td> -->

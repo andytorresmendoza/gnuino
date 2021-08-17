@@ -1,6 +1,6 @@
 <h1>
   <small>Movimientos del Producto -
-    <b>{{ cabeceraProducto?.detalleNameProducto }} </b></small>
+    <b>{{ cabeceraProducto?.detalleNameProducto | uppercase}} </b></small>
 </h1>
 <!-- /*- {{movimientosProductos[0].detalleNameProducto}} -->
 <hr />
@@ -27,7 +27,7 @@
   <!-- Item Column -->
 <ng-container matColumnDef="Nombre Producto">
     <th mat-header-cell *matHeaderCellDef> <b>Nombre Producto</b> </th>
-    <td mat-cell *matCellDef="let movimientosProductos"> {{movimientosProductos?.producto}} </td>
+    <td mat-cell *matCellDef="let movimientosProductos"> {{movimientosProductos?.producto | uppercase}} </td>
     <td mat-footer-cell *matFooterCellDef></td>
   </ng-container> 
 

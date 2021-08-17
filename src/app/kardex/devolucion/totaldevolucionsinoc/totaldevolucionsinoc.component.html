@@ -46,13 +46,13 @@
           <th scope="row">{{ i + 1 }}</th>
           <th>{{item.codigoDevolucionSin}}</th>
           <td>{{item.detalleIngresoAlmacen[0].codigoIngresoSinOc}}</td> 
-           <td>{{item.detalleTipoIngreso[0].descripcion_ingreso}}</td>
-           <td>{{item.detalleNameProducto}}</td> 
+           <td>{{item.detalleTipoIngreso[0].descripcion_ingreso | uppercase}}</td>
+           <td>{{item.detalleNameProducto | uppercase}}</td> 
            <td>{{item.fechaDevolucion}}</td>    
-            <td>{{item.detalleTipoDevolucion[0].descripcion_devolucion}}</td>  
-            <td>{{item.detalleNameSede}}</td> 
+            <td>{{item.detalleTipoDevolucion[0].descripcion_devolucion | uppercase}}</td>  
+            <td>{{item.detalleNameSede | uppercase}}</td> 
            <td style="color:#fb0000">-{{item.cantidadDevolucion}}</td> 
-           <td>{{item.detalleDevolucion}}</td> 
+           <td>{{item.detalleDevolucion | uppercase}}</td> 
           
            </tr>
     </tbody>

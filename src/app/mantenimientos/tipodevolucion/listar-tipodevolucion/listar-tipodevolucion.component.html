@@ -22,7 +22,7 @@
   <tbody>
     <tr *ngFor="let tipodevolucion of tipodevoluciones; let i = index">
       <th scope="row">{{ i + 1 }}</th>
-      <td>{{ tipodevolucion.descripcion_devolucion }}</td>
+      <td>{{ tipodevolucion.descripcion_devolucion  | uppercase }}</td>
       <td>
         <label *ngIf="tipodevolucion.estado" class="badge badge-success"
           >Activo</label

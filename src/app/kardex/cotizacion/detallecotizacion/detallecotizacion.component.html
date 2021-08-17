@@ -39,6 +39,7 @@ name="idProducto"
       <label>Buscar Producto</label>
     
       <ng-select 
+      style="text-transform:uppercase"
       [items]="productos"
      bindLabel="nombre_producto"
      bindValue="id" 
@@ -109,10 +110,12 @@ name="idProducto"
     <div class="form-group col-md-7">
       <label>Observaciones</label>
       <input
+      style="text-transform:uppercase"
         name="observaciones"
         #observaciones="ngModel"
         [(ngModel)]="formData.observaciones"
         class="form-control"
+        placeholder="Ingresar Obs"
       />
     </div>
   </div>

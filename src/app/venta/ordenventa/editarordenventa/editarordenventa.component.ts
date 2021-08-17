@@ -41,7 +41,7 @@ export class EditarordenventaComponent implements OnInit {
         this.cotizacion = res[0].detalleCotizacion[0];
     this.detalleCotizacionesVenta  = res[0].detalleCotizacion[0].detalleCotizacion;
     
-        if (res[0].idEstadoFlujo ==  2 || res[0].idEstadoFlujo ==  3 ) {
+        if (res[0].idEstadoFlujo ==  2 || res[0].idEstadoFlujo ==  3 || res[0].idEstadoFlujo ==  4) {
           this.isButtonVisible=false;
          } else { 
           this.isButtonVisible=true;

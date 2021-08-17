@@ -26,6 +26,7 @@
         <label> Tipo Ingreso</label>
   
         <input
+        style="text-transform:uppercase"
           type="text" 
           [(ngModel)]="kardexService.formDataDevoluciones.descripcion_ingreso"
           class="form-control" 
@@ -68,15 +69,15 @@
             <tr *ngFor="let item of kardexService.detalleDevoluciones  ;let i=index;">
               <th scope="row">{{ i + 1 }}</th>
             <td>
-              <p>{{item.detalleNameProducto}}</p>
+              <p>{{item.detalleNameProducto | uppercase}}</p>
                 <!-- <p *ngFor="let deta of item.detalleCotizacion">{{deta.nombre_producto}}</p>   -->
             </td>
             <td>
-              <p>{{item.detalleNameUnidadMedida}}</p>
+              <p>{{item.detalleNameUnidadMedida | uppercase}}</p>
              
             </td>
             <td>
-              <p>{{item.nombre_alamcen}}</p>
+              <p>{{item.nombre_alamcen | uppercase}}</p>
              
             </td>
             <td>
@@ -84,7 +85,7 @@
             
             </td>
             <td>
-              <p>{{item.descripcion_devolucion}}</p>
+              <p>{{item.descripcion_devolucion | uppercase}}</p>
             
             </td>
             <td>
@@ -96,7 +97,7 @@
             
             </td>
             <td>
-              <p>{{item.detalleDevolucion}}</p>
+              <p>{{item.detalleDevolucion | uppercase}}</p>
             
             </td>
            

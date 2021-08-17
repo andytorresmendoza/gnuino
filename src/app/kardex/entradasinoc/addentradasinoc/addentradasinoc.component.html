@@ -66,10 +66,12 @@ name="idProveedor"
         <div class="form-group">
           <label> Detalle</label>
           <input
+          style="text-transform:uppercase"
             name="detalle"
             #detalle="ngModel"
             [(ngModel)]="kardexService.formDataIngresosinOc.detalle"
             class="form-control"
+            placeholder="Ingresar detalle" 
           />
         </div>
       </div>
@@ -80,6 +82,7 @@ name="idProveedor"
             <label>Empleado</label>
     
             <ng-select 
+            style="text-transform:uppercase"
             [items]="empleados"
            bindLabel="nombre_empleado"
            bindValue="id" 
@@ -118,6 +121,7 @@ name="idProveedor"
             <label> Proveedor</label>
     
             <ng-select 
+            style="text-transform:uppercase"
             [items]="proveedores"
            bindLabel="nombre_proovedor"
            bindValue="id" 
@@ -133,6 +137,7 @@ name="idProveedor"
             <label> Tipo Ingreso</label>
     
             <ng-select 
+            style="text-transform:uppercase"
             [items]="tipoingresos"
            bindLabel="descripcion_ingreso"
            bindValue="id" 
@@ -149,7 +154,8 @@ name="idProveedor"
 
         <div class="form-group">
           <label> Tipo Moneda</label>  
-          <ng-select  
+          <ng-select 
+          style="text-transform:uppercase" 
           #idTipoMoneda="ngModel"  
           name="idTipoMoneda" 
           bindValue="idTipoMoneda" 
@@ -209,12 +215,12 @@ name="idProveedor"
       </tr>  
       <tr *ngFor="let item of kardexService.detalleIngresosinOc; let i = index"> 
         <th scope="row">{{ i + 1 }}</th>
-        <td>{{ item.nombre_producto }}</td>
-        <td>{{item.detalleNameUnidadMedida}}</td>
+        <td>{{ item.nombre_producto  | uppercase}}</td>
+        <td>{{item.detalleNameUnidadMedida  | uppercase}}</td>
         <td>{{ item.cantidad }}</td> 
         <td>{{ item.precioUnitario }}</td>
         <td>{{ item.precioTotal }}</td>
-        <td>{{ item.observaciones }}</td>
+        <td>{{ item.observaciones  | uppercase }}</td>
         <!-- <td>{{ item.nombreSedePrincipal }}</td> -->
         <td>{{ item.cantidadPrincipal }}</td>
         <!-- <td>{{ item.nombreSedeSecundario }}</td> -->

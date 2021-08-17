@@ -2,28 +2,78 @@
 <hr />
 <div class="row text-right">
   <div class="col">
-    <button class="btn btn-danger" routerLink="../listarnrocuenta">
+    <button class="btn btn-danger" routerLink="../../listarnrocuenta">
       <i class="fa fa-arrow-left"></i>
       Regresar
     </button>
   </div>
 </div>
 <br />
-<div class="row animated fadeIn faster">
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="formData"
+  (submit)="onSubmit(form)"
+>
+
+ 
+  <div class="row">
+    <div class="col-md-4">
+    
+    <div class="form-group">
+      <label> Nro de Cuenta</label>
+      <input
+    
+      type="text"
+        name="descripcion_cuenta"
+        #descripcion_cuenta="ngModel"
+        [(ngModel)]="formData.descripcion_cuenta"
+        class="form-control"
+        placeholder="Ingresar Nro cuenta"
+        [class.is-invalid]="descripcion_cuenta.invalid && descripcion_cuenta.touched"
+        required
+      />
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Empleado</label>
+
+      <ng-select  
+      style="text-transform:uppercase"
+      #idEmpleado="ngModel"  
+      name="idEmpleado" 
+      bindValue="idEmpleado" 
+      placeholder="Buscar Empleado" 
+      [(ngModel)]="formData.idEmpleado"  
+    >   
+        <ng-option *ngFor="let emp of empleados" [value]="emp.id">{{emp.nombre_empleado}}</ng-option>
+     </ng-select> 
+    </div>
+  </div>
+</div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark" 
+  >
+    <i class="fa fa-database"></i> Guardar </button>
+   
+  </div>
+</form>
+
+<!-- <div class="row animated fadeIn faster">
   <div class="col">
     <form [formGroup]="loginForm" (ngSubmit)="AddNrocuenta(loginForm.value)">
       <div class="form-group">
         <label  class="form-label">Nro Cuenta</label>
         <input
-          type="text"
+          type="number"
           id="descripcion_cuenta"
           class="form-control"
           placeholder="Nro Cuenta"
           formControlName="descripcion_cuenta"
         />
       </div>
-      <!-- <input type="password" id="password" class="fadeIn third"  placeholder="password" formControlName="password"> -->
-      <br />
+       <br />
       <div class="form-group text-center">
         <button type="submit" class="btn btn-primary w-25">
           <i class="fa fa-save"></i>
@@ -32,4 +82,4 @@
       </div>
     </form>
   </div>
-</div>
+</div> -->

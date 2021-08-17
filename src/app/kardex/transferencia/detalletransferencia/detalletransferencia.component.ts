@@ -59,7 +59,7 @@ export class DetalletransferenciaComponent implements OnInit {
     idSedeSecundaria:0,
     idTipoIngreso:0,  
     idAlmacen1: 0,
-    idAlmacen2: 0,
+    idAlmacen2: null,
     detalleTransferencia:'',  
     fechaTransferencia:'',
   //agreagr
@@ -74,15 +74,26 @@ export class DetalletransferenciaComponent implements OnInit {
     this.formData.nombre_alamcen = $event.nombre_alamcen 
      
    }
-
+   validateSelect(form:NgForm) {
+    if(this.formData.idAlmacen2 == null )
+       return   Swal.fire({
+          title: 'Seleccionar Tipo Almacén' , 
+          icon: 'error',
+        });   
+       
+  }
    onSubmit(form: NgForm) {
-    //  console.log('popup',form.value);
-    if (
-      form.value.cantidadTransferencia > form.value.cantidadPrincipal ||
+  console.log('popup',form.value);
+  if (this.validateSelect(form)){
+    return;
+   }
+
+ else if (
+      form.value.cantidadTransferencia > form.value.cantidadIngresoOc ||
       form.value.cantidadTransferencia <= 0
     ) {
       return Swal.fire({
-        title: form.value.cantidadPrincipal + ' Productos en Stock',
+        // title: form.value.cantidadPrincipal + ' Productos en Stock',
         text: 'Cantidad Transferencia Invalida',
         icon: 'error',
       });

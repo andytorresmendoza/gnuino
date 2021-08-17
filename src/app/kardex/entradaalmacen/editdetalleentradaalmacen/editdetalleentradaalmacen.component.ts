@@ -49,9 +49,13 @@ export class EditdetalleentradaalmacenComponent implements OnInit {
  if((form.value.cantidadPrincipal + form.value.cantidadPendiente)   > form.value.cantidadGlobal ||  form.value.cantidadPendiente <= 0){
     
   return   Swal.fire({
-    title:  form.value.cantidadGlobal+' Productos se solicito' ,
-    text: 'Cantidad Invalida',
+    // title:  form.value.cantidadGlobal +' Productos se solicito' ,
+    title: `Cantidad Pendiente ${form.value.cantidadGlobal - form.value.cantidadPendiente}`,
+    text: 'Cantidad  Recibida Invalida',
     icon: 'error',
+
+  
+
   });
   // this.toastr.error('CANTIDAD INVALIDA');
  }

@@ -81,7 +81,8 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="inputAddress" class="form-label">Empleado</label>
-        <select name="idEmpleado" #idEmpleado="ngModel" [(ngModel)]="kardexService.formOrdencompra.idEmpleado"
+        <select
+        style="text-transform:uppercase" name="idEmpleado" #idEmpleado="ngModel" [(ngModel)]="kardexService.formOrdencompra.idEmpleado"
           class="form-control" disabled="disabled">
 
 
@@ -96,7 +97,7 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="inputAddress" class="form-label">PROVEEDOR</label>
-        <select name="idProovedor" #idProovedor="ngModel" [(ngModel)]="kardexService.formOrdencompra.idProovedor"
+        <select  style="text-transform:uppercase"  name="idProovedor" #idProovedor="ngModel" [(ngModel)]="kardexService.formOrdencompra.idProovedor"
           class="form-control" disabled="disabled">
           <option value="0">-Select-</option>
           <option *ngFor="let proveedor of proveedores" value="{{ proveedor.id }}">
@@ -110,7 +111,7 @@
 
       <div class="form-group">
         <label> Tipo Moneda</label>
-        <input type="text" name="nombre_moneda" #nombre_moneda="ngModel"
+        <input  type="text" name="nombre_moneda" #nombre_moneda="ngModel"
           [(ngModel)]="detalleTipoMoneda[0].nombre_moneda" class="form-control" disabled="disabled" />
       </div>
     </div>
@@ -136,7 +137,7 @@
     <div class="col-md-4">
       <div class="form-group">
         <label> Dirección Almacén</label>
-        <select class="form-control" (change)="UpdateSede($event.target)">
+        <select   style="text-transform:uppercase" class="form-control" (change)="UpdateSede($event.target)">
           <option value="0">-Select-</option>
           <option *ngFor="let almacen of almacenes" value="{{almacen.id}}">{{almacen.nombre_alamcen}}</option>
         </select>
@@ -146,30 +147,26 @@
     <div class="col-md-4">
       <div class="form-group">
         <label> Dirección</label>
-        <input type="text" name="direccionOrden" #direccionOrden="ngModel"
+        <input   style="text-transform:uppercase" type="text" name="direccionOrden" #direccionOrden="ngModel"
           [(ngModel)]="kardexService.formOrdencompra.direccionOrden" class="form-control" disabled="disabled" />
       </div>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
+  
+    <div class="col-md-8">
       <div class="form-group">
         <label> Detalle</label>
-        <input class="form-control" type="text" name="detalleOrden" placeholder="Detalle" #detalleOrden="ngModel"
+        <input   style="text-transform:uppercase" class="form-control" type="text" name="detalleOrden" placeholder="Detalle" #detalleOrden="ngModel"
           [(ngModel)]="kardexService.formOrdencompra.detalleOrden" class="form-control"
           [class.is-invalid]="detalleOrden.invalid && detalleOrden.touched" required minlength="5" />
       </div>
     </div>
-  </div>
-
-  <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <label> Tipo Pago</label>
-        <select name="idTipoPago" #idTipoPago="ngModel" [(ngModel)]="kardexService.formOrdencompra.idTipoPago"
+        <label> Forma Pago</label>
+        <select   style="text-transform:uppercase"  name="idTipoPago" #idTipoPago="ngModel" [(ngModel)]="kardexService.formOrdencompra.idTipoPago"
           class="form-control">
           <option value="0">-Select-</option>
           <option *ngFor="let tipopago of tipopagos" value="{{tipopago.id}}">{{tipopago.descripcion_pago}}</option>
@@ -179,10 +176,14 @@
 
 
     </div>
+  </div>
+
+  <div class="row">
+  
     <div class="col-md-4">
       <div class="form-group">
         <label> Banco </label>
-        <select name="idBanco" #idBanco="ngModel" [(ngModel)]="kardexService.formOrdencompra.idBanco"
+        <select    style="text-transform:uppercase" name="idBanco" #idBanco="ngModel" [(ngModel)]="kardexService.formOrdencompra.idBanco"
           class="form-control" (change)="UpdateBanco($event.target)">
           <option value="0">-Select-</option>
           <option *ngFor="let banco of bancos" value="{{banco.id}}">{{banco.descripcion_banco}}</option>
@@ -193,11 +194,26 @@
       <div class="form-group">
         <label> Nro Cuenta</label>
 
-        <select name="idNroCuenta" #idNroCuenta="ngModel" [(ngModel)]="kardexService.formOrdencompra.idNroCuenta"
+        <select   style="text-transform:uppercase" name="idNroCuenta" #idNroCuenta="ngModel" [(ngModel)]="kardexService.formOrdencompra.idNroCuenta"
           class="form-control" disabled="disabled">
           <option value="0">-Select-</option>
           <option *ngFor="let cuenta of cuentas" value="{{cuenta.id}}">{{cuenta.descripcion_cuenta}}</option>
         </select>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label> Pertenece Cuenta a:</label>
+
+        <input
+        style="text-transform:uppercase"
+          type="text"
+          name="cuentaPertenece"
+          #cuentaPertenece="ngModel"
+          [(ngModel)]="kardexService.formOrdencompra.cuentaPertenece"
+          class="form-control"
+          disabled="disabled"
+        />
       </div>
     </div>
 
@@ -221,7 +237,7 @@
       <tr *ngFor="let item of detalleCotizaciones ;let i=index;">
         <th scope="row">{{ i + 1 }}</th>
         <td>
-          <p>{{item.detalleNameProducto}}</p>
+          <p>{{item.nombre_producto | uppercase}}</p>
           <!-- <p *ngFor="let deta of item.detalleCotizacion">{{deta.nombre_producto}}</p> -->
         </td>
         <td>
@@ -229,7 +245,7 @@
 
         </td>
         <td>
-          <p>{{item.detalleNameUnidadMedida}}</p>
+          <p>{{item.detalleNameUnidadMedida | uppercase}}</p>
           <!-- <p *ngFor="let deta of item.detCotizacion">{{deta.detalleNameUnidadMedida}}</p> -->
         </td>
         <td>

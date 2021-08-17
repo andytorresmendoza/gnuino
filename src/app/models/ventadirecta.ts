@@ -28,6 +28,7 @@ export interface VentaDirectaI {
     idTipoPago:number;
     idBanco:number;
     nroVouher:string;
+    porcentajeDscto:number;
     // NUEVO
     //telefono: string;
     //direccion: string;

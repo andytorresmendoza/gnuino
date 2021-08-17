@@ -18,6 +18,7 @@ import * as moment from 'moment';
 import { DataTipoAlmacen } from '../../../models/tipoalmacen'; 
 import { DataTipoOrden } from 'src/app/models/tipo-orden';
 import { DataTipoMoneda } from 'src/app/models/tipo-moneda';
+import Swal from 'sweetalert2';
  
 
 @Component({
@@ -32,7 +33,7 @@ export class OrdencompraComponent implements OnInit {
   proveedores: DataProveedor[];
   empleados: DataEmpleado[];
   tipopagos: any[] = [];
-  bancos: DataBanco[];
+  bancos: any[];
   cuentas: DataNrocuenta[]; 
   detalleCotizaciones: DataDetalleCotizacion[]; 
   almacenes: DataTipoAlmacen[]=[];
@@ -76,8 +77,8 @@ export class OrdencompraComponent implements OnInit {
     });
  
     this.mantenimientosService.getBanco().subscribe((resp) => {
-      this.bancos = resp as DataBanco[];
-      //  console.log(this.bancos);
+      this.bancos = resp as any[];
+      console.log(resp);
     });
 
     this.mantenimientosService.getNroCuenta().subscribe((resp) => {
@@ -140,7 +141,8 @@ export class OrdencompraComponent implements OnInit {
       nombre_empleado:'',
       nombre_proovedor:'',
       idTipoOc:null,
-      idTipoMoneda:0
+      idTipoMoneda:0,
+      cuentaPertenece:''
     };
   }
  onChange = ($event: any): void => {
@@ -169,9 +171,9 @@ export class OrdencompraComponent implements OnInit {
  
   UpdateBanco(ctrl) {
     // console.log(ctrl);
-    this.kardexService.formOrdencompra.idNroCuenta = this.bancos[
-      ctrl.selectedIndex - 1
-    ].idNroCuenta;
+    this.kardexService.formOrdencompra.idNroCuenta = this.bancos[ctrl.selectedIndex - 1].idNroCuenta;   
+    // console.log(this.bancos[ctrl.selectedIndex - 1].detalleNroCuenta[0].nombreEmpleado,'cuenta');
+     this.kardexService.formOrdencompra.cuentaPertenece = this.bancos[ctrl.selectedIndex - 1].detalleNroCuenta[0].nombreEmpleado; 
   }
   UpdateSede(ctrl) {
     // console.log(ctrl);
@@ -206,9 +208,24 @@ export class OrdencompraComponent implements OnInit {
     return this.isValid;
   }
 
+
+  validateCombos(form:NgForm) {
+    if(form.value.idTipoOc == null )
+       return   Swal.fire({
+          title: 'Seleccionar Tipo Orden' , 
+          icon: 'error',
+        });   
+        else if  (form.value.idTipoPago == null )
+        return   Swal.fire({
+           title: 'Seleccionar Forma Pago' , 
+           icon: 'error',
+         });   
+         
+  }
  
   onSubmit(form: NgForm) {
     this.validateForm();
+    this.validateCombos(form);
     // console.log(form);
     if ( form.invalid ) {
 
@@ -220,7 +237,7 @@ export class OrdencompraComponent implements OnInit {
       return;
     } 
       this.kardexService.saveUpdateOrdercompra().subscribe((res) => {
-      //  console.log('respuesta',res);
+       console.log('respuesta',res);
         this.resetForm();
         this.toastr.success('Guardado Exitosamente', 'Gnuino');
         this.router.navigate(['../kardex/listarordencompra']);

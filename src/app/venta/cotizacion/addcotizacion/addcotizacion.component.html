@@ -23,50 +23,16 @@
     #id="ngModel"
     [(ngModel)]="ventaService.formData.id"
   />
-  <!-- <input
-  type="hidden"
-  name="fecha_entrega"
-  #fecha_entrega="ngModel"
-  [(ngModel)]="ventaService.formData.fecha_entrega"
-/>
- 
-   <input
-  type="hidden"
-  name="nombre_empleado"
-  #nombre_empleado="ngModel"
-  [(ngModel)]="ventaService.formData.nombre_empleado"
-/>  
-<input
-type="hidden"
-name="idEmpleado"
-#idEmpleado="ngModel"
-[(ngModel)]="ventaService.formData.idEmpleado"
-/>
- 
+
+  <!-- [(ngModel)]="ventaService.formData.idCliente" -->
+
   <input
 type="hidden"
-name="nombre_cliente"
-#nombre_cliente="ngModel"
-[(ngModel)]="ventaService.formData.nombre_cliente"
-/>  
-<input
-type="hidden"
-name="idProovedor"
-#idProovedor="ngModel"
-[(ngModel)]="ventaService.formData.idProovedor"
-/> 
-<input
-type="hidden"
-name="total_costo"
-#total_costo="ngModel"
-[(ngModel)]="ventaService.formData.total_costo"
+name="idCliente"
+#idCliente="ngModel"
+[(ngModel)]="ventaService.formData.idCliente"
 />
-<input
-type="hidden"
-name="costo_envio"
-#costo_envio="ngModel"
-[(ngModel)]="ventaService.formData.costo_envio"
-/> -->
+
 <div class="row"> 
   <div class="col-xs-12 col-md-4">
     <div class="form-group">
@@ -96,6 +62,7 @@ name="costo_envio"
       <div class="form-group">
         <label> Tipo Cotización  </label>
         <ng-select  
+        style="text-transform:uppercase"
           #idTipoCotizacion="ngModel"  
           name="idTipoCotizacion" 
           bindValue="idTipoCotizacion" 
@@ -133,6 +100,7 @@ name="costo_envio"
       <div class="form-group">
         <label> Distrito</label>
         <ng-select  
+        style="text-transform:uppercase"
         #idDistrito="ngModel"  
         name="idDistrito" 
         bindValue="idDistrito" 
@@ -164,6 +132,7 @@ name="costo_envio"
       <div class="form-group">
         <label> Cliente</label> 
         <ng-select 
+        style="text-transform:uppercase"
         [items]="clientes"
        bindLabel="nombre_cliente"
        bindValue="id" 
@@ -180,6 +149,7 @@ name="costo_envio"
     <div class="form-group">
       <label> Tipo Moneda</label>
       <ng-select  
+      style="text-transform:uppercase"
       #idTipoMoneda="ngModel"  
       name="idTipoMoneda" 
       bindValue="idTipoMoneda" 
@@ -198,6 +168,7 @@ name="costo_envio"
         <label>Empleado</label>
   
         <ng-select  
+        style="text-transform:uppercase"
         #idEmpleado="ngModel"  
         name="idEmpleado" 
         bindValue="idEmpleado" 
@@ -212,6 +183,7 @@ name="costo_envio"
       <div class="form-group">
         <label> Linea </label>
         <ng-select  
+        style="text-transform:uppercase"
           #idLinea="ngModel"  
           name="idLinea" 
           bindValue="idLinea" 
@@ -244,16 +216,14 @@ name="costo_envio"
       <div class="form-group">
         <label> Detalle Cabecera</label>
         <input
+        style="text-transform:uppercase"
         class="form-control" 
           type="text"
           name="detalle"
-          placeholder="Detalle"
-          [class.is-invalid]="detalle.invalid && detalle.touched"
+          placeholder="Detalle"          
           #detalle="ngModel"
-          [(ngModel)]="ventaService.formData.detalle"
-          class="form-control" 
-          required
-          minlength="5"
+          [(ngModel)]="ventaService.formData.detalle" 
+  
         
         />
       
@@ -262,7 +232,7 @@ name="costo_envio"
     </div>
 
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-3">
       <div class="form-group">
         <label> Descuento Cotización %</label>
         <input
@@ -275,7 +245,7 @@ name="costo_envio"
         />
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
     <div class="form-group">
       <label> Costo Delivery </label>
       <input
@@ -289,7 +259,19 @@ name="costo_envio"
  
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
+    <div class="form-group">
+      <label> % Descuento</label>
+          <input
+            name="porcentajeDscto"
+            #porcentajeDscto="ngModel"
+            [(ngModel)]="ventaService.formData.porcentajeDscto"
+            class="form-control"
+            readonly
+          />
+    </div>
+    </div>
+  <div class="col-md-3">
   <div class="form-group">
     <label> Total Producto</label>
         <input
@@ -339,13 +321,13 @@ name="costo_envio"
         <!--  <td>{{item.detalleProducto[0].nombre_producto}}</td>  detalleProducto[0].nombre_producto}}</td>   -->
         <!-- <td>{{item.detalleNameProducto}}</td>  -->
         <th scope="row">{{ i + 1 }}</th>
-        <td>{{ item.nombre_producto }}</td> 
-        <td>{{item.detalleNameUnidadMedida}}</td>
-        <td>{{item.nombre_alamcen}}</td>
+        <td>{{ item.nombre_producto | uppercase }}</td> 
+        <td>{{item.detalleNameUnidadMedida | uppercase}}</td>
+        <td>{{item.nombre_alamcen | uppercase}}</td>
         <td>{{ item.cantidad }}</td>
         <td>{{ item.precioVenta }}</td>
         <!-- <td>{{ item.precio_total }}</td> -->
-        <td>{{ item.observacion }}</td>
+        <td>{{ item.observacion | uppercase }}</td>
         <!-- {{item | json}}    -->
         <td>
           <a

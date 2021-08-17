@@ -13,6 +13,7 @@ import { DataTipoIngreso } from '../../../models/tipoingreso';
 import { DetalleentradasinocComponent } from '../detalleentradasinoc/detalleentradasinoc.component';
 import { DataDetalleEntradasinOc } from '../../../models/detalleEntradasinOc';
 import { DataTipoMoneda } from '../../../models/tipo-moneda';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-addentradasinoc',
@@ -51,8 +52,9 @@ export class AddentradasinocComponent implements OnInit {
   this.mantenimientosService.getTipoingreso()
   .subscribe(resp => {
    
-    this.tipoingresos = resp as DataTipoIngreso[]   
-   //  console.log(resp);
+    this.tipoingresos = (resp).
+    filter(valor => valor.id !== 1 );  
+    //  console.log(resp);
  });
  this.mantenimientosService.getTipoMoneda().subscribe((resp) => {
   this.tipoMoneda = resp as DataTipoMoneda[]  
@@ -142,9 +144,36 @@ AddOrEditOrderItem(orderItemIndex, id) {
     return this.isValid;
   }
 
+  validateSelect(form:NgForm) {
+    
+        if(this.kardexService.formDataIngresosinOc.idEmpleado == null )
+        return   Swal.fire({
+           title: 'Seleccionar Empleado' , 
+           icon: 'error',
+         });   
+         else if(this.kardexService.formDataIngresosinOc.idProveedor == null )
+       return   Swal.fire({
+          title: 'Seleccionar Proveedor' , 
+          icon: 'error',
+        });   
+        else if(this.kardexService.formDataIngresosinOc.idTipoMoneda == null )
+        return   Swal.fire({
+           title: 'Seleccionar Tipo Moneda' , 
+           icon: 'error',
+         });   
+         else if(this.kardexService.formDataIngresosinOc.idtipoIngreso == null )
+         return   Swal.fire({
+            title: 'Seleccionar Tipo Ingreso' , 
+            icon: 'error',
+          });   
+         
+       
+  }
+
   onSubmit(form:NgForm){
     this.validateForm();
-    // console.log(form);
+  
+    // console.log(form.value);
     if ( form.invalid ) {
 
       Object.values( form.controls ).forEach( control => {
@@ -154,6 +183,10 @@ AddOrEditOrderItem(orderItemIndex, id) {
   
       return;
     } 
+    else if (this.validateSelect(form)){
+      return;
+    }
+    
     else if (this.kardexService.formDataIngresosinOc.id) {
         // console.log('submit',this.kardexService.formData);
       this.kardexService.UpdateIngresoSinOC(this.kardexService.formDataIngresosinOc).subscribe(

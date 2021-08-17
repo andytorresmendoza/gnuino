@@ -28,11 +28,14 @@
       <div class="form-group">
         <label> Nombre Empleado</label>
         <input
+        style="text-transform:uppercase"
+        type="text"
           name="nombre_empleado"
           #nombre_empleado="ngModel"
           [(ngModel)]="formData.nombre_empleado"
           class="form-control"
-          placeholder="Ingresar Nombre Cliente"
+          placeholder="Ingresar Nombre Empleado"
+        
         />
       </div>
     </div>
@@ -40,6 +43,7 @@
       <div class="form-group">
           <label> Apellido Paterno</label>
         <input
+        style="text-transform:uppercase"
           name="apellidos_pat_empleado"
           #apellidos_pat_empleado="ngModel"
           [(ngModel)]="formData.apellidos_pat_empleado"
@@ -52,6 +56,7 @@
       <div class="form-group">
         <label> Apellido Materno</label>
         <input
+        style="text-transform:uppercase"
           name="apellidos_mat_empleado"
           #apellidos_mat_empleado="ngModel"
           [(ngModel)]="formData.apellidos_mat_empleado"
@@ -100,6 +105,8 @@
       <div class="form-group">
         <label> Nro Documento</label>
         <input
+        style="text-transform:uppercase"
+        type="number"
           name="dni_empleado"
           #dni_empleado="ngModel"
           [(ngModel)]="formData.dni_empleado"
@@ -113,6 +120,7 @@
       <div class="form-group">
         <label> Dirección</label>
         <input
+        style="text-transform:uppercase"
           name="direccion_empleado"
           #direccion_empleado="ngModel"
           [(ngModel)]="formData.direccion_empleado"
@@ -127,6 +135,7 @@
         <div class="form-group">
           <label> Email</label>
           <input
+          style="text-transform:uppercase"
             name="email_empleado"
             #email_empleado="ngModel"
             [(ngModel)]="formData.email_empleado"

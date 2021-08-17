@@ -18,7 +18,7 @@
     <!-- Position Column -->
     <ng-container matColumnDef="username">
       <th mat-header-cell *matHeaderCellDef> Usuario </th>
-      <td mat-cell *matCellDef="let element" > {{element.username}} </td>
+      <td mat-cell *matCellDef="let element" > {{element.username  | uppercase}} </td>
      
     </ng-container> 
 
@@ -30,7 +30,7 @@
 
     <ng-container matColumnDef="tipo_usuario">
         <th mat-header-cell *matHeaderCellDef> Perfil </th>
-        <td mat-cell *matCellDef="let element" > {{element.detalleEmpleado[0].detallePerfilUsuario[0].tipo_usuario}} </td>
+        <td mat-cell *matCellDef="let element" > {{element.detalleEmpleado[0].detallePerfilUsuario[0].tipo_usuario  | uppercase}} </td>
        
       </ng-container> 
     

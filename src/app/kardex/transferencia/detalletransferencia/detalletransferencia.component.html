@@ -20,6 +20,7 @@
 
       <label>Producto</label>
          <input
+         style="text-transform:uppercase"
            name="nombre_producto"
            #nombre_producto="ngModel"
            [(ngModel)]="formData.nombre_producto"
@@ -31,6 +32,7 @@
 
       <label>Unidad Medida</label>
          <input
+         style="text-transform:uppercase"
            name="detalleNameUnidadMedida"
            #detalleNameUnidadMedida="ngModel"
            [(ngModel)]="formData.detalleNameUnidadMedida"
@@ -68,6 +70,7 @@
     <div class="form-group col-md-3">
       <label>Almacén De:</label>
       <ng-select 
+      style="text-transform:uppercase"
     [items]="almacenes"  
    bindLabel="nombre_alamcen"
    bindValue="id"   
@@ -80,18 +83,25 @@
     </div>
       <div class="form-group col-md-3">
         <label>Almacén A:</label>  
-         <!-- <ng-select 
-        [items]="almacenes2"  
-   bindLabel="nombre_alamcen"
-   bindValue="id"   
-   placeholder="Buscar Almacén" 
-   [(ngModel)]="formData.idAlmacen2" 
-   disabled>
+
+        <ng-select 
+        style="text-transform:uppercase"
+        [items]="almacenes2"
+       bindLabel="nombre_alamcen"
+       bindValue="id" 
+       placeholder="Buscar Almacén"
+       name="idAlmacen2"  
+       #idAlmacen2="ngModel"
+       [(ngModel)]="formData.idAlmacen2"
      
-     </ng-select>  
-     -->
-    
-     <ng-select  
+       
+        >
+  
+  </ng-select>
+
+
+     <!-- <ng-select  
+     style="text-transform:uppercase"
      #idAlmacen2="ngModel"  
      name="idAlmacen2" 
      bindValue="idAlmacen2" 
@@ -99,12 +109,13 @@
      [(ngModel)]="formData.idAlmacen2"  
    >   
        <ng-option *ngFor="let emp of almacenes2" [value]="emp.id">{{emp.nombre_alamcen}}</ng-option>
-    </ng-select> 
+    </ng-select>  -->
       </div>
     
       <div class="form-group col-md-3">
         <label>Detalle Transferencia</label>
         <input
+        style="text-transform:uppercase"
         type="text"
           name="detalleTransferencia"
           #detalleTransferencia="ngModel"

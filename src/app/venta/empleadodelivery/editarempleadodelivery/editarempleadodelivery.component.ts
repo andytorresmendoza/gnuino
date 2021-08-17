@@ -86,8 +86,23 @@ onChangeMatch (idEmpleado:number, idDistrito:number)  {
   });  
  
    }
+   validateForm(form:NgForm) {
+    if(form.value.idEmpleado == null )
+       return   Swal.fire({
+          title: 'Seleccionar Empleado' , 
+          icon: 'error',
+        });   
+        else if (form.value.idDistrito == null )
+        return   Swal.fire({
+           title: 'Seleccionar Distrito' , 
+           icon: 'error',
+         });   
+      }
    onSubmit(form: NgForm) {
-    if (form.invalid) {
+    if(this.validateForm(form)){
+      return;
+         }
+   else if (form.invalid) {
       Object.values(form.controls).forEach((control) => {
         control.markAsTouched(); //es para validar el guardar
         //  console.log(control); //son todos mis controles del formulario
@@ -99,8 +114,8 @@ onChangeMatch (idEmpleado:number, idDistrito:number)  {
    
     else if (
       
-      form.value.preciodelivery === undefined
-    ) {
+      form.value.preciodelivery === undefined ||  form.value.preciodelivery === null
+      ) {
       return Swal.fire({
         // title: form.value.cantidadGlobalKardex + ' Productos en Stock',
         text: 'No Existe Precio Delivery',

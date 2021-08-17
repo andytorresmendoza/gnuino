@@ -113,13 +113,30 @@ onChange = ($event: any): void => {
   this.formData.nombre_alamcen= $event.nombre_alamcen;  
    
  }
-
+ validateSelect(form:NgForm) {
+  if(this.formData.idProducto == null )
+     return   Swal.fire({
+        title: 'Seleccionar Producto' , 
+        icon: 'error',
+      });   
+      else  if(this.formData.idAlmacen == null )
+      return   Swal.fire({
+         title: 'Seleccionar Almacén' , 
+         icon: 'error',
+       });   
+     
+}
 onSubmit(form: NgForm) {
-  console.log(form.value);
-  if(form.value.cantidad > form.value.stock ||  form.value.cantidad <= 0){
+  // console.log(form.value);
+  if (this.validateSelect(form)){
+    return;
+   }
+  else if(form.value.cantidad > form.value.stock ||  form.value.cantidad <= 0){
     
     return   Swal.fire({
-      title: 'Ingresar Cantidad Correcta' , 
+      // title: 'Ingresar Cantidad Correcta' , 
+      title: 'Solo Existen '+form.value.stock +' Productos' ,
+      text: 'Cantidad Invalida',      
       icon: 'error',
     });
     // this.toastr.error('CANTIDAD INVALIDA');

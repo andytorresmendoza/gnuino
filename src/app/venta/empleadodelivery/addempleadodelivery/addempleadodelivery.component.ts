@@ -19,6 +19,8 @@ export class AddempleadodeliveryComponent implements OnInit {
   formData: DatEmpleadoDelivery;
   empleados: DataEmpleado[];
   distritos: DataDistrito[] ;
+  validar:any[];
+  isButtonVisible: boolean = true;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<AddempleadodeliveryComponent>,
@@ -34,6 +36,10 @@ export class AddempleadodeliveryComponent implements OnInit {
         this.empleados = resp as DataEmpleado[]  
   
    });
+  
+    
+
+
    this.mantenimientosService.getDistritoAll()
    .subscribe(resp => {  
    this.distritos = (resp).
@@ -53,7 +59,14 @@ export class AddempleadodeliveryComponent implements OnInit {
     
     },
     this.ventaService.detalleDelivery[this.data.orderItemIndex]);
-    //  console.log( this.ventaService.detalleDelivery[this.data.id]);
+    
+    
+    if(this.ventaService.detalleDelivery[this.data.orderItemIndex].idEstadoFlujo  ==  4 ) {
+      this.isButtonVisible=false;
+     } else {
+      this.isButtonVisible=true;
+     } 
+
     
   }
 
@@ -65,10 +78,25 @@ export class AddempleadodeliveryComponent implements OnInit {
     });  
    
      }
+     validateForm(form:NgForm) {
+      if(form.value.idEmpleado == null )
+         return   Swal.fire({
+            title: 'Seleccionar Empleado' , 
+            icon: 'error',
+          });   
+          else if (form.value.idDistrito == null )
+          return   Swal.fire({
+             title: 'Seleccionar Distrito' , 
+             icon: 'error',
+           });   
+        }
   onSubmit(form: NgForm) {
-    // console.log(form.value,'GUARDADELIVERY')
+    console.log(form.value,'GUARDADELIVERY')
     // this.validateForm();
-    if (form.invalid) {
+   if(this.validateForm(form)){
+return;
+   }
+    else if (form.invalid) {
       Object.values(form.controls).forEach((control) => {
         control.markAsTouched(); //es para validar el guardar
         //  console.log(control); //son todos mis controles del formulario
@@ -78,11 +106,11 @@ export class AddempleadodeliveryComponent implements OnInit {
     }
   else if (
       
-        form.value.preciodelivery === undefined
+        form.value.preciodelivery === undefined ||  form.value.preciodelivery === null
       ) {
         return Swal.fire({
           // title: form.value.cantidadGlobalKardex + ' Productos en Stock',
-          text: 'No Existe Precio Delivery -  Ingresarlo en Mantenientos',
+          text: 'No Existe Precio Delivery -  Ingresarlo en Mantenimientos',
           icon: 'error',
         });
       }  

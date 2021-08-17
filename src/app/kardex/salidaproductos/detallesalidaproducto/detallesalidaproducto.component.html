@@ -23,6 +23,7 @@ name="idAlmacen1"
 
      <label>Producto</label>
         <input
+        style="text-transform:uppercase"
           name="nombre_producto"
           #nombre_producto="ngModel"
           [(ngModel)]="formData.nombre_producto"
@@ -35,6 +36,7 @@ name="idAlmacen1"
 
       <label>Unidad Medida</label>
          <input
+         style="text-transform:uppercase"
            name="detalleNameUnidadMedida"
            #detalleNameUnidadMedida="ngModel"
            [(ngModel)]="formData.detalleNameUnidadMedida"
@@ -57,6 +59,7 @@ name="idAlmacen1"
     <div class="form-group col-md-4">
       <label>Almacén</label>
       <ng-select 
+      style="text-transform:uppercase"
     [items]="almacenes"  
    bindLabel="nombre_alamcen"
    bindValue="id"   
@@ -74,6 +77,7 @@ name="idAlmacen1"
         <label>Tipo Salida</label>
      
         <ng-select 
+        style="text-transform:uppercase"
         [items]="tiposalidas"
        bindLabel="descripcion_salida"
        bindValue="id" 
@@ -101,6 +105,7 @@ name="idAlmacen1"
     <div class="form-group col-md-3">
       <label>Detalle Salida</label>
       <input
+      style="text-transform:uppercase"
       type="text"
         name="detalleSalida"
         #detalleSalida="ngModel"

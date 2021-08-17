@@ -17,6 +17,7 @@ import { DetalleentradaalmacenComponent } from '../detalleentradaalmacen/detalle
 import { DataDetalleIngresoAlmacen } from '../../../models/detalle-ingresoalmacen';
 import { DataTipoIngreso } from 'src/app/models/tipoingreso';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-addentradaalmacen',
@@ -104,7 +105,8 @@ export class AddentradaalmacenComponent implements OnInit {
       // this.kardexService.formOrdencompra  = response[0]; 
       // console.log('GETID',response[0]);
       // VER COMO CAMBIAR ESTE FORM
-      this.kardexService.detalleIngresoAlmacen = response[0].detalleCotizacion[0].detCotizacion;
+      this.kardexService.detalleIngresoAlmacen = response[0].detalleCotizacion[0].detalleCotizacion;
+      // console.log(response);
       // this.kardexService.detalleIngresoAlmacen = response[0].id;
     //  console.log('cotizaciondetalle',  this.kardexService.detalleIngresoAlmacen);
       });
@@ -125,8 +127,16 @@ export class AddentradaalmacenComponent implements OnInit {
      });
    
     }
+    validateForm(form:NgForm) {
+      if(this.kardexService.formDataEntrada.idOrden == null )
+         return   Swal.fire({
+            title: 'Seleccionar Orden' , 
+            icon: 'error',
+          });   
+         
+    }
     onSubmit(form:NgForm){
-    //  console.log(form);
+    console.log(form.value);
      if ( form.invalid ) {
 
       Object.values( form.controls ).forEach( control => {
@@ -135,7 +145,10 @@ export class AddentradaalmacenComponent implements OnInit {
        });
   
       return;
-    } 
+    } else if (this.validateForm(form)){
+return;
+    }
+    else {
        this.kardexService.GuardaIngresoAlmacen().subscribe(resp =>{
       // console.log('respuesta',resp);
         // this.resetForm();
@@ -143,5 +156,6 @@ export class AddentradaalmacenComponent implements OnInit {
         this.router.navigate(["../kardex/listarentrada"]);
  
       })  
+    }
     }
 }

@@ -58,7 +58,7 @@ export class AddcotizacionComponent implements OnInit {
     this.mantenimientosService.getProducto().subscribe((resp) => {
       this.productos = resp as DataProducto[];
     });
-
+/*conertir en mayusculas */
     this.mantenimientosService.getProveedor().subscribe((resp) => {
       this.proveedores = (resp as DataProveedor[])
       .map(proveedores=>{
@@ -102,6 +102,7 @@ export class AddcotizacionComponent implements OnInit {
       totalGeneral: 0,
       idTipoCotizacion: null,
       idLinea: null,
+      porcentajeDscto:0
     };
     this.kardexService.detalleCotizacion = [];
   }
@@ -160,9 +161,11 @@ export class AddcotizacionComponent implements OnInit {
         (this.kardexService.formData.descuento_cot / 100)
     ).toString();
     let costo_envio = this.kardexService.formData.costo_envio.toString();
-
+    let porcentajeGeneral = (this.kardexService.formData.total_costo  * this.kardexService.formData.descuento_cot/100).toString();
     this.kardexService.formData.totalGeneral =
       parseFloat(porcentaje) + parseFloat(costo_envio);
+      this.kardexService.formData.porcentajeDscto = (parseFloat(porcentajeGeneral));
+
 
     // console.log(this.kardexService.formData.totalGeneral );
   }
@@ -170,18 +173,45 @@ export class AddcotizacionComponent implements OnInit {
   onChangeProveedor = ($event: any): void => {
     this.kardexService.formData.nombre_proovedor = $event.nombre_proovedor;
   };
-  validateForm() {
+  validateForm(form:NgForm) {
+    if(form.value.idTipoCotizacion == null )
+       return   Swal.fire({
+          title: 'Seleccionar Tipo Cotización' , 
+          icon: 'error',
+        });   
+        else if  (form.value.idProovedor == null )
+        return   Swal.fire({
+           title: 'Seleccionar Proveedor' , 
+           icon: 'error',
+         });   
+         else if  (form.value.idTipoMoneda == null )
+         return   Swal.fire({
+            title: 'Seleccionar Moneda' , 
+            icon: 'error',
+          });   
+          else if  (form.value.idEmpleado == null )
+         return   Swal.fire({
+            title: 'Seleccionar Empleado' , 
+            icon: 'error',
+          });   
+          else if  (form.value.idLinea == null )
+         return   Swal.fire({
+            title: 'Seleccionar Linea' , 
+            icon: 'error',
+          });   
+  }
+  validateDetalle(){
     this.isValid = true;
-    if (this.kardexService.formData.idEmpleado == 0) this.isValid = false;
-    else if (this.kardexService.detalleCotizacion.length == 0)
-      this.isValid = false;
-
+   if(this.kardexService.detalleCotizacion.length==0)
+    this.isValid=false;
+  
     return this.isValid;
   }
 
   onSubmit(form: NgForm) {
     // console.log(form);
-    this.validateForm();
+  this.validateDetalle();
+  this.validateForm(form);
     if (form.invalid) {
       Object.values(form.controls).forEach((control) => {
         control.markAsTouched(); //es para validar el guardar
@@ -197,7 +227,7 @@ export class AddcotizacionComponent implements OnInit {
           this.router.navigate(['../kardex/listarcotizacion']);
         });
     } else {
-      this.validateForm();
+    // this.validateForm(form);
       this.kardexService.saveUpdateOrder().subscribe((res) => {
         this.resetForm();
         this.toastr.success(res.msg);

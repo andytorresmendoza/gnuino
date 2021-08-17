@@ -20,12 +20,12 @@
     #descripcion_devolucion="ngModel"
     [(ngModel)]="formData.descripcion_devolucion"
   />
-  <input
+  <!-- <input
     type="hidden"
     name="idTipoDevolucion"
     #idTipoDevolucion="ngModel"
     [(ngModel)]="formData.idTipoDevolucion"
-  />
+  /> -->
   <input
     type="hidden"
     name="idTipoIngreso"
@@ -55,6 +55,7 @@
     <div class="form-group col-md-3">
       <label>Producto</label>
       <input
+      style="text-transform:uppercase"
         name="detalleNameProducto"
         #detalleNameProducto="ngModel"
         [(ngModel)]="formData.detalleNameProducto"
@@ -65,6 +66,7 @@
     <div class="form-group col-md-3">
       <label>Unidad Medida</label>
       <input
+      style="text-transform:uppercase"
         type="text"
         name="detalleNameUnidadMedida"
         #detalleNameUnidadMedida="ngModel"
@@ -76,6 +78,7 @@
     <div class="form-group col-md-3">
       <label>Almacén</label>
       <input
+      style="text-transform:uppercase"
         name="nombre_alamcen"
         #nombre_alamcen="ngModel"
         [(ngModel)]="formData.nombre_alamcen"
@@ -94,23 +97,18 @@
       />
     </div>
   </div>
-  <!-- <ng-select 
-  [items]="tipodevoluciones"
- bindLabel="descripcion_devolucion"
- bindValue="id" 
- placeholder="Buscar Devolución"
- [(ngModel)]="formData.idTipoDevolucion"
- (change)="onChange($event)"
-  </ng-select>
-  > -->
+  
   <div class="form-row">
     <div class="form-group col-md-3">
       <label>Tipo Devolución</label>
       <ng-select
+      style="text-transform:uppercase"
         [items]="tipodevoluciones"
         bindLabel="descripcion_devolucion"
         bindValue="id"
         placeholder="Buscar Devolución"
+        name="idTipoDevolucion"  
+        #idTipoDevolucion="ngModel"
         [(ngModel)]="formData.idTipoDevolucion"
         (change)="onChange($event)"
       >
@@ -129,6 +127,7 @@
     <div class="form-group col-md-3">
       <label>Detalle Devolución</label>
       <input
+      style="text-transform:uppercase"
         type="text"
         name="detalleDevolucion"
         #detalleDevolucion="ngModel"

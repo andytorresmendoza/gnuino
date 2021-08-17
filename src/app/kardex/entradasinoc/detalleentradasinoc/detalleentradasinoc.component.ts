@@ -84,8 +84,24 @@ export class DetalleentradasinocComponent implements OnInit {
       (this.formDataOC.cantidad * this.formDataOC.precioUnitario).toFixed(2)
     );
   }
-
+  validateSelect(form:NgForm) {
+    
+    if(form.value.idProducto == null )
+    return   Swal.fire({
+       title: 'Seleccionar Producto' , 
+       icon: 'error',
+     });   
+     else if(form.value.idSedePrincipal == null )
+   return   Swal.fire({
+      title: 'Seleccionar Almacén' , 
+      icon: 'error',
+    });   
+        
+   return;
+}
   onSubmit(form: NgForm) {
+  
+  
     if(form.value.cantidadPrincipal > form.value.cantidad ||  form.value.cantidadPrincipal <= 0){
     
       return   Swal.fire({
@@ -93,6 +109,9 @@ export class DetalleentradasinocComponent implements OnInit {
         text: 'Cantidad  Recibida Invalida',
         icon: 'error',
       }); 
+     }
+     else if (this.validateSelect(form)){
+return ;
      }
      else if (form.invalid) {
       Object.values(form.controls).forEach((control) => {
@@ -107,6 +126,7 @@ export class DetalleentradasinocComponent implements OnInit {
         this.dialogRef.close();
      }
 else  {
+ 
         this.kardexService.detalleIngresosinOc[this.data.orderItemIndex] =
           form.value;
         this.dialogRef.close();

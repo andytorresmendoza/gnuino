@@ -34,8 +34,8 @@
           <p *ngFor="let deta of item.detalleCotizacion">{{deta.codigo_cotizacion_num}}</p>
         </td>
 
-        <td (click)="openForEdit(item.id)">{{item.detalleProovedor[0].nombre_proovedor}}</td>
-        <td (click)="openForEdit(item.id)">{{item.detalleEmpleado[0].nombre_empleado}}</td>
+        <td (click)="openForEdit(item.id)">{{item.detalleProovedor[0].nombre_proovedor | uppercase}}</td>
+        <td (click)="openForEdit(item.id)">{{item.detalleEmpleado[0].nombre_empleado | uppercase}}</td>
         <!-- <td (click)="openForEdit(item.id)">{{item.detalleCotizacion[0].precio_total}}</td>   -->
         <!-- <td (click)="openForEdit(item.id)">{{item.idEstadoFlujo}}</td> -->
         <td>

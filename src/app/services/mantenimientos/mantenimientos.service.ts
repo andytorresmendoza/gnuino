@@ -80,19 +80,15 @@ getNroCuentaActiva() {
 
 }
 
-addNroCuenta(nrocuenta: NrocuentaI):Observable<NrocuentaI>{
+addNroCuenta(data: DataNrocuenta){
   // console.log(nrocuenta);
-  return this.http.post<NrocuentaI>(`${this.baseURL}nro-cuenta`,nrocuenta).
-  pipe(tap(
-    (res:NrocuentaI) =>{
-      if(res){
-       console.log(res );
-      }
-    })
- );
-}
+  return this.http.post(`${this.baseURL}nro-cuenta`, data).pipe(
+    map(
+      (resp) => resp['data']) 
+  );
+}  
 getNrocuentaId(id:number){
-  return this.http.get<NrocuentaI>(`${this.baseURL}nro-cuenta/`+id)
+  return this.http.get(`${this.baseURL}nro-cuenta/`+id)
   .pipe(
     map(
      resp=>resp['data']
@@ -100,11 +96,11 @@ getNrocuentaId(id:number){
     )     
  ); 
 }
-updateNrocuenta(nrocuenta: DataNrocuenta){
+updateNrocuenta(data: DataNrocuenta){
   // console.log('desdeservic',nrocuenta);
   // console.log('desdeservic2',nrocuenta[0].id);
   // console.log('desdeservic2',nrocuenta.estado);
-  return this.http.put<DataNrocuenta>(`${this.baseURL}nro-cuenta/`+nrocuenta[0].id,nrocuenta[0])
+  return this.http.put(`${this.baseURL}nro-cuenta/${data.id}`, data);
 
  
 }
@@ -524,6 +520,11 @@ getProducto() {
   
    
   }
+
+   AnularProducto(id: number) {
+    // console.log(id,bodyform );
+    return this.http.delete(`${this.baseURL}producto/${id}`);
+ }
 /* PAIS */
 
 getPais():Observable<PaisI[]> {
@@ -580,29 +581,29 @@ getProveedor() {
     catchError(this.manejarError)
   );
  }
- addProveedor(proveedores: ProveedorI):Observable<ProveedorI>{
-  console.log('del servicio',proveedores);
-  return this.http.post<ProveedorI>(`${this.baseURL}proovedor`,proveedores).
-  pipe(tap(
-    (res:ProveedorI) =>{
-      if(res){
-     console.log(res );
-      }
-    })
- );
-  }
-  getProveedorId(id:number){
-    return this.http.get<ProveedorI>(`${this.baseURL}proovedor/`+id)
+ addProveedor(data: DataProveedor){
+
+  return this.http.post(`${this.baseURL}proovedor`, data).pipe(
+    map(
+      (resp) => resp['data']) 
+  );
+}  
+ 
+
+  getProveedorId(id: number) {
+    return this.http.get(this.baseURL+ 'proovedor/'+ id)  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
     .pipe(
       map(resp=>resp['data']),
       catchError(this.manejarError)
     );
+  
   }
-  updateProveedor(proveedores: DataProveedor){
-  console.log('desdeservic',proveedores);
+  updateProveedor(data: DataProveedor){
+  // proovedorconsole.log('desdeservic',proveedores);
     // console.log('desdeservic2',nrocuenta[0].id);
     // console.log('desdeservic2',nrocuenta.estado);
-    return this.http.put<DataProducto>(`${this.baseURL}proovedor/`+proveedores[0].id,proveedores[0])
+    // return this.http.put<DataProducto>(`${this.baseURL}proovedor/`+proveedores[0].id,proveedores[0])
+    return this.http.put(`${this.baseURL}proovedor/${data.id}`, data);
   
    
   }

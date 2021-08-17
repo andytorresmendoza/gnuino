@@ -22,7 +22,7 @@
   <tbody>
     <tr *ngFor="let categoria of categorias; let i = index">
       <th scope="row">{{ i + 1 }}</th>
-      <td>{{ categoria.nombre_categoria }}</td>
+      <td>{{ categoria.nombre_categoria | uppercase}}</td>
       <td>
         <label *ngIf="categoria.estado" class="badge badge-success"
           >Activo</label

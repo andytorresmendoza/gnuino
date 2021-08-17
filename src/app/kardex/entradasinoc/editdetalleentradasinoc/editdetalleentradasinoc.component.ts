@@ -85,26 +85,23 @@ export class EditdetalleentradasinocComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    if((form.value.cantidadPrincipal+ form.value.cantidadPendiente) > form.value.cantidad ||  form.value.cantidadPrincipal <= 0){
-    
+    console.log(form.value);
+   if ( form.value.cantidadPrincipal > (form.value.cantidad - form.value.cantidadPendiente)  ||  form.value.cantidadPrincipal <= 0){
+     
       return   Swal.fire({
-        title:  form.value.cantidad+' Productos se solicito' ,
+        title:  `Cantidad Pendiente ${(form.value.cantidad - form.value.cantidadPendiente)}`,
         text: 'Cantidad  Recibida Invalida',
+        // text: `Que desea Anular la cotizacion Nro${cotizaciones.nroCotizacion}`,
         icon: 'error',
       }); 
      }
-     else if (form.invalid) {
-      Object.values(form.controls).forEach((control) => {
-      control.markAsTouched(); //es para validar el guardar 
-       });
-
-   return;
-     } 
+     
      else if (this.data.orderItemIndex == null){
       
         this.kardexService.detalleIngresosinOc.push(form.value);
         this.dialogRef.close();
      }
+   
 else  {
         this.kardexService.detalleIngresosinOc[this.data.orderItemIndex] =
           form.value;

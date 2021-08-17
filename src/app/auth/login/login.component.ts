@@ -15,8 +15,8 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent implements OnInit {
   // Respuesta :any
   public loginForm = this.fb.group({
-    username: [localStorage.getItem('username')|| 'soporte', Validators.required ], 
-    password: ['secret', Validators.required ],
+    username: [localStorage.getItem('username')|| '', Validators.required ], 
+    password: ['', Validators.required ],
     remember:[false]
      
     // terminos: [ true, Validators.required ],

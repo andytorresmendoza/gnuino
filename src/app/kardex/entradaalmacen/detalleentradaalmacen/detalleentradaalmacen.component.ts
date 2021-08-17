@@ -62,10 +62,22 @@ export class DetalleentradaalmacenComponent implements OnInit {
     this.formData.nombre_producto= $event.nombre_producto; 
    
    }
+
+   validateSelect(form:NgForm) {
+    if(this.formData.idSedePrincipal == null )
+       return   Swal.fire({
+          title: 'Seleccionar Almacén' , 
+          icon: 'error',
+        });   
+       
+  }
   onSubmit(form: NgForm) {
-    // console.log(form.value);
-    if(form.value.cantidadPrincipal > form.value.cantidad ||  form.value.cantidadPrincipal < 0){
-    
+ 
+  
+  
+    console.log(form.value);
+    if(form.value.cantidadPrincipal > form.value.cantidad ||  form.value.cantidadPrincipal <= 0 ){
+  
       return   Swal.fire({
         title: form.value.cantidad+' Productos se solicito' ,
         text: 'Cantidad Invalida',
@@ -73,16 +85,10 @@ export class DetalleentradaalmacenComponent implements OnInit {
       });
       // this.toastr.error('CANTIDAD INVALIDA');
      }
- 
-   else if ( form.invalid ) {
-
-      Object.values( form.controls ).forEach( control => {
-        control.markAsTouched();//es para validar el guardar
-        //  console.log(control); //son todos mis controles del formulario
-       });
-  
+     else if (this.validateSelect(form)){
       return;
-    } 
+     }
+     
   else if  (this.data.orderItemIndex == null) {
   this.kardexService.detalleIngresoAlmacen.push(form.value);  
   }

@@ -37,7 +37,7 @@ export class ListardevolucionComponent implements OnInit {
       this.ListIngresosCerrados = resp; 
       this.cargando = false;
       // this.cargando = false;
-    //  console.log(resp);
+      // console.log(resp);
   });
  }
 

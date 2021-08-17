@@ -56,7 +56,18 @@ EstadoCotizacionAnular(cotizaciones: DataVentaDirecta, i: number) {
 // console.log(cotizaciones,'1');
 // console.log(i,'index');
  const bodyform = {id:cotizaciones.id, estadoCotizacionDirecta: '3'}
- console.log(cotizaciones.id);
+
+ this.ventaService.getVentaDirectaById(cotizaciones.id).subscribe(res => {
+  // console.log(res);
+  // resp[0].detalleCotizacion this.ventaService.formVenta = res[0];  
+  this.ventaService.detalleVentaDirectaAnular = res[0].detalleCotizacion; 
+  // console.log(this.ventaService.detalleVentaDirectaAnular,'pipup');
+ 
+});
+
+
+
+//  console.log(cotizaciones.id);
  Swal.fire({
    title: 'Esta seguro?',
    text: `Que desea Anular la cotizacion Venta Nro${cotizaciones.codigo_cotizacion_dir_num_venta}`,

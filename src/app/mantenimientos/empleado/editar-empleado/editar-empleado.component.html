@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label for="inputEmail4" class="form-label">Nombre Empleado</label>
                 <input 
-               
+                style="text-transform:uppercase"
                 type="text"
                 [(ngModel)]="empleados[0].nombre_empleado"
                 name="nombre_empleado"
@@ -30,7 +30,7 @@
             <div class="form-group">
                 <label for="inputAddress" class="form-label">Dirección</label>
                 <input
-            
+                style="text-transform:uppercase"
                 type="text"
                 [(ngModel)]="empleados[0].direccion_empleado"
                 name="direccion_empleado"
@@ -59,6 +59,7 @@
             <div class="form-group">
               <label for="inputPassword4" class="form-label">Apellido Paterno</label>
               <input 
+              style="text-transform:uppercase"
               type="text"
               [(ngModel)]="empleados[0].apellidos_pat_empleado"
               name="apellidos_pat_empleado"
@@ -71,7 +72,7 @@
               <label for="inputAddress2" class="form-label">Email</label>
               <input
   
-  
+              style="text-transform:uppercase"
               type="text"
               [(ngModel)]="empleados[0].email_empleado"
               name="email_empleado"
@@ -101,7 +102,7 @@
             <div class="form-group">
                 <label for="inputPassword4" class="form-label">Apellido Materno</label>
                 <input  
-                
+                style="text-transform:uppercase"
                 type="text"
                 [(ngModel)]="empleados[0].apellidos_mat_empleado"
                 name="apellidos_mat_empleado"
@@ -148,7 +149,7 @@
             <div class="form-group">
               <label for="inputPassword4" class="form-label">DNI</label>
               <input  
-              type="text"
+              type="number"
               [(ngModel)]="empleados[0].dni_empleado"
               name="dni_empleado"
               class="form-control"

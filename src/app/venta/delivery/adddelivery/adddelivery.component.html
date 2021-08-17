@@ -48,6 +48,7 @@ name="idOrdenVenta"
     <div class="form-group">
       <label> Observación  </label>
       <input
+      style="text-transform:uppercase"
       name="detalleEmpDev"
       #detalleEmpDev="ngModel"
       [(ngModel)]="formDataDelivery.detalleEmpDev"
@@ -63,6 +64,7 @@ name="idOrdenVenta"
     <div class="form-group">
       <label>Cliente  </label>
       <input
+      style="text-transform:uppercase"
       name="nombreCliente"
       #nombreCliente="ngModel"
       [(ngModel)]="formDataDelivery.detalleOrdenVenta[0].detalleCotizacion[0].nombreCliente"
@@ -75,6 +77,7 @@ name="idOrdenVenta"
     <div class="form-group">
       <label> Distrito Entrega  </label>
       <input
+      style="text-transform:uppercase"
       name="nombreDistrito"
       #nombreDistrito="ngModel"
       [(ngModel)]="formDataDelivery.nombreDistrito"
@@ -181,9 +184,9 @@ placeholder="Buscar"
       <tr *ngFor="let item of formDetalleDelivery; let i = index">
  
         <th scope="row">{{ i + 1 }}</th>
-        <td>{{ item.nombre_producto }}</td> 
-        <td>{{item.detalleNameUnidadMedida}}</td>
-        <td>{{item.nombre_alamcen}}</td>
+        <td>{{ item.nombre_producto | uppercase}}</td> 
+        <td>{{item.detalleNameUnidadMedida | uppercase}}</td>
+        <td>{{item.nombre_alamcen | uppercase}}</td>
         <td>{{ item.cantidad }}</td> 
         
 
@@ -192,6 +195,7 @@ placeholder="Buscar"
   </table>
   <div class="form-group">
     <button type="submit" class="btn btn-dark" 
+    *ngIf="this.isButtonVisible"
     >
     <i class="fa fa-database"></i> Guardar </button> 
    
