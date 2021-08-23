@@ -26,6 +26,7 @@ export class AddordenventaComponent implements OnInit {
   bancos: DataBanco[];
   isValid: boolean = true;
   detalleCotizacionesVenta:any[] = [];
+  isButtonVisible: boolean = true;
   constructor(public ventaService: VentaService,
     private mantenimientosService: MantenimientosService,
     private toastr: ToastrService,
@@ -66,7 +67,7 @@ export class AddordenventaComponent implements OnInit {
   getCotizacionEstadoPendiente() {
     this.ventaService.getCotizacionVentaEstadoPendiente().subscribe((resp) => {
       this.cotizacionesVenta = resp as DataCotizacionVenta[];
-    //  console.log(this.cotizacionesVenta);
+      console.log(this.cotizacionesVenta);
    
     });
   }
@@ -93,33 +94,15 @@ export class AddordenventaComponent implements OnInit {
       costo_delivery:0,
       total_productos:0,
       totalGeneral:0,
-      codigo_orden_num_venta:''
-    /*  idEmpleado: 0,
-      //  detalle: '',
-      fechaEntrega: '',
-      idTipoPago: null,
-      idBanco: 0,
-      idNroCuenta: 0,
-      descuento_cot: 0,
-      costo_envio: 0,
-      total_costo: 0,
-      total_general: 0,
-      fechaEnvio:'',
-      detalleOrden:'' ,
-      idSede: 0,
-      nombreSedePrincipal: '',
-      direccionOrden:'',
-      totalGeneral:0,
-      nombre_empleado:'',
-      nombre_proovedor:'',
-      idTipoOc:null,
-      idTipoMoneda:0*/
+      codigo_orden_num_venta:'',
+      porcentajeDscto:0
+   
     };
   }
   onChange = ($event: any): void => {
-    //  console.log($event);
+ 
      this.ventaService.formOrdenVenta.idCotizacion = $event.id; 
-    this.ventaService.formOrdenVenta.nombreCliente = $event.nombreCliente;  
+    this.ventaService.formOrdenVenta.nombreCliente = $event.nombreCliente + ' ' + $event.apellidoPatCliente+ ' ' + $event.apellidoMatCliente;  
     this.ventaService.formOrdenVenta.nombreEmpleado = $event.nombreEmpleado;
      this.ventaService.formOrdenVenta.idLinea = $event.idLinea;
     this.ventaService.formOrdenVenta.idTipoMoneda = $event.idTipoMoneda; 
@@ -128,6 +111,7 @@ export class AddordenventaComponent implements OnInit {
    this.ventaService.formOrdenVenta.descuento_cot = $event.descuento_cot;
     this.ventaService.formOrdenVenta.total_productos = $event.total_productos; 
     this.ventaService.formOrdenVenta.totalGeneral = $event.totalGeneral; 
+    this.ventaService.formOrdenVenta.porcentajeDscto = $event.porcentajeDscto; 
     let total_productos =  $event.total_productos.toString();
     let descuento_cot =  $event.descuento_cot.toString();
     let costo_delivery =  $event.costo_delivery.toString();
@@ -171,11 +155,15 @@ export class AddordenventaComponent implements OnInit {
     
         return;
       } 
+      else{
+        this.isButtonVisible = false;
         this.ventaService.SaveOrdenVenta().subscribe((res) => {
           console.log('respuesta',res);
           this.resetForm();
          this.toastr.success('Guardado Exitosamente', 'Gnuino');
          this.router.navigate(['../venta/listarordenventa']);
         }); 
+
+      }
     }
 }

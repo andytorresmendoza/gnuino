@@ -15,7 +15,12 @@
   *ngIf="formData"
   (submit)="onSubmit(form)"
 >
-
+<input
+type="hidden"
+name="id"
+#id="ngModel"
+[(ngModel)]="formData.id"
+/>
  
   <div class="row">
     <div class="col-md-4">
@@ -111,6 +116,8 @@
       </div>
     
   </div>
+
+ 
   <div class="col-md-4">
     <label> Pais</label>
     <ng-select  
@@ -120,16 +127,18 @@
     placeholder="Buscar Pais" 
     [(ngModel)]="formData.idPais"  
      
-  >   
+  >    
+ 
       <ng-option *ngFor="let emp of paises" [value]="emp.id">{{emp.nombre_pais}}</ng-option>
    </ng-select> 
+   <!-- {{formData.idPais| json}} -->
    <!-- <small   *ngIf="!this.isValid"   
           class="form-text text-danger">Ingresar Pais</small> -->
 
 
   </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf ="formData.idPais == 177">
  
     <div class="col-md-4">
       <div class="form-group">
@@ -142,6 +151,7 @@
         [(ngModel)]="formData.idDepartamento"  
         (change)="onSelectDepartamento($event)"
       >   
+      <!-- <ng-option *ngFor="let emp of departamentos" [value]="0">Buscar Departamento</ng-option> -->
           <ng-option *ngFor="let emp of departamentos" [value]="emp.id">{{emp.nombre}}</ng-option>
        </ng-select> 
       </div>
@@ -157,7 +167,7 @@
         [(ngModel)]="formData.idProvincia" 
         (change)="onSelectProvincia($event)"
       >   
-     
+      <!-- <ng-option *ngFor="let emp of provincias" [value]="0">Buscar Provincia</ng-option> -->
           <ng-option *ngFor="let emp of provincias" [value]="emp.id">{{emp.nombre_provincia}}</ng-option>
        </ng-select> 
       </div>
@@ -172,7 +182,7 @@
         placeholder="Buscar Distrito" 
         [(ngModel)]="formData.idDistrito"  
       >   
-     
+      <!-- <ng-option *ngFor="let emp of distritos" [value]="0">Buscar Distrito</ng-option> -->
           <ng-option *ngFor="let emp of distritos" [value]="emp.id">{{emp.nombre_distrito}}</ng-option>
        </ng-select> 
       </div>

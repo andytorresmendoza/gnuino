@@ -3,8 +3,7 @@ import { VentaService } from '../../../services/venta/venta.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog , MatDialogConfig} from '@angular/material/dialog'; 
-// import { KardexService } from '../../../services/kardex/kardex.service';
-import { DetallecotizacionComponent } from '../detallecotizacion/detallecotizacion.component';
+ import { DetallecotizacionComponent } from '../detallecotizacion/detallecotizacion.component';
 import { MantenimientosService } from '../../../services/mantenimientos/mantenimientos.service';
 import { DataProveedor } from '../../../models/proveedor';
 import { DataEmpleado } from '../../../models/empleado';
@@ -24,7 +23,7 @@ import { DataDistrito } from '../../../models/countries';
   styleUrls: ['./addcotizacion.component.css']
 })
 export class AddcotizacionComponent implements OnInit {
-  clientes: DataCliente[];
+  clientes: DataCliente[] = [];
   empleados: DataEmpleado[];
   productos: DataProducto[];   
   linea: DataLinea[];
@@ -47,7 +46,7 @@ export class AddcotizacionComponent implements OnInit {
     let id = this.currentRoute.snapshot.paramMap.get('id');
     if (id !== 'nuevo') {
       this.ventaService.getCotizacionById(+id).subscribe(res => {
-        console.log(res);
+        // console.log(res);
          this.ventaService.formData = res[0];  
         this.ventaService.detalleCotizacion = res[0].detalleCotizacion;
  
@@ -68,11 +67,31 @@ export class AddcotizacionComponent implements OnInit {
       this.productos = resp as DataProducto[]  
    });
  
-   this.mantenimientosService.getCliente()
+  /* this.mantenimientosService.getCliente()
    .subscribe(resp => {
      this.clientes = resp as DataCliente[]  
-    //  console.log(this.clientes);
+     console.log(this.clientes);
   });
+*/
+this.mantenimientosService.getCliente().subscribe(resp => {
+  console.log(resp);
+  this.clientes = (resp as DataCliente[])
+  .map(clientes=>{
+    // clientes.nombre_cliente = clientes.nombre_cliente.toUpperCase();
+   clientes.nombre_cliente =   (clientes.nombre_cliente.concat(', ', clientes.apellidos_pat_cliente,' ',clientes.apellidos_mat_cliente,'- ',clientes.dni_cliente))
+    return clientes;
+  });
+});
+
+  /*this.mantenimientosService.getProveedor().subscribe((resp) => {
+    this.proveedores = (resp as DataProveedor[])
+    .map(proveedores=>{
+      proveedores.nombre_proovedor = proveedores.nombre_proovedor.toUpperCase();
+      return proveedores;
+    });
+  });*/
+
+
    this.mantenimientosService.getEmpleado()
    .subscribe(resp => {
     
@@ -271,7 +290,7 @@ else  if ( form.invalid ) {
   } 
   
  else if (this.ventaService.formData.id) {
- 
+  this.isButtonVisible = false;
     this.ventaService.UpdateOrder(this.ventaService.formData).subscribe(
       resp=>{
  
@@ -282,6 +301,7 @@ else  if ( form.invalid ) {
 }else{
   
   this.validateForm();
+  this.isButtonVisible = false;
    this.ventaService.saveUpdateOrder().subscribe(res =>{
   
     this.resetForm();

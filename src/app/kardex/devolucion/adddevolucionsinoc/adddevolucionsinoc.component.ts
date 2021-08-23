@@ -12,7 +12,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./adddevolucionsinoc.component.css']
 })
 export class AdddevolucionsinocComponent implements OnInit {
-
+  isButtonVisible: boolean = true;
   constructor(public kardexService: KardexService,   private dialog: MatDialog, private mantenimientosService: MantenimientosService,
     private toastr: ToastrService, private router: Router,private currentRoute: ActivatedRoute)
   {}
@@ -41,7 +41,7 @@ export class AdddevolucionsinocComponent implements OnInit {
  
   }
   onSubmit(form:NgForm){
- 
+    this.isButtonVisible = false;
     this.kardexService.GuardaDevolucionSinOc().subscribe(resp =>{ /*falta */
   // console.log('respuesta',resp);
      // this.resetForm();

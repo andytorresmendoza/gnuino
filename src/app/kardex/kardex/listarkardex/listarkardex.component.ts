@@ -40,8 +40,8 @@ export class ListarkardexComponent implements OnInit {
       console.log(resp);
      this.dataSource.data = resp as DataKardex[]; 
  
-       this.kardexService.detalleSalida = resp;
-       this.kardexService.detalleTransferencia = resp;
+      //  this.kardexService.detalleSalida = resp;
+      //  this.kardexService.detalleTransferencia = resp;
        this.cargando = false;
       
       // console.log(this.dataSource.data);
@@ -51,26 +51,26 @@ export class ListarkardexComponent implements OnInit {
    });
   }
  
-  AddDetalleSalida(orderItemIndex, id:number) {   
+  AddDetalleSalida( id:number) {   
    //  console.log(id,'detalle');
    const dialogConfig = new MatDialogConfig();
    dialogConfig.autoFocus = true;
    dialogConfig.disableClose = true;
    dialogConfig.width = "55%";
-   dialogConfig.data = {orderItemIndex,id }; 
+   dialogConfig.data = {id }; 
     this.dialog.open(DetallesalidaproductoComponent, dialogConfig).afterClosed().subscribe(resp=>{
  //  console.log(resp,'cierra popup');
   this.getListKardex();
     });
   }  
  
-  AddDetalleTransferencia(orderItemIndex, id:number) {   
+  AddDetalleTransferencia( id:number) {   
     //  console.log(id,'detalle');
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
     dialogConfig.width = "65%";
-    dialogConfig.data = {orderItemIndex,id }; 
+    dialogConfig.data = {id }; 
      this.dialog.open(DetalletransferenciaComponent, dialogConfig).afterClosed().subscribe(resp=>{
   //  console.log(resp,'cierra popup');
    this.getListKardex();

@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { KardexService } from '../../../services/kardex/kardex.service';
- 
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import {MatTableDataSource} from '@angular/material/table';
 import { VentaService } from 'src/app/services/venta/venta.service';
 import { DataCotizacionVenta } from 'src/app/models/cotizacionventa';
+import { CambiomedidaventaComponent } from '../cambiomedidaventa/cambiomedidaventa.component';
 @Component({
   selector: 'app-listarcotizacion',
   templateUrl: './listarcotizacion.component.html',
@@ -15,15 +17,17 @@ import { DataCotizacionVenta } from 'src/app/models/cotizacionventa';
 export class ListarcotizacionComponent implements OnInit {
   cotizaciones:DataCotizacionVenta[]=[];
   cargando = true; 
+  isButtonVisible:boolean=true; 
   // isButtonVisible:boolean=true;
-  displayedColumns: string[] = ['Nro Cotizacion', 'Proveedor', 'Empleado', 'Total', 'Fecha Entrega','Estado','details','Anular'];
+  displayedColumns: string[] = ['Nro Cotizacion', 'Proveedor', 'Empleado', 'Total', 'Fecha Entrega','Estado','details' ,'Anular'];
+  // displayedColumns: string[] = ['Nro Cotizacion', 'Proveedor', 'Empleado', 'Total', 'Fecha Entrega','Estado','details','cambio','Anular'];
   dataSource = new MatTableDataSource<DataCotizacionVenta>();
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   constructor
-  (private ventaService: VentaService, private router:Router,  private toastr: ToastrService ) { }
+  (private ventaService: VentaService, private router:Router,   private dialog: MatDialog,  private toastr: ToastrService ) { }
 
   ngOnInit(): void {
     this. getCotizacion();
@@ -36,30 +40,33 @@ export class ListarcotizacionComponent implements OnInit {
  .subscribe(resp => {
    this.dataSource.data = resp as DataCotizacionVenta[]; 
      this.cotizaciones = resp; 
-     this.ventaService.detalleCotizacion = resp;
-     //aca esta el error anula el arreglo [0]
-console.log( this.ventaService.detalleCotizacion);
-
-  
+     this.ventaService.detalleCotizacion = resp; 
+    //  console.log(resp);
 });
 } 
  
 
-openForEdit(CotizacionId: number) {
-// console.log(CotizacionId,'editar');
+openForEdit(CotizacionId: number) { 
    this.router.navigate(['venta/venta/'+CotizacionId]);
 }
 
+cambiomedida( id) {
+  console.log(id,'cambio');
+ const dialogConfig = new MatDialogConfig();
+ dialogConfig.autoFocus = true;
+ dialogConfig.disableClose = true;
+ dialogConfig.width = "50%";
+ dialogConfig.data = { id };
+    this.dialog.open(CambiomedidaventaComponent, dialogConfig).afterClosed().subscribe(resp=>{
 
+  });
+
+ }
 EstadoCotizacionAnular(cotizaciones: DataCotizacionVenta, i: number) {
-// console.log(cotizaciones,'1');
-// console.log(i,'index');
-const bodyform = {id:cotizaciones.id, estadoCotizacion: '3'} 
-this.ventaService.getCotizacionById(cotizaciones.id).subscribe(res => {
-  // console.log(res,'que trae ID');
-  this.ventaService.detalleCotizacionAnular = res[0].detalleCotizacion;
  
-  // console.log(this.ventaService.detalleCotizacionAnular,'que trae');
+const bodyform = {id:cotizaciones.id, estadoCotizacion: '3'} 
+this.ventaService.getCotizacionById(cotizaciones.id).subscribe(res => { 
+  this.ventaService.detalleCotizacionAnular = res[0].detalleCotizacion; 
 });
 
  

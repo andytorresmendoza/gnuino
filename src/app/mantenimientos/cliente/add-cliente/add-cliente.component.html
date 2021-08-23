@@ -16,7 +16,12 @@
   *ngIf="formData"
   (submit)="onSubmit(form)"
 >
-
+<input
+type="hidden"
+name="id"
+#id="ngModel"
+[(ngModel)]="formData.id"
+/>
  
   <div class="row">
     <div class="col-md-3">
@@ -141,6 +146,7 @@
         >   
             <ng-option *ngFor="let emp of paises" [value]="emp.id">{{emp.nombre_pais}}</ng-option>
          </ng-select> 
+         <!-- {{formData.idPais| json}} -->
         </div>
       </div>
       
@@ -163,7 +169,7 @@
         />
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3" *ngIf ="formData.idPais == 177">
         <div class="form-group">
           <label> Departamento</label>
           <ng-select  
@@ -178,7 +184,7 @@
          </ng-select> 
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3" *ngIf ="formData.idPais == 177">
         <div class="form-group">
           <label> Provincia</label>
           <ng-select  
@@ -194,7 +200,7 @@
          </ng-select> 
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3" *ngIf ="formData.idPais == 177">
         <div class="form-group">
           <label> Distrito</label>
           <ng-select  

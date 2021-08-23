@@ -24,7 +24,7 @@ export interface DataOrdenCompra {
   fechaEnvio:         string;
 
   detalleOrden:string;
-  idSede: number;
+  idAlmacen: number;
   nombreSedePrincipal:string;
   direccionOrden:string;
   totalGeneral:number;
@@ -33,5 +33,6 @@ export interface DataOrdenCompra {
   idTipoOc:number;
   idTipoMoneda:number;
   cuentaPertenece:string;
+  porcentajeDscto:number;
    
 }

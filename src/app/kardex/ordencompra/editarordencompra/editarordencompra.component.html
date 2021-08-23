@@ -9,17 +9,30 @@
   </div>
 </div>
 <br />
-<form #form="ngForm" autocomplete="off" *ngIf="kardexService.formOrdencompra" (submit)="onSubmit(form)">
-
-  <input type="hidden" name="idCotizacion" #idCotizacion="ngModel"
-    [(ngModel)]="kardexService.formOrdencompra.idCotizacion" />
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="kardexService.formOrdencompra"
+  (submit)="onSubmit(form)"
+>
+  <input
+    type="hidden"
+    name="idCotizacion"
+    #idCotizacion="ngModel"
+    [(ngModel)]="kardexService.formOrdencompra.idCotizacion"
+  />
 
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
         <label> Tipo Orden </label>
-        <select name="idTipoOc" #idTipoOc="ngModel" [(ngModel)]="kardexService.formOrdencompra.idTipoOc"
-          class="form-control" disabled="disabled">
+        <select
+          name="idTipoOc"
+          #idTipoOc="ngModel"
+          [(ngModel)]="kardexService.formOrdencompra.idTipoOc"
+          class="form-control"
+          disabled="disabled"
+        >
           >
           <option value="0">-Select-</option>
           <option *ngFor="let tipo of tiporden" value="{{ tipo.id }}">
@@ -27,65 +40,64 @@
           </option>
         </select>
       </div>
-
-
-
     </div>
     <div class="col-md-4">
       <div class="form-group">
         <label> Orden Compra Nro.</label>
-        <input name="codigo_orden_num" #codigo_orden_num="ngModel"
-          [(ngModel)]="kardexService.formOrdencompra.codigo_orden_num" class="form-control" readonly>
+        <input
+          name="codigo_orden_num"
+          #codigo_orden_num="ngModel"
+          [(ngModel)]="kardexService.formOrdencompra.codigo_orden_num"
+          class="form-control"
+          readonly
+        />
       </div>
-
-
     </div>
     <div class="col-xs-12 col-md-4">
       <div class="form-group">
         <label for="">Fecha Orden Compra</label>
         <div class="input-group">
-          <input [matDatepicker]="picker2" placeholder="DD/MM/YYYY" name="fechaEnvio" #fechaEnvio="ngModel"
-            [(ngModel)]="kardexService.formOrdencompra.fechaEnvio" class="form-control"
-            [class.is-invalid]="fechaEnvio.invalid && fechaEnvio.touched" required />
-          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-          <mat-datepicker #picker2 ngDefaultControl (selectedChanged)="onDate2($event)"></mat-datepicker>
+          <input
+            [matDatepicker]="picker2"
+            placeholder="DD/MM/YYYY"
+            name="fechaEnvio"
+            #fechaEnvio="ngModel"
+            [(ngModel)]="kardexService.formOrdencompra.fechaEnvio"
+            class="form-control"
+            [class.is-invalid]="fechaEnvio.invalid && fechaEnvio.touched"
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker
+            #picker2
+            ngDefaultControl
+            (selectedChanged)="onDate2($event)"
+          ></mat-datepicker>
         </div>
-        <small *ngIf="fechaEnvio.invalid && fechaEnvio.touched" class="form-text text-danger">Ingrese Fecha</small>
+        <small
+          *ngIf="fechaEnvio.invalid && fechaEnvio.touched"
+          class="form-text text-danger"
+          >Ingrese Fecha</small
+        >
       </div>
     </div>
   </div>
-  <!--  <div class="col-md-4">
-        <div class="form-group"> 
-          <label for="inputAddress" class="form-label">Nro Cotización</label>
-          <select
-          name="idCotizacion" 
-          #idCotizacion="ngModel" 
-          [(ngModel)]="kardexService.formOrdencompra.idCotizacion"
-          class="form-control"
-          disabled="disabled"
-         
-           > 
-           <option value="0">-Select-</option>
-            <option
-              *ngFor="let cotizacion of cotizaciones"
-              value="{{ cotizacion.id }}"
-            >
-              {{ cotizacion.codigo_cotizacion_num }}
-            </option>
-          </select>
-          </div>  
-         
-      </div>-->
 
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
         <label for="inputAddress" class="form-label">Empleado</label>
         <select
-        style="text-transform:uppercase" name="idEmpleado" #idEmpleado="ngModel" [(ngModel)]="kardexService.formOrdencompra.idEmpleado"
-          class="form-control" disabled="disabled">
-
-
+          style="text-transform: uppercase"
+          name="idEmpleado"
+          #idEmpleado="ngModel"
+          [(ngModel)]="kardexService.formOrdencompra.idEmpleado"
+          class="form-control"
+          disabled="disabled"
+        >
           >
           <option value="0">-Select-</option>
           <option *ngFor="let empleado of empleados" value="{{ empleado.id }}">
@@ -97,25 +109,37 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="inputAddress" class="form-label">PROVEEDOR</label>
-        <select  style="text-transform:uppercase"  name="idProovedor" #idProovedor="ngModel" [(ngModel)]="kardexService.formOrdencompra.idProovedor"
-          class="form-control" disabled="disabled">
+        <select
+          style="text-transform: uppercase"
+          name="idProovedor"
+          #idProovedor="ngModel"
+          [(ngModel)]="kardexService.formOrdencompra.idProovedor"
+          class="form-control"
+          disabled="disabled"
+        >
           <option value="0">-Select-</option>
-          <option *ngFor="let proveedor of proveedores" value="{{ proveedor.id }}">
+          <option
+            *ngFor="let proveedor of proveedores"
+            value="{{ proveedor.id }}"
+          >
             {{ proveedor.nombre_proovedor }}
           </option>
         </select>
       </div>
-
     </div>
     <div class="col-md-4">
-
       <div class="form-group">
         <label> Tipo Moneda</label>
-        <input  type="text" name="nombre_moneda" #nombre_moneda="ngModel"
-          [(ngModel)]="detalleTipoMoneda[0].nombre_moneda" class="form-control" disabled="disabled" />
+        <input
+          type="text"
+          name="nombre_moneda"
+          #nombre_moneda="ngModel"
+          [(ngModel)]="detalleTipoMoneda[0].nombre_moneda"
+          class="form-control"
+          disabled="disabled"
+        />
       </div>
     </div>
-
   </div>
 
   <div class="row">
@@ -123,70 +147,122 @@
       <div class="form-group">
         <label for="">Fecha Entrega</label>
         <div class="input-group">
-          <input [matDatepicker]="picker" placeholder="DD/MM/YYYY" name="fechaEntrega" #fechaEntrega="ngModel"
-            [(ngModel)]="kardexService.formOrdencompra.fechaEntrega" class="form-control"
-            [class.is-invalid]="fechaEntrega.invalid && fechaEntrega.touched" required />
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker ngDefaultControl (selectedChanged)="onDate($event)"></mat-datepicker>
+          <input
+            [matDatepicker]="picker"
+            placeholder="DD/MM/YYYY"
+            name="fechaEntrega"
+            #fechaEntrega="ngModel"
+            [(ngModel)]="kardexService.formOrdencompra.fechaEntrega"
+            class="form-control"
+            [class.is-invalid]="fechaEntrega.invalid && fechaEntrega.touched"
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker
+            #picker
+            ngDefaultControl
+            (selectedChanged)="onDate($event)"
+          ></mat-datepicker>
         </div>
-        <small *ngIf="fechaEntrega.invalid && fechaEntrega.touched" class="form-text text-danger">Ingrese Fecha</small>
+        <small
+          *ngIf="fechaEntrega.invalid && fechaEntrega.touched"
+          class="form-text text-danger"
+          >Ingrese Fecha</small
+        >
       </div>
     </div>
-
 
     <div class="col-md-4">
       <div class="form-group">
         <label> Dirección Almacén</label>
-        <select   style="text-transform:uppercase" class="form-control" (change)="UpdateSede($event.target)">
+        <select
+        style="text-transform:uppercase"
+          name="idAlmacen"
+          #idAlmacen="ngModel"
+          [(ngModel)]="kardexService.formOrdencompra.idAlmacen"
+          class="form-control"
+          [class.is-invalid]="
+            !isValid && kardexService.formOrdencompra.idAlmacen == 0
+          "
+          (change)="UpdateSede($event.target)"
+        >
           <option value="0">-Select-</option>
-          <option *ngFor="let almacen of almacenes" value="{{almacen.id}}">{{almacen.nombre_alamcen}}</option>
+          <option *ngFor="let almacen of almacenes" value="{{ almacen.id }}">
+            {{ almacen.nombre_alamcen }}
+          </option>
         </select>
       </div>
-
     </div>
     <div class="col-md-4">
       <div class="form-group">
         <label> Dirección</label>
-        <input   style="text-transform:uppercase" type="text" name="direccionOrden" #direccionOrden="ngModel"
-          [(ngModel)]="kardexService.formOrdencompra.direccionOrden" class="form-control" disabled="disabled" />
+        <input
+          style="text-transform: uppercase"
+          type="text"
+          name="direccionOrden"
+          #direccionOrden="ngModel"
+          [(ngModel)]="kardexService.formOrdencompra.direccionOrden"
+          class="form-control"
+          disabled="disabled"
+        />
       </div>
     </div>
   </div>
 
   <div class="row">
-  
     <div class="col-md-8">
       <div class="form-group">
         <label> Detalle</label>
-        <input   style="text-transform:uppercase" class="form-control" type="text" name="detalleOrden" placeholder="Detalle" #detalleOrden="ngModel"
-          [(ngModel)]="kardexService.formOrdencompra.detalleOrden" class="form-control"
-          [class.is-invalid]="detalleOrden.invalid && detalleOrden.touched" required minlength="5" />
+        <input
+          style="text-transform: uppercase"
+          class="form-control"
+          type="text"
+          name="detalleOrden"
+          placeholder="Detalle"
+          #detalleOrden="ngModel"
+          [(ngModel)]="kardexService.formOrdencompra.detalleOrden"
+          class="form-control"
+         
+        />
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
         <label> Forma Pago</label>
-        <select   style="text-transform:uppercase"  name="idTipoPago" #idTipoPago="ngModel" [(ngModel)]="kardexService.formOrdencompra.idTipoPago"
-          class="form-control">
-          <option value="0">-Select-</option>
-          <option *ngFor="let tipopago of tipopagos" value="{{tipopago.id}}">{{tipopago.descripcion_pago}}</option>
-        </select>
+        <ng-select
+        #idTipoPago="ngModel"
+        name="idTipoPago"
+        bindValue="idTipoPago"
+        placeholder="Buscar Forma de Pago"
+        [(ngModel)]="kardexService.formOrdencompra.idTipoPago"
+      >
+        <ng-option *ngFor="let emp of tipopagos" [value]="emp.id">{{
+          emp.descripcion_pago
+        }}</ng-option>
+      </ng-select>
       </div>
-
-
-
     </div>
   </div>
 
   <div class="row">
-  
     <div class="col-md-4">
       <div class="form-group">
         <label> Banco </label>
-        <select    style="text-transform:uppercase" name="idBanco" #idBanco="ngModel" [(ngModel)]="kardexService.formOrdencompra.idBanco"
-          class="form-control" (change)="UpdateBanco($event.target)">
+        <select
+          style="text-transform: uppercase"
+          name="idBanco"
+          #idBanco="ngModel"
+          [(ngModel)]="kardexService.formOrdencompra.idBanco"
+          class="form-control"
+          (change)="UpdateBanco($event.target)"
+        >
           <option value="0">-Select-</option>
-          <option *ngFor="let banco of bancos" value="{{banco.id}}">{{banco.descripcion_banco}}</option>
+          <option *ngFor="let banco of bancos" value="{{ banco.id }}">
+            {{ banco.descripcion_banco }}
+          </option>
         </select>
       </div>
     </div>
@@ -194,10 +270,18 @@
       <div class="form-group">
         <label> Nro Cuenta</label>
 
-        <select   style="text-transform:uppercase" name="idNroCuenta" #idNroCuenta="ngModel" [(ngModel)]="kardexService.formOrdencompra.idNroCuenta"
-          class="form-control" disabled="disabled">
+        <select
+          style="text-transform: uppercase"
+          name="idNroCuenta"
+          #idNroCuenta="ngModel"
+          [(ngModel)]="kardexService.formOrdencompra.idNroCuenta"
+          class="form-control"
+          disabled="disabled"
+        >
           <option value="0">-Select-</option>
-          <option *ngFor="let cuenta of cuentas" value="{{cuenta.id}}">{{cuenta.descripcion_cuenta}}</option>
+          <option *ngFor="let cuenta of cuentas" value="{{ cuenta.id }}">
+            {{ cuenta.descripcion_cuenta }}
+          </option>
         </select>
       </div>
     </div>
@@ -206,7 +290,7 @@
         <label> Pertenece Cuenta a:</label>
 
         <input
-        style="text-transform:uppercase"
+          style="text-transform: uppercase"
           type="text"
           name="cuentaPertenece"
           #cuentaPertenece="ngModel"
@@ -216,7 +300,6 @@
         />
       </div>
     </div>
-
   </div>
 
   <table class="table table-borderless">
@@ -228,37 +311,30 @@
       <th>Precio Unidad</th>
       <th>Precio Total</th>
       <th>Observaciones</th>
-
-
     </thead>
 
     <tbody>
-
-      <tr *ngFor="let item of detalleCotizaciones ;let i=index;">
+      <tr *ngFor="let item of detalleCotizaciones; let i = index">
         <th scope="row">{{ i + 1 }}</th>
         <td>
-          <p>{{item.nombre_producto | uppercase}}</p>
+          <p>{{ item.nombre_producto | uppercase }}</p>
           <!-- <p *ngFor="let deta of item.detalleCotizacion">{{deta.nombre_producto}}</p> -->
         </td>
         <td>
-          <p>{{item.cantidad}}</p>
-
+          <p>{{ item.cantidad }}</p>
         </td>
         <td>
-          <p>{{item.detalleNameUnidadMedida | uppercase}}</p>
+          <p>{{ item.detalleNameUnidadMedida | uppercase }}</p>
           <!-- <p *ngFor="let deta of item.detCotizacion">{{deta.detalleNameUnidadMedida}}</p> -->
         </td>
         <td>
-          <p>{{item.precio_unidad}}</p>
-
+          <p>{{ item.precio_unidad }}</p>
         </td>
         <td>
-          <p>{{item.precio_total}}</p>
-
+          <p>{{ item.precio_total }}</p>
         </td>
         <td>
-          <p>{{item.observaciones}}</p>
-
+          <p>{{ item.observaciones }}</p>
         </td>
 
         <!-- {{item | json}}   -->
@@ -267,45 +343,80 @@
   </table>
   <hr />
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
       <div class="form-group">
-        <label class="form-label">Descuento Cotización</label>
-        <input type="text" name="descuento_cot" #descuento_cot="ngModel" [(ngModel)]="totales.descuento_cot"
-          class="form-control" disabled="disabled" />
+        <label class="form-label">Descuento Cotización %</label>
+        <input
+          type="text"
+          name="descuento_cot"
+          #descuento_cot="ngModel"
+          [(ngModel)]="totales.descuento_cot"
+          class="form-control"
+          disabled="disabled"
+        />
       </div>
-
     </div>
-
-    <div class="col-md-3">
+    <div class="col-md-2">
+      <div class="form-group">
+        <label class="form-label">Descuento</label>
+        <input
+          type="text"
+          name="porcentajeDscto"
+          #porcentajeDscto="ngModel"
+          [(ngModel)]="totales.porcentajeDscto"
+          class="form-control"
+          disabled="disabled"
+        />
+      </div>
+    </div>
+    <div class="col-md-2">
       <div class="form-group">
         <label class="form-label">Costo Envio</label>
-        <input type="text" name="costo_envio" #costo_envio="ngModel" [(ngModel)]="totales.costo_envio"
-          class="form-control" disabled="disabled" />
+        <input
+          type="text"
+          name="costo_envio"
+          #costo_envio="ngModel"
+          [(ngModel)]="totales.costo_envio"
+          class="form-control"
+          disabled="disabled"
+        />
       </div>
     </div>
 
     <div class="col-md-3">
       <div class="form-group">
         <label class="form-label">Total Productos</label>
-        <input type="text" name="total_costo" #total_costo="ngModel" [(ngModel)]="totales.total_costo"
-          class="form-control" disabled="disabled" />
+        <input
+          type="text"
+          name="total_costo"
+          #total_costo="ngModel"
+          [(ngModel)]="totales.total_costo"
+          class="form-control"
+          disabled="disabled"
+        />
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <label class="form-label">Total General</label>
-        <input type="text" name="totalGeneral" #totalGeneral="ngModel" [(ngModel)]="totales.totalGeneral"
-          class="form-control" disabled="disabled" />
+        <input
+          type="text"
+          name="totalGeneral"
+          #totalGeneral="ngModel"
+          [(ngModel)]="totales.totalGeneral"
+          class="form-control"
+          disabled="disabled"
+        />
       </div>
     </div>
   </div>
 
   <div class="form-group">
-    <button type="submit" class="btn btn-dark" *ngIf="this.isButtonVisible"><i class="fa fa-database"></i>
-      Actualizar</button>
-    <a class="btn btn-outline-dark ml-1" routerLink="../../listarordencompra"><i class="fa fa-close"></i> Ver
-      Ordenes</a>
-
+    <button type="submit" class="btn btn-dark" *ngIf="this.isButtonVisible">
+      <i class="fa fa-database"></i> Actualizar
+    </button>
+    <a class="btn btn-outline-dark ml-1" routerLink="../../listarordencompra"
+      ><i class="fa fa-close"></i> Ver Ordenes</a
+    >
   </div>
-
 </form>

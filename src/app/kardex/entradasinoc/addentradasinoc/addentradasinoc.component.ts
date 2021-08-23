@@ -189,6 +189,7 @@ AddOrEditOrderItem(orderItemIndex, id) {
     
     else if (this.kardexService.formDataIngresosinOc.id) {
         // console.log('submit',this.kardexService.formData);
+        this.isButtonVisible = false;
       this.kardexService.UpdateIngresoSinOC(this.kardexService.formDataIngresosinOc).subscribe(
         resp=>{
           // console.log(resp);
@@ -199,6 +200,7 @@ AddOrEditOrderItem(orderItemIndex, id) {
         }
       )
   }else{
+    this.isButtonVisible = false;
      this.kardexService.saveIngresoSinOC().subscribe(res =>{
     //  console.log('respuesta',res);
       this.resetForm();

@@ -36,7 +36,7 @@ export class AddentradaalmacenComponent implements OnInit {
   bancos: DataBanco[];
   cuentas: DataNrocuenta[]; 
   tipoingresos: DataTipoIngreso[];
-  
+  isButtonVisible: boolean = true;
   constructor(public kardexService: KardexService
     , private router: Router, private toastr: ToastrService,   private dialog: MatDialog,  private mantenimientosService: MantenimientosService, private currentRoute: ActivatedRoute) { }
 
@@ -149,6 +149,7 @@ export class AddentradaalmacenComponent implements OnInit {
 return;
     }
     else {
+      this.isButtonVisible = false;
        this.kardexService.GuardaIngresoAlmacen().subscribe(resp =>{
       // console.log('respuesta',resp);
         // this.resetForm();

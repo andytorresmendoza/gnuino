@@ -582,7 +582,7 @@ getProveedor() {
   );
  }
  addProveedor(data: DataProveedor){
-
+console.log(data);
   return this.http.post(`${this.baseURL}proovedor`, data).pipe(
     map(
       (resp) => resp['data']) 
@@ -657,29 +657,24 @@ getProveedor() {
     
 
 
-    addTipoAlmacen(almacenes: TipoAlmacenI):Observable<TipoAlmacenI>{
-      console.log('del servicio',almacenes);
-      return this.http.post<TipoAlmacenI>(`${this.baseURL}sede-almacen`,almacenes).
-      pipe(tap(
-        (res:TipoAlmacenI) =>{
-          if(res){
-         console.log(res );
-          }
-        })
-     );
+    addTipoAlmacen(data: DataTipoAlmacen){
+    
+     return this.http.post(`${this.baseURL}sede-almacen`, data).pipe(
+      map(
+        (resp) => resp['data']) 
+    );
       }
       getTipoAlmacenId(id:number){
-        return this.http.get<TipoAlmacenI>(`${this.baseURL}sede-almacen/`+id)
+      
+        return this.http.get(this.baseURL+ 'sede-almacen/'+ id)  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
         .pipe(
           map(resp=>resp['data']),
           catchError(this.manejarError)
         );
       }
-      updateTipoAlmacen(almacenes: DataTipoAlmacen){
-      console.log('desdeservic',almacenes);
-        // console.log('desdeservic2',nrocuenta[0].id);
-        // console.log('desdeservic2',nrocuenta.estado);
-        return this.http.put<DataTipoAlmacen>(`${this.baseURL}sede-almacen/`+almacenes[0].id,almacenes[0])
+
+      updateTipoAlmacen(data: DataTipoAlmacen){
+             return this.http.put(`${this.baseURL}sede-almacen/${data.id}`, data);
       
        
       }

@@ -103,7 +103,7 @@ this.kardexService.formOrdencompra
       }
     onSubmit(form:NgForm){
       this.validateForm(form);
-  
+      this.isButtonVisible = false;
         this.kardexService.GuardaEditIngresoAlmacen().subscribe(res =>{
           // console.log('respuesta',res);
         this.toastr.success(res.msg );

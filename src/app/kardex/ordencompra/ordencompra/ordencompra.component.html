@@ -200,12 +200,12 @@
         <label> Almacén</label>
         <select
         style="text-transform:uppercase"
-          name="idSede"
-          #idSede="ngModel"
-          [(ngModel)]="kardexService.formOrdencompra.idSede"
+          name="idAlmacen"
+          #idAlmacen="ngModel"
+          [(ngModel)]="kardexService.formOrdencompra.idAlmacen"
           class="form-control"
           [class.is-invalid]="
-            !isValid && kardexService.formOrdencompra.idSede == 0
+            !isValid && kardexService.formOrdencompra.idAlmacen == 0
           "
           (change)="UpdateSede($event.target)"
         >
@@ -391,7 +391,7 @@
  
   <hr />
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
       <div class="form-group">
         <label class="form-label">Descuento Cotización %</label>
         <input
@@ -404,8 +404,20 @@
         />
       </div>
     </div>
-
-    <div class="col-md-3">
+    <div class="col-md-2">
+      <div class="form-group">
+        <label class="form-label">Descuento</label>
+        <input
+          type="text"
+          name="porcentajeDscto"
+          #porcentajeDscto="ngModel"
+          [(ngModel)]="kardexService.formOrdencompra.porcentajeDscto"
+          class="form-control"
+          disabled="disabled"
+        />
+      </div>
+    </div>
+    <div class="col-md-2">
       <div class="form-group">
         <label class="form-label">Costo Envio</label>
         <input
@@ -447,17 +459,10 @@
     </div>
   </div>
 
-  <!-- {{item | json}}    -->
-  <!-- <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-      <div class="card-header">Header</div>
-      <div class="card-body">
-        <h5 class="card-title">Secondary card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      </div>
-    </div> -->
+ 
 
   <div class="form-group">
-    <button type="submit" class="btn btn-dark">
+    <button type="submit" class="btn btn-dark" *ngIf="this.isButtonVisible">
       <i class="fa fa-database"></i> Guardar
     </button>
     <!-- <a   class="btn btn-outline-dark ml-1" routerLink="listarordencompra" ><i class="fa fa-close"></i> Ver Ordenes</a> -->

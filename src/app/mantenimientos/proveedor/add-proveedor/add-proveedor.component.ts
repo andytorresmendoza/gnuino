@@ -29,6 +29,7 @@ export class AddProveedorComponent implements OnInit {
   cargando = true; 
   isValid:boolean = true;
   isButtonVisible:boolean=true; 
+  isPais:boolean=true; 
   constructor(private mantenimientosServices: MantenimientosService, private router:Router,private currentRoute: ActivatedRoute,private toastr: ToastrService) { }
 
 
@@ -37,10 +38,7 @@ export class AddProveedorComponent implements OnInit {
     let id = this.currentRoute.snapshot.paramMap.get('id'); 
     if (id !== 'nuevo') {
       this.mantenimientosServices.getProveedorId(+id).subscribe(res => {
-         this.formData = res[0]; 
-         console.log(res);
-         //console.log(res[0].id,'id');
-        // console.log( this.formData);
+         this.formData = res[0];  
 
 
       });
@@ -74,10 +72,16 @@ this.getDepartamento();
   }; 
   }  
 
-  getPais(){ this.mantenimientosServices.getPais().subscribe(
-    data=>(this.paises=data) 
+getPais(){ this.mantenimientosServices.getPais().subscribe(
+    data=>
+    ( 
+      this.paises=data 
+      ) 
    
-  ); }
+  ); 
+}
+
+ 
   getDepartamento(){ 
     this.mantenimientosServices.getDepartamento()
      .subscribe(response => { 
@@ -110,7 +114,7 @@ this.getDepartamento();
  
       this.mantenimientosServices.getProvincia($event)
       .subscribe(response=>{   
-      //  console.log(response,'response');
+   
         this.provincias = response;
   
       });
@@ -131,21 +135,16 @@ this.getDepartamento();
           title: 'Seleccionar Pais' , 
           icon: 'error',
         });   
-        else if  (form.value.idDepartamento == null )
+       
+       else if  (form.value.idPais == 177 ){  
+        if  (form.value.idDepartamento == null || form.value.idDepartamento == 0 || form.value.idProvincia == null || form.value.idProvincia == 0 || form.value.idDistrito == null || form.value.idDistrito == 0 )
+ 
         return   Swal.fire({
-           title: 'Seleccionar Departamento' , 
+           title: 'Seleccionar Departamento - Provincia - Distrito' , 
            icon: 'error',
-         });   
-         else if  (form.value.idProvincia == null )
-         return   Swal.fire({
-            title: 'Seleccionar Provincia' , 
-            icon: 'error',
-          });   
-          else if  (form.value.idDistrito == null )
-         return   Swal.fire({
-            title: 'Seleccionar Distrito' , 
-            icon: 'error',
-          });   
+         });    
+       }
+   return;
      
     }
 
@@ -153,21 +152,34 @@ this.getDepartamento();
 
   
   onSubmit(form:NgForm){ 
- this.validateForm(form);
-// console.log(this.validateForm(),'ejecutar');
-     if ( form.invalid ) {
+    console.log(form.value);
+  if (this.validateForm(form)){
+    return;
+   }
+   else 
+   if ( form.invalid ) {
 
-      Object.values( form.controls ).forEach( control => {
-        control.markAsTouched();//es para validar el guardar
-          //  console.log(control); //son todos mis controles del formulario
-       });
-  
-      return;
+    Object.values( form.controls ).forEach( control => {
+      control.markAsTouched();  
+     });
+
+    return;
+  }  else if(form.value.idPais == 177
+     ){ 
+    const bodyform = {
+      id:form.value.id, nombre_proovedor:form.value.nombre_proovedor, 
+      ruc_proovedor:form.value.ruc_proovedor, 
+      telefono_proovedor:form.value.telefono_proovedor,
+      direccion_proovedor:form.value.direccion_proovedor,
+      email_proovedor:form.value.email_proovedor,
+      idPais:form.value.idPais,
+      idProvincia:form.value.idProvincia,
+      idDistrito:form.value.idDistrito,
+      idDepartamento:form.value.idDepartamento,
+      estado:'1'
     } 
-    // console.log(control);
-  
-  if (this.formData.id) {
-      this.mantenimientosServices.updateProveedor(this.formData).subscribe(
+    if (this.formData.id) {
+      this.mantenimientosServices.updateProveedor(bodyform).subscribe(
         resp=>{
    
         this.toastr.success('Actualizado Exitosamente','Gnuino');
@@ -177,31 +189,51 @@ this.getDepartamento();
   } 
   else{
 
-     this.mantenimientosServices.addProveedor(this.formData).subscribe(res =>{
+     this.mantenimientosServices.addProveedor(bodyform).subscribe(res =>{
     //console.log(res);
       this.resetForm();
       this.toastr.success('Guardado Exitosamente','Gnuino');
       this.router.navigate(["../mantenimientos/listarproveedor"]);
     }) ;
  }
-}
-/*AddProveedor(proveedores: ProveedorI):void{
-    console.log('entro',proveedores);
-    // this.nrocuentas[0].id = 22;
-  this.mantenimientosServices.addProveedor(proveedores)
-    .subscribe(res=>{
-     console.log(res);
-      Swal.fire({
-        //  title: this.nrocuentas[0].descripcion_cuenta,
-        text: 'Se Guardo correctamente',
-        icon: 'success',
-      });
-      this.router.navigate(["../mantenimientos/listarproveedor"]);
-     
-      
-    });
-  
+ 
+  } else{
+    const bodyform = {
+      id:form.value.id, nombre_proovedor:form.value.nombre_proovedor, 
+      ruc_proovedor:form.value.ruc_proovedor, 
+      telefono_proovedor:form.value.telefono_proovedor,
+      direccion_proovedor:form.value.direccion_proovedor,
+      email_proovedor:form.value.email_proovedor,
+      idPais:form.value.idPais,
+      idProvincia:0,
+      idDistrito:0,
+      idDepartamento:0,
+      estado:'1'
+    } 
    
-  
-  }*/
+    if (this.formData.id) {
+   
+      this.mantenimientosServices.updateProveedor(bodyform).subscribe(
+        resp=>{
+   
+        this.toastr.success('Actualizado Exitosamente','Gnuino');
+         this.router.navigate(["../mantenimientos/listarproveedor"]);
+        }
+      )
+  } 
+  else{
+
+     this.mantenimientosServices.addProveedor(bodyform).subscribe(res =>{
+    //console.log(res);
+      this.resetForm();
+      this.toastr.success('Guardado Exitosamente','Gnuino');
+      this.router.navigate(["../mantenimientos/listarproveedor"]);
+    }) ;
+ }
+   
+  }
+
+ 
+}
+ 
 }

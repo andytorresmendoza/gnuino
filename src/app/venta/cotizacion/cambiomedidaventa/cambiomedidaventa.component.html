@@ -1,0 +1,53 @@
+<p>Listado de Productos</p>
+
+<form
+  #form="ngForm"
+  autocomplete="off"  
+
+>
+<table class="table table-borderless">
+  <thead class="thead-light">
+    <th scope="col">#</th>
+    <th>Nombre Producto</th>
+    <th>Unidad Medida</th>
+    <th>Almacén</th>
+    <th>Cantidad Venta</th> 
+    <th>Precio Venta</th>
+    <!-- <th>Precio Total</th> -->
+    <th>Observaciones</th>
+ 
+  </thead>
+  <tbody>
+  
+    <tr *ngFor="let item of ventaService.detalleCotizacionVentaCambio; let i = index">
+     
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ item.nombre_producto | uppercase }}</td> 
+      <td>{{item.detalleNameUnidadMedida | uppercase}}</td>
+      <td>{{item.nombre_alamcen | uppercase}}</td>
+      <td>{{ item.cantidad }}</td>
+      <td>{{ item.precioVenta }}</td> 
+      <td>{{ item.observacion | uppercase }}</td>
+ 
+      <td>
+        <a
+          class="btn btn-sm btn-info text-white"
+          (click)="AddCambio(i, item.id)"  
+          ><i class="fa fa-pencil"></i
+        ></a>
+       
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="form-group">
+  <button type="submit" class="btn btn-dark" 
+  >
+  <i class="fa fa-database"></i> Guardar </button>
+  
+    <button type="button"   class="btn btn-outline-dark ml-1" [mat-dialog-close]>
+      <i class="fa fa-close"></i> Salir
+    </button>
+  </div>
+  </form>

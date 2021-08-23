@@ -20,6 +20,7 @@ export class EditdetalleentradasinocComponent implements OnInit {
   productos: DataProducto[];
   almacenes: DataTipoAlmacen[];
   isValid: boolean = true;
+ 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<EditdetalleentradasinocComponent>,

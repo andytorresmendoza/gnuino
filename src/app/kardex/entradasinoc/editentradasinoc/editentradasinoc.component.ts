@@ -131,7 +131,7 @@ export class EditentradasinocComponent implements OnInit {
     onSubmit(form:NgForm){
    //   this.validateForm();
       // console.log(form);
-     
+      this.isButtonVisible = false;
       this.kardexService.UpdateIngresoSinOC(this.kardexService.formDataIngresosinOc).subscribe(
         resp=>{
           // console.log(resp);

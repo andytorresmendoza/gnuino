@@ -40,7 +40,7 @@ export class OrdencompraComponent implements OnInit {
   tiporden: DataTipoOrden[]=[];
   tipoMoneda:DataTipoMoneda[]=[];
   isValid: boolean = true;
-
+  isButtonVisible: boolean = true;
   constructor(
     public kardexService: KardexService ,
     private mantenimientosService: MantenimientosService,
@@ -134,7 +134,7 @@ export class OrdencompraComponent implements OnInit {
       total_general: 0,
       fechaEnvio:'',
       detalleOrden:'' ,
-      idSede: 0,
+      idAlmacen: 0,
       nombreSedePrincipal: '',
       direccionOrden:'',
       totalGeneral:0,
@@ -142,11 +142,12 @@ export class OrdencompraComponent implements OnInit {
       nombre_proovedor:'',
       idTipoOc:null,
       idTipoMoneda:0,
-      cuentaPertenece:''
+      cuentaPertenece:'',
+      porcentajeDscto:0
     };
   }
  onChange = ($event: any): void => {
-  //  console.log($event);
+    console.log($event);
    this.kardexService.formOrdencompra.idCotizacion = $event.id; 
   this.kardexService.formOrdencompra.idProovedor = $event.idProovedor;  
   this.kardexService.formOrdencompra.idEmpleado = $event.idEmpleado;
@@ -155,7 +156,7 @@ export class OrdencompraComponent implements OnInit {
   this.kardexService.formOrdencompra.descuento_cot = $event.descuento_cot;
   this.kardexService.formOrdencompra.total_costo = $event.total_costo; 
   this.kardexService.formOrdencompra.totalGeneral = $event.totalGeneral; 
-
+  this.kardexService.formOrdencompra.porcentajeDscto = $event.porcentajeDscto; 
 
   
   let total_costo =  $event.total_costo.toString();
@@ -205,6 +206,8 @@ export class OrdencompraComponent implements OnInit {
       this.isValid = false;
       else if   (this.kardexService.formOrdencompra.idBanco == 0)
       this.isValid = false;
+      else if   (this.kardexService.formOrdencompra.idAlmacen == 0)
+      this.isValid = false;
     return this.isValid;
   }
 
@@ -224,6 +227,7 @@ export class OrdencompraComponent implements OnInit {
   }
  
   onSubmit(form: NgForm) {
+    // console.log(form.value,'nuevo');
     this.validateForm();
     this.validateCombos(form);
     // console.log(form);
@@ -236,12 +240,14 @@ export class OrdencompraComponent implements OnInit {
   
       return;
     } 
+    else{  
+      this.isButtonVisible = false;
       this.kardexService.saveUpdateOrdercompra().subscribe((res) => {
-       console.log('respuesta',res);
+      //  console.log('respuesta',res);
         this.resetForm();
         this.toastr.success('Guardado Exitosamente', 'Gnuino');
         this.router.navigate(['../kardex/listarordencompra']);
       });
-   
+    }
   }
 }

@@ -87,10 +87,11 @@ export class EditarordenventaComponent implements OnInit {
       return;
     } 
   if (this.ventaService.formOrdenVenta.id) {
+    this.isButtonVisible = false;
   //  console.log('submit', this.kardexService.formOrdencompra.id);
     this.ventaService.UpdateOrderVenta(this.ventaService.formOrdenVenta.id).subscribe(
       resp=>{
-        console.log(resp);
+        // console.log(resp);
         this.toastr.success(resp.msg );
         this.router.navigate(["../venta/listarordenventa"]);
       }

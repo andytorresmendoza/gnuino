@@ -14,7 +14,7 @@ import { DetalledevolucionComponent } from '../detalledevolucion/detalledevoluci
 })
 export class AdddevolucionComponent implements OnInit {
   tipoingresos: DataTipoIngreso[];
-  
+  isButtonVisible: boolean = true;
   constructor(public kardexService: KardexService,   private dialog: MatDialog, private mantenimientosService: MantenimientosService,
     private toastr: ToastrService, private router: Router,private currentRoute: ActivatedRoute)
   {}
@@ -54,8 +54,9 @@ AddOrEditOrderItem( orderItemIndex,id) {
   }
   onSubmit(form:NgForm){
 //  console.log(form.value);
+this.isButtonVisible = false;
     this.kardexService.GuardaDevolucionAlmacen().subscribe(resp =>{ /*falta */
-   console.log('respuesta',resp); 
+  //  console.log('respuesta',resp); 
    this.toastr.success('Se realizo la Devolución Exitosamente');
     // resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
       this.router.navigate(["../kardex/devoluciones"]);

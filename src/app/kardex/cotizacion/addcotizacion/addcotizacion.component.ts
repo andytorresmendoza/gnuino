@@ -27,7 +27,7 @@ export class AddcotizacionComponent implements OnInit {
   tipocotizacion: DataTipoCoti[];
   tipoMoneda: DataTipoMoneda[];
   isValid: boolean = true;
-  isButtonVisible: boolean = true;
+    isButtonVisible: boolean = true;
 
   constructor(
     public kardexService: KardexService,
@@ -106,7 +106,9 @@ export class AddcotizacionComponent implements OnInit {
     };
     this.kardexService.detalleCotizacion = [];
   }
-
+  myFunction(){
+    
+}
   AddOrEditOrderItem(orderItemIndex, id) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
@@ -217,17 +219,23 @@ export class AddcotizacionComponent implements OnInit {
         control.markAsTouched(); //es para validar el guardar
         //  console.log(control); //son todos mis controles del formulario
       });
-
+    
       return;
-    } else if (this.kardexService.formData.id) {
+ 
+    } else if (this.kardexService.formData.id)
+    
+    { this.isButtonVisible = false;
       this.kardexService
         .UpdateOrder(this.kardexService.formData)
         .subscribe((resp) => {
           this.toastr.success('Actualizado Exitosamente', 'Gnuino');
           this.router.navigate(['../kardex/listarcotizacion']);
         });
+
+
     } else {
     // this.validateForm(form);
+    this.isButtonVisible = false;
       this.kardexService.saveUpdateOrder().subscribe((res) => {
         this.resetForm();
         this.toastr.success(res.msg);

@@ -34,7 +34,14 @@ export class DetallesalidaproductoComponent implements OnInit {
   isValid: boolean = true;
   ngOnInit(): void {
  
- 
+   this.kardexService.getkardexById(this.data.id) 
+    .subscribe(resp => {
+     // this.dataSource.data = resp[0].detalleCotizacion as DataDetalleCotizacionVenta[]; 
+     this.formData = resp[0];
+    //  console.log(resp,'que traer del kardex');
+     // console.log(this.ventaService.detalleCotizacionVentaCambio);
+  
+   }); 
     this.mantenimientosService.getTipoAlmacen()
     .subscribe(resp => {
       this.almacenes = resp as DataTipoAlmacen[]   
@@ -52,7 +59,7 @@ export class DetallesalidaproductoComponent implements OnInit {
      });
 
  
-this.formData = Object.assign({ 
+/*this.formData = Object.assign({ 
   id: null,
   idProducto:0, 
   cantidadGlobal: 0, 
@@ -66,7 +73,7 @@ this.formData = Object.assign({
   idAlmacen1: 0
 },
 this.kardexService.detalleSalida[this.data.orderItemIndex]);
-
+*/
 }
  
 

@@ -12,7 +12,5 @@ export interface TipoAlmacenI {
     idProvincia: number;
     idDistrito: number;
     tipoAlmacen:number;
-    estado: number;
-    created_at: Date;
-    updated_at: Date;
+     
   }

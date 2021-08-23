@@ -1,4 +1,4 @@
-
+ 
 <h1><small>Agregar Detalles</small></h1>
 <hr />
 <div class="row text-right">
@@ -262,7 +262,7 @@ name="costo_envio"
     </div>
     <div class="col-md-3">
       <div class="form-group">
-        <label> % Descuento</label>
+        <label> Descuento</label>
             <input
               name="porcentajeDscto"
               #porcentajeDscto="ngModel"
@@ -356,10 +356,18 @@ name="costo_envio"
     </tbody>
   </table>
   <div class="form-group">
+    <!-- <button type="submit" class="btn btn-dark" 
+    *ngIf="this.isButtonVisible" (click)="myFunction()">
+    <i class="fa fa-database"></i> Guardar </button> -->
+    <!-- <button type="submit" class="btn btn-dark" 
+    *ngIf="this.isButtonVisible" (click)="this.isButtonVisible = false">
+    <i class="fa fa-database"></i> Guardar </button> -->
+     
     <button type="submit" class="btn btn-dark" 
-    *ngIf="this.isButtonVisible">
+    *ngIf="this.isButtonVisible"  >
     <i class="fa fa-database"></i> Guardar </button>
-    
+
+ 
     <a class="btn btn-outline-dark ml-1" routerLink="../../listarcotizacion"
       ><i class="fa fa-close"></i> Ver Cotizaciones</a
     >

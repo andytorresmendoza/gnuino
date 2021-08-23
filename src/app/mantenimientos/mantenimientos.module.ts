@@ -60,7 +60,7 @@ import { EditarEmpleadoComponent } from './empleado/editar-empleado/editar-emple
 import { AddEmpleadoComponent } from './empleado/add-empleado/add-empleado.component';
 import { AuthInterceptorService } from '../services/token/auth-interceptor.service';
 import { ListaralmacenComponent } from './tipoalmacen/listaralmacen/listaralmacen.component';
-import { EditaralmacenComponent } from './tipoalmacen/editaralmacen/editaralmacen.component';
+// import { EditaralmacenComponent } from './tipoalmacen/editaralmacen/editaralmacen.component';
 import { AddalmacenComponent } from './tipoalmacen/addalmacen/addalmacen.component';
 import { ListarusuarioComponent } from './usuario/listarusuario/listarusuario.component';
 import { AddusuarioComponent } from './usuario/addusuario/addusuario.component';
@@ -127,7 +127,7 @@ import { ListarPrecioVentaComponent } from './precioventa/listar-precio-venta/li
     EditarEmpleadoComponent,
     AddEmpleadoComponent,
     ListaralmacenComponent,
-    EditaralmacenComponent,
+    // EditaralmacenComponent,
     AddalmacenComponent,
     ListarusuarioComponent,
     AddusuarioComponent,

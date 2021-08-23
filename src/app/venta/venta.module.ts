@@ -34,11 +34,13 @@ import { AddventadirectaComponent } from './ventadirecta/addventadirecta/addvent
 import { ListarventadirectaComponent } from './ventadirecta/listarventadirecta/listarventadirecta.component';
 import { ListarventadirectaanuladoComponent } from './ventadirecta/listarventadirectaanulado/listarventadirectaanulado.component';
 import { DetalleventadirectaComponent } from './ventadirecta/detalleventadirecta/detalleventadirecta.component';
+import { CambiomedidaventaComponent } from './cotizacion/cambiomedidaventa/cambiomedidaventa.component';
+import { DetallecotizacioncambioComponent } from './cotizacion/detallecotizacioncambio/detallecotizacioncambio.component';
 
 
 
 @NgModule({
-  declarations: [VentaComponent, ListarcotizacionComponent, AddcotizacionComponent, DetallecotizacionComponent, ListarordenventaComponent, AddordenventaComponent, EditarordenventaComponent, AddempleadodeliveryComponent, ListarempleadodeliveryComponent, ListarordenventapendienteComponent, EditarempleadodeliveryComponent, ListarcotiventaanuladaComponent, ListardeliveryComponent, AdddeliveryComponent, ListarordenventaanuladaComponent, AddventadirectaComponent, ListarventadirectaComponent, ListarventadirectaanuladoComponent, DetalleventadirectaComponent],
+  declarations: [VentaComponent, ListarcotizacionComponent, AddcotizacionComponent, DetallecotizacionComponent, ListarordenventaComponent, AddordenventaComponent, EditarordenventaComponent, AddempleadodeliveryComponent, ListarempleadodeliveryComponent, ListarordenventapendienteComponent, EditarempleadodeliveryComponent, ListarcotiventaanuladaComponent, ListardeliveryComponent, AdddeliveryComponent, ListarordenventaanuladaComponent, AddventadirectaComponent, ListarventadirectaComponent, ListarventadirectaanuladoComponent, DetalleventadirectaComponent, CambiomedidaventaComponent, DetallecotizacioncambioComponent],
   imports: [ 
     CommonModule,
     SharedModule,

@@ -9,20 +9,21 @@ import { DataTipoAlmacen } from 'src/app/models/tipoalmacen';
 import { MantenimientosService } from 'src/app/services/mantenimientos/mantenimientos.service';
 import { VentaService } from '../../../services/venta/venta.service';
 import Swal from 'sweetalert2';
+import { DataDetalleCotizacionVentaCambio } from '../../../models/detalle-cotizacionVentaCambio';
 @Component({
-  selector: 'app-detallecotizacion',
-  templateUrl: './detallecotizacion.component.html',
-  styleUrls: ['./detallecotizacion.component.css'],
+  selector: 'app-detallecotizacioncambio',
+  templateUrl: './detallecotizacioncambio.component.html',
+  styleUrls: ['./detallecotizacioncambio.component.css'],
 })
-export class DetallecotizacionComponent implements OnInit {
-  formData: DataDetalleCotizacionVenta;
+export class DetallecotizacioncambioComponent implements OnInit {
+  formData: DataDetalleCotizacionVentaCambio;
   productos: DataProducto[];
   almacen: DataTipoAlmacen[];
   arreglo: any[] = [];
   isValid: boolean = true;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
-    public dialogRef: MatDialogRef<DetallecotizacionComponent>,
+    public dialogRef: MatDialogRef<DetallecotizacioncambioComponent>,
     // public kardexService: KardexService,
     public ventaService: VentaService,
     private mantenimientosService: MantenimientosService
@@ -54,17 +55,20 @@ export class DetallecotizacionComponent implements OnInit {
         detalleNameUnidadMedida: '',
         idAlmacen: null,
         nombre_alamcen: '',
+        precioVentaAntiguo: 0,
       };
     // console.log(this.ventaService.detalleCotizacion,'QUE TRAE');
     //  console.log(almacen, producto);
     else
       this.formData = Object.assign(
         {},
-        this.ventaService.detalleCotizacion[this.data.orderItemIndex]
+        this.ventaService.detalleCotizacionVentaCambio[this.data.orderItemIndex]
       );
     this.onChangeMatch(
-      this.ventaService.detalleCotizacion[this.data.orderItemIndex].idProducto,
-      this.ventaService.detalleCotizacion[this.data.orderItemIndex].idAlmacen
+      this.ventaService.detalleCotizacionVentaCambio[this.data.orderItemIndex]
+        .idProducto,
+      this.ventaService.detalleCotizacionVentaCambio[this.data.orderItemIndex]
+        .idAlmacen
     );
   }
 
@@ -74,20 +78,15 @@ export class DetallecotizacionComponent implements OnInit {
       .subscribe((resp: any) => {
         this.formData.precioVenta = resp.precioVenta;
         this.formData.stock = resp.cantidad;
-        //  console.log(resp);
       });
   }
   onChange = ($event: any): void => {
     this.formData.nombre_producto = $event.nombre_producto;
     this.formData.detalleNameUnidadMedida =
       $event.detalleUnidadMedida[0].detalle;
-    // console.log('nuevo',$event.nombre_producto);
-    // console.log($event.detalleUnidadMedida[0].detalle);
-    // console.log($event);
   };
 
   onChangeAlmacen = ($event: any): void => {
-    //  console.log($event);
     this.formData.nombre_alamcen = $event.nombre_alamcen;
   };
   validateSelect(form: NgForm) {
@@ -103,55 +102,55 @@ export class DetallecotizacionComponent implements OnInit {
       });
     else if (this.formData.stock == null)
       return Swal.fire({
-        title: 'No Existe Stock',
+        title: 'No existe Stock',
         icon: 'error',
       });
-    else if (this.formData.precioVenta == null)
+      else if (this.formData.precioVenta == null)
       return Swal.fire({
-        title: 'No Existe Precio de Venta',
+        title: 'No existe Precio Venta',
         icon: 'error',
       });
   }
+  onSubmit(form:NgForm) {
+     console.log(form.value);
 
-  
-  onSubmit(form: NgForm) {
-    // console.log(form.value);
-  if (this.validateSelect(form)) {
+       const bodyform = {id:this.formData.id, idAlmacen:this.formData.idAlmacen, idProducto:this.formData.idProducto,cantidad:this.formData.cantidad} 
+     if (this.validateSelect(form)) {
       return;
     } else if (
       form.value.cantidad > form.value.stock ||
       form.value.cantidad <= 0
     ) {
       return Swal.fire({
+        title: 'Solo Existen ' + form.value.stock + ' Productos en Stock',
         text: 'Cantidad Invalida',
         icon: 'error',
       });
-    } else  
-    if (this.validateForm(form.value)) {
-console.log( this.ventaService.detalleCotizacion,'primero');
+    } else if (form.value.precioVenta !== form.value.precioVentaAntiguo) {
+      return Swal.fire({
        
+        title: 'Los Precios de los productos deben ser iguales',
+        text: 'Precio Invalido',
+        icon: 'error',
+      });
+    }  
  
-      if (this.data.orderItemIndex == null) { 
-        
-        this.ventaService.detalleCotizacion.push(form.value); 
-   
-      } else {
-        this.ventaService.detalleCotizacion[this.data.orderItemIndex] =
-          form.value;
-      }
-
-   /*   let nuevoArregloTemp=[];
-      this.ventaService.detalleCotizacion?.map(
-        res => {
-          res.hasOwnProperty('idProductoss') ? nuevoArregloTemp.push(res): '' 
-
-        }); 
-        console.log(nuevoArregloTemp,'que trae');*/
+     this.ventaService.saveCambioMedida(this.formData.id, bodyform).subscribe(resp =>{   
+      console.log(resp);
+      // this.toastr.success('Salida Exitosamente');
+     });     
+   /* else if (this.validateForm(form.value)) {
+      if (this.data.orderItemIndex == null)
+        this.ventaService.detalleCotizacionVentaCambio.push(form.value);
+      else
+        this.ventaService.detalleCotizacionVentaCambio[
+          this.data.orderItemIndex
+        ] = form.value;
       this.dialogRef.close();
-    }
+    }*/
   }
 
-  validateForm(formData: DataDetalleCotizacion) {
+  validateForm(formData: DataDetalleCotizacionVentaCambio) {
     this.isValid = true;
     if (formData.id == 0) this.isValid = false;
     else if (formData.cantidad == 0) this.isValid = false;

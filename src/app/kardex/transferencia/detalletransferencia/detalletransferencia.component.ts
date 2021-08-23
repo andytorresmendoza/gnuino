@@ -30,6 +30,15 @@ export class DetalletransferenciaComponent implements OnInit {
     almacenes2: DataTipoAlmacen[]; 
     // tipodevoluciones: DataTipodevolucion[];
   ngOnInit(): void {
+
+    this.kardexService.getkardexById(this.data.id) 
+    .subscribe(resp => {
+     // this.dataSource.data = resp[0].detalleCotizacion as DataDetalleCotizacionVenta[]; 
+     this.formData = resp[0];
+    //  console.log(resp,'que traer del kardex');
+     // console.log(this.ventaService.detalleCotizacionVentaCambio);
+  
+   });
     this.mantenimientosService.getProducto()
     .subscribe(resp => {
       this.productos = resp as DataProducto[]  
@@ -50,8 +59,8 @@ export class DetalletransferenciaComponent implements OnInit {
 });
 
  
-   this.formData = Object.assign({
-    id:null,
+ /*  this.formData = Object.assign({
+    id:this.data.id,
     idProducto:0, 
     cantidadGlobal: 0, 
    // cantidadPrincipal:0,
@@ -68,7 +77,8 @@ export class DetalletransferenciaComponent implements OnInit {
 
    },
    
-   this.kardexService.detalleTransferencia[this.data.orderItemIndex]);
+   this.kardexService.detalleTransferencia[this.data.id]);
+   console.log(this.data.id,'que trae');*/
   }
   onChange = ($event: any): void => {
     this.formData.nombre_alamcen = $event.nombre_alamcen 

@@ -38,6 +38,8 @@ export class AddventadirectaComponent implements OnInit {
   isButtonVisible:boolean=true; 
   tipopagos: any[] = [];
   bancos: DataBanco[];
+ 
+
   constructor(public ventaService: VentaService,
     // public kardexService: KardexService,  
      private dialog: MatDialog, private mantenimientosService: MantenimientosService,
@@ -280,7 +282,7 @@ export class AddventadirectaComponent implements OnInit {
     } 
     
    else if (this.ventaService.formVenta.id) {
-   
+    this.isButtonVisible = false;
       this.ventaService.UpdateVentaDirecta(this.ventaService.formVenta).subscribe(
         resp=>{
    
@@ -291,6 +293,7 @@ export class AddventadirectaComponent implements OnInit {
   }else{
     
     this.validateForm();
+    this.isButtonVisible = false;
      this.ventaService.saveVentaDirecta().subscribe(res =>{
     
       this.resetForm();

@@ -60,7 +60,7 @@
     </div>
       <div class="col-xs-12 col-md-4">
       <div class="form-group">
-        <label for="">Fecha Orden Compra</label>
+        <label for="">Fecha Orden Venta</label>
         <div class="input-group">
           <input
             [matDatepicker]="picker"
@@ -360,7 +360,7 @@
  
   <hr />
   <div class="row">
-   <div class="col-md-3">
+   <div class="col-md-2">
       <div class="form-group">
         <label class="form-label">Descuento Cotización %</label>
         <input
@@ -373,8 +373,20 @@
         />
       </div>
     </div>  
-
- <div class="col-md-3">
+    <div class="col-md-2">
+      <div class="form-group">
+        <label class="form-label">Descuento</label>
+        <input
+          type="text"
+          name="porcentajeDscto"
+          #porcentajeDscto="ngModel"
+          [(ngModel)]="ventaService.formOrdenVenta.porcentajeDscto"
+          class="form-control"
+          disabled="disabled"
+        />
+      </div>
+    </div>  
+ <div class="col-md-2">
       <div class="form-group">
         <label class="form-label">Costo Delivery</label>
         <input
@@ -418,7 +430,7 @@
  
 
   <div class="form-group">
-    <button type="submit" class="btn btn-dark">
+    <button type="submit" class="btn btn-dark" *ngIf="this.isButtonVisible">
       <i class="fa fa-database"></i> Guardar
     </button>
     </div>

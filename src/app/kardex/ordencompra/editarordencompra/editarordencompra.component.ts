@@ -127,7 +127,7 @@ export class EditarordencompraComponent implements OnInit {
       total_general: 0,
       fechaEnvio:'',
       detalleOrden:'',
-      idSede: 0,
+      idAlmacen: 0,
       nombreSedePrincipal: '',
       direccionOrden:'',
        totalGeneral: 0,
@@ -135,7 +135,8 @@ export class EditarordencompraComponent implements OnInit {
        nombre_proovedor:'',
        idTipoOc:0,
        idTipoMoneda:0,
-       cuentaPertenece:''
+       cuentaPertenece:'',
+       porcentajeDscto:0
     };
   }
   UpdateBanco(ctrl) {
@@ -163,12 +164,7 @@ export class EditarordencompraComponent implements OnInit {
 
 
 validateCombos(form:NgForm) {
-  if(form.value.idTipoOc == null )
-     return   Swal.fire({
-        title: 'Seleccionar Tipo Orden' , 
-        icon: 'error',
-      });   
-      else if  (form.value.idTipoPago == null )
+    if  (form.value.idTipoPago == null )
       return   Swal.fire({
          title: 'Seleccionar Forma Pago' , 
          icon: 'error',
@@ -176,6 +172,7 @@ validateCombos(form:NgForm) {
        
 }
  onSubmit(form: NgForm) {
+  //  console.log(form.value,'postedit');
   this.validateCombos(form);
     if ( form.invalid ) {
 
@@ -188,6 +185,7 @@ validateCombos(form:NgForm) {
     } 
   // console.log(form);
   if (this.kardexService.formOrdencompra.id) {
+    this.isButtonVisible = false;
   //  console.log('submit', this.kardexService.formOrdencompra.id);
     this.kardexService.UpdateOrderCompra(this.kardexService.formOrdencompra.id).subscribe(
       resp=>{

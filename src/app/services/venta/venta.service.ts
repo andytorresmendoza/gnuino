@@ -16,6 +16,7 @@ import { DataOrdenVenta } from 'src/app/models/ordenVenta';
 import { DatEmpleadoDelivery } from 'src/app/models/empleadodelivery';
 import { DataVentaDirecta } from '../../models/ventadirecta';
 import { DataDetalleVentaDirecta } from '../../models/detalle-ventaDirecta';
+import { DataDetalleCotizacionVentaCambio } from '../../models/detalle-cotizacionVentaCambio';
 @Injectable({
   providedIn: 'root'
 })
@@ -42,6 +43,11 @@ detalleCotizacionAnular: DataDetalleCotizacionVenta[];
 
 //ANULAR VENTA DIRECTA
 detalleVentaDirectaAnular: DataDetalleVentaDirecta[];
+
+//CAMBIO DE MEDIDA
+
+detalleCotizacionVentaCambio:DataDetalleCotizacionVentaCambio[];
+
 
 
   constructor(private http: HttpClient, private toastr: ToastrService) {
@@ -76,7 +82,7 @@ detalleVentaDirectaAnular: DataDetalleVentaDirecta[];
       
     );
   }
-  
+  //COTIZACION VENTA
   UpdateOrder(formData: DataCotizacionVenta) {
     const body = {
       ...this.formData,
@@ -133,9 +139,6 @@ detalleVentaDirectaAnular: DataDetalleVentaDirecta[];
     console.log(body,'body');
     return this.http.put(`${this.baseURL}cotizacion-venta-estado/` + id, body);
  }
-
-
-
 
  /*EstadoDelivery(id: number, bodyform:any) {  
   var body = {
@@ -387,5 +390,30 @@ getVentaDirectaAnuladas() {
     .get(this.baseURL + 'cot-directa-venta-inactivas')
     .pipe(map((resp) => resp['data']));
 }
+//CAMBIO DE MEDIDA
+
+saveCambioMedida(id:number, bodyform:any) {
+  // console.log(id,'id');
+  // console.log(bodyform,'body servicio');
+/*var body = {
+    // ...this.formData,
+    detalleCotizacionVentaCambio: this.detalleCotizacionVentaCambio,
+  }; */
+  console.log(bodyform,'BODY');
+return this.http.put(`${this.baseURL}cotizacion-detalle-venta/${id}`, bodyform).pipe(
+  map(
+    (resp) => resp['data'])
+    // console.log(resp['data']))
+    
+  // catchError(this.manejarError)
+);
+
+  }
 }
+
+
+
+
+
+
 

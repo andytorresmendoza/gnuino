@@ -2,138 +2,147 @@
 <hr />
 <div class="row text-right">
   <div class="col">
-    <button class="btn btn-danger" routerLink="../listaralmacen">
+    <button class="btn btn-danger" routerLink="../../listaralmacen">
       <i class="fa fa-arrow-left"></i>
       Regresar
     </button>
   </div>
 </div>
 <br />
-<div class="row animated fadeIn faster">
-  <div class="col">
-    <form [formGroup]="loginForm" (ngSubmit)="AddTipoAlmacen(loginForm.value)">
-      <form class="row g-3" [formGroup]="loginForm">
 
-        
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="inputEmail4" class="form-label">Nombre Almacén</label>
-            <input 
-            style="text-transform:uppercase"
-             type="text"
-            id="nombre_alamcen"
-            class="form-control"         
-            formControlName="nombre_alamcen" />
-          </div>
-          <div class="form-group">
-            <label for="inputAddress" class="form-label">Codigo Almacén</label>
-            <input
-            style="text-transform:uppercase"
-            type="text"
-            id="cod_alamcen"
-            class="form-control"         
-            formControlName="cod_alamcen"
-            />
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="inputPassword4" class="form-label">Dirección Almacén</label>
-            <input   
-            style="text-transform:uppercase"
-             type="text"
-            id="direccion_almacen"
-            class="form-control"         
-            formControlName="direccion_almacen"/>
-          </div>
-          <div class="form-group">
-            <label for="inputAddress" class="form-label">PAIS</label>
-            <select id="idPais" formControlName="idPais" class="form-control">
-              <option value="">---Seleccione Pais---</option>
-              <option *ngFor="let pais of paises" value="{{ pais.id }}">
-                {{ pais.nombre_pais }}
-              </option>
-            </select>
-          </div>
-<!--           
-          <div class="form-group">
-            <label for="inputAddress" class="form-label">Tipo Sede</label>
-            <select id="tipoAlmacen" formControlName="tipoAlmacen" class="form-control">
-              <option value="0">---Seleccione Tipo Sede---</option>
-              <option value="1">Principal</option>
-              <option value="2">Tienda</option>
-              
-            </select>
-          </div> -->
-        </div>
-
-       
-      </form>
-     
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="formData"
+  (submit)="onSubmit(form)"
+>
+<input
+type="hidden"
+name="id"
+#id="ngModel"
+[(ngModel)]="formData.id"
+/>
+<div class="row">
+  <div class="col-md-3">
+    <div class="form-group">
+      <label> Codigo Almacén</label>
+      <input
+      style="text-transform:uppercase"
+        name="cod_alamcen"
+        #cod_alamcen="ngModel"
+        [(ngModel)]="formData.cod_alamcen"
+        class="form-control"
+        placeholder="Ingresar Codigo Almacén"
+        [class.is-invalid]="cod_alamcen.invalid && cod_alamcen.touched"
+        required
+      />
+    </div>
+  </div>
+  <div class="col-md-3">
       <div class="form-group">
-        <label  class="form-label">Departamento</label>
-        <select
-          id="idDepartamento"
-          formControlName="idDepartamento"
+        <label>Nombre Almacén</label>
+        <input
+        style="text-transform:uppercase"
+          name="nombre_alamcen"
+          #nombre_alamcen="ngModel"
+          [(ngModel)]="formData.nombre_alamcen"
           class="form-control"
-          [(ngModel)]="selectedCountry.id"
-          (change)="onSelectDepartamento($event.target.value)"
-        >
-          <option value="0">---Seleccione Departamento---</option>
-          <option
-            *ngFor="let departamento of departamentos"
-            value="{{ departamento.id }}"
-          >
-            {{ departamento.nombre }}
-          </option>
-        </select>
+          placeholder="Ingresar Nombre Almacén"
+          [class.is-invalid]="nombre_alamcen.invalid && nombre_alamcen.touched"
+          required
+        />
       </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label> Dirección</label>
+        <input
+        style="text-transform:uppercase"
+          name="direccion_almacen"
+          #direccion_almacen="ngModel"
+          [(ngModel)]="formData.direccion_almacen"
+          class="form-control"
+          placeholder="Ingresar Dirección"
+          [class.is-invalid]="direccion_almacen.invalid && direccion_almacen.touched"
+          required
+        />
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group"> 
+          <label> Pais</label>
+          <ng-select  
+          #idPais="ngModel"  
+          name="idPais" 
+          bindValue="idPais" 
+          placeholder="Buscar Pais" 
+          [(ngModel)]="formData.idPais"  
+        >   
+            <ng-option *ngFor="let emp of paises" [value]="emp.id">{{emp.nombre_pais}}</ng-option>
+         </ng-select> 
+         <!-- {{formData.idPais| json}} -->
+      </div>
+    </div>
+    
+</div>
 
-      <div class="form-group" *ngIf="provincias.length > 0">
-        <label for="inputAddress" class="form-label">Provincia</label>
-        <select
-          id="idProvincia"
-          formControlName="idProvincia"
-          class="form-control"
-          [(ngModel)]="selectedprovincias.id"
-          (change)="onSelectProvincia($event.target.value)"
-        >
-          <option
-            *ngFor="let provincia of provincias"
-            value="{{ provincia.id }}"
-          >
-            {{ provincia.nombre_provincia }}
-          </option>
-        </select>
-      </div>
-
-      <div class="form-group" *ngIf="distritos.length > 0">
-        <label for="inputAddress" class="form-label">Distrito</label>
-        <select
-          id="idDistrito"
-          formControlName="idDistrito"
-          class="form-control"
-          class="form-control"
-          id="id"
-          formControlName="idDistrito"
-        >
-          <option
-            *ngFor="let distrito of distritos"
-            ngValue="{{ distrito.id }}"
-          >
-            {{ distrito.nombre_distrito }}
-          </option>
-        </select>
-      </div>
-
-      <br />
-      <div class="form-group text-center">
-        <button type="submit" class="btn btn-primary w-25">
-          <i class="fa fa-save"></i>
-          Guardar
-        </button>
-      </div>
-    </form>
+<div class="row" *ngIf ="formData.idPais == 177">
+ 
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Departamento</label>
+      <ng-select  
+      #idDepartamento="ngModel"  
+      name="idDepartamento" 
+      bindValue="idDepartamento" 
+      placeholder="Buscar Departamento" 
+      [(ngModel)]="formData.idDepartamento"  
+      (change)="onSelectDepartamento($event)"
+    >   
+          <ng-option *ngFor="let emp of departamentos" [value]="emp.id">{{emp.nombre}}</ng-option>
+     </ng-select> 
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Provincia</label>
+      <ng-select  
+      #idProvincia="ngModel"  
+      name="idProvincia" 
+      bindValue="idProvincia" 
+      placeholder="Buscar Provincia" 
+      [(ngModel)]="formData.idProvincia" 
+      (change)="onSelectProvincia($event)"
+    >   
+          <ng-option *ngFor="let emp of provincias" [value]="emp.id">{{emp.nombre_provincia}}</ng-option>
+     </ng-select> 
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Distrito</label>
+      <ng-select  
+      #idDistrito="ngModel"  
+      name="idDistrito" 
+      bindValue="idDistrito" 
+      placeholder="Buscar Distrito" 
+      [(ngModel)]="formData.idDistrito"  
+    >   
+          <ng-option *ngFor="let emp of distritos" [value]="emp.id">{{emp.nombre_distrito}}</ng-option>
+     </ng-select> 
+    </div>
   </div>
 </div>
+
+
+
+
+
+
+<div class="form-group">
+  <button type="submit" class="btn btn-dark" 
+>
+  <i class="fa fa-database"></i> Guardar </button>
+ 
+</div>
+</form>

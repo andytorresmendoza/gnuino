@@ -47,7 +47,7 @@
   </ng-container>
   <ng-container matColumnDef="almacen">
     <th mat-header-cell *matHeaderCellDef> <b>Almacén</b></th>
-    <td mat-cell *matCellDef="let movimientosProductos" > {{movimientosProductos?.almacen}} </td> 
+    <td mat-cell *matCellDef="let movimientosProductos" > {{movimientosProductos?.almacen | uppercase}} </td> 
     <td mat-footer-cell *matFooterCellDef>  </td>
   </ng-container>
   <ng-container matColumnDef="fecha">

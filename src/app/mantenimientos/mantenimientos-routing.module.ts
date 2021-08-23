@@ -51,7 +51,7 @@ import { AddEmpleadoComponent } from './empleado/add-empleado/add-empleado.compo
 import { EditarEmpleadoComponent } from './empleado/editar-empleado/editar-empleado.component';
 import { ListaralmacenComponent } from './tipoalmacen/listaralmacen/listaralmacen.component';
 import { AddalmacenComponent } from './tipoalmacen/addalmacen/addalmacen.component';
-import { EditaralmacenComponent } from './tipoalmacen/editaralmacen/editaralmacen.component';
+// import { EditaralmacenComponent } from './tipoalmacen/editaralmacen/editaralmacen.component';
 import { PagesComponent } from '../pages/pages.component';
 import { DashboardComponent } from '../pages/dashboard/dashboard.component';
 import { ListarusuarioComponent } from './usuario/listarusuario/listarusuario.component';
@@ -118,8 +118,8 @@ const routes: Routes = [
     // {path:'addempleado', component: AddEmpleadoComponent, data:{titulo:'Empleado'}},
      //{path:'editempleado', component: EditarEmpleadoComponent, data:{titulo:'Empleado'}},
      {path:'listaralmacen', component: ListaralmacenComponent, data:{titulo:'Almacén'}},
-     {path:'addalmacen', component: AddalmacenComponent, data:{titulo:'Almacén'}},
-     {path:'editalmacen', component: EditaralmacenComponent, data:{titulo:'Almacén'}},
+     {path:'addalmacen/:id', component: AddalmacenComponent, data:{titulo:'Almacén'}},
+    //  {path:'editalmacen', component: EditaralmacenComponent, data:{titulo:'Almacén'}},
      {path:'listarusuarios', component: ListarusuarioComponent, data:{titulo:'Usuarios'}},
      {path:'addusuario/:id', component: AddusuarioComponent, data:{titulo:'Usuarios'}},
     //  {path:'editcliente', component: EditarClienteComponent, data:{titulo:'Cliente'}},
