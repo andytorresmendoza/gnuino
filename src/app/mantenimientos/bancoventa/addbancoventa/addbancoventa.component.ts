@@ -6,17 +6,16 @@ import { DataTipoProducto } from '../../../models/tipoProducto';
 import { DataTipoAlmacen } from '../../../models/tipoalmacen';
 import { DataPrecioVenta } from 'src/app/models/precioVenta';
 import { NgForm } from '@angular/forms';
-import * as moment from 'moment';
+import { DataBancoVenta } from '../../../models/bancoventa';
 
 @Component({
-  selector: 'app-add-precio-venta',
-  templateUrl: './add-precio-venta.component.html',
-  styleUrls: ['./add-precio-venta.component.css'],
+  selector: 'app-addbancoventa',
+  templateUrl: './addbancoventa.component.html',
+  styleUrls: ['./addbancoventa.component.css']
 })
-export class AddPrecioVentaComponent implements OnInit {
-  public formData: DataPrecioVenta;
-  public tipoproducto: DataTipoProducto;
-  public almacen: DataTipoAlmacen;
+export class AddbancoventaComponent implements OnInit {
+  public formData: DataBancoVenta;
+ 
   constructor(
     private mantenimientosServices: MantenimientosService,
     private router: Router,
@@ -27,7 +26,7 @@ export class AddPrecioVentaComponent implements OnInit {
   ngOnInit(): void {
     let id = this.currentRoute.snapshot.paramMap.get('id');
     if (id !== 'nuevo') {
-      this.mantenimientosServices.getPrecioVentabyId(+id).subscribe((res) => {
+      this.mantenimientosServices.getBancoVentabyId(+id).subscribe((res) => {
         this.formData = res[0];
         //  console.log(res);
         // console.log( this.formData);
@@ -35,43 +34,38 @@ export class AddPrecioVentaComponent implements OnInit {
     } else {
       this.resetForm();
     }
-
-    this.mantenimientosServices.getProducto().subscribe((resp) => {
-      this.tipoproducto = resp;
-    });
-
-    this.mantenimientosServices.getTipoAlmacen().subscribe((resp) => {
-      this.almacen = resp;
-    });
   }
-
   resetForm(form?: NgForm) {
     if ((form = null)) form.resetForm();
     this.formData = {
-      id: null,
-      idAlmacen: null,
-      idProducto: null,
-      precioVenta: '0.00',
-      fechaVenta: '',
+      id: null, 
+      descripcion_banco: '',
     };
   }
-
   onSubmit(form: NgForm): void {
-    if (this.formData.id) {
+    if (form.invalid) {
+      Object.values(form.controls).forEach((control) => {
+        control.markAsTouched(); //es para validar el guardar
+        //  console.log(control); //son todos mis controles del formulario
+      });
+
+      return;
+    }
+   else if (this.formData.id) {
       this.mantenimientosServices
-        .updatePrecioVenta(this.formData)
+        .updateBancoVenta(this.formData)
         .subscribe((resp) => {
           this.toastr.success('Actualizado Exitosamente', 'Gnuino');
-          this.router.navigate(['../mantenimientos/listarprecioventa']);
+          this.router.navigate(['../mantenimientos/listarbancoventa']);
         });
     } else {
       this.mantenimientosServices
-        .savePrecioVenta(this.formData)
+        .saveBancoVenta(this.formData)
         .subscribe((res) => {
           //console.log(res);
           this.resetForm();
           this.toastr.success('Guardado Exitosamente', 'Gnuino');
-          this.router.navigate(['../mantenimientos/listarprecioventa']);
+          this.router.navigate(['../mantenimientos/listarbancoventa']);
         });
     }
   }

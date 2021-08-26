@@ -1,0 +1,48 @@
+<h1><small>Banco Venta</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../../listarbancoventa">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="formData"
+  (submit)="onSubmit(form)"
+>
+
+ 
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label> Nombre Banco Venta</label>
+        <input
+        style="text-transform:uppercase"
+      type="text"
+        name="descripcion_banco"
+        #descripcion_banco="ngModel"
+        [(ngModel)]="formData.descripcion_banco"
+        class="form-control"
+        placeholder="Ingresar Banco"
+        [class.is-invalid]="descripcion_banco.invalid && descripcion_banco.touched"
+        required
+      />
+      </div>
+    </div>
+
+  </div>
+ 
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark" 
+  >
+    <i class="fa fa-database"></i> Guardar </button>
+   
+  </div>
+</form>

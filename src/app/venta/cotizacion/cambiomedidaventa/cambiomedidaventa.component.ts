@@ -51,7 +51,8 @@ AddCambio(orderItemIndex, id) {
 
   // afterClosed().subscribe; es para cuando se cierre el poput actualize el rpecio
    this.dialog.open(DetallecotizacioncambioComponent, dialogConfig).afterClosed().subscribe(resp=>{
-  //  console.log(resp);
+    // console.log(resp);
+    this.ngOnInit();
     // this.updateTotal();
     // this. updateMontoTotal();
    });

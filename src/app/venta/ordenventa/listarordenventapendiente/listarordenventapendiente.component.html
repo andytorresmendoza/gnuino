@@ -33,12 +33,12 @@
     
    <ng-container matColumnDef="Cliente">
       <th mat-header-cell *matHeaderCellDef> Cliente </th>
-      <td mat-cell *matCellDef="let element"> {{element.detalleCotizacion[0].nombreCliente}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.detalleCotizacion[0].nombreCliente | uppercase}} </td>
     </ng-container>
   
     <ng-container matColumnDef="Empleado">
       <th mat-header-cell *matHeaderCellDef> Empleado </th>
-      <td mat-cell *matCellDef="let element"> {{element.detalleCotizacion[0].nombreEmpleado}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.detalleCotizacion[0].nombreEmpleado | uppercase}} </td>
     </ng-container>
   
    

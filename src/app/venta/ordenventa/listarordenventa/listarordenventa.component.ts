@@ -17,7 +17,7 @@ export class ListarordenventaComponent implements OnInit {
   ordenes:any[]=[];
   cargando = true; 
   isButtonVisible:boolean=true;
-  displayedColumns: string[] = ['Nro Orden','Cliente','Empleado','Fecha Entrega','Pago Parcial','Total Orden','Estado','details','Anular'];
+  displayedColumns: string[] = ['Nro Orden','Nro Cotizacion','Cliente','Empleado','Fecha Entrega','Pago Parcial','Total Orden','Estado','details','Anular'];
   dataSource = new MatTableDataSource<DataOrdenVenta>();
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -38,6 +38,7 @@ export class ListarordenventaComponent implements OnInit {
      this.dataSource.data = resp as DataOrdenVenta[]; 
        this.ordenes = resp; 
        this.ventaService.detalleDelivery = resp;
+       console.log(resp);
       //  this.ventaService.detalleCotizacion =  resp.detalleCotizacion.detalleCotizacion;
       //  console.log(this.ventaService.detalleCotizacion,'DETALLE');
       this.cargando = false;
@@ -73,11 +74,11 @@ export class ListarordenventaComponent implements OnInit {
 EstadoOrdenAnular(ordenes: DataOrdenVenta, i: number) {
 // console.log(ordenes);
   const bodyform = {id:ordenes.id, estadoOrden: '3'}
-  this.ventaService.getOrdenCompraVentaById(ordenes.id).subscribe((res) => {
+ /* this.ventaService.getOrdenCompraVentaById(ordenes.id).subscribe((res) => {
     this.ventaService.detalleCotizacionAnular = res[0].detalleCotizacion[0].detalleCotizacion;
     // console.log(this.ventaService.detalleCotizacionAnular,'que trae')
   
-  });
+  });*/
   Swal.fire({
     title: 'Esta seguro?',
     text: `Que desea Anular ${ordenes.codigo_orden_num_venta}`,

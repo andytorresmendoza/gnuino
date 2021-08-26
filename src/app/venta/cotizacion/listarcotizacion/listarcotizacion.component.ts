@@ -19,8 +19,8 @@ export class ListarcotizacionComponent implements OnInit {
   cargando = true; 
   isButtonVisible:boolean=true; 
   // isButtonVisible:boolean=true;
-  displayedColumns: string[] = ['Nro Cotizacion', 'Proveedor', 'Empleado', 'Total', 'Fecha Entrega','Estado','details' ,'Anular'];
-  // displayedColumns: string[] = ['Nro Cotizacion', 'Proveedor', 'Empleado', 'Total', 'Fecha Entrega','Estado','details','cambio','Anular'];
+  // displayedColumns: string[] = ['Nro Cotizacion', 'Proveedor', 'Empleado', 'Total', 'Fecha Entrega','Estado','details' ,'Anular'];
+ displayedColumns: string[] = ['Nro Cotizacion', 'Proveedor', 'Empleado', 'Total', 'Fecha Entrega','Estado','details','cambio','Anular'];
   dataSource = new MatTableDataSource<DataCotizacionVenta>();
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -81,7 +81,7 @@ this.ventaService.getCotizacionById(cotizaciones.id).subscribe(res => {
    if (resp.value) {
      
      this.cotizaciones.splice(i, 1);
-     console.log( this.cotizaciones.splice(i, 1),'slice');
+    //  console.log( this.cotizaciones.splice(i, 1),'slice');
      this.ventaService.EstadoCotizacionVentaAnular(cotizaciones.id,bodyform).subscribe(
        resp => {
          this.toastr.error('Cotización Venta Anulada');

@@ -63,6 +63,9 @@ import { ListarPrecioVentaComponent } from './precioventa/listar-precio-venta/li
 import { AddPrecioVentaComponent } from './precioventa/add-precio-venta/add-precio-venta.component';
 import { ListarPrecioDeliveryComponent } from './preciodelivery/listar-precio-delivery/listar-precio-delivery.component';
 import { AddPrecioDeliveryComponent } from './preciodelivery/add-precio-delivery/add-precio-delivery.component';
+// import { ListarbancoventaComponent } from './listarventa/listarbancoventa/listarbancoventa.component';
+import { AddbancoventaComponent } from './bancoventa/addbancoventa/addbancoventa.component';
+import { ListarbancoventaComponent } from './bancoventa/listarbancoventa/listarbancoventa.component';
  
 const routes: Routes = [
  
@@ -130,6 +133,8 @@ const routes: Routes = [
    
      {path:'listarpreciodelivery', component: ListarPrecioDeliveryComponent, data:{titulo:'Precio Venta'}},
      {path:'preciodelivery/:id', component: AddPrecioDeliveryComponent, data:{titulo:'Precio Delivery'}},
+   {path:'listarbancoventa', component: ListarbancoventaComponent, data:{titulo:'Banco Venta'}},
+     {path:'bancoventa/:id', component: AddbancoventaComponent, data:{titulo:'Precio Delivery'}},
   ]
 
  },

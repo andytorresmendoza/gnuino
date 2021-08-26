@@ -1,0 +1,72 @@
+ 
+<div class="col-md-12">
+    <div class="card"> 
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="hidden-sm-up"><i class="ti-email"></i></span> <span class="hidden-xs-down">ESTADOS</span>
+                    </a>
+                    <div class="dropdown-menu"> 
+                      <a class="dropdown-item" id="dropdown1-tab"[routerLink]="['../listarventa']" role="tab" data-toggle="tab" aria-controls="dropdown1">Activas</a> 
+                      <a class="dropdown-item" id="dropdown2-tab" [routerLink]="['../listarventaanulado']" role="tab"
+            data-toggle="tab" aria-controls="dropdown2">Anuladas</a>
+                      <!-- <a class="dropdown-item" id="dropdown2-tab" [routerLink]="['../listarcambiomedida']"  role="tab" data-toggle="tab" aria-controls="dropdown2">Cambio Medidas</a>  -->
+                    </div>
+                </li> 
+            </ul> 
+    </div>
+  </div> 
+  
+  <h1>Listado Cambio de Medidas</h1> 
+  <table class="table">
+    <thead class="thead-dark">
+      <th scope="col">#</th>
+ 
+          <th scope="col">Nuevo Producto</th> 
+       <th scope="col">Nuevo Almacén</th>  
+       <th scope="col">Nueva Cantidad</th>
+       <th scope="col">Antiguo Producto</th>
+       <th scope="col">Antiguo Almacén</th>
+       <th scope="col">Antigua  Cantidad</th>
+   
+     
+        <!--  <th scope="col">Total</th>
+        <th scope="col">Estado</th> -->
+      
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of listCambio; let i = index" >
+          <th scope="row">{{ i + 1 }}</th>
+          <th  style="color:#3145FF"><b>{{item.detalleNameProducto | uppercase}}</b></th> 
+          <td style="color:#3145FF">{{item.detalleNombreSede  | uppercase}}</td> 
+          <td style="color:#3145FF">{{item.cantidad}}</td> 
+           <td style="color:#fb0000"><b>{{item.detalleNameProductoAntiguo | uppercase}}</b></td> 
+           <td style="color:#fb0000">{{item.detalleNombreSedeAntiguo  | uppercase}}</td>
+           <td style="color:#fb0000">{{item.cantidadAntiguo}}</td>
+           
+          
+           </tr>
+    </tbody>
+  </table>
+  
+  <div
+  *ngIf="!cargando && listCambio.length === 0"
+  class="alert alert-warning text-center mt-3 animated fadeIn faster"
+  >
+  <h4 class="alert-heading">No hay registros</h4>
+  <p>
+    <i class="fa fa-exclamation fa-2px"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+  </div>
+  <div
+  *ngIf="cargando"
+  class="alert alert-info text-center mt-3 animated fadeIn faster"
+  >
+  <h4 class="alert-heading">Cargando</h4>
+  <p>
+    <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+  </div>
+  

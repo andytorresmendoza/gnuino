@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { DataBanco } from 'src/app/models/banco';
+import { ToastrService } from 'ngx-toastr'; 
 import { DataDistrito } from 'src/app/models/countries';
 import { DataDetalleCotizacionVenta } from 'src/app/models/detalle-cotizacionVenta';
 import { DataLinea } from 'src/app/models/linea';
@@ -10,6 +9,7 @@ import { DataTipoMoneda } from 'src/app/models/tipo-moneda';
 import { DataTipoPago } from 'src/app/models/tipopago';
 import { MantenimientosService } from 'src/app/services/mantenimientos/mantenimientos.service';
 import { VentaService } from 'src/app/services/venta/venta.service';
+import { DataBancoVenta } from '../../../models/bancoventa';
 
 @Component({
   selector: 'app-editarordenventa',
@@ -23,7 +23,7 @@ export class EditarordenventaComponent implements OnInit {
   tipoMoneda:DataTipoMoneda[];
   distritos: DataDistrito[] ;
   tipopagos: any[] = [];
-  bancos: DataBanco[];
+  bancos: DataBancoVenta[];
   isValid: boolean = true;
   isButtonVisible:boolean=true;
   constructor(public ventaService: VentaService,
@@ -70,8 +70,8 @@ export class EditarordenventaComponent implements OnInit {
     this.mantenimientosService.getTipopago().subscribe((resp) => {
       this.tipopagos = resp as DataTipoPago[]; 
     });
-    this.mantenimientosService.getBanco().subscribe((resp) => {
-      this.bancos = resp as DataBanco[];
+    this.mantenimientosService.getBancoVenta().subscribe((resp) => {
+      this.bancos = resp as DataBancoVenta[];
       //  console.log(this.bancos);
     });
   }

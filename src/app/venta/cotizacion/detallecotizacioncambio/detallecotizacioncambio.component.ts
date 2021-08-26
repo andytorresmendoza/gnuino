@@ -10,6 +10,7 @@ import { MantenimientosService } from 'src/app/services/mantenimientos/mantenimi
 import { VentaService } from '../../../services/venta/venta.service';
 import Swal from 'sweetalert2';
 import { DataDetalleCotizacionVentaCambio } from '../../../models/detalle-cotizacionVentaCambio';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-detallecotizacioncambio',
   templateUrl: './detallecotizacioncambio.component.html',
@@ -26,7 +27,7 @@ export class DetallecotizacioncambioComponent implements OnInit {
     public dialogRef: MatDialogRef<DetallecotizacioncambioComponent>,
     // public kardexService: KardexService,
     public ventaService: VentaService,
-    private mantenimientosService: MantenimientosService
+    private mantenimientosService: MantenimientosService,  private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -122,7 +123,7 @@ export class DetallecotizacioncambioComponent implements OnInit {
       form.value.cantidad <= 0
     ) {
       return Swal.fire({
-        title: 'Solo Existen ' + form.value.stock + ' Productos en Stock',
+        // title: 'Solo Existen ' + form.value.stock + ' Productos en Stock',
         text: 'Cantidad Invalida',
         icon: 'error',
       });
@@ -137,7 +138,9 @@ export class DetallecotizacioncambioComponent implements OnInit {
  
      this.ventaService.saveCambioMedida(this.formData.id, bodyform).subscribe(resp =>{   
       console.log(resp);
-      // this.toastr.success('Salida Exitosamente');
+      this.toastr.success('Salida Exitosamente');
+      this.dialogRef.close();
+      
      });     
    /* else if (this.validateForm(form.value)) {
       if (this.data.orderItemIndex == null)

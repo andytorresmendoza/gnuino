@@ -25,7 +25,7 @@ export class ListarentradasinocanuladaComponent implements OnInit {
      
       this.entradaSinOc = resp; 
       this.cargando = false;
-    //  console.log(resp);
+   console.log(resp);
   });
 }
 

@@ -104,6 +104,10 @@ detalleCotizacionVentaCambio:DataDetalleCotizacionVentaCambio[];
   }
 
   saveUpdateOrder() {
+
+    
+
+
     var body = {
       ...this.formData,
       detalleCotizacion: this.detalleCotizacion,
@@ -302,13 +306,13 @@ EstadoDelivery(id: number, bodyform:any) {
 }
 
 EstadoOrdenVentaAnular(id: number, bodyform:any) {
-  var body = {
+  /*var body = {
     ...bodyform,
     detalleCotizacion: this.detalleCotizacionAnular
-  };
+  };*/
   // console.log(id,'id');
   // console.log(body,'body');
-   return this.http.put(`${this.baseURL}orden-estado-venta/` + id, body);
+   return this.http.put(`${this.baseURL}orden-estado-venta/` + id, bodyform);
 }
 /*EstadoOrdenVentaAnular(id: number, bodyform:any) {
   
@@ -399,15 +403,16 @@ saveCambioMedida(id:number, bodyform:any) {
     // ...this.formData,
     detalleCotizacionVentaCambio: this.detalleCotizacionVentaCambio,
   }; */
-  console.log(bodyform,'BODY');
-return this.http.put(`${this.baseURL}cotizacion-detalle-venta/${id}`, bodyform).pipe(
-  map(
-    (resp) => resp['data'])
-    // console.log(resp['data']))
-    
-  // catchError(this.manejarError)
-);
-
+  // console.log(bodyform,'BODY');;
+return this.http.put(`${this.baseURL}cotizacion-detalle-venta/${id}`, bodyform) ;
+ 
+  }
+  getCambioMedida() {
+    return this.http
+      .get(this.baseURL + 'cambio-medida-cot')
+      .pipe(map((resp) => 
+      
+      resp['data']));
   }
 }
 

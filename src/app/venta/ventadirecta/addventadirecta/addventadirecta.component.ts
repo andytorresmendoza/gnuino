@@ -6,9 +6,8 @@ import { MatDialog , MatDialogConfig} from '@angular/material/dialog';
 // import { KardexService } from '../../../services/kardex/kardex.service';
 // import { DetallecotizacionComponent } from '../detallecotizacion/detallecotizacion.component';
 import { MantenimientosService } from '../../../services/mantenimientos/mantenimientos.service';
-import { DataProveedor } from '../../../models/proveedor';
-import { DataEmpleado } from '../../../models/empleado';
-import * as moment from 'moment'; 
+ 
+import { DataEmpleado } from '../../../models/empleado'; 
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router'; 
 import { DataProducto } from 'src/app/models/producto'; 
@@ -19,8 +18,8 @@ import { DataTipoCoti } from '../../../models/tipo-cotizacion';
 import { DataTipoMoneda } from '../../../models/tipo-moneda';
 import { DataDistrito } from '../../../models/countries';
 import { DetalleventadirectaComponent } from '../detalleventadirecta/detalleventadirecta.component';
-import { DataTipoPago } from '../../../models/tipopago';
-import { DataBanco } from '../../../models/banco';
+import { DataTipoPago } from '../../../models/tipopago'; 
+import { DataBancoVenta } from '../../../models/bancoventa';
 @Component({
   selector: 'app-addventadirecta',
   templateUrl: './addventadirecta.component.html',
@@ -37,7 +36,7 @@ export class AddventadirectaComponent implements OnInit {
   isValid:boolean = true;
   isButtonVisible:boolean=true; 
   tipopagos: any[] = [];
-  bancos: DataBanco[];
+  bancos: DataBancoVenta[];
  
 
   constructor(public ventaService: VentaService,
@@ -73,10 +72,14 @@ export class AddventadirectaComponent implements OnInit {
         this.productos = resp as DataProducto[]  
      });
    
-     this.mantenimientosService.getCliente()
-     .subscribe(resp => {
-       this.clientes = resp as DataCliente[]  
-      //  console.log(this.clientes);
+     this.mantenimientosService.getCliente().subscribe(resp => {
+      console.log(resp);
+      this.clientes = (resp as DataCliente[])
+      .map(clientes=>{
+        // clientes.nombre_cliente = clientes.nombre_cliente.toUpperCase();
+       clientes.nombre_cliente =   (clientes.nombre_cliente.concat(', ', clientes.apellidos_pat_cliente,' ',clientes.apellidos_mat_cliente,'- ',clientes.dni_cliente))
+        return clientes;
+      });
     });
      this.mantenimientosService.getEmpleado()
      .subscribe(resp => {
@@ -110,8 +113,8 @@ export class AddventadirectaComponent implements OnInit {
      this.mantenimientosService.getTipopago().subscribe((resp) => {
       this.tipopagos = resp as DataTipoPago[]; 
     });
-    this.mantenimientosService.getBanco().subscribe((resp) => {
-      this.bancos = resp as DataBanco[];
+    this.mantenimientosService.getBancoVenta().subscribe((resp) => {
+      this.bancos = resp as DataBancoVenta[];
       //  console.log(this.bancos);
     });
     }

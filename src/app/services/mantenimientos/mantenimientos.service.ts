@@ -32,6 +32,7 @@ import { DataUsuario } from '../../models/usuario';
 import * as moment from 'moment';
 import { DataPrecioVenta } from 'src/app/models/precioVenta';
 import { DataPrecioDelivery } from 'src/app/models/precioDelivery';
+import { DataBancoVenta } from '../../models/bancoventa';
  
 @Injectable({
   providedIn: 'root'
@@ -843,6 +844,37 @@ getEstadoDelivery() {
     catchError(this.manejarError)
   );
  }
+
+  //BANCO VENTA 
+  getBancoVenta() {
+    return this.http
+      .get(this.baseURL + 'banco-venta')
+      .pipe(
+        map(resp=>resp['data']),
+        catchError(this.manejarError)
+      );  
+  }
+  getBancoVentabyId(id: number) {
+    return this.http.get(this.baseURL+'banco-venta/'+ id)  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+    .pipe(
+      map(resp=>resp['data'])  
+    );
+  
+  }
+
+  updateBancoVenta(data:DataBancoVenta) {
+   
+  return this.http.put(`${this.baseURL}banco-venta/${data.id}`, data);
+  
+  }  
+  
+  saveBancoVenta(data:DataBancoVenta) { 
+   
+  return this.http.post(`${this.baseURL}banco-venta`, data).pipe(
+    map(
+      (resp) => resp['data']) 
+  );
+  } 
 }
 
 

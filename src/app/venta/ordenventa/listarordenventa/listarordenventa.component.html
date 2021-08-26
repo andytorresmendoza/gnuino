@@ -34,13 +34,18 @@
       <td mat-cell *matCellDef="let element" > {{element.codigo_orden_num_venta }} </td>
      
     </ng-container>
+    <ng-container matColumnDef="Nro Cotizacion">
+      <th mat-header-cell *matHeaderCellDef> Nro Cotizacion </th>
+      <td mat-cell *matCellDef="let element" > {{element.detalleCotizacion[0].codigo_cotizacion_num_venta }} </td>
+     
+    </ng-container>
   
     
    <ng-container matColumnDef="Cliente">
       <th mat-header-cell *matHeaderCellDef> Cliente </th>
-      <td mat-cell *matCellDef="let element"> {{element.detalleCotizacion[0].nombreCliente  | uppercase}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.detalleCotizacion[0].nombreCliente  + ', ' + element.detalleCotizacion[0].apellidoPatCliente  + ' ' + element.detalleCotizacion[0].apellidoMatCliente | uppercase}} </td>
     </ng-container>
-  
+    <!-- {{ element.nombreCliente + ', ' + element.apellidoPatCliente  + ' ' + element.apellidoMatCliente | uppercase }} -->
     <ng-container matColumnDef="Empleado">
       <th mat-header-cell *matHeaderCellDef> Empleado </th>
       <td mat-cell *matCellDef="let element"> {{element.detalleCotizacion[0].nombreEmpleado  | uppercase}} </td>

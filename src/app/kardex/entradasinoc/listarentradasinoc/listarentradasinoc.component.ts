@@ -54,6 +54,7 @@ export class ListarentradasinocComponent implements OnInit {
       this.servicioKardex.EstadoEntradasinocAnular(entradas.id,bodyform).subscribe(
         resp => {
           this.toastr.error('Ingreso Anulado');
+          this.ngOnInit();
   // console.log(resp);
          //  console.log(resp);
       }

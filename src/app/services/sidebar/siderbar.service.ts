@@ -57,6 +57,7 @@ export class SiderbarService {
       submenu: [
 
         {titulo:'Cliente', url:'../mantenimientos/listarcliente'},
+        {titulo:'Banco Venta', url:'../mantenimientos/listarbancoventa'},
         {titulo:'Precio Venta', url:'../mantenimientos/listarprecioventa'},
         {titulo:'Precio Delivery', url:'../mantenimientos/listarpreciodelivery'},
         

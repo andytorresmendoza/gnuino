@@ -254,7 +254,9 @@ name="idCliente"
         #costo_delivery="ngModel"
         [(ngModel)]="ventaService.formData.costo_delivery"
         class="form-control"
-        (keyup)="updateMontoTotal()" 
+        (keyup)="updateMontoTotal()"  
+        (keyup)="onKey($event)"
+        
       />
  
     </div>

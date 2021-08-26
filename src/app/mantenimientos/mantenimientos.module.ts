@@ -77,6 +77,9 @@ import { ListarPrecioDeliveryComponent } from './preciodelivery/listar-precio-de
 import { AddPrecioDeliveryComponent } from './preciodelivery/add-precio-delivery/add-precio-delivery.component';
 import { AddPrecioVentaComponent } from './precioventa/add-precio-venta/add-precio-venta.component';
 import { ListarPrecioVentaComponent } from './precioventa/listar-precio-venta/listar-precio-venta.component';
+import { AddbancoventaComponent } from './bancoventa/addbancoventa/addbancoventa.component';
+import { ListarbancoventaComponent } from './bancoventa/listarbancoventa/listarbancoventa.component';
+ 
 
 @NgModule({
   declarations: [
@@ -137,6 +140,10 @@ import { ListarPrecioVentaComponent } from './precioventa/listar-precio-venta/li
     AddPrecioDeliveryComponent,
     AddPrecioVentaComponent,
     ListarPrecioVentaComponent,
+    AddbancoventaComponent,
+    ListarbancoventaComponent,
+    // ListarbancoventaComponent
+   
   ],
   imports: [
     CommonModule,

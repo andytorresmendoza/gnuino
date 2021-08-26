@@ -132,6 +132,12 @@ console.log( this.ventaService.detalleCotizacion,'primero');
        
  
       if (this.data.orderItemIndex == null) { 
+
+      /*  const inventario = this.ventaService.detalleCotizacion;
+      
+        const resultado = inventario.find( fruta => fruta.idProducto === 1 ); 
+        console.log(resultado,'respultado');
+*/
         
         this.ventaService.detalleCotizacion.push(form.value); 
    
@@ -140,13 +146,15 @@ console.log( this.ventaService.detalleCotizacion,'primero');
           form.value;
       }
 
-   /*   let nuevoArregloTemp=[];
+    /*let nuevoArregloTemp=[];
       this.ventaService.detalleCotizacion?.map(
         res => {
-          res.hasOwnProperty('idProductoss') ? nuevoArregloTemp.push(res): '' 
+          res.hasOwnProperty('idProductos') ? nuevoArregloTemp.push(res): '' 
 
         }); 
-        console.log(nuevoArregloTemp,'que trae');*/
+        console.log(nuevoArregloTemp,'que trae'); */
+    
+
       this.dialogRef.close();
     }
   }

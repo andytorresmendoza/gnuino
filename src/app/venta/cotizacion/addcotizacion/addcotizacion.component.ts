@@ -74,7 +74,7 @@ export class AddcotizacionComponent implements OnInit {
   });
 */
 this.mantenimientosService.getCliente().subscribe(resp => {
-  console.log(resp);
+  // console.log(resp);
   this.clientes = (resp as DataCliente[])
   .map(clientes=>{
     // clientes.nombre_cliente = clientes.nombre_cliente.toUpperCase();
@@ -216,13 +216,18 @@ this.ventaService.detalleCotizacion = [];
 
     let porcentaje = (this.ventaService.formData.total_productos - (this.ventaService.formData.total_productos * (this.ventaService.formData.descuento_cot/100))).toString();
     let costo_envio = this.ventaService.formData.costo_delivery.toString();
-    let porcentajeGeneral = (this.ventaService.formData.total_productos  * this.ventaService.formData.descuento_cot/100).toString();
-    this.ventaService.formData.totalGeneral = (parseFloat(porcentaje) + parseFloat(costo_envio));
+    let porcentajeGeneral = (this.ventaService.formData.total_productos  * this.ventaService.formData.descuento_cot/100).toString(); 
+   
+    this.ventaService.formData.totalGeneral = ((parseFloat(porcentaje) + parseFloat(costo_envio)));
     this.ventaService.formData.porcentajeDscto = (parseFloat(porcentajeGeneral));
 
    
-   
+  //  console.log(object);
   // console.log(this.kardexService.formData.totalGeneral );
+    }
+    onKey($event: any){
+      console.log($event);
+
     }
 
     onChangeCliente = ($event: any): void => {
@@ -302,6 +307,10 @@ else  if ( form.invalid ) {
   
   this.validateForm();
   this.isButtonVisible = false;
+
+
+  /**/
+
    this.ventaService.saveUpdateOrder().subscribe(res =>{
   
     this.resetForm();

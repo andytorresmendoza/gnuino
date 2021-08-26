@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { DataBanco } from 'src/app/models/banco';
+import { ToastrService } from 'ngx-toastr'; 
 import { DataCotizacionVenta } from 'src/app/models/cotizacionventa';
 import { DataDistrito } from 'src/app/models/countries';
 import { DataLinea } from 'src/app/models/linea';
@@ -11,6 +10,7 @@ import { DataTipoPago } from 'src/app/models/tipopago';
 import { MantenimientosService } from 'src/app/services/mantenimientos/mantenimientos.service';
 import { VentaService } from 'src/app/services/venta/venta.service';
 import Swal from 'sweetalert2';
+import { DataBancoVenta } from '../../../models/bancoventa';
 @Component({
   selector: 'app-addordenventa',
   templateUrl: './addordenventa.component.html',
@@ -23,7 +23,7 @@ export class AddordenventaComponent implements OnInit {
   tipoMoneda:DataTipoMoneda[];
   distritos: DataDistrito[] ;
   tipopagos: any[] = [];
-  bancos: DataBanco[];
+  bancos: DataBancoVenta[];
   isValid: boolean = true;
   detalleCotizacionesVenta:any[] = [];
   isButtonVisible: boolean = true;
@@ -56,8 +56,8 @@ export class AddordenventaComponent implements OnInit {
   this.mantenimientosService.getTipopago().subscribe((resp) => {
     this.tipopagos = resp as DataTipoPago[]; 
   });
-  this.mantenimientosService.getBanco().subscribe((resp) => {
-    this.bancos = resp as DataBanco[];
+  this.mantenimientosService.getBancoVenta().subscribe((resp) => {
+    this.bancos = resp as DataBancoVenta[];
     //  console.log(this.bancos);
   });
   }
