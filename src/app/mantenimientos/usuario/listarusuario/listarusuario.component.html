@@ -24,7 +24,7 @@
 
     <ng-container matColumnDef="Nombre Empleado">
       <th mat-header-cell *matHeaderCellDef> Nombre Empleado </th>
-      <td mat-cell *matCellDef="let element" > {{element.detalleEmpleado[0].nombre_empleado}}, {{element.detalleEmpleado[0].apellidos_pat_empleado}} {{element.detalleEmpleado[0].apellidos_mat_empleado}} </td>
+      <td mat-cell *matCellDef="let element" > {{element.detalleEmpleado[0].nombre_empleado  | uppercase}}, {{element.detalleEmpleado[0].apellidos_pat_empleado  | uppercase}} {{element.detalleEmpleado[0].apellidos_mat_empleado  | uppercase}} </td>
      
     </ng-container> 
 
@@ -33,16 +33,55 @@
         <td mat-cell *matCellDef="let element" > {{element.detalleEmpleado[0].detallePerfilUsuario[0].tipo_usuario  | uppercase}} </td>
        
       </ng-container> 
-    
-    <!-- <ng-container matColumnDef="details">
-      <th mat-header-cell *matHeaderCellDef> Editar </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button color="primary" (click)="openForEdit(element.id)"> 
-          <mat-icon>create</mat-icon>
-        </button>
-      </td>
-    
-    </ng-container> -->
+
+      <ng-container matColumnDef="Estado">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let element">
+          <label *ngIf="element.estado == 1" class="badge bg-success">
+            Activo</label>
+          <label *ngIf="element.estado == 0" class="badge badge-danger">Inactivo</label>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef> Editar </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" (click)="openForEdit(element.id)"> 
+            <mat-icon>create</mat-icon>
+          </button>
+        </td>
+      
+      </ng-container>
+      
+     <ng-container matColumnDef="Activar">
+        <th mat-header-cell *matHeaderCellDef> Activar </th>
+        <td mat-cell *matCellDef="let element">
+          <button  mat-icon-button color="black"  (click)="Activar(element, i)"> 
+            <mat-icon>done_outline</mat-icon>
+          </button>
+        </td>
+      
+      </ng-container>
+  
+   
+      <ng-container matColumnDef="Inactivar">
+        <th mat-header-cell *matHeaderCellDef>Inactivar</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          <button mat-icon-button color="warn" (click)="Inactivar(element, i)"> 
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </td>
+      </ng-container> 
+
+      <ng-container matColumnDef="contrasena">
+        <th mat-header-cell *matHeaderCellDef>Reset</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          <button  mat-icon-button color="black" (click)="Reset(element.id)"> 
+            <mat-icon>https</mat-icon>
+          </button>
+        </td>
+      </ng-container> 
+     
    
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

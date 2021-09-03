@@ -33,6 +33,7 @@ import * as moment from 'moment';
 import { DataPrecioVenta } from 'src/app/models/precioVenta';
 import { DataPrecioDelivery } from 'src/app/models/precioDelivery';
 import { DataBancoVenta } from '../../models/bancoventa';
+import { DataCampaniaVenta } from '../../models/campaniaVenta';
  
 @Injectable({
   providedIn: 'root'
@@ -98,17 +99,19 @@ getNrocuentaId(id:number){
  ); 
 }
 updateNrocuenta(data: DataNrocuenta){
-  // console.log('desdeservic',nrocuenta);
-  // console.log('desdeservic2',nrocuenta[0].id);
-  // console.log('desdeservic2',nrocuenta.estado);
+  
   return this.http.put(`${this.baseURL}nro-cuenta/${data.id}`, data);
 
  
 }
-deleteNroCuenta(nrocuenta: DataNrocuenta){
-  // console.log('desdeservic',nrocuenta);
-    //  console.log('desdeservic2',nrocuenta.id);
-  return this.http.delete<DataNrocuenta>(`${this.baseURL}nro-cuenta/`+nrocuenta.id)
+ActivarNroCuenta(id: number, bodyform:any){ 
+  return this.http.put(`${this.baseURL}nro-cuenta/` + id, bodyform);
+  
+   
+  }
+InactivarNroCuenta(id: number) {
+ 
+  return this.http.delete(`${this.baseURL}nro-cuenta/${id}`);
 }
 
 /*MANTENIMIENTO CATEGORIA */
@@ -521,8 +524,12 @@ getProducto() {
   
    
   }
-
-   AnularProducto(id: number) {
+  ActivarProducto(id: number, bodyform:any){ 
+    return this.http.put(`${this.baseURL}producto/` + id, bodyform);
+    
+     
+    }
+   InactivarProducto(id: number) {
     // console.log(id,bodyform );
     return this.http.delete(`${this.baseURL}producto/${id}`);
  }
@@ -582,8 +589,7 @@ getProveedor() {
     catchError(this.manejarError)
   );
  }
- addProveedor(data: DataProveedor){
-console.log(data);
+ addProveedor(data: DataProveedor){ 
   return this.http.post(`${this.baseURL}proovedor`, data).pipe(
     map(
       (resp) => resp['data']) 
@@ -599,15 +605,19 @@ console.log(data);
     );
   
   }
-  updateProveedor(data: DataProveedor){
-  // proovedorconsole.log('desdeservic',proveedores);
-    // console.log('desdeservic2',nrocuenta[0].id);
-    // console.log('desdeservic2',nrocuenta.estado);
-    // return this.http.put<DataProducto>(`${this.baseURL}proovedor/`+proveedores[0].id,proveedores[0])
+  updateProveedor(data: DataProveedor){ 
     return this.http.put(`${this.baseURL}proovedor/${data.id}`, data);
   
    
   }
+  ActivarProveedo(id: number, bodyform:any){ 
+    return this.http.put(`${this.baseURL}proovedor/` + id, bodyform);
+    
+     
+    }
+  InactivarProveedo(id: number) {
+      return this.http.delete(`${this.baseURL}proovedor/${id}`);
+    }
 
   /*empleado*/
   getEmpleado() {
@@ -636,6 +646,14 @@ console.log(data);
       return this.http.put(`${this.baseURL}empleado/${data.id}`, data);
     
      
+    }
+    ActivarEmpleado(id: number, bodyform:any){ 
+    return this.http.put(`${this.baseURL}empleado/` + id, bodyform);
+    
+     
+    }
+  InactivarEmpleado(id: number) {
+      return this.http.delete(`${this.baseURL}empleado/${id}`);
     }
 
     /*almacen*/
@@ -679,13 +697,57 @@ console.log(data);
       
        
       }
-
+      ActivarTipoAlmacen(id: number, bodyform:any){ 
+        return this.http.put(`${this.baseURL}sede-almacen/` + id, bodyform);
+        
+         
+        }
+      InactivarTipoAlmacen(id: number) {
+          return this.http.delete(`${this.baseURL}sede-almacen/${id}`);
+        }
+    
       /*USUARIOS */
       CrearUsuario(data: DataUsuario){
         // console.log('creando');
        return this.http.post(`${this.baseURL}register`,data) 
       
       }
+      ChangePasswordUsuario(data: DataUsuario){
+        // console.log('creando');
+       return this.http.post(`${this.baseURL}change-password`,data) 
+      
+      }
+      updateUsuario(data: DataUsuario){
+  
+        return this.http.put(`${this.baseURL}update-user/${data.id}`, data);
+      
+       
+      }
+      getUsuario() {
+        return this.http
+          .get(this.baseURL + 'lista-usuarios')
+          .pipe(map((resp) =>
+          
+           resp)
+          );
+      }
+      getUsuariobyId(id: number) {
+        return this.http.get(this.baseURL+ 'lista-usuarios/'+ id)  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+        .pipe(
+          map(resp=>resp),
+          catchError(this.manejarError)
+        );
+      
+      }
+      
+      ActivarUsuario(id: number, bodyform:any){ 
+        return this.http.put(`${this.baseURL}update-user/` + id, bodyform);
+        
+         
+        }
+      InactivarUsuario(id: number) {
+          return this.http.delete(`${this.baseURL}delete-user/${id}`);
+        }
   /*clientes */
 
   getClientebyId(id: number) {
@@ -704,34 +766,32 @@ console.log(data);
 
  saveCliente(data:DataCliente) {
     
-      console.log(data);
+      // console.log(data);
     return this.http.post(`${this.baseURL}cliente`, data).pipe(
       map(
-        (resp) => resp['data']) 
+       
+        (resp) =>  resp['data'])  
     );
   }  
   updateCliente(data:DataCliente) {
     
       console.log(data);
-    return this.http.put(`${this.baseURL}cliente/${data.id}`, data);
-
-}  
-getUsuario() {
-  return this.http
-    .get(this.baseURL + 'lista-usuarios')
-    .pipe(map((resp) =>
-    
-     resp)
+    return this.http.put(`${this.baseURL}cliente/${data.id}`, data).pipe(
+      map(
+       
+        (resp) =>  resp['data'])  
     );
-}
-getUsuariobyId(id: number) {
-  return this.http.get(this.baseURL+ 'lista-usuarios/'+ id)  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
-  .pipe(
-    map(resp=>resp),
-    catchError(this.manejarError)
-  );
+  }  
+ActivarCliente(id: number, bodyform:any){ 
+  return this.http.put(`${this.baseURL}cliente/` + id, bodyform);
+  
+   
+  }
+InactivarCliente(id: number) {
+    return this.http.delete(`${this.baseURL}cliente/${id}`);
+  }
 
-}
+
 getLinea() {
   return this.http.get(this.baseURL+ 'linea')  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
   .pipe(
@@ -754,7 +814,13 @@ getLinea() {
     catchError(this.manejarError)
   );  
  }
- 
+ getTipCotizacionVenta() {
+  return this.http.get(this.baseURL+ 'tipo-cotizacion-venta')  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+  .pipe(
+    map(resp=>resp['data']),
+    catchError(this.manejarError)
+  );  
+ }
 
  getTipOrden() {
   return this.http.get(this.baseURL+ 'tipo-orden-compra')  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
@@ -808,6 +874,14 @@ return this.http.post(`${this.baseURL}precio-venta`, data).pipe(
     (resp) => resp['data']) 
 );
 } 
+ActivarPrecioVenta(id: number, bodyform:any){ 
+  return this.http.put(`${this.baseURL}precio-venta/` + id, bodyform);
+  
+   
+  }
+InactivarPrecioVenta(id: number) {
+    return this.http.delete(`${this.baseURL}precio-venta/${id}`);
+  }
 //PRECIO DELIVERY 
 getPrecioDelivery() {
   return this.http
@@ -837,6 +911,14 @@ return this.http.post(`${this.baseURL}costo-delivery`, data).pipe(
     (resp) => resp['data']) 
 );
 } 
+ActivarPrecioDelivery(id: number, bodyform:any){ 
+  return this.http.put(`${this.baseURL}costo-delivery/` + id, bodyform);
+  
+   
+  }
+InactivarPrecioDelivery(id: number) {
+    return this.http.delete(`${this.baseURL}costo-delivery/${id}`);
+  }
 getEstadoDelivery() {
   return this.http.get(this.baseURL+ 'estado-delivery')  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
   .pipe(
@@ -875,6 +957,73 @@ getEstadoDelivery() {
       (resp) => resp['data']) 
   );
   } 
+  ActivarBancoVenta(id: number, bodyform:any){ 
+    return this.http.put(`${this.baseURL}banco-venta/` + id, bodyform);
+    
+     
+    }
+  InactivarBancoVenta(id: number) {
+      return this.http.delete(`${this.baseURL}banco-venta/${id}`);
+    }
+
+   //CAMPAÑA VENTA 
+   getCampaniaVenta() {
+    return this.http
+      .get(this.baseURL + 'campain')
+      .pipe(
+        map(resp=>resp['data']),
+        catchError(this.manejarError)
+      );  
+  }
+  getCampaniaVentabyId(id: number) {
+    return this.http.get(this.baseURL+'campain/'+ id)  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+    .pipe(
+      map(resp=>resp['data'])  
+    );
+  
+  }
+
+  updateCampaniaVenta(data:DataCampaniaVenta) {
+   
+  return this.http.put(`${this.baseURL}campain/${data.id}`, data);
+  
+  }  
+  
+  saveCampaniaVenta(data:DataCampaniaVenta) { 
+   
+  return this.http.post(`${this.baseURL}campain`, data).pipe(
+    map(
+      (resp) => resp['data']) 
+  );
+  } 
+
+  ActivarCampaniaVenta(id: number, bodyform:any){ 
+    return this.http.put(`${this.baseURL}campain/` + id, bodyform);
+    
+     
+    }
+  InactivarCampaniaVenta(id: number) {
+      return this.http.delete(`${this.baseURL}campain/${id}`);
+    }
+
+  // CANAL VENTA
+  getCanalVenta() {
+    return this.http
+      .get(this.baseURL + 'canal-venta')
+      .pipe(
+        map(resp=>resp['data']),
+        catchError(this.manejarError)
+      );  
+  }
+   // CATEGORIA CLIENTE
+   getCategoriaCliente() {
+    return this.http
+      .get(this.baseURL + 'categoria-cliente')
+      .pipe(
+        map(resp=>resp['data']),
+        catchError(this.manejarError)
+      );  
+  }
 }
 
 

@@ -39,8 +39,9 @@ export class AdddeliveryComponent implements OnInit {
     let id2 =  this.iddelivery
       console.log(id);
       this.ventaService.getListarDetalleDeliveryById(+id2,+id).subscribe((res) => {
-        console.log(res);
+        // console.log(res);
         this.formDataDelivery = res[0]; 
+        console.log(this.formDataDelivery);
         this.formDetalleDelivery = res[0].detalleOrdenVenta[0].detalleCotizacion[0].detalleCotizacion; 
        this.ventaService.detalleDelivery =res[0].detalleOrdenVenta[0].detalleCotizacion[0].detalleCotizacion;
        if (res[0].idEstadoDelivery ==  2 || res[0].idEstadoDelivery ==  3 ) {
@@ -54,7 +55,7 @@ export class AdddeliveryComponent implements OnInit {
       .subscribe(resp => {
        
           this.estadoDelivery = (resp).filter(valor => valor.id === 2 || valor.id === 3);
-     console.log(resp);
+    //  console.log(resp);
      });
     
     

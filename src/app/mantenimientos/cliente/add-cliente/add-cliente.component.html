@@ -137,6 +137,7 @@ name="id"
         <div class="form-group">
           <label> Pais</label>
           <ng-select  
+          style="text-transform:uppercase"
           #idPais="ngModel"  
           name="idPais" 
           bindValue="idPais" 
@@ -171,6 +172,7 @@ name="id"
         <div class="form-group">
           <label> Departamento</label>
           <ng-select  
+          style="text-transform:uppercase"
           #idDepartamento="ngModel"  
           name="idDepartamento" 
           bindValue="idDepartamento" 
@@ -186,6 +188,7 @@ name="id"
         <div class="form-group">
           <label> Provincia</label>
           <ng-select  
+          style="text-transform:uppercase"
           #idProvincia="ngModel"  
           name="idProvincia" 
           bindValue="idProvincia" 
@@ -202,6 +205,7 @@ name="id"
         <div class="form-group">
           <label> Distrito</label>
           <ng-select  
+          style="text-transform:uppercase"
           #idDistrito="ngModel"  
           name="idDistrito" 
           bindValue="idDistrito" 
@@ -232,7 +236,23 @@ name="id"
             </select> 
         </div>
       </div>
-      
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <label> Categoría Cliente  </label>
+          <ng-select  
+          style="text-transform:uppercase"
+            #idcategoriacliente="ngModel"  
+            name="idcategoriacliente" 
+            bindValue="idcategoriacliente" 
+            placeholder="Buscar Categoría Cliente" 
+            [(ngModel)]="formData.idcategoriacliente"  
+          >   
+              <ng-option *ngFor="let emp of categoriaCliente" 
+              [value]="emp.id">{{emp.descripcion_catcli}}</ng-option>
+           </ng-select> 
+        </div> 
+      </div>
   </div>
 
   <div class="form-group">

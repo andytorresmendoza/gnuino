@@ -18,11 +18,12 @@ export class SidebarComponent implements OnInit {
     private router: Router) {
 
       this.menuItems = sidebarService.menu;
+      // console.log(sidebarService.menu,'QUE TRAE MENU');
       const token =   localStorage.getItem('access_token'); 
       this.decoded = jwt_decode(token); 
+      console.log(this.decoded,'DECODE');
       this.perfilUsuario = this.decoded.user[0].detalleEmpleado;
-      // this.perfilUsuario = this.decoded.user.original[0].detalleEmpleado[0].detallePerfilUsuario;
-      
+      // VER ACA EL LOG
      }
 
   ngOnInit(): void {

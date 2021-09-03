@@ -96,9 +96,9 @@ detalleCotizacionVentaCambio:DataDetalleCotizacionVentaCambio[];
     fechaParseada2 = moment(body.fechaEntrega).format('YYYY-MM-DD');
     body.fechaEntrega=fechaParseada2;
     delete body.id;
-    console.log('delete',  delete body.id);
+    // console.log('delete',  delete body.id);
     console.log('cuerpoventa',body);
-    console.log('detalleventa',body.detalleCotizacion);
+    // console.log('detalleventa',body.detalleCotizacion);
      return this.http.put(`${this.baseURL}cotizacion-venta/${formData.id}`, body);
 
   }

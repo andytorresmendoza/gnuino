@@ -1,0 +1,116 @@
+ <h4 class="dispaly-4"><small>Vista Previa de Venta Directa - <b>{{ventaService?.formVenta.codigo_cotizacion_dir_num_venta}}</b> 
+ 
+</small>   
+
+<hr />
+
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="ventaService.formVenta"
+  (submit)="onSubmit(form)"
+>
+ 
+    <div class="row"> 
+        <div class="col-md-3">
+            <div class="form-group">
+              <label> Tipo Cotización</label>
+              <ng-select  
+              style="text-transform:uppercase"
+                #idTipoCotizacion="ngModel"  
+                name="idTipoCotizacion" 
+                bindValue="idTipoCotizacion" 
+                placeholder="Buscar Tipo Cotización" 
+                [(ngModel)]="ventaService.formVenta.idTipoCotizacion"  
+                disabled
+              >   
+                  <ng-option *ngFor="let emp of tipocotizacion" 
+                  [value]="emp.id">{{emp.descrip_tip_cot_venta}}</ng-option>
+               </ng-select> 
+            </div> 
+          </div>
+
+          <div class="col-xs-12 col-md-3">
+            <div class="form-group">
+              <label for="">Fecha Venta</label>
+              <div class="input-group">
+                <input 
+                [matDatepicker]="picker2"
+                placeholder="DD/MM/YYYY" 
+                name="fechaVentaDirecta"
+                #fechaVentaDirecta="ngModel" 
+                [(ngModel)]="ventaService.formVenta.fechaVentaDirecta"
+                class="form-control"  
+                readonly
+              />  
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+              </div>
+              
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label> Cliente</label> 
+              <ng-select 
+              style="text-transform:uppercase"
+              [items]="clientes"
+             bindLabel="nombre_cliente"
+             bindValue="id" 
+             placeholder="Buscar Clientes"
+             [(ngModel)]="ventaService.formVenta.idCliente" 
+             disabled
+              >
+ 
+        
+        </ng-select>  
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label> Monto Total</label>
+              <input
+                name="monto_total"
+                #monto_total="ngModel"
+                [(ngModel)]="ventaService.formVenta.monto_total"
+                class="form-control" 
+                readonly
+              /> 
+            </div>
+          
+            </div>
+    
+ 
+            <table class="table table-borderless">
+                <thead class="thead-light">
+                  <th scope="col">#</th>
+                  <th>Nombre Producto</th>
+                  <th>Unidad Medida</th>
+                  <th>Almacén</th>
+                  <th>Cantidad Venta</th> 
+                  <th>Precio Venta</th> 
+                  <th>Observaciones</th>
+ 
+                </thead>
+                <tbody>
+ 
+                  <tr *ngFor="let item of ventaService.detalleVentaDirecta; let i = index">
+                      <th scope="row">{{ i + 1 }}</th>
+                    <td>{{ item.nombre_producto | uppercase }}</td> 
+                    <td>{{item.detalleNameUnidadMedida | uppercase}}</td>
+                    <td>{{item.nombre_alamcen | uppercase}}</td>
+                    <td>{{ item.cantidad }}</td>
+                    <td>{{ item.precioVenta }}</td>
+                    <td>{{ item.observacion }}</td>
+ 
+                  </tr>
+                </tbody>
+              </table>
+    <button type="button"   class="btn btn-outline-dark ml-1" [mat-dialog-close]>
+        <i class="fa fa-close"></i> Salir
+      </button>
+    
+     
+  </div>
+</form>

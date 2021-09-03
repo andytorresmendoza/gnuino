@@ -159,8 +159,7 @@ validateForm(formData: DataDetalleCotizacion) {
   this.isValid = true;
   if (formData.id == 0)
     this.isValid = false;
-  else if (formData.cantidad == 0)
-    this.isValid = false;
+ 
   return this.isValid;
 }
 }

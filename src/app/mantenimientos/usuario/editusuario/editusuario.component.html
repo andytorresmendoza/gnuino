@@ -1,0 +1,161 @@
+ 
+<h1><small>Editar Usuario</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger"  routerLink="../../listarusuarios"  >
+ 
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+<form #form="ngForm" autocomplete="off"   *ngIf="formData" (submit)="onSubmit(form)">
+  
+  <div class="form-row">
+      <div class="form-group col-md-4">
+  
+       <label>Usuario</label>
+          <input
+          style="text-transform:uppercase"
+            name="username"
+            #username="ngModel"
+            [(ngModel)]="formData.username"
+            class="form-control"
+            placeholder="Nombre Usuario"
+            [class.is-invalid]="username.invalid && username.touched"
+            required
+          />  
+      </div> 
+ 
+       <div class="col-md-4">
+        <div class="form-group">
+          <label>Empleado</label>
+    
+          <ng-select  
+          style="text-transform:uppercase"
+          #idEmpleado="ngModel"  
+          name="idEmpleado" 
+          bindValue="idEmpleado" 
+          placeholder="Buscar Empleado" 
+          [(ngModel)]="formData.idEmpleado"  
+        >   
+      
+            <ng-option *ngFor="let emp of empleados" [value]="emp.id">{{emp.nombre_empleado}}</ng-option>
+         </ng-select> 
+        </div>
+      </div>
+  
+  </div>
+ 
+    
+  <br>
+  
+  
+    <div class="form-group">
+      <button type="submit" class="btn btn-dark">
+        <i class="fa fa-database"></i> Guardar
+      </button>
+    
+    </div>
+  </form>
+  
+
+
+
+<!--  
+<section
+  id="wrapper"
+  class="login-register login-sidebar"
+  style="background-image: url(../assets/images/background/login-register.jpg)"
+>
+  <div class="login-box card">
+    <div class="card-body">
+      <form
+        class="form-horizontal form-material"
+        id="loginform"
+        autocomplete="off"
+        [formGroup]="registerForm"
+        (ngSubmit) ="crearUsuario()"
+      >
+        <a  class="text-center db"
+          ><img src="../assets/images/gnuino-icon.png" alt="Home" /><br />
+        </a>
+    
+        <div class="form-group m-t-20">
+            <div class="form-group">
+            <label for="inputAddress" class="form-label">Usuario</label>
+            <input
+              class="form-control"
+              type="text" 
+              placeholder="Usuario"
+              formControlName="username"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="inputAddress" class="form-label">Nombre Empleado</label>
+            <select id="idTipoEmpleado" formControlName="idEmpleado" class="form-control">
+              <option value="">---Seleccione Tipo Empleado---</option>
+              <option *ngFor="let empl of empleados" value="{{ empl.id }}">
+                {{ empl.nombre_empleado }}
+              </option>
+            </select>
+          </div>
+        </div>
+      
+        <div class="form-group">
+          <div class="col-xs-12">
+            <label for="inputAddress" class="form-label">Contraseña</label>
+            <input
+              class="form-control"
+              type="password"
+              required=""
+              placeholder="Password"
+              formControlName="password"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-xs-12">
+            <label for="inputAddress" class="form-label">Repita Contraseña</label>
+            <input
+              class="form-control"
+              type="password"
+              required=""
+              placeholder="Confirm Password"
+              formControlName="password2"
+            />
+          </div>
+        </div>
+ 
+        <div class="row">
+            <div class="col text-danger" >
+                <p *ngIf="campoNoValido('username')">El Nombres es obligatorio</p>
+                <p *ngIf="contrasenasNoValidas()">Las Contraseñas deben ser Iguales</p>
+                <p *ngIf="validateCombo()">Seleccione Empleado</p>
+
+            </div>
+
+        </div>
+        <div class="form-group text-center m-t-20">
+          <div class="col-xs-12">
+            <button
+              class="
+                btn btn-info btn-lg btn-block
+                text-uppercase
+                waves-effect waves-light
+              "
+              type="submit"
+            >
+              Sign Up
+            </button>
+          </div>
+        </div>
+ 
+      </form>
+    </div>
+  </div>
+</section>
+  -->

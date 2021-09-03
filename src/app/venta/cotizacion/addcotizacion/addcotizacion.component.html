@@ -1,5 +1,18 @@
 
-<h1><small>Agregar Detalles de Ventas</small></h1>
+<h1><small>Agregar Detalles de Ventas - Tipo Cliente -  
+
+  <b *ngIf="ventaService?.formData.idcategoriaCliente == '1' " style="color: #ec2411" >  {{ventaService?.formData.descripcion_catcli | uppercase}}</b>   
+   
+ <!-- {{ventaService?.formData.detalleCatCliente | uppercase}} -->
+  <b *ngIf="ventaService?.formData.idcategoriaCliente == '2' " style="color: #31bf0a" >  {{ventaService?.formData.descripcion_catcli | uppercase}}</b>  
+ 
+
+ <b *ngIf="ventaService?.formData.idcategoriaCliente == '3' "  style="color: #3145ff" >  {{ventaService?.formData.descripcion_catcli | uppercase}}</b>  
+ 
+
+
+</small></h1>
+
 <hr />
 <div class="row text-right">
   <div class="col">
@@ -23,8 +36,8 @@
     #id="ngModel"
     [(ngModel)]="ventaService.formData.id"
   />
-
-  <!-- [(ngModel)]="ventaService.formData.idCliente" -->
+ 
+ 
 
   <input
 type="hidden"
@@ -55,6 +68,40 @@ name="idCliente"
       class="form-text text-danger">Ingrese Fecha</small>
     </div>
   </div>
+
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Campaña Venta  </label>
+      <ng-select  
+      style="text-transform:uppercase"
+        #idCampain="ngModel"  
+        name="idCampain" 
+        bindValue="idCampain" 
+        placeholder="Buscar Campaña Venta" 
+        [(ngModel)]="ventaService.formData.idCampain"  
+      >   
+          <ng-option *ngFor="let emp of campania" 
+          [value]="emp.id">{{emp.descripcion_campain}}</ng-option>
+       </ng-select> 
+    </div> 
+  </div>
+
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Canal Venta  </label>
+      <ng-select  
+      style="text-transform:uppercase"
+        #idCanalVenta="ngModel"  
+        name="idCanalVenta" 
+        bindValue="idCanalVenta" 
+        placeholder="Buscar Canal Venta" 
+        [(ngModel)]="ventaService.formData.idCanalVenta"  
+      >   
+          <ng-option *ngFor="let emp of canalVenta" 
+          [value]="emp.id">{{emp.descripcion_canal}}</ng-option>
+       </ng-select> 
+    </div> 
+  </div>
 </div>
  
   <div class="row"> 
@@ -70,7 +117,7 @@ name="idCliente"
           [(ngModel)]="ventaService.formData.idTipoCotizacion"  
         >   
             <ng-option *ngFor="let emp of tipocotizacion" 
-            [value]="emp.id">{{emp.detalle_tcotizacion}}</ng-option>
+            [value]="emp.id">{{emp.descrip_tip_cot_venta}}</ng-option>
          </ng-select> 
       </div> 
     </div>
@@ -138,7 +185,7 @@ name="idCliente"
        bindValue="id" 
        placeholder="Buscar Clientes"
        [(ngModel)]="ventaService.formData.idCliente"
-      
+       (change)="UpdateCliente($event)"
         >
         <!-- (change)="onChangeCliente($event)"  -->
   
@@ -199,6 +246,7 @@ name="idCliente"
     <div class="form-group">
       <label> Monto Total</label>
       <input
+      type="number"
         name="totalGeneral"
         #totalGeneral="ngModel"
         [(ngModel)]="ventaService.formData.totalGeneral"
@@ -237,11 +285,12 @@ name="idCliente"
         <label> Descuento Cotización %</label>
         <input
         type="number"
-          name="descuento_cot"
+          name="descuento_cot" 
           #descuento_cot="ngModel"
-          [(ngModel)]="ventaService.formData.descuento_cot"
+          [(ngModel)]="ventaService.formData.descuento_cot "
           class="form-control"
           (keyup)="updateMontoTotal()"
+          (change)="onDecimal($event)"
         />
       </div>
     </div>
@@ -255,7 +304,7 @@ name="idCliente"
         [(ngModel)]="ventaService.formData.costo_delivery"
         class="form-control"
         (keyup)="updateMontoTotal()"  
-        (keyup)="onKey($event)"
+        (change)="onDecimal($event)"
         
       />
  
@@ -265,6 +314,7 @@ name="idCliente"
     <div class="form-group">
       <label> % Descuento</label>
           <input
+          type="number"
             name="porcentajeDscto"
             #porcentajeDscto="ngModel"
             [(ngModel)]="ventaService.formData.porcentajeDscto"
@@ -277,6 +327,7 @@ name="idCliente"
   <div class="form-group">
     <label> Total Producto</label>
         <input
+        type="number"
           name="total_productos"
           #total_productos="ngModel"
           [(ngModel)]="ventaService.formData.total_productos"

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { KardexService } from '../../../services/kardex/kardex.service';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { DetallesalidaproductoComponent } from '../../salidaproductos/detallesal
 import { DetalleprecioventaComponent } from '../detalleprecioventa/detalleprecioventa.component';
 import { DataKardex } from '../../../models/kardex';
 import { DetalletransferenciaComponent } from '../../transferencia/detalletransferencia/detalletransferencia.component';
- 
+import { MatPaginator } from '@angular/material/paginator';
 @Component({
   selector: 'app-listarkardex',
   templateUrl: './listarkardex.component.html',
@@ -19,13 +19,14 @@ export class ListarkardexComponent implements OnInit {
   ListIngresosCerrados:DataKardex []= [];
   cargando = true; 
  
-  displayedColumns: string[] = ['Codigo Producto', 'Producto','Cantidad en Almacen','Cantidad en Reserva', 'Almacen','Salida','Transferencia','Movimientos'];
+  displayedColumns: string[] = ['Codigo Producto','Categoria', 'Producto','Modelo','Cantidad en Almacen','Cantidad en Reserva', 'Almacen','Salida','Transferencia','Movimientos'];
    dataSource = new MatTableDataSource<DataKardex>();
    applyFilter(event: Event) {
      const filterValue = (event.target as HTMLInputElement).value;
      this.dataSource.filter = filterValue.trim().toLowerCase();
    }
-  
+   sort:any;
+   @ViewChild(MatPaginator) paginator: MatPaginator;
    constructor
    (private kardexService: KardexService , private router:Router,private toastr: ToastrService ,  private dialog: MatDialog) { }
  
@@ -37,20 +38,16 @@ export class ListarkardexComponent implements OnInit {
    getListKardex(){ 
      this.kardexService.getListKardex()
     .subscribe(resp => {
-      console.log(resp);
-     this.dataSource.data = resp as DataKardex[]; 
- 
-      //  this.kardexService.detalleSalida = resp;
-      //  this.kardexService.detalleTransferencia = resp;
-       this.cargando = false;
-      
-      // console.log(this.dataSource.data);
-       // this.cargando = false;
-        // console.log(this.kardexService.detalleSalida,'Salida');
-       //  console.log( this.kardexService.detalleTransferencia  , 'transferencia');
+      // console.log(resp);
+     this.dataSource.data = resp as DataKardex[];  
+       this.cargando = false; 
    });
+   
   }
- 
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
   AddDetalleSalida( id:number) {   
    //  console.log(id,'detalle');
    const dialogConfig = new MatDialogConfig();

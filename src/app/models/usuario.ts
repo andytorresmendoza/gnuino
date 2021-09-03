@@ -3,6 +3,7 @@ export interface UsuarioForm{
 	data:DataUsuario[];
 }
 	export interface DataUsuario{
+	    id:number;
 		username: string
 		password: string
 		idEmpleado: number;

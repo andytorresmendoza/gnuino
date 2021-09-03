@@ -128,18 +128,12 @@ export class DetallecotizacionComponent implements OnInit {
       });
     } else  
     if (this.validateForm(form.value)) {
-console.log( this.ventaService.detalleCotizacion,'primero');
+  console.log( form.value,'ANTES DEL PUSH');
        
  
-      if (this.data.orderItemIndex == null) { 
-
-      /*  const inventario = this.ventaService.detalleCotizacion;
-      
-        const resultado = inventario.find( fruta => fruta.idProducto === 1 ); 
-        console.log(resultado,'respultado');
-*/
-        
-        this.ventaService.detalleCotizacion.push(form.value); 
+      if (this.data.orderItemIndex == null) {  
+        this.ventaService.detalleCotizacion.push(form.value);  
+        console.log(form.value,'PUSH');
    
       } else {
         this.ventaService.detalleCotizacion[this.data.orderItemIndex] =
@@ -161,8 +155,7 @@ console.log( this.ventaService.detalleCotizacion,'primero');
 
   validateForm(formData: DataDetalleCotizacion) {
     this.isValid = true;
-    if (formData.id == 0) this.isValid = false;
-    else if (formData.cantidad == 0) this.isValid = false;
+    if (formData.id == 0) this.isValid = false; 
     return this.isValid;
   }
 }

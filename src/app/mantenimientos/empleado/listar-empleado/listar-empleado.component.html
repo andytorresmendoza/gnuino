@@ -1,4 +1,108 @@
-<h1>Listado Empleados</h1>
+<h1>Listado Empleado</h1>
+<hr />
+<div class="row">
+  <div class="col text-right">
+    <button routerLink="/mantenimientos/addempleado/nuevo" class="btn btn-primary">
+      <i class="fa fa-plus"> Agregar </i>
+    </button>
+  </div>
+</div>
+<mat-form-field>
+    <mat-label>Buscar</mat-label>
+   
+    <input matInput (keyup)="applyFilter($event)"   placeholder="Ingrese dato" #input>
+  </mat-form-field>
+  
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+    <!-- Position Column -->
+    <ng-container matColumnDef="Nombre">
+      <th mat-header-cell *matHeaderCellDef> >Nombre Empleado </th>
+      <td mat-cell *matCellDef="let element" > {{element.nombre_empleado | uppercase}} </td>
+     
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="Apellido Paterno">
+      <th mat-header-cell *matHeaderCellDef> Apellido Paterno </th>
+      <td mat-cell *matCellDef="let element"> {{element.apellidos_pat_empleado | uppercase}} </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="Apellido Materno">
+      <th mat-header-cell *matHeaderCellDef> Apellido Materno </th>
+      <td mat-cell *matCellDef="let element"> {{element.apellidos_mat_empleado | uppercase}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Sexo">
+      <th mat-header-cell *matHeaderCellDef> Sexo </th>
+      <td mat-cell *matCellDef="let element"> {{element.sexo_empleado | uppercase| uppercase}} </td>
+    </ng-container>
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="Dni">
+      <th mat-header-cell *matHeaderCellDef> Dni </th>
+      <td mat-cell *matCellDef="let element" > {{element.dni_empleado}} </td>
+     
+    </ng-container>
+    
+
+    <ng-container matColumnDef="Estado">
+      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <td mat-cell *matCellDef="let element">
+        <label *ngIf="element.estado == 1" class="badge bg-success">
+          Activo</label>
+        <label *ngIf="element.estado == 0" class="badge badge-danger">Inactivo</label>
+      </td>
+    </ng-container>
+
+    
+    <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef> Editar </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="primary" (click)="openForEdit(element.id)"> 
+          <mat-icon>create</mat-icon>
+        </button>
+      </td>
+    
+    </ng-container>
+
+
+    <ng-container matColumnDef="Activar">
+      <th mat-header-cell *matHeaderCellDef> Activar </th>
+      <td mat-cell *matCellDef="let element">
+        <button  mat-icon-button color="black"  (click)="Activar(element, i)"> 
+          <mat-icon>done_outline</mat-icon>
+        </button>
+      </td>
+    
+    </ng-container>
+
+ 
+    <ng-container matColumnDef="Inactivar">
+      <th mat-header-cell *matHeaderCellDef>Inactivar</th>
+      <td mat-cell *matCellDef="let element; let i = index">
+        <button mat-icon-button color="warn" (click)="Inactivar(element, i)"> 
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No existe coincidencia con "{{input.value}}"</td>
+    </tr>
+   
+  </table>
+  
+  
+  <!-- Copyright 2020 Google LLC. All Rights Reserved.
+      Use of this source code is governed by an MIT-style license that
+      can be found in the LICENSE file at http://angular.io/license -->
+<!-- <h1>Listado Empleados</h1>
 <hr />
 <div class="row">
   <div class="col text-right">
@@ -19,9 +123,7 @@
       <th scope="col">Apellidos Maternos</th>
       <th scope="col">Sexo</th>
       <th scope="col">Dni</th>
-      
-
-      <!-- <th scope="col">Estado</th> -->
+ 
       <th scope="col">Opciones</th>
     </tr>
   </thead>
@@ -33,25 +135,13 @@
       <td>{{ empleado.apellidos_mat_empleado | uppercase }}</td>
       <td>{{ empleado.sexo_empleado | uppercase }}</td>
       <td>{{ empleado.dni_empleado}}</td>
-   
  
-      <!-- <td>
-        <label *ngIf="empleado.estado" class="badge badge-success"
-          >Activo</label
-        >
-        <label *ngIf="!empleado.estado" class="badge badge-danger"
-          >Inactivo</label
-        >
-      </td> -->
 
       <td>
         <button class="btn btn-info mr-1" (click)="Editar(empleado.id)">
-          <!--" la ruta seria producto/nuevo pero la transfomamos a producto/id"--><!-- Mndando un id en la ruta la ruta se manda en [] porque es una ruta dinamica cuando no se envia con llaves es una ruta dinamica como la que esta arriba-->
-          <i class="fa fa-pen"></i>
+           <i class="fa fa-pen"></i>
         </button>
-        <!-- <button class="btn btn-danger" (click)="Delete(nrocuenta, i)">
-          <i class="fa fa-trash"></i> 
-        </button> -->
+ 
       </td>
     </tr>
   </tbody>
@@ -75,4 +165,4 @@
     <i class="fa fa-sync-alt fa-spin fa-2px"></i>
   </p>
   <p class="mb-0">Espere por favor</p>
-</div>
+</div> -->

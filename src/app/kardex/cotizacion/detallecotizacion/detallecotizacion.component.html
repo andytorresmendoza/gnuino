@@ -73,8 +73,9 @@ name="idProducto"
         name="cantidad"
         #cantidad="ngModel"
         [(ngModel)]="formData.cantidad"
-        class="form-control"
-        [class.is-invalid]="!isValid && formData.cantidad == 0"
+        class="form-control" 
+        (keyup)="updateTotal()"
+        (change)="onDecimal()"
       />
     </div>
   </div>
@@ -83,15 +84,13 @@ name="idProducto"
     <div class="form-group col-md-2">
       <label>Precio Unitario</label>
       <input
-      type="number"
-    
+      type="number" 
         name="precio_unidad"
         #precio_unidad="ngModel"
         [(ngModel)]="formData.precio_unidad"
-        class="form-control"
-        [class.is-invalid]="!isValid && formData.precio_unidad == 0"
+        class="form-control" 
         (keyup)="updateTotal()"
-        (keyup)="onChangeDecimal()" 
+        (change)="onDecimal()"
       />
     </div>
 

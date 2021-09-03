@@ -1,0 +1,119 @@
+<!-- <h1><small>Vista Previa de Cotización {{}} -->
+  <h4 class="dispaly-4"><small>Vista Previas de Cotización - <b>{{ventaService.formData.codigo_cotizacion_num_venta}}</b> 
+ 
+</small> 
+
+<hr />  
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="ventaService.formData"
+  (submit)="onSubmit(form)"
+>
+
+<div class="form-group">
+    <div class="row"> 
+        <div class="col-md-3">
+          <div class="form-group">
+            <label> Tipo Cotización  </label>
+            <ng-select  
+            style="text-transform:uppercase"
+              #idTipoCotizacion="ngModel"  
+              name="idTipoCotizacion" 
+              bindValue="idTipoCotizacion" 
+              placeholder="Buscar Tipo Cotización" 
+              [(ngModel)]="ventaService.formData.idTipoCotizacion"  
+              disabled
+            >   
+                <ng-option *ngFor="let emp of tipocotizacion" 
+                [value]="emp.id">{{emp.descrip_tip_cot_venta}}</ng-option>
+             </ng-select> 
+          </div> 
+        </div>
+
+        <div class="col-xs-12 col-md-3">
+            <div class="form-group">
+              <label for="">Fecha Entrega</label>
+              <div class="input-group">
+                <input 
+                [matDatepicker]="picker"
+                placeholder="DD/MM/YYYY" 
+                name="fechaEntrega"
+                #fechaEntrega="ngModel" 
+                [(ngModel)]="ventaService.formData.fechaEntrega"
+                class="form-control"  
+                disabled
+              />  
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              </div>
+             
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label> Cliente</label> 
+              <ng-select 
+              style="text-transform:uppercase"
+              [items]="clientes"
+             bindLabel="nombre_cliente"
+             bindValue="id" 
+             placeholder="Buscar Clientes"
+             [(ngModel)]="ventaService.formData.idCliente"
+             (change)="UpdateCliente($event)"
+             disabled
+              >
+              <!-- (change)="onChangeCliente($event)"  -->
+        
+        </ng-select>  
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+                <label> Monto Total</label>
+                <input
+                type="number"
+                  name="totalGeneral"
+                  #totalGeneral="ngModel"
+                  [(ngModel)]="ventaService.formData.totalGeneral"
+                  class="form-control" 
+                  readonly
+                /> 
+              </div>
+        </div>
+    </div>
+
+    
+   
+  <table class="table table-borderless">
+    <thead class="thead-light">
+      <th scope="col">#</th>
+      <th>Nombre Producto</th>
+      <th>Unidad Medida</th>
+      <th>Almacén</th>
+      <th>Cantidad Venta</th> 
+      <th>Precio Venta</th> 
+      <th>Observaciones</th>
+ 
+    </thead>
+    <tbody>
+  
+      <tr *ngFor="let item of ventaService.detalleCotizacion; let i = index">
+ 
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ item.nombre_producto | uppercase }}</td> 
+        <td>{{item.detalleNameUnidadMedida | uppercase}}</td>
+        <td>{{item.nombre_alamcen | uppercase}}</td>
+        <td>{{ item.cantidad }}</td>
+        <td>{{ item.precioVenta }}</td> 
+        <td>{{ item.observacion | uppercase }}</td>
+ 
+ 
+      </tr>
+    </tbody>
+  </table>
+    <button type="button"   class="btn btn-outline-dark ml-1" [mat-dialog-close]>
+      <i class="fa fa-close"></i> Salir
+    </button>
+  </div>
+  </form>

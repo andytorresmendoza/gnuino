@@ -19,30 +19,24 @@ export class AddusuarioComponent implements OnInit {
  
   constructor(private mantenimientosServices: MantenimientosService, private router:Router,private currentRoute: ActivatedRoute,private toastr: ToastrService) { }
 
-  ngOnInit(): void {
-    let id = this.currentRoute.snapshot.paramMap.get('id'); 
-    if (id !== 'nuevo') {
-      this.mantenimientosServices.getUsuariobyId(+id).subscribe(res => {
-        // this.formData= res; 
-      //console.log(  res,'form');
-         //console.log( this.formData);
-
-
-      });
-    }else{
-      this.resetForm();
-
-} 
-    this.mantenimientosServices.getEmpleado()
-    .subscribe(resp => { 
-       this.empleados = resp;  
-    })
+  ngOnInit(): void { 
+      this.resetForm(); 
+ 
+this.mantenimientosServices.getEmpleado().subscribe(resp => {
+  // console.log(resp);
+  this.empleados = (resp as DataEmpleado[])
+  .map(empleados=>{ 
+    empleados.nombre_empleado =   (empleados.nombre_empleado.concat(', ', empleados.apellidos_pat_empleado,' ', empleados.apellidos_mat_empleado,'- ',empleados.dni_empleado))
+    return empleados;
+  });
+});
   }
 
   resetForm(form?:NgForm){
     if(form =null)
     form.resetForm();
-     this.formData={    
+     this.formData={   
+      id: null,
       username: '',
       password: '',
       idEmpleado: null
@@ -52,25 +46,23 @@ export class AddusuarioComponent implements OnInit {
 }
 
 onSubmit(form:NgForm):void{
- // console.log(form);
- /* if (this.formData.id) {
-   this.mantenimientosServices.updateCliente(this.formData).subscribe(
-     resp=>{
+  if (form.invalid) {
+    Object.values(form.controls).forEach((control) => {
+      control.markAsTouched(); //es para validar el guardar
+      //  console.log(control); //son todos mis controles del formulario
+    });
 
-     this.toastr.success('Actualizado Exitosamente','Gnuino');
-      this.router.navigate(["../mantenimientos/listarcliente"]);
-     }
-   )
-} 
+    return;
+  }
+   
 else{
-*/
   this.mantenimientosServices.CrearUsuario(this.formData).subscribe(res =>{
  //console.log(res);
    this.resetForm();
    this.toastr.success('Guardado Exitosamente','Gnuino');
    this.router.navigate(["../mantenimientos/listarusuarios"]);
  }) ;
-// }
+  }
 }
 
 /*crearUsuario(){

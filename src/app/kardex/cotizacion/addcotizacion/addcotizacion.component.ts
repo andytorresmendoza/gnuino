@@ -5,8 +5,7 @@ import { KardexService } from '../../../services/kardex/kardex.service';
 import { DetallecotizacionComponent } from '../detallecotizacion/detallecotizacion.component';
 import { MantenimientosService } from '../../../services/mantenimientos/mantenimientos.service';
 import { DataProveedor } from '../../../models/proveedor';
-import { DataEmpleado } from '../../../models/empleado';
-import * as moment from 'moment';
+import { DataEmpleado } from '../../../models/empleado'; 
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataProducto } from 'src/app/models/producto';
@@ -57,19 +56,25 @@ export class AddcotizacionComponent implements OnInit {
 
     this.mantenimientosService.getProducto().subscribe((resp) => {
       this.productos = resp as DataProducto[];
-    });
-/*conertir en mayusculas */
-    this.mantenimientosService.getProveedor().subscribe((resp) => {
+    }); 
+    
+    this.mantenimientosService.getProveedor().subscribe(resp => {
+      // console.log(resp);
       this.proveedores = (resp as DataProveedor[])
-      .map(proveedores=>{
-        proveedores.nombre_proovedor = proveedores.nombre_proovedor.toUpperCase();
-        return proveedores;
+      .map(proveedor=>{
+        // clientes.nombre_cliente = clientes.nombre_cliente.toUpperCase();
+       proveedor.nombre_proovedor =   (proveedor.nombre_proovedor.concat('- ', proveedor.ruc_proovedor))
+        return proveedor;
+      });
+    }); 
+    this.mantenimientosService.getEmpleado().subscribe(resp => {
+      // console.log(resp);
+      this.empleados = (resp as DataEmpleado[])
+      .map(empleados=>{ 
+        empleados.nombre_empleado =   (empleados.nombre_empleado.concat(', ', empleados.apellidos_pat_empleado,' ', empleados.apellidos_mat_empleado,'- ',empleados.dni_empleado))
+        return empleados;
       });
     });
-    this.mantenimientosService.getEmpleado().subscribe((resp) => {
-      this.empleados =resp as DataEmpleado[];
-    });
-
     this.mantenimientosService.getLinea().subscribe((resp) => {
       this.linea = resp as DataLinea[];
     });
@@ -91,39 +96,61 @@ export class AddcotizacionComponent implements OnInit {
       idEmpleado: null,
       detalle: '',
       fecha_entrega: '',
-      descuento_cot: 0,
-      costo_envio: 0,
-      total_costo: 0,
+      descuento_cot: '0',
+      costo_envio: '0.00',
+      total_costo: '0.00',
       codigo_cotizacion_num: '',
       estadoCotizacion: '',
       nombre_empleado: '',
       nombre_proovedor: '',
       idTipoMoneda: null,
-      totalGeneral: 0,
+      totalGeneral: '0.00',
       idTipoCotizacion: null,
       idLinea: null,
-      porcentajeDscto:0
+      porcentajeDscto:'0.00'
     };
     this.kardexService.detalleCotizacion = [];
   }
-  myFunction(){
+  onDecimal() {  
+    if( this.kardexService.formData.descuento_cot == null ){  
+       this.kardexService.formData.descuento_cot = '0'; 
+       this.updateMontoTotal(); 
+    }
+       else if (this.kardexService.formData.porcentajeDscto == null){
+         this.kardexService.formData.porcentajeDscto ='0.00';
+         this.updateMontoTotal(); 
+       }
+       else if (this.kardexService.formData.costo_envio == null){
+         this.kardexService.formData.costo_envio ='0.00';
+         this.updateMontoTotal(); 
+       }
+       
+    else {
+       // this.ventaService.formData.descuento_cot= (Number.parseFloat(this.ventaService.formData.descuento_cot).toFixed(2)); 
+      //  this.kardexService.formData.descuento_cot= (Number.parseFloat(this.kardexService.formData.descuento_cot).toFixed(2)); 
     
-}
+       this.kardexService.formData.porcentajeDscto= (Number.parseFloat(this.kardexService.formData.porcentajeDscto).toFixed(2)); 
+        this.kardexService.formData.costo_envio= (Number.parseFloat(this.kardexService.formData.costo_envio).toFixed(2)); 
+        this.kardexService.formData.total_costo= (Number.parseFloat(this.kardexService.formData.total_costo).toFixed(2)); 
+        this.kardexService.formData.totalGeneral= (Number.parseFloat(this.kardexService.formData.totalGeneral).toFixed(2)); 
+     
+     } 
+   
+   } 
   AddOrEditOrderItem(orderItemIndex, id) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
     dialogConfig.width = '35%';
     dialogConfig.data = { orderItemIndex, id };
-    // console.log(orderItemIndex, id);
-    // afterClosed().subscribe; es para cuando se cierre el poput actualize el rpecio
-    this.dialog
+      this.dialog
       .open(DetallecotizacionComponent, dialogConfig)
       .afterClosed()
       .subscribe((resp) => {
         //  console.log(resp);
         this.updateTotal();
         this.updateMontoTotal();
+        this.onDecimal();
       });
   }
 
@@ -142,6 +169,8 @@ export class AddcotizacionComponent implements OnInit {
         this.kardexService.deleteDetalleCotizacion(id).subscribe();
         this.kardexService.detalleCotizacion.splice(i, 1);
         this.updateTotal();
+        this.updateMontoTotal();
+        this.onDecimal();
       }
     });
   }
@@ -157,15 +186,12 @@ export class AddcotizacionComponent implements OnInit {
     );
   }
   updateMontoTotal() {
-    let porcentaje = (
-      this.kardexService.formData.total_costo -
-      this.kardexService.formData.total_costo *
+    let porcentaje = (this.kardexService.formData.total_costo - this.kardexService.formData.total_costo *
         (this.kardexService.formData.descuento_cot / 100)
     ).toString();
     let costo_envio = this.kardexService.formData.costo_envio.toString();
     let porcentajeGeneral = (this.kardexService.formData.total_costo  * this.kardexService.formData.descuento_cot/100).toString();
-    this.kardexService.formData.totalGeneral =
-      parseFloat(porcentaje) + parseFloat(costo_envio);
+    this.kardexService.formData.totalGeneral = parseFloat(porcentaje) + parseFloat(costo_envio);
       this.kardexService.formData.porcentajeDscto = (parseFloat(porcentajeGeneral));
 
 

@@ -562,9 +562,7 @@ GuardaSalidaAlmacen() {
      console.log('nuevo array',nuevoArregloTemp); 
       return this.http.post(`${this.baseURL}devolucion-producto-oc`, body).pipe(
         map((resp) => 
-      resp['data'])
- 
-
+      resp['data']) 
       );
   }
   

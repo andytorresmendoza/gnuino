@@ -1,4 +1,4 @@
-<h1><small>Editar Orden Compra</small></h1>
+<h1><small>Editar Orden Venta</small></h1>
 <hr />
 <div class="row text-right">
   <div class="col">
@@ -236,7 +236,7 @@
   
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4" *ngIf ="ventaService.formOrdenVenta.idTipoPago !== 1">
         <div class="form-group">
           <label> Banco</label>
           <ng-select
@@ -256,7 +256,7 @@
   </div>
 
   <div class="row"> 
-    <div class="col-md-4">
+    <div class="col-md-4" *ngIf ="ventaService.formOrdenVenta.idTipoPago !== 1">
         <div class="form-group">
           <label> Nro Voucher</label>
           <input

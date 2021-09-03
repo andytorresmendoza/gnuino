@@ -8,7 +8,8 @@ import { ToastrService } from 'ngx-toastr';
 import {MatTableDataSource} from '@angular/material/table';
 import { VentaService } from 'src/app/services/venta/venta.service';
 import { DataCotizacionVenta } from 'src/app/models/cotizacionventa';
-import { CambiomedidaventaComponent } from '../cambiomedidaventa/cambiomedidaventa.component';
+import { CambiomedidaventaComponent } from '../cambiomedidaventa/cambiomedidaventa.component'; 
+import { VistapreviacotizacionComponent } from '../vistapreviacotizacion/vistapreviacotizacion.component';
 @Component({
   selector: 'app-listarcotizacion',
   templateUrl: './listarcotizacion.component.html',
@@ -20,7 +21,7 @@ export class ListarcotizacionComponent implements OnInit {
   isButtonVisible:boolean=true; 
   // isButtonVisible:boolean=true;
   // displayedColumns: string[] = ['Nro Cotizacion', 'Proveedor', 'Empleado', 'Total', 'Fecha Entrega','Estado','details' ,'Anular'];
- displayedColumns: string[] = ['Nro Cotizacion', 'Proveedor', 'Empleado', 'Total', 'Fecha Entrega','Estado','details','cambio','Anular'];
+ displayedColumns: string[] = ['Vista','Nro Cotizacion', 'Proveedor', 'Empleado', 'Total', 'Fecha Entrega','Estado','details','cambio','Anular'];
   dataSource = new MatTableDataSource<DataCotizacionVenta>();
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -62,6 +63,19 @@ cambiomedida( id) {
   });
 
  }
+
+ vistaPrevia( id) {
+  console.log(id,'vista');
+ const dialogConfig = new MatDialogConfig();
+ dialogConfig.autoFocus = true;
+ dialogConfig.disableClose = true;
+ dialogConfig.width = "65%";
+ dialogConfig.data = { id };
+    this.dialog.open(VistapreviacotizacionComponent, dialogConfig).afterClosed().subscribe(resp=>{
+
+  });
+
+ }
 EstadoCotizacionAnular(cotizaciones: DataCotizacionVenta, i: number) {
  
 const bodyform = {id:cotizaciones.id, estadoCotizacion: '3'} 
@@ -70,7 +84,7 @@ this.ventaService.getCotizacionById(cotizaciones.id).subscribe(res => {
 });
 
  
- console.log(cotizaciones.id);
+//  console.log(cotizaciones.id);
  Swal.fire({
    title: 'Esta seguro?',
    text: `Que desea Anular la cotizacion Venta Nro${cotizaciones.codigo_cotizacion_num_venta}`,

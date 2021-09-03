@@ -31,6 +31,17 @@
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <!-- Position Column -->
+
+  <ng-container matColumnDef="Vista">
+    <th mat-header-cell *matHeaderCellDef>Vista Previa</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button  (click)="vistaPrevia(element.id)">
+        <mat-icon>pageview</mat-icon>
+      </button>
+
+    </td>
+  </ng-container> 
+
   <ng-container matColumnDef="Nro Cotizacion">
     <th mat-header-cell *matHeaderCellDef>Nro Cotizacion</th>
     <td mat-cell *matCellDef="let element">

@@ -23,6 +23,7 @@ export class AddClienteComponent implements OnInit {
   public paises: PaisI[];
   public departamentos: DataDepartamento[] = [];
   public provincias: DataProvincia[] = [];
+  public categoriaCliente: any[]=[];
   public formData: DataCliente;
   tipodocumentos: DataTipodocumento[] = [];
 
@@ -49,7 +50,13 @@ export class AddClienteComponent implements OnInit {
 
     this.mantenimientosServices.getTipodocumento().subscribe((resp) => {
       this.tipodocumentos = resp;
-      this.cargando = false;
+      // this.cargando = false;
+    });
+
+    this.mantenimientosServices.getCategoriaCliente().subscribe((resp) => {
+      this.categoriaCliente = resp;
+      // console.log(resp);
+      // this.cargando = false;
     });
 
     this.getDepartamento();
@@ -75,6 +82,7 @@ export class AddClienteComponent implements OnInit {
       idDepartamento: null,
       idProvincia: null,
       idDistrito: null,
+      idcategoriacliente:null
     };
   }
 
@@ -127,6 +135,7 @@ export class AddClienteComponent implements OnInit {
         title: 'Seleccionar Pais',
         icon: 'error',
       });
+    
       else if  (form.value.idPais == 177 ){  
         if  (form.value.idDepartamento == null || form.value.idDepartamento == 0 || form.value.idProvincia == null || form.value.idProvincia == 0 || form.value.idDistrito == null || form.value.idDistrito == 0 )
  
@@ -135,7 +144,11 @@ export class AddClienteComponent implements OnInit {
            icon: 'error',
          });    
          }
-        
+         else if (form.value.idcategoriacliente == null)
+         return Swal.fire({
+           title: 'Seleccionar Categoria Cliente',
+           icon: 'error',
+         });
          return;
   }
   onSubmit(form: NgForm): void {
@@ -165,6 +178,7 @@ export class AddClienteComponent implements OnInit {
         idDepartamento: form.value.idDepartamento,
         idProvincia: form.value.idProvincia,
         idDistrito: form.value.idDistrito,
+        idcategoriacliente:form.value.idcategoriacliente,
         estado: '1',
       };
  
@@ -172,14 +186,13 @@ export class AddClienteComponent implements OnInit {
         this.mantenimientosServices
           .updateCliente(bodyform)
           .subscribe((resp) => {
-            this.toastr.success('Actualizado Exitosamente', 'Gnuino');
-            this.router.navigate(['../mantenimientos/listarcliente']);
+            resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success('Guardado Exitosamente', 'Gnuino' )
+             this.router.navigate(['../mantenimientos/listarcliente']);
           });
       } else {
-        this.mantenimientosServices.saveCliente(bodyform).subscribe((res) => {
- 
-          this.resetForm();
-          this.toastr.success('Guardado Exitosamente', 'Gnuino');
+        this.mantenimientosServices.saveCliente(bodyform).subscribe((res) => { 
+        res.code === 401 ?  this.toastr.warning(res.msg ):  this.toastr.success('Guardado Exitosamente', 'Gnuino')
+          this.resetForm(); 
           this.router.navigate(['../mantenimientos/listarcliente']);
         });
       }
@@ -199,6 +212,7 @@ export class AddClienteComponent implements OnInit {
         idDepartamento: 0,
         idProvincia: 0,
         idDistrito: 0,
+        idcategoriacliente:form.value.idcategoriacliente,
         estado: '1',
       };
  
@@ -206,14 +220,14 @@ export class AddClienteComponent implements OnInit {
         this.mantenimientosServices
           .updateCliente(bodyform)
           .subscribe((resp) => {
-            this.toastr.success('Actualizado Exitosamente', 'Gnuino');
+            resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success('Guardado Exitosamente', 'Gnuino' )
+      
             this.router.navigate(['../mantenimientos/listarcliente']);
           });
       } else {
         this.mantenimientosServices.saveCliente(bodyform).subscribe((res) => {
-          //console.log(res);
-          this.resetForm();
-          this.toastr.success('Guardado Exitosamente', 'Gnuino');
+          res.code === 401 ?  this.toastr.warning(res.msg ):  this.toastr.success('Guardado Exitosamente', 'Gnuino' )
+          this.resetForm(); 
           this.router.navigate(['../mantenimientos/listarcliente']);
         });
       }

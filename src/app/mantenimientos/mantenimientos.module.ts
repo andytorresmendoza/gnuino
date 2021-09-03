@@ -11,6 +11,8 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 //nuevos
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
 
 // MANTENIMIENTOS
 import { ListarNrocuentaComponent } from './nrocuenta/listar-nrocuenta/listar-nrocuenta.component';
@@ -79,6 +81,10 @@ import { AddPrecioVentaComponent } from './precioventa/add-precio-venta/add-prec
 import { ListarPrecioVentaComponent } from './precioventa/listar-precio-venta/listar-precio-venta.component';
 import { AddbancoventaComponent } from './bancoventa/addbancoventa/addbancoventa.component';
 import { ListarbancoventaComponent } from './bancoventa/listarbancoventa/listarbancoventa.component';
+import { ListarcampaniaComponent } from './campania/listarcampania/listarcampania.component';
+import { AddcampaniaComponent } from './campania/addcampania/addcampania.component';
+import { EditusuarioComponent } from './usuario/editusuario/editusuario.component';
+import { ResetusuarioComponent } from './usuario/resetusuario/resetusuario.component';
  
 
 @NgModule({
@@ -142,6 +148,10 @@ import { ListarbancoventaComponent } from './bancoventa/listarbancoventa/listarb
     ListarPrecioVentaComponent,
     AddbancoventaComponent,
     ListarbancoventaComponent,
+    ListarcampaniaComponent,
+    AddcampaniaComponent,
+    EditusuarioComponent,
+    ResetusuarioComponent 
     // ListarbancoventaComponent
    
   ],
@@ -159,8 +169,8 @@ import { ListarbancoventaComponent } from './bancoventa/listarbancoventa/listarb
     MatTableModule,
     MatIconModule,
     MatButtonModule,
-    NgSelectModule,
+    NgSelectModule,MatPaginatorModule, MatDialogModule
   ],
-  exports: [HomeComponent, MantenimientosComponent],
+  exports: [HomeComponent, MantenimientosComponent,MatPaginatorModule],
 })
 export class MantenimientosModule {}

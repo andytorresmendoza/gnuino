@@ -38,7 +38,7 @@ export class AddProductoComponent implements OnInit {
     if (id !== 'nuevo') {
       this.mantenimientoService.getProductoId(+id).subscribe(res => {
          this.formData = res[0]; 
-         //console.log(res[0].id,'id');
+          // console.log(res);
           //  console.log( this.formData);
 
 

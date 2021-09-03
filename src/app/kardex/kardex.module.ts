@@ -22,6 +22,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
    import { MatTableModule} from '@angular/material/table';
    import {MatIconModule} from '@angular/material/icon';
    import {MatButtonModule} from '@angular/material/button';
+   import {MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -146,7 +147,7 @@ import { ListapruebaComponent } from './listaprueba/listaprueba.component';
      MatDatepickerModule,
      MatNativeDateModule,
      AutocompleteLibModule,
-     MatAutocompleteModule, NgSelectModule,MatInputModule,MatTableModule,MatIconModule,MatButtonModule
+     MatAutocompleteModule, NgSelectModule,MatInputModule,MatTableModule,MatIconModule,MatButtonModule, MatPaginatorModule
     //  ,MatMenuModule
 
    
@@ -155,7 +156,7 @@ import { ListapruebaComponent } from './listaprueba/listaprueba.component';
   ],
   entryComponents:[DetallecotizacionComponent],
   exports:[     
-    KardexComponent
+    KardexComponent, MatPaginatorModule
   ],
   providers:[KardexService,ExporterService, {provide: MAT_DATE_LOCALE, useValue: 'es-ES'}]
   

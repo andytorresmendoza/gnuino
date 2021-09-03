@@ -30,20 +30,20 @@ export class AddempleadodeliveryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.mantenimientosService.getEmpleado()
-    .subscribe(resp => {
-     
-        this.empleados = resp as DataEmpleado[]  
-  
-   });
-  
+    this.mantenimientosService.getEmpleado().subscribe(resp => {
+      // console.log(resp);
+      this.empleados = (resp as DataEmpleado[]).filter(valor=>valor.idPerfilUsuario === 6)
+      .map(empleados=>{ 
+        empleados.nombre_empleado =   (empleados.nombre_empleado.concat(', ', empleados.apellidos_pat_empleado,' ', empleados.apellidos_mat_empleado))
+        return empleados;
+      });
+    });
     
 
 
    this.mantenimientosService.getDistritoAll()
    .subscribe(resp => {  
-   this.distritos = (resp).
-   filter(valor => valor.idProvincia === 1401 );
+   this.distritos = (resp).filter(valor => valor.idProvincia === 1401 );
   //  console.log( this.distritos);
    } );
     this.formData = Object.assign({ 

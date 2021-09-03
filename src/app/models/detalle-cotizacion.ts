@@ -10,9 +10,9 @@ export interface DataDetalleCotizacion {
   codigo_cotizacion_num:string;
   idProducto:number;
   nombre_producto:string;
-  cantidad:number;		
-  precio_unidad:number;
-  precio_total:number;
+  cantidad:string;		
+  precio_unidad:string;
+  precio_total:string;
   observaciones:string;   
   /*nuevo */
   detalleNameUnidadMedida :string;

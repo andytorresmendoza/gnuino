@@ -17,6 +17,7 @@ import { DataLinea } from '../../../models/linea';
 import { DataTipoCoti } from '../../../models/tipo-cotizacion';
 import { DataTipoMoneda } from '../../../models/tipo-moneda';
 import { DataDistrito } from '../../../models/countries';
+import { DataCampaniaVenta } from '../../../models/campaniaVenta';
 @Component({
   selector: 'app-addcotizacion',
   templateUrl: './addcotizacion.component.html',
@@ -30,6 +31,8 @@ export class AddcotizacionComponent implements OnInit {
   tipocotizacion: DataTipoCoti[];
   tipoMoneda:DataTipoMoneda[];
   distritos: DataDistrito[] ;
+  campania:DataCampaniaVenta[];
+  canalVenta:any[];
   isValid:boolean = true;
   isButtonVisible:boolean=true; 
  
@@ -46,10 +49,12 @@ export class AddcotizacionComponent implements OnInit {
     let id = this.currentRoute.snapshot.paramMap.get('id');
     if (id !== 'nuevo') {
       this.ventaService.getCotizacionById(+id).subscribe(res => {
-        // console.log(res);
-         this.ventaService.formData = res[0];  
+         console.log(res);
+        this.ventaService.formData = res[0];   
         this.ventaService.detalleCotizacion = res[0].detalleCotizacion;
- 
+        this.ventaService.formData.descripcion_catcli = res[0].detalleCatCliente 
+
+        console.log(this.ventaService.formData.descripcion_catcli);
        if (res[0].idEstadoFlujo ==  2 || res[0].idEstadoFlujo ==  3 ) {
         this.isButtonVisible=false;
        } else {
@@ -66,37 +71,30 @@ export class AddcotizacionComponent implements OnInit {
     .subscribe(resp => {
       this.productos = resp as DataProducto[]  
    });
- 
-  /* this.mantenimientosService.getCliente()
-   .subscribe(resp => {
-     this.clientes = resp as DataCliente[]  
-     console.log(this.clientes);
-  });
-*/
+
+
 this.mantenimientosService.getCliente().subscribe(resp => {
   // console.log(resp);
+ 
+ 
+
   this.clientes = (resp as DataCliente[])
   .map(clientes=>{
     // clientes.nombre_cliente = clientes.nombre_cliente.toUpperCase();
    clientes.nombre_cliente =   (clientes.nombre_cliente.concat(', ', clientes.apellidos_pat_cliente,' ',clientes.apellidos_mat_cliente,'- ',clientes.dni_cliente))
     return clientes;
-  });
+  }); 
 });
 
-  /*this.mantenimientosService.getProveedor().subscribe((resp) => {
-    this.proveedores = (resp as DataProveedor[])
-    .map(proveedores=>{
-      proveedores.nombre_proovedor = proveedores.nombre_proovedor.toUpperCase();
-      return proveedores;
-    });
-  });*/
-
-
-   this.mantenimientosService.getEmpleado()
-   .subscribe(resp => {
-    
-       this.empleados = resp as DataEmpleado[]  
  
+
+  this.mantenimientosService.getEmpleado().subscribe(resp => {
+    // console.log(resp);
+    this.empleados = (resp as DataEmpleado[])
+    .map(empleados=>{ 
+      empleados.nombre_empleado =   (empleados.nombre_empleado.concat(', ', empleados.apellidos_pat_empleado,' ', empleados.apellidos_mat_empleado,'- ',empleados.dni_empleado))
+      return empleados;
+    });
   });
   this.mantenimientosService.getLinea()
   .subscribe(resp => {
@@ -108,9 +106,10 @@ this.mantenimientosService.getCliente().subscribe(resp => {
   //  console.log(resp);
 });
 
- this.mantenimientosService.getTipCotizacion()
+ this.mantenimientosService.getTipCotizacionVenta()
  .subscribe(resp => {
    this.tipocotizacion = resp as DataTipoCoti[]  
+   console.log(resp);
 });
  
 
@@ -118,13 +117,29 @@ this.mantenimientosService.getCliente().subscribe(resp => {
    .subscribe(resp => {  
    this.distritos = (resp).
    filter(valor => valor.idProvincia === 1401 );
-  //  console.log( this.distritos);
+
    } );
+
+   this.mantenimientosService.getCampaniaVenta()
+   .subscribe(resp => {
+     this.campania = resp as DataCampaniaVenta[]  
+  });
+  this.mantenimientosService.getCanalVenta()
+   .subscribe(resp => {
+    //  console.log(resp);
+     this.canalVenta = resp as any[]  
+  });
 
  
   }
 
-
+  UpdateCliente= ($event: any): void => { 
+//  console.log($event,'EVENTO CLIENTE');
+    this.ventaService.formData.descripcion_catcli = $event.detalleCategoriaCliente[0].descripcion_catcli
+    this.ventaService.formData.idcategoriaCliente = $event.detalleCategoriaCliente[0].id
+        
+        
+         }
   resetForm(form?:NgForm){
     if(form =null)
     form.resetForm();
@@ -137,21 +152,23 @@ this.mantenimientosService.getCliente().subscribe(resp => {
       idLinea:null,//ok
       detalle:'',//ok
       fechaCotizacion: '',//ok
-      descuento_cot:0,//ok
-      costo_delivery:0,//ok
-      total_productos:0,//ok
+      descuento_cot:0,//CONVIERTIENDO A DECIMAL
+      costo_delivery:'0.00',//ok
+      total_productos:'0.00',//ok
       idDistrito:null,//ok
-      totalGeneral:0,//ok
+      totalGeneral:'0.00',//ok
       codigo_cotizacion_num_venta:'',
       estadoCotizacion: '',
       nombre_empleado:'',
       nombre_cliente:'',
       idTipoMoneda:null,//ok
       fechaEntrega:'',
-      porcentajeDscto:0
-     
-   //   telefono: '',
-     // direccion:''
+      porcentajeDscto:'0.00',
+      idCampain:null,
+      idCanalVenta:null,
+      descripcion_catcli:'',
+      idcategoriaCliente:0
+ 
       
 
  };
@@ -165,13 +182,11 @@ this.ventaService.detalleCotizacion = [];
   dialogConfig.autoFocus = true;
   dialogConfig.disableClose = true;
   dialogConfig.width = "50%";
-  dialogConfig.data = { orderItemIndex, id };
-  // console.log(orderItemIndex, id);
-  // afterClosed().subscribe; es para cuando se cierre el poput actualize el rpecio
-   this.dialog.open(DetallecotizacionComponent, dialogConfig).afterClosed().subscribe(resp=>{
-  //  console.log(resp);
+  dialogConfig.data = { orderItemIndex, id }; 
+   this.dialog.open(DetallecotizacionComponent, dialogConfig).afterClosed().subscribe(resp=>{ 
     this.updateTotal();
     this. updateMontoTotal();
+    this.onDecimal();
    });
  
   } 
@@ -190,10 +205,37 @@ this.ventaService.detalleCotizacion = [];
      this.ventaService.deleteDetalleCotizacion( id).subscribe();
       this.ventaService.detalleCotizacion.splice(i,1); 
       this.updateTotal();
+      this.updateMontoTotal();
+      this.onDecimal();
+
       }
     });
   }
+  onDecimal() {  
+ if( this.ventaService.formData.costo_delivery == null ){  
+    this.ventaService.formData.costo_delivery = '0.00'; 
+    this.updateMontoTotal(); 
+ }
+    else if (this.ventaService.formData.descuento_cot == null){
+      this.ventaService.formData.descuento_cot ='0';
+      this.updateMontoTotal(); 
+    }
+    else if (this.ventaService.formData.porcentajeDscto == null){
+      this.ventaService.formData.porcentajeDscto ='0.00';
+      this.updateMontoTotal(); 
+    }
+ else {
+    // this.ventaService.formData.descuento_cot= (Number.parseFloat(this.ventaService.formData.descuento_cot).toFixed(2)); 
+    this.ventaService.formData.costo_delivery= (Number.parseFloat(this.ventaService.formData.costo_delivery).toFixed(2)); 
+    this.ventaService.formData.totalGeneral= (Number.parseFloat(this.ventaService.formData.totalGeneral).toFixed(2)); 
+    this.ventaService.formData.porcentajeDscto= (Number.parseFloat(this.ventaService.formData.porcentajeDscto).toFixed(2)); 
+     this.ventaService.formData.total_productos= (Number.parseFloat(this.ventaService.formData.total_productos).toFixed(2)); 
   
+  } 
+
+} 
+
+
   updateTotal(){
    this.ventaService.formData.total_productos = this.ventaService.detalleCotizacion.reduce(
      (prev,curr)=>{
@@ -202,8 +244,7 @@ this.ventaService.detalleCotizacion = [];
     let total =  curr.precioVenta.toString(); 
     let cantidad =  curr.cantidad.toString();  
  
-       return   (parseFloat(prevparse)+ (parseFloat(total) * parseFloat(cantidad))) 
-      //  return   (parseFloat(prevparse)+ ((parseFloat(total)) * (parseFloat(cantidad))) 
+       return   (parseFloat(prevparse)+ (parseFloat(total) * parseFloat(cantidad)))  
     } 
     
     ,0); 
@@ -212,8 +253,9 @@ this.ventaService.detalleCotizacion = [];
 
   }
 
-   updateMontoTotal(){
+  updateMontoTotal(){ 
 
+   
     let porcentaje = (this.ventaService.formData.total_productos - (this.ventaService.formData.total_productos * (this.ventaService.formData.descuento_cot/100))).toString();
     let costo_envio = this.ventaService.formData.costo_delivery.toString();
     let porcentajeGeneral = (this.ventaService.formData.total_productos  * this.ventaService.formData.descuento_cot/100).toString(); 
@@ -221,19 +263,16 @@ this.ventaService.detalleCotizacion = [];
     this.ventaService.formData.totalGeneral = ((parseFloat(porcentaje) + parseFloat(costo_envio)));
     this.ventaService.formData.porcentajeDscto = (parseFloat(porcentajeGeneral));
 
-   
-  //  console.log(object);
-  // console.log(this.kardexService.formData.totalGeneral );
+ 
     }
-    onKey($event: any){
-      console.log($event);
-
-    }
+ 
 
     onChangeCliente = ($event: any): void => {
     this.ventaService.formData.nombre_cliente= $event.nombre_cliente; 
      
    } 
+
+  
   validateForm(){
     this.isValid = true;
      if(this.ventaService.detalleCotizacion.length==0)
@@ -247,8 +286,18 @@ this.ventaService.detalleCotizacion = [];
     if(form.value.idTipoCotizacion == null )
        return   Swal.fire({
           title: 'Seleccionar Tipo Cotización' , 
-          icon: 'error',
+          icon: 'error', 
         });   
+        else if  (form.value.idCampain == null )   
+        return   Swal.fire({
+           title: 'Seleccionar Campaña' , 
+           icon: 'error',
+         });   
+         else if  (form.value.idCanalVenta == null )   
+         return   Swal.fire({
+            title: 'Seleccionar Canal Venta' , 
+            icon: 'error',
+          });   
         else if  (form.value.idCliente == null )
         return   Swal.fire({
            title: 'Seleccionar Cliente' , 

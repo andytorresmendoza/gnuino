@@ -133,12 +133,7 @@ export class AddordenventaComponent implements OnInit {
       return   Swal.fire({
          title: 'Seleccionar Forma Pago' , 
          icon: 'error',
-       });   
-       else if  (form.value.idBanco == null )
-       return   Swal.fire({
-          title: 'Seleccionar Banco' , 
-          icon: 'error',
-        });   
+       });    
 
     }
     onSubmit(form: NgForm) {

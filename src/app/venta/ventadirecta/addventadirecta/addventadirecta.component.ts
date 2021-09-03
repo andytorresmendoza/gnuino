@@ -20,6 +20,7 @@ import { DataDistrito } from '../../../models/countries';
 import { DetalleventadirectaComponent } from '../detalleventadirecta/detalleventadirecta.component';
 import { DataTipoPago } from '../../../models/tipopago'; 
 import { DataBancoVenta } from '../../../models/bancoventa';
+import { DataCampaniaVenta } from '../../../models/campaniaVenta';
 @Component({
   selector: 'app-addventadirecta',
   templateUrl: './addventadirecta.component.html',
@@ -37,7 +38,8 @@ export class AddventadirectaComponent implements OnInit {
   isButtonVisible:boolean=true; 
   tipopagos: any[] = [];
   bancos: DataBancoVenta[];
- 
+  campania:DataCampaniaVenta[];
+  canalVenta:any[];
 
   constructor(public ventaService: VentaService,
     // public kardexService: KardexService,  
@@ -55,6 +57,8 @@ export class AddventadirectaComponent implements OnInit {
           // console.log(res);
            this.ventaService.formVenta = res[0];  
           this.ventaService.detalleVentaDirecta = res[0].detalleCotizacion; 
+          this.ventaService.formVenta.descripcion_catcli = res[0].detalleCatCliente 
+
          if (res[0].idEstadoFlujo ==  2 || res[0].idEstadoFlujo ==  3 ) {
           this.isButtonVisible=false;
          } else {
@@ -73,7 +77,7 @@ export class AddventadirectaComponent implements OnInit {
      });
    
      this.mantenimientosService.getCliente().subscribe(resp => {
-      console.log(resp);
+      // console.log(resp);
       this.clientes = (resp as DataCliente[])
       .map(clientes=>{
         // clientes.nombre_cliente = clientes.nombre_cliente.toUpperCase();
@@ -81,11 +85,13 @@ export class AddventadirectaComponent implements OnInit {
         return clientes;
       });
     });
-     this.mantenimientosService.getEmpleado()
-     .subscribe(resp => {
-      
-         this.empleados = resp as DataEmpleado[]  
-   
+    this.mantenimientosService.getEmpleado().subscribe(resp => {
+      // console.log(resp);
+      this.empleados = (resp as DataEmpleado[])
+      .map(empleados=>{ 
+        empleados.nombre_empleado =   (empleados.nombre_empleado.concat(', ', empleados.apellidos_pat_empleado,' ', empleados.apellidos_mat_empleado,'- ',empleados.dni_empleado))
+        return empleados;
+      });
     });
     this.mantenimientosService.getLinea()
     .subscribe(resp => {
@@ -97,7 +103,7 @@ export class AddventadirectaComponent implements OnInit {
     //  console.log(resp);
   });
   
-   this.mantenimientosService.getTipCotizacion()
+   this.mantenimientosService.getTipCotizacionVenta()
    .subscribe(resp => {
      this.tipocotizacion = resp as DataTipoCoti[]  
   });
@@ -117,8 +123,25 @@ export class AddventadirectaComponent implements OnInit {
       this.bancos = resp as DataBancoVenta[];
       //  console.log(this.bancos);
     });
+    this.mantenimientosService.getCampaniaVenta()
+    .subscribe(resp => {
+      this.campania = resp as DataCampaniaVenta[]  
+      // console.log(this.campania);
+   });
+   this.mantenimientosService.getCanalVenta()
+    .subscribe(resp => {
+     //  console.log(resp);
+      this.canalVenta = resp as any[]  
+   });
     }
   
+    UpdateCliente= ($event: any): void => { 
+//  console.log($event,'EVENTO');
+      this.ventaService.formVenta.descripcion_catcli = $event.detalleCategoriaCliente[0].descripcion_catcli
+      this.ventaService.formVenta.idcategoriaCliente = $event.detalleCategoriaCliente[0].id
+          
+          
+           }
   
     resetForm(form?:NgForm){
       if(form =null)
@@ -132,19 +155,22 @@ export class AddventadirectaComponent implements OnInit {
         idLinea:null,//ok
         detalle:'',//ok
         fechaVentaDirecta: '',//
-        descuento_venta:0,//ok
-        total_productos:0,//
-        monto_total:0,//
+        descuento_venta:'0',//ok
+        total_productos:'0.00',//
+        monto_total:'0.00',//
         codigo_cotizacion_dir_num_venta:'',
         estadoCotizacion: '',
         nombre_empleado:'',
         nombre_cliente:'',
-        idTipoMoneda:null,//ok
-        
+        idTipoMoneda:null,//ok 
         idTipoPago:null,//ok
         idBanco:null,//ok
         nroVouher:'',
-        porcentajeDscto:0
+        porcentajeDscto:'0.00',
+        idCampain:null,
+        idCanalVenta:null,
+        descripcion_catcli:'',
+        idcategoriaCliente:0
        
      //   telefono: '',
        // direccion:''
@@ -168,6 +194,7 @@ export class AddventadirectaComponent implements OnInit {
     //  console.log(resp);
       this.updateTotal();
       this. updateMontoTotal();
+      this.onDecimal();
      });
    
     } 
@@ -186,6 +213,8 @@ export class AddventadirectaComponent implements OnInit {
        this.ventaService.deleteDetalleVentaDirecta( id).subscribe();
         this.ventaService.detalleVentaDirecta.splice(i,1); 
         this.updateTotal();
+        this. updateMontoTotal();
+        this.onDecimal();
         }
       });
     }
@@ -207,15 +236,23 @@ export class AddventadirectaComponent implements OnInit {
    
   
     }
-  
+    onDecimal() {  
+      if( this.ventaService.formVenta.descuento_venta == null ){  
+         this.ventaService.formVenta.descuento_venta = '0'; 
+         this.updateMontoTotal(); 
+      }
+      else{
+        this.ventaService.formVenta.total_productos= (Number.parseFloat(this.ventaService.formVenta.total_productos).toFixed(2)); 
+        this.ventaService.formVenta.monto_total= (Number.parseFloat(this.ventaService.formVenta.monto_total).toFixed(2)); 
+     
+      }
+     
+     } 
      updateMontoTotal(){
   
       let porcentaje = (this.ventaService.formVenta.total_productos - (this.ventaService.formVenta.total_productos * (this.ventaService.formVenta.descuento_venta/100))).toString();
       let porcentajeGeneral = (this.ventaService.formVenta.total_productos  * this.ventaService.formVenta.descuento_venta/100).toString();
-      // let costo_envio = this.ventaService.formVenta.costo_delivery.toString()
-  
-      // this.ventaService.formVenta.totalGeneral = (parseFloat(porcentaje) + parseFloat(costo_envio));
-      this.ventaService.formVenta.monto_total = (parseFloat(porcentaje)  );
+      this.ventaService.formVenta.monto_total = (parseFloat(porcentaje));
       this.ventaService.formVenta.porcentajeDscto = (parseFloat(porcentajeGeneral));
 
      
@@ -242,6 +279,16 @@ export class AddventadirectaComponent implements OnInit {
             title: 'Seleccionar Tipo Cotización' , 
             icon: 'error',
           });   
+          else if  (form.value.idCampain == null )   
+          return   Swal.fire({
+             title: 'Seleccionar Campaña' , 
+             icon: 'error',
+           });   
+           else if  (form.value.idCanalVenta == null )   
+           return   Swal.fire({
+              title: 'Seleccionar Canal Venta' , 
+              icon: 'error',
+            });   
           else if  (form.value.idCliente == null )
           return   Swal.fire({
              title: 'Seleccionar Cliente' , 

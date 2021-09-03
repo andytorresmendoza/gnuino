@@ -33,11 +33,8 @@ export class DetalletransferenciaComponent implements OnInit {
 
     this.kardexService.getkardexById(this.data.id) 
     .subscribe(resp => {
-     // this.dataSource.data = resp[0].detalleCotizacion as DataDetalleCotizacionVenta[]; 
-     this.formData = resp[0];
-    //  console.log(resp,'que traer del kardex');
-     // console.log(this.ventaService.detalleCotizacionVentaCambio);
-  
+      this.formData = resp[0]; 
+      console.log(this.formData,'PRINCIPAL');
    });
     this.mantenimientosService.getProducto()
     .subscribe(resp => {
@@ -53,32 +50,12 @@ export class DetalletransferenciaComponent implements OnInit {
  });
 
  this.mantenimientosService.getTipoAlmacen2()
- .subscribe(resp => {
-   this.almacenes2 = resp as DataTipoAlmacen[]   
-  // console.log('sec', this.almacenes);
-});
-
+ .subscribe(resp => { 
+  this.almacenes2 = resp.
+  filter(valor=> valor.id  !==  this.formData.idAlmacen1  )  
  
- /*  this.formData = Object.assign({
-    id:this.data.id,
-    idProducto:0, 
-    cantidadGlobal: 0, 
-   // cantidadPrincipal:0,
-    cantidadTransferencia:0 , 
-    idSedeSecundaria:0,
-    idTipoIngreso:0,  
-    idAlmacen1: 0,
-    idAlmacen2: null,
-    detalleTransferencia:'',  
-    fechaTransferencia:'',
-  //agreagr
-    nombre_alamcen:'',
-    nombre_producto: '' ,
-
-   },
-   
-   this.kardexService.detalleTransferencia[this.data.id]);
-   console.log(this.data.id,'que trae');*/
+});
+ 
   }
   onChange = ($event: any): void => {
     this.formData.nombre_alamcen = $event.nombre_alamcen 

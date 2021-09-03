@@ -8,6 +8,9 @@ import {MatTableDataSource} from '@angular/material/table';
 import { VentaService } from 'src/app/services/venta/venta.service';
 import { DataCotizacionVenta } from 'src/app/models/cotizacionventa';
 import { DataVentaDirecta } from '../../../models/ventadirecta';
+// import { VistapreviadirectaComponent } from '../../../ventadirecta/vistapreviadirecta/vistapreviadirecta.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { VistapreviadirectaComponent } from '../vistapreviadirecta/vistapreviadirecta.component';
 @Component({
   selector: 'app-listarventadirecta',
   templateUrl: './listarventadirecta.component.html',
@@ -17,14 +20,14 @@ export class ListarventadirectaComponent implements OnInit {
   cotizaciones:DataVentaDirecta[]=[];
   cargando = true; 
   // isButtonVisible:boolean=true;
-  displayedColumns: string[] = ['Nro Venta', 'Proveedor', 'Empleado', 'Total', 'Fecha Venta','Estado','details','Anular'];
+  displayedColumns: string[] = ['Vista','Nro Venta', 'Proveedor', 'Empleado', 'Total', 'Fecha Venta','Estado','details','Anular'];
   dataSource = new MatTableDataSource<DataVentaDirecta>();
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   constructor
-  (private ventaService: VentaService, private router:Router,  private toastr: ToastrService ) { }
+  (private ventaService: VentaService,   private dialog: MatDialog, private router:Router,  private toastr: ToastrService ) { }
 
   ngOnInit(): void {
     this. getVentaDirecta();
@@ -50,7 +53,18 @@ openForEdit(CotizacionId: number) {
    this.router.navigate(['venta/ventadirecta/'+CotizacionId]);
 }
 
- 
+vistaPrevia( id) {
+  console.log(id,'vista');
+ const dialogConfig = new MatDialogConfig();
+ dialogConfig.autoFocus = true;
+ dialogConfig.disableClose = true;
+ dialogConfig.width = "65%";
+ dialogConfig.data = { id };
+  this.dialog.open(VistapreviadirectaComponent, dialogConfig).afterClosed().subscribe(resp=>{
+
+  });
+
+ }
  
 EstadoCotizacionAnular(cotizaciones: DataVentaDirecta, i: number) {
 // console.log(cotizaciones,'1');

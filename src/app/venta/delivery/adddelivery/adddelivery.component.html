@@ -139,6 +139,43 @@ name="idOrdenVenta"
     </div>
   </div>
 </div>
+
+<div class="row"> 
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Dirección</label>
+      <input
+      name="direccion"
+      #direccion="ngModel"
+      [(ngModel)]="formDataDelivery.detalleOrdenVenta[0].direccion"
+      class="form-control"
+      readonly
+    />
+        </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Tipo Pago</label>
+      <input
+      name="descripcion_pago"
+      #descripcion_pago="ngModel"
+      [(ngModel)]="formDataDelivery.detalleOrdenVenta[0].detalleTipoPago[0].descripcion_pago"
+      class="form-control"
+      readonly
+    />
+        </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
 <div class="row"> 
 <div class="col-md-4">
   <div class="form-group">

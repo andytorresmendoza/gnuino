@@ -1,4 +1,4 @@
-<h1><small>Orden Compra</small></h1>
+<h1><small>Orden Venta</small></h1>
 <hr />
 <div class="row text-right">
   <div class="col">
@@ -244,18 +244,18 @@
         placeholder="Buscar Forma de Pago"
         [(ngModel)]="ventaService.formOrdenVenta.idTipoPago"
       >
+   
         <ng-option *ngFor="let emp of tipopagos" [value]="emp.id">{{
           emp.descripcion_pago
         }}</ng-option>
+      
       </ng-select>
-
-
 
 
 
       </div>
     </div>
-      <div class="col-md-4">
+      <div class="col-md-4" *ngIf ="ventaService.formOrdenVenta.idTipoPago !== 1">
       <div class="form-group">
         <label> Banco</label>
         <ng-select
@@ -272,7 +272,7 @@
       </ng-select> 
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4"  *ngIf ="ventaService.formOrdenVenta.idTipoPago !== 1">
       <div class="form-group">
         <label> Nro Voucher</label>
         <input

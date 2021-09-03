@@ -66,6 +66,9 @@ import { AddPrecioDeliveryComponent } from './preciodelivery/add-precio-delivery
 // import { ListarbancoventaComponent } from './listarventa/listarbancoventa/listarbancoventa.component';
 import { AddbancoventaComponent } from './bancoventa/addbancoventa/addbancoventa.component';
 import { ListarbancoventaComponent } from './bancoventa/listarbancoventa/listarbancoventa.component';
+import { ListarcampaniaComponent } from './campania/listarcampania/listarcampania.component';
+import { AddcampaniaComponent } from './campania/addcampania/addcampania.component';
+import { EditusuarioComponent } from './usuario/editusuario/editusuario.component';
  
 const routes: Routes = [
  
@@ -125,6 +128,7 @@ const routes: Routes = [
     //  {path:'editalmacen', component: EditaralmacenComponent, data:{titulo:'Almacén'}},
      {path:'listarusuarios', component: ListarusuarioComponent, data:{titulo:'Usuarios'}},
      {path:'addusuario/:id', component: AddusuarioComponent, data:{titulo:'Usuarios'}},
+     {path:'editusuario/:id', component: EditusuarioComponent, data:{titulo:'Usuarios'}},
     //  {path:'editcliente', component: EditarClienteComponent, data:{titulo:'Cliente'}},
      {path:'listarcliente', component: ListarClienteComponent, data:{titulo:'Cliente'}},
      {path:'cliente/:id', component: AddClienteComponent, data:{titulo:'Cliente'}},
@@ -134,7 +138,9 @@ const routes: Routes = [
      {path:'listarpreciodelivery', component: ListarPrecioDeliveryComponent, data:{titulo:'Precio Venta'}},
      {path:'preciodelivery/:id', component: AddPrecioDeliveryComponent, data:{titulo:'Precio Delivery'}},
    {path:'listarbancoventa', component: ListarbancoventaComponent, data:{titulo:'Banco Venta'}},
-     {path:'bancoventa/:id', component: AddbancoventaComponent, data:{titulo:'Precio Delivery'}},
+     {path:'bancoventa/:id', component: AddbancoventaComponent, data:{titulo:'Banco Venta'}},
+     {path:'listarcampania', component: ListarcampaniaComponent, data:{titulo:'Campania Venta'}},
+     {path:'campania/:id', component: AddcampaniaComponent, data:{titulo:'Campania Venta'}},
   ]
 
  },

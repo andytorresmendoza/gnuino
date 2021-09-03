@@ -1,4 +1,3 @@
-
 export interface CotizacionVentaI {
   id: string;
   data: DataCotizacionVenta[];
@@ -12,23 +11,24 @@ export interface DataCotizacionVenta {
   idCliente: number;
   idEmpleado: number;
   idDistrito: number;
-  idLinea: number; 
+  idLinea: number;
   detalle: string;
   fechaCotizacion: string;
-  fechaEntrega:string;
-  descuento_cot: number;
-  costo_delivery: number;
-  total_productos: number;
-  estadoCotizacion: string;
-
+  fechaEntrega: string; 
+  costo_delivery: any;
+  total_productos: any;
+  estadoCotizacion: string; 
   idTipoMoneda: number;
-  totalGeneral: number;
+  totalGeneral: any;
   nombre_empleado: string;
   nombre_cliente: string;
-  porcentajeDscto:number;
+  porcentajeDscto: any;
+  descuento_cot: any;
+  idCampain:number;
+  idCanalVenta:number;
+  descripcion_catcli:string;
+  idcategoriaCliente:number;
   // NUEVO
   //telefono: string;
   //direccion: string;
-
-
 }

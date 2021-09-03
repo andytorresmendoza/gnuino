@@ -24,6 +24,8 @@
             [(ngModel)]="formData.username"
             class="form-control"
             placeholder="Nombre Usuario"
+            [class.is-invalid]="username.invalid && username.touched"
+            required
           />  
       </div>
   
@@ -38,25 +40,28 @@
              class="form-control"
              placeholder="Contraseña"
              type="password" 
+             [class.is-invalid]="password.invalid && password.touched"
+             required
            />  
        </div>
  
-      <div class="form-group col-md-4">
-          
+       <div class="col-md-4">
+        <div class="form-group">
           <label>Empleado</label>
-     
-          <ng-select 
-          [items]="empleados"
-         bindLabel="nombre_empleado"
-         bindValue="id" 
-         placeholder="Buscar Empleado"
-         name="idEmpleado"  
-         #idEmpleado="ngModel"
-         [(ngModel)]="formData.idEmpleado"  
-          >
-          <!-- (change)="onChange($event)"  ver esto para q sirve-->
-    </ng-select>
-      </div> 
+    
+          <ng-select  
+          style="text-transform:uppercase"
+          #idEmpleado="ngModel"  
+          name="idEmpleado" 
+          bindValue="idEmpleado" 
+          placeholder="Buscar Empleado" 
+          [(ngModel)]="formData.idEmpleado"  
+        >   
+      
+            <ng-option *ngFor="let emp of empleados" [value]="emp.id">{{emp.nombre_empleado}}</ng-option>
+         </ng-select> 
+        </div>
+      </div>
   
   </div>
  

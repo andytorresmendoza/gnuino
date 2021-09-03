@@ -16,8 +16,7 @@ export interface EmpleadoI {
     email_empleado:string;
     fecha_empleado:  string;  
     idPais: number; 
-    idPerfilUsuario:number;
-          
+    idPerfilUsuario:number; 
      estado: number;
     // created_at: Date;
     // updated_at: Date;

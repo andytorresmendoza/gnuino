@@ -257,6 +257,7 @@ name="costo_envio"
           [(ngModel)]="kardexService.formData.descuento_cot"
           class="form-control"
           (keyup)="updateMontoTotal()"
+          (change)="onDecimal($event)"
         />
       </div>
     </div>
@@ -282,6 +283,7 @@ name="costo_envio"
         [(ngModel)]="kardexService.formData.costo_envio"
         class="form-control"
         (keyup)="updateMontoTotal()" 
+        (change)="onDecimal($event)"
       />
  
     </div>

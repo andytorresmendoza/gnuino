@@ -58,15 +58,5 @@ AddCambio(orderItemIndex, id) {
    });
  
   }
-  /*onSubmit(form:NgForm) {
-    console.log(form.value,'value');
-    this.ventaService.saveCambioMedida().subscribe(res =>{
-      this.ngOnInit();
-  console.log(res,'respuesta');
-      // this.resetForm();
-      // this.toastr.success(res.msg );
-          this.router.navigate(["../venta/listarventa"]);
-    });
-
-  } */
+ 
 }

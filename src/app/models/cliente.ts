@@ -17,5 +17,7 @@ export interface ClienteI {
     idDepartamento:number;
     idProvincia:number;
     idDistrito:number;
+    idcategoriacliente:number 
+
     
   }

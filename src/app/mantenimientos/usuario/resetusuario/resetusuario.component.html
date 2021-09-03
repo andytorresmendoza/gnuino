@@ -1,0 +1,65 @@
+
+ <h4 class="dispaly-4"><small>Reset Contraseña
+ 
+ </small> 
+<hr />  
+<form 
+  #form="ngForm"
+  autocomplete="off"  
+  *ngIf="formDataUser"
+  (submit)="onSubmit(form)"
+
+>
+<input
+type="hidden" 
+name="username"
+#username="ngModel"
+[(ngModel)]="formDataUser.username"
+/>  
+
+
+  <div class="form-group">
+    <div class="row"> 
+        <div class="col-md-4">
+          <div class="form-group">
+            <label> Usuario  </label>
+            <input
+            style="text-transform:uppercase"
+              name="username"
+              #username="ngModel"
+              [(ngModel)]="formDataUser.username"
+              class="form-control"
+              placeholder="Nombre Usuario"
+              readonly
+            /> 
+          </div> 
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label> Contraseña  </label>
+            <input
+            style="text-transform:uppercase"
+            type="password" 
+              name="newPassword"
+              #newPassword="ngModel"
+              [(ngModel)]="formDataUser.newPassword"
+              class="form-control"
+              placeholder="Nueva Contraseña"
+              [class.is-invalid]="newPassword.invalid && newPassword.touched"
+             required
+            /> 
+          </div> 
+        </div>
+    </div>
+  </div>
+  <br>
+    <div class="form-group">
+      <button type="submit" class="btn btn-dark">
+        <i class="fa fa-database"></i> Guardar
+      </button>
+      <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]>
+        <i class="fa fa-close"></i> Salir
+      </button>
+    </div>
+    </form>
