@@ -333,10 +333,7 @@ saveVentaDirecta() {
   };
   let fechaParseada: any;
   fechaParseada = moment(body.fechaVentaDirecta).format('YYYY-MM-DD');
-  body.fechaVentaDirecta=fechaParseada;
-
- 
-
+  body.fechaVentaDirecta=fechaParseada; 
    console.log(body);
   return this.http.post(`${this.baseURL}venta-directa-cot`, body).pipe(
     map(

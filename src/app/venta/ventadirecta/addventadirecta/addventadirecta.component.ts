@@ -345,6 +345,7 @@ export class AddventadirectaComponent implements OnInit {
     this.validateForm();
     this.isButtonVisible = false;
      this.ventaService.saveVentaDirecta().subscribe(res =>{
+       console.log(res);
     
       this.resetForm();
       this.toastr.success(res.msg );

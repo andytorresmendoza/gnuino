@@ -60,14 +60,14 @@ disabled="disabled"
 
     <div class="form-group col-md-4">
 
-        <label>Empleado</label>
+        <label>Motorizado</label>
   
         <ng-select  
         style="text-transform:uppercase"
         #idEmpleado="ngModel"  
         name="idEmpleado" 
         bindValue="idEmpleado" 
-        placeholder="Buscar Empleado" 
+        placeholder="Buscar Motorizado" 
         [(ngModel)]="formData.idEmpleado"  
         (change)="onChangeMatch(formData.idEmpleado, formData.idDistrito)"
       >   
