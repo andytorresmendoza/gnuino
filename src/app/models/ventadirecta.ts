@@ -29,5 +29,7 @@ export interface DataVentaDirecta {
   idCanalVenta:number;
   descripcion_catcli:string;
   idcategoriaCliente:number;
- 
+  nombre:any;
+  nombre_provincia:string;
+  nombre_distrito:string;
 }

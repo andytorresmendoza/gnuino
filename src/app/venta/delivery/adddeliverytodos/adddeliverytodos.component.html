@@ -1,0 +1,240 @@
+
+<h1><small>Despacho</small></h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger" routerLink="../../listardeliverytodos">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+<br />
+
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="formDataDelivery"
+  (submit)="onSubmit(form)"
+>
+
+<input
+type="hidden"
+name="id"
+#id="ngModel"
+[(ngModel)]="formDataDelivery.id"
+/>   
+
+<input
+type="hidden"
+name="idOrdenVenta"
+#idOrdenVenta="ngModel"
+[(ngModel)]="formDataDelivery.idOrdenVenta"
+/> 
+<div class="row"> 
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Pedido Nro.  </label>
+      <input
+      name="codigo_empdel_num_venta"
+      #codigo_empdel_num_venta="ngModel"
+      [(ngModel)]="formDataDelivery.codigo_empdel_num_venta"
+      class="form-control"
+      readonly
+    />
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="form-group">
+      <label> Observación  </label>
+      <input
+      style="text-transform:uppercase"
+      name="detalleEmpDev"
+      #detalleEmpDev="ngModel"
+      [(ngModel)]="formDataDelivery.detalleEmpDev"
+      class="form-control"
+      readonly
+    />
+    </div>
+  </div>
+</div>
+
+<div class="row"> 
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Cliente  </label>
+      <input
+      style="text-transform:uppercase"
+      name="nombreCliente"
+      #nombreCliente="ngModel"
+      [(ngModel)]="formDataDelivery.detalleOrdenVenta[0].detalleCotizacion[0].nombreCliente"
+      class="form-control"
+      readonly
+    />
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Distrito Entrega  </label>
+      <input
+      style="text-transform:uppercase"
+      name="nombreDistrito"
+      #nombreDistrito="ngModel"
+      [(ngModel)]="formDataDelivery.nombreDistrito"
+      class="form-control"
+      readonly
+    />
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Fecha </label>
+      <input
+      name="fechaEnvio"
+      #fechaEnvio="ngModel"
+      [(ngModel)]="formDataDelivery.fechaEnvio"
+      class="form-control"
+      readonly
+    />
+    </div>
+  </div>
+</div>
+<div class="row"> 
+
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Monto General </label>
+      <input
+      name="totalGeneral"
+      #totalGeneral="ngModel"
+      [(ngModel)]="formDataDelivery.detalleOrdenVenta[0].detalleCotizacion[0].totalGeneral"
+      class="form-control"
+      readonly
+    />
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Monto Parcial </label>
+      <input
+      name="pagoParcial"
+      #pagoParcial="ngModel"
+      [(ngModel)]="formDataDelivery.detalleOrdenVenta[0].pagoParcial"
+      class="form-control"
+      readonly
+    />
+    </div> 
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Monto a Cobrar </label>
+      <input
+      name="cobrar"
+      #cobrar="ngModel"
+      [(ngModel)]="formDataDelivery.detalleOrdenVenta[0].detalleCotizacion[0].totalGeneral - formDataDelivery.detalleOrdenVenta[0].pagoParcial"
+      class="form-control"
+      readonly
+    />
+    </div>
+  </div>
+</div>
+
+<div class="row"> 
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Dirección</label>
+      <input
+      name="direccion"
+      #direccion="ngModel"
+      [(ngModel)]="formDataDelivery.detalleOrdenVenta[0].direccion"
+      class="form-control"
+      readonly
+    />
+        </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Tipo Pago</label>
+      <input
+      name="descripcion_pago"
+      #descripcion_pago="ngModel"
+      [(ngModel)]="formDataDelivery.detalleOrdenVenta[0].detalleTipoPago[0].descripcion_pago"
+      class="form-control"
+      readonly
+    />
+        </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="row"> 
+<div class="col-md-4">
+  <div class="form-group">
+<label> Estado</label>
+<ng-select  
+#valorEstado="ngModel"  
+name="valorEstado" 
+bindValue="valorEstado" 
+placeholder="Buscar" 
+[(ngModel)]="formDataDelivery.valorEstado"  
+>   
+  <ng-option *ngFor="let emp of estadoDelivery" 
+  [value]="emp.id">{{emp.detalle_estado}}</ng-option>
+</ng-select> 
+  </div></div>
+</div>
+<br>
+<br>
+ 
+
+  <!-- ORDER ITEMS TABLE -->
+  <table class="table table-borderless ">
+    <thead class="thead-light">
+      <th scope="col">#</th>
+      <th>Nombre Producto</th>
+      <th>Unidad Medida</th>
+      <th>Almacén</th>
+      <th>Cantidad Venta</th> 
+      <!-- <th>Precio Venta</th> -->
+     
+ 
+    </thead>
+    <tbody>
+      <tr
+        *ngIf="formDetalleDelivery.length == 0"
+        [class.text-danger]="!isValid && formDetalleDelivery.length == 0
+        "
+      >
+        <td class="font-italic text-center" colspan="5">
+          No existen Productos
+        </td>
+      </tr>
+      <tr *ngFor="let item of formDetalleDelivery; let i = index">
+ 
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ item.nombre_producto | uppercase}}</td> 
+        <td>{{item.detalleNameUnidadMedida | uppercase}}</td>
+        <td>{{item.nombre_alamcen | uppercase}}</td>
+        <td>{{ item.cantidad }}</td> 
+        
+
+      </tr>
+    </tbody>
+  </table>
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark" 
+    *ngIf="this.isButtonVisible"
+    >
+    <i class="fa fa-database"></i> Guardar </button> 
+   
+  </div>
+</form>

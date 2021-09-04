@@ -89,10 +89,33 @@ getPerfilusuario(){this.mantenimientosServices.getPerfilusuario()
  console.log('Erro en la categoria');
 });
 }
-  
+validateSelect(form:NgForm) {
+  if(form.value.idPerfilUsuario == null )
+     return   Swal.fire({
+        title: 'Seleccionar Perfil' , 
+        icon: 'error', 
+      }); 
+      else   if(form.value.idPais == null )
+      return   Swal.fire({
+         title: 'Seleccionar Pais' , 
+         icon: 'error', 
+       }); 
+
+      
+        
+    } 
 onSubmit(form: NgForm):void{ 
- 
-  if (this.formData.id) {
+  if (form.invalid) {
+    Object.values(form.controls).forEach((control) => {
+      control.markAsTouched();  
+    });
+
+    return; }
+ else if (this.validateSelect(form)){
+    return;
+   }
+  
+ else if (this.formData.id) {
   
    this.mantenimientosServices.updateEmpleado(this.formData).subscribe(
      resp=>{

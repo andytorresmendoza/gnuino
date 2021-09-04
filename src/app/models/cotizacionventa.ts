@@ -28,6 +28,10 @@ export interface DataCotizacionVenta {
   idCanalVenta:number;
   descripcion_catcli:string;
   idcategoriaCliente:number;
+  //nuevos
+  nombre:any;
+  nombre_provincia:string;
+  nombre_distrito:string;
   // NUEVO
   //telefono: string;
   //direccion: string;

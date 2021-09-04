@@ -12,9 +12,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ListarEmpleadoComponent implements OnInit {
   displayedColumns: string[] = [
-    'Nombre',
-    'Apellido Paterno',
-    'Apellido Materno',
+    'Nombre', 
+    'Perfil',
     'Sexo',
     'Dni',
     'Estado',
@@ -40,7 +39,7 @@ export class ListarEmpleadoComponent implements OnInit {
 
   ngOnInit(): void {
     this.mantenientoservice.getEmpleado().subscribe((resp) => {
-      // console.log(resp);
+       console.log(resp);
       this.dataSource.data = resp as DataEmpleado[];
       this.empleados = resp;
       // this.cargando = false;

@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DatEmpleadoDelivery } from 'src/app/models/empleadodelivery';
 import { DataEmpleado } from 'src/app/models/empleado';
 import { DataDistrito } from 'src/app/models/countries';
+import { DataDepartamento, DataProvincia } from '../../../models/countries';
 @Component({
   selector: 'app-addempleadodelivery',
   templateUrl: './addempleadodelivery.component.html',
@@ -19,32 +20,47 @@ export class AddempleadodeliveryComponent implements OnInit {
   formData: DatEmpleadoDelivery;
   empleados: DataEmpleado[];
   distritos: DataDistrito[] ;
+  distritosMatch: DataDistrito[] ;
+  public departamentos: DataDepartamento[] = [];
+  public provincias: DataProvincia[] = [];
   validar:any[];
   isButtonVisible: boolean = true;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<AddempleadodeliveryComponent>,
     public ventaService: VentaService,
+    private mantenimientosServices: MantenimientosService,
     private mantenimientosService: MantenimientosService,private currentRoute: ActivatedRoute, private router: Router, private toastr: ToastrService
 
   ) {}
 
   ngOnInit(): void {
-    this.mantenimientosService.getEmpleado().subscribe(resp => {
-      // console.log(resp);
+    this.mantenimientosService.getEmpleado().subscribe(resp => { 
       this.empleados = (resp as DataEmpleado[]).filter(valor=>valor.idPerfilUsuario === 6)
       .map(empleados=>{ 
         empleados.nombre_empleado =   (empleados.nombre_empleado.concat(', ', empleados.apellidos_pat_empleado,' ', empleados.apellidos_mat_empleado))
         return empleados;
       });
     });
-    
 
+    this.mantenimientosServices.getDepartamento().subscribe((response) => {
+      this.departamentos = response;
+      // this.cargando = false;
+    });
+
+    this.mantenimientosServices.getProvinciaAll().subscribe((response) => {
+      this.provincias = response;
+      // this.cargando = false;
+    });
+    this.mantenimientosServices.getDistritoAll().subscribe((response) => {
+      this.distritos = response;
+      // this.cargando = false;
+    });
 
    this.mantenimientosService.getDistritoAll()
    .subscribe(resp => {  
-   this.distritos = (resp).filter(valor => valor.idProvincia === 1401 );
-  //  console.log( this.distritos);
+   this.distritosMatch = (resp).filter(valor => valor.idProvincia === 1401 );
+   
    } );
     this.formData = Object.assign({ 
       id: null,
@@ -54,13 +70,19 @@ export class AddempleadodeliveryComponent implements OnInit {
       idDistrito: null, 
       idTipoPago:0,
       fechaEnvio:'',
-      detalleEmpDev:''
+      detalleEmpDev:'' ,
+      idDestino:0,
+      idDepartamento:null,
+      idProvincia:null,
+      precioLocal:0,
+      precioProvincia:0
+      
 
     
     },
     this.ventaService.detalleDelivery[this.data.orderItemIndex]);
     
-    
+    // console.log(this.ventaService.detalleDelivery);
     if(this.ventaService.detalleDelivery[this.data.orderItemIndex].idEstadoFlujo  ==  4 ) {
       this.isButtonVisible=false;
      } else {
@@ -71,13 +93,26 @@ export class AddempleadodeliveryComponent implements OnInit {
   }
 
   onChangeMatch (idEmpleado:number, idDistrito:number)  {
-    // console.log(idEmpleado,'EMPLEADO',idDistrito,'DISTRITO');
+    //  console.log(idEmpleado,'EMPLEADO',idDistrito,'DISTRITO');
     this.ventaService.MatcPrecioVelivery(idEmpleado,idDistrito).subscribe((resp:any) => { 
-      this.formData.preciodelivery = resp  
+      this.formData.precioLocal = resp  
    
     });  
    
      }
+
+     onSelectDepartamento($event: any): void {
+      this.mantenimientosServices.getProvincia($event).subscribe((response) => {
+        //  console.log(response,'response');
+        this.provincias = response;
+      });
+    }
+    onSelectProvincia($event: any): void {
+      this.mantenimientosServices.getDistrito($event).subscribe((response) => {
+        this.distritos = response;
+        //  console.log(response);
+      });
+    }
      validateForm(form:NgForm) {
       if(form.value.idEmpleado == null )
          return   Swal.fire({
@@ -91,7 +126,7 @@ export class AddempleadodeliveryComponent implements OnInit {
            });   
         }
   onSubmit(form: NgForm) {
-    console.log(form.value,'GUARDADELIVERY')
+    // console.log(form.value,'GUARDADELIVERY')
     // this.validateForm();
    if(this.validateForm(form)){
 return;
@@ -104,9 +139,9 @@ return;
 
       return;
     }
-  else if (
+ /* else if (
       
-        form.value.preciodelivery === undefined ||  form.value.preciodelivery === null
+        form.value.precioLocal === undefined ||  form.value.precioLocal === null
       ) {
         return Swal.fire({
           // title: form.value.cantidadGlobalKardex + ' Productos en Stock',
@@ -114,7 +149,7 @@ return;
           icon: 'error',
         });
       }  
-    
+    */
       else{   
         let fechaEnvio: any;
         fechaEnvio = moment(form.value.fechaEnvio).format('YYYY-MM-DD');
@@ -127,7 +162,7 @@ return;
        this.dialogRef.close();
       //  this.ngOnInit();
      
-      }   
+      }    
     }
 
 }

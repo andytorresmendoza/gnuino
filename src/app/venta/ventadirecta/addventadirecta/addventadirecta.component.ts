@@ -54,11 +54,14 @@ export class AddventadirectaComponent implements OnInit {
       let id = this.currentRoute.snapshot.paramMap.get('id');
       if (id !== 'nuevo') {
         this.ventaService.getVentaDirectaById(+id).subscribe(res => {
-          // console.log(res);
+       console.log(res);
            this.ventaService.formVenta = res[0];  
           this.ventaService.detalleVentaDirecta = res[0].detalleCotizacion; 
-          this.ventaService.formVenta.descripcion_catcli = res[0].detalleCatCliente 
-
+          this.ventaService.formVenta.descripcion_catcli = res[0].detalleCliente[0].detalleCategoriaCliente[0].descripcion_catcli;
+          this.ventaService.formVenta.nombre = res[0].detalleCliente[0].detalleDepartamento[0].nombre; 
+          this.ventaService.formVenta.nombre_provincia = res[0].detalleCliente[0].detalleProvincia[0].nombre_provincia;
+         this.ventaService.formVenta.nombre_distrito =res[0].detalleCliente[0].detalleDistrito[0].nombre_distrito;
+      
          if (res[0].idEstadoFlujo ==  2 || res[0].idEstadoFlujo ==  3 ) {
           this.isButtonVisible=false;
          } else {
@@ -139,7 +142,10 @@ export class AddventadirectaComponent implements OnInit {
 //  console.log($event,'EVENTO');
       this.ventaService.formVenta.descripcion_catcli = $event.detalleCategoriaCliente[0].descripcion_catcli
       this.ventaService.formVenta.idcategoriaCliente = $event.detalleCategoriaCliente[0].id
-          
+      this.ventaService.formVenta.nombre = $event.detalleDepartamento[0].nombre
+      this.ventaService.formVenta.nombre_provincia = $event.detalleProvincia[0].nombre_provincia 
+      this.ventaService.formVenta.nombre_distrito = $event.detalleDistrito[0].nombre_distrito 
+      
           
            }
   
@@ -170,8 +176,10 @@ export class AddventadirectaComponent implements OnInit {
         idCampain:null,
         idCanalVenta:null,
         descripcion_catcli:'',
-        idcategoriaCliente:0
-       
+        idcategoriaCliente:0,
+        nombre:'',
+        nombre_provincia:'',
+        nombre_distrito:''
      //   telefono: '',
        // direccion:''
         

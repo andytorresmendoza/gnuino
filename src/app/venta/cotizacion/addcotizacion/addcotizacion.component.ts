@@ -32,6 +32,7 @@ export class AddcotizacionComponent implements OnInit {
   tipoMoneda:DataTipoMoneda[];
   distritos: DataDistrito[] ;
   campania:DataCampaniaVenta[];
+   detalleCliente:any[]=[];
   canalVenta:any[];
   isValid:boolean = true;
   isButtonVisible:boolean=true; 
@@ -49,12 +50,16 @@ export class AddcotizacionComponent implements OnInit {
     let id = this.currentRoute.snapshot.paramMap.get('id');
     if (id !== 'nuevo') {
       this.ventaService.getCotizacionById(+id).subscribe(res => {
-         console.log(res);
+        //  console.log(res);
         this.ventaService.formData = res[0];   
         this.ventaService.detalleCotizacion = res[0].detalleCotizacion;
-        this.ventaService.formData.descripcion_catcli = res[0].detalleCatCliente 
-
-        console.log(this.ventaService.formData.descripcion_catcli);
+        // this.ventaService.formData.descripcion_catcli = res[0].detalleCatCliente 
+        this.ventaService.formData.descripcion_catcli = res[0].detalleCliente[0].detalleCategoriaCliente[0].descripcion_catcli
+        
+        this.ventaService.formData.nombre = res[0].detalleCliente[0].detalleDepartamento[0].nombre; 
+         this.ventaService.formData.nombre_provincia = res[0].detalleCliente[0].detalleProvincia[0].nombre_provincia 
+        this.ventaService.formData.nombre_distrito =res[0].detalleCliente[0].detalleDistrito[0].nombre_distrito 
+        // console.log(this.ventaService.formData.descripcion_catcli);
        if (res[0].idEstadoFlujo ==  2 || res[0].idEstadoFlujo ==  3 ) {
         this.isButtonVisible=false;
        } else {
@@ -109,7 +114,7 @@ this.mantenimientosService.getCliente().subscribe(resp => {
  this.mantenimientosService.getTipCotizacionVenta()
  .subscribe(resp => {
    this.tipocotizacion = resp as DataTipoCoti[]  
-   console.log(resp);
+  //  console.log(resp);
 });
  
 
@@ -134,10 +139,12 @@ this.mantenimientosService.getCliente().subscribe(resp => {
   }
 
   UpdateCliente= ($event: any): void => { 
-//  console.log($event,'EVENTO CLIENTE');
+  //  console.log($event,'EVENTO CLIENTE');
     this.ventaService.formData.descripcion_catcli = $event.detalleCategoriaCliente[0].descripcion_catcli
     this.ventaService.formData.idcategoriaCliente = $event.detalleCategoriaCliente[0].id
-        
+    this.ventaService.formData.nombre = $event.detalleDepartamento[0].nombre
+    this.ventaService.formData.nombre_provincia = $event.detalleProvincia[0].nombre_provincia 
+    this.ventaService.formData.nombre_distrito = $event.detalleDistrito[0].nombre_distrito 
         
          }
   resetForm(form?:NgForm){
@@ -167,7 +174,10 @@ this.mantenimientosService.getCliente().subscribe(resp => {
       idCampain:null,
       idCanalVenta:null,
       descripcion_catcli:'',
-      idcategoriaCliente:0
+      idcategoriaCliente:0,
+      nombre:'',
+      nombre_provincia:'',
+      nombre_distrito:''
  
       
 
@@ -318,15 +328,11 @@ this.ventaService.detalleCotizacion = [];
             title: 'Seleccionar Linea' , 
             icon: 'error',
           });   
-          else if  (form.value.idDistrito == null )
-          return   Swal.fire({
-             title: 'Seleccionar Distrito' , 
-             icon: 'error',
-           });   
+          
   }
 
 onSubmit(form:NgForm) {
-  // console.log(form.value);
+   console.log(form.value);
  this.validateForm();
 
  if (this.validateSelect(form)){

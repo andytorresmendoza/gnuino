@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SiderbarService } from '../../services/sidebar/siderbar.service';
 import { DataPerfilusuario } from 'src/app/models/perfilUsuario';
 import jwt_decode from "jwt-decode";
+import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -17,12 +18,37 @@ export class SidebarComponent implements OnInit {
   constructor(private auth: AuthService,private sidebarService:SiderbarService,
     private router: Router) {
 
-      this.menuItems = sidebarService.menu;
+      
       // console.log(sidebarService.menu,'QUE TRAE MENU');
       const token =   localStorage.getItem('access_token'); 
       this.decoded = jwt_decode(token); 
-      console.log(this.decoded,'DECODE');
-      this.perfilUsuario = this.decoded.user[0].detalleEmpleado;
+      this.perfilUsuario = this.decoded.user[0].detalleEmpleado
+      const perfil = this.decoded.user[0].detalleEmpleado[0].idPerfilUsuario
+      if (perfil == 1){
+        this.menuItems = sidebarService.Administrador;
+
+      }
+      else if(perfil == 2){
+
+        this.menuItems = sidebarService.Vendedor;
+      }
+      
+      else if(perfil == 3){
+
+        this.menuItems = sidebarService.Almacen;
+      }
+   
+      else if(perfil == 4){
+
+        this.menuItems = sidebarService.Delivery;
+      }
+      else if(perfil == 5){
+
+        this.menuItems = sidebarService.Marketing;
+      }
+
+   
+      // .filter(perfil=>perfil.id == 5 )
       // VER ACA EL LOG
      }
 

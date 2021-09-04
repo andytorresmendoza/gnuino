@@ -281,7 +281,7 @@ getListarDeliveryById(id: number) {
   );
 }
 
-
+ 
 getListarDetalleDeliveryById(id: number,id2: number) {
 
   // return this.http.get(`${this.baseURL}precio-delivery/empleado/`+idEmpleado +`/distrito/`+ idDistrito).pipe(
@@ -290,7 +290,20 @@ getListarDetalleDeliveryById(id: number,id2: number) {
     catchError(this.manejarError)
   );
 }
+ 
+getListarDeliveryTodosById(id: number) {
 
+  // return this.http.get(`${this.baseURL}precio-delivery/empleado/`+idEmpleado +`/distrito/`+ idDistrito).pipe(
+  return this.http.get(`${this.baseURL}pre-delivery/empleados/` + id).pipe(
+    map((resp) => resp['data']),
+    catchError(this.manejarError)
+  );
+}
+getDeliveryTodos() {
+  return this.http
+    .get(this.baseURL + 'pre-delivery/empleados')
+    .pipe(map((resp) => resp['data']));
+}
 /*EstadoDelivery(id: number, bodyform:any) {
   // console.log(id,bodyform );
   return this.http.put(`${this.baseURL}estado-delivery-empleado/` + id, bodyform);

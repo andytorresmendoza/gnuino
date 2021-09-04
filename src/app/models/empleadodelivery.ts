@@ -16,7 +16,11 @@ export interface DatEmpleadoDelivery {
   codigo_empdel_num_venta:string;
   idDistrito:number;
   idEstadoFlujo:number;
-
+  idDestino:number;
+  precioLocal:number,
+  precioProvincia:number,
+  idDepartamento:number,
+  idProvincia:number
   
 
   

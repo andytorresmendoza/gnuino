@@ -35,7 +35,8 @@
           [(ngModel)]="formData.nombre_empleado"
           class="form-control"
           placeholder="Ingresar Nombre Empleado"
-        
+          [class.is-invalid]="nombre_empleado.invalid && nombre_empleado.touched"
+            required
         />
       </div>
     </div>
@@ -49,6 +50,8 @@
           [(ngModel)]="formData.apellidos_pat_empleado"
           class="form-control"
           placeholder="Ingresar Apellido Paterno"
+          [class.is-invalid]="apellidos_pat_empleado.invalid && apellidos_pat_empleado.touched"
+          required
         />
       </div>
     </div>
@@ -62,6 +65,8 @@
           [(ngModel)]="formData.apellidos_mat_empleado"
           class="form-control"
           placeholder="Ingresar Apellido Paterno"
+          [class.is-invalid]="apellidos_mat_empleado.invalid && apellidos_mat_empleado.touched"
+          required
         />
       </div>
     </div>
@@ -113,6 +118,8 @@
           class="form-control"
           placeholder="Ingresar Nro Documento"
           type="number"
+          [class.is-invalid]="dni_empleado.invalid && dni_empleado.touched"
+          required
         />
       </div>
     </div>

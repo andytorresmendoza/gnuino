@@ -17,26 +17,19 @@
   
     <!-- Position Column -->
     <ng-container matColumnDef="Nombre">
-      <th mat-header-cell *matHeaderCellDef> >Nombre Empleado </th>
-      <td mat-cell *matCellDef="let element" > {{element.nombre_empleado | uppercase}} </td>
+      <th mat-header-cell *matHeaderCellDef>Nombre Empleado </th>
+      <td mat-cell *matCellDef="let element" > {{element.nombre_empleado | uppercase}}, {{element.apellidos_pat_empleado | uppercase}} {{element.apellidos_mat_empleado | uppercase}}</td>
      
     </ng-container>
-  
-    <!-- Name Column -->
-    <ng-container matColumnDef="Apellido Paterno">
-      <th mat-header-cell *matHeaderCellDef> Apellido Paterno </th>
-      <td mat-cell *matCellDef="let element"> {{element.apellidos_pat_empleado | uppercase}} </td>
+ 
+    <ng-container matColumnDef="Perfil">
+      <th mat-header-cell *matHeaderCellDef>Perfil </th>
+      <td mat-cell *matCellDef="let element" > {{element.detallePerfilUsuario[0].tipo_usuario | uppercase}}</td>
+     
     </ng-container>
-  
-    <!-- Weight Column -->
-    <ng-container matColumnDef="Apellido Materno">
-      <th mat-header-cell *matHeaderCellDef> Apellido Materno </th>
-      <td mat-cell *matCellDef="let element"> {{element.apellidos_mat_empleado | uppercase}} </td>
-    </ng-container>
-
     <ng-container matColumnDef="Sexo">
       <th mat-header-cell *matHeaderCellDef> Sexo </th>
-      <td mat-cell *matCellDef="let element"> {{element.sexo_empleado | uppercase| uppercase}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.sexo_empleado | uppercase}} </td>
     </ng-container>
     <!-- Symbol Column -->
     <ng-container matColumnDef="Dni">

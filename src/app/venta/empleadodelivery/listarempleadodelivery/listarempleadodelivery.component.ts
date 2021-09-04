@@ -18,7 +18,7 @@ import { EditarempleadodeliveryComponent } from '../editarempleadodelivery/edita
 export class ListarempleadodeliveryComponent implements OnInit {
   ordenes:any[]=[];
   cargando = true; 
-  displayedColumns: string[] = ['Nro Despacho','Nro Orden Venta','Empleado','Distrito','Fecha Envio','Detalle Envio','Estado','details','Anular'];
+  displayedColumns: string[] = ['Nro Despacho','Nro Orden Venta','Empleado','Distrito','Fecha Envio','Detalle Envio','Estado' ,'Anular'];
   dataSource = new MatTableDataSource<DatEmpleadoDelivery>();
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

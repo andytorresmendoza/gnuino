@@ -7,6 +7,7 @@ import { DataEmpleado } from '../../../models/empleado';
 import { DataPrecioDelivery } from '../../../models/precioDelivery';
 import { NgForm } from '@angular/forms';
 import { filter } from 'rxjs/operators';
+import Swal from 'sweetalert2'; 
 
 @Component({
   selector: 'app-add-precio-delivery',
@@ -15,7 +16,7 @@ import { filter } from 'rxjs/operators';
 })
 export class AddPrecioDeliveryComponent implements OnInit {
 public distritos:DataDistrito;
-public empleado:DataEmpleado;
+public empleado:DataEmpleado[];
 public formData : DataPrecioDelivery;
  
 constructor(private mantenimientosServices: MantenimientosService
@@ -39,12 +40,14 @@ constructor(private mantenimientosServices: MantenimientosService
  this.distrito();
     
 
-     this.mantenimientosServices.getEmpleado()
-     .subscribe(response => { 
-        this.empleado = response;  
-    // this.cargando = false; 
-     }
-   );
+ this.mantenimientosServices.getEmpleado().subscribe(resp => {
+  // console.log(resp);
+  this.empleado = (resp as DataEmpleado[])
+  .map(empleados=>{ 
+    empleados.nombre_empleado =   (empleados.nombre_empleado.concat(', ', empleados.apellidos_pat_empleado,' ', empleados.apellidos_mat_empleado))
+    return empleados;
+  });
+});
  
   }
   resetForm(form?:NgForm){
@@ -71,9 +74,30 @@ constructor(private mantenimientosServices: MantenimientosService
     }
   );
   }
+  validateSelect(form:NgForm) {
+    if(form.value.idEmpleado == null )
+       return   Swal.fire({
+          title: 'Seleccionar Empleado' , 
+          icon: 'error', 
+        }); 
+        else   if(form.value.idDistrito == null )
+        return   Swal.fire({
+           title: 'Seleccionar Distrito' , 
+           icon: 'error', 
+         }); 
+         else   if(form.value.precioDelivery == 0  || form.value.precioDelivery == null)
+         return   Swal.fire({
+            title: 'Ingrese Precio' , 
+            icon: 'error', 
+          }); 
+      }
 
   onSubmit(form:NgForm):void{ 
-    if (this.formData.id) { 
+    if (this.validateSelect(form)){
+      return;
+     }
+    
+    else if (this.formData.id) { 
      this.mantenimientosServices.updatePrecioDelivery(this.formData).subscribe(
        resp=>{
   

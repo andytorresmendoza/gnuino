@@ -32,7 +32,7 @@ export class ListarPrecioDeliveryComponent implements OnInit {
    .subscribe(resp => {
     this.dataSource.data = resp as DataPrecioDelivery[]; 
    this.preciodelive = resp; 
- 
+//  console.log(resp);
   });
  } 
 

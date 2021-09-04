@@ -1,13 +1,15 @@
 
 <h1><small>Agregar Detalles de Ventas - Tipo Cliente - 
 
-<b *ngIf="ventaService?.formVenta.idcategoriaCliente == '1' " style="color: #ec2411" >  {{ventaService?.formVenta.descripcion_catcli | uppercase}}</b> 
+  <!-- <b *ngIf="ventaService?.formVenta.idcategoriaCliente == '1' " style="color: #ec2411" >  {{ventaService?.formVenta.descripcion_catcli | uppercase}}</b> 
    
 
 <b *ngIf="ventaService?.formVenta.idcategoriaCliente == '2' " style="color: #31bf0a" >  {{ventaService?.formVenta.descripcion_catcli | uppercase}}</b> 
 
 
-<b *ngIf="ventaService?.formVenta.idcategoriaCliente == '3' "  style="color: #3145ff" >  {{ventaService?.formVenta.descripcion_catcli | uppercase}}</b> 
+<b *ngIf="ventaService?.formVenta.idcategoriaCliente == '3' "  style="color: #3145ff" >  {{ventaService?.formVenta.descripcion_catcli | uppercase}}</b>   -->
+
+ {{ventaService?.formVenta.descripcion_catcli | uppercase}}  
 
 </small></h1>
 
@@ -200,6 +202,64 @@
  
     </div> </div>
   </div>
+
+  <div class="row"> 
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Departamento</label>
+        <input
+        style="text-transform:uppercase"
+          type="text"
+          name="nombre"
+          #nombre="ngModel"
+          [(ngModel)]="ventaService.formVenta.nombre"
+          class="form-control"
+          disabled="disabled"
+        />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Provincia</label>
+        <input
+        style="text-transform:uppercase"
+          type="text"
+          name="nombre_provincia"
+          #nombre_provincia="ngModel"
+          [(ngModel)]="ventaService.formVenta.nombre_provincia"
+          class="form-control"
+          disabled="disabled"
+        />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Distrito</label>
+        <input
+        style="text-transform:uppercase"
+          type="text"
+          name="nombre_distrito"
+          #nombre_distrito="ngModel"
+          [(ngModel)]="ventaService.formVenta.nombre_distrito"
+          class="form-control"
+          disabled="disabled"
+        />
+      </div>
+    </div>
+     
+        
+      </div>
+
+
+
+
+
+
+
+
+
+
+
   <div class="row">
 
     <div class="col-md-4">

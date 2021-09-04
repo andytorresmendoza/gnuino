@@ -23,6 +23,7 @@
       <div class="form-group">
         <label> Nombre Empleado</label>
         <ng-select  
+        style="text-transform:uppercase"
         #idEmpleado="ngModel"  
         name="idEmpleado" 
         bindValue="idEmpleado" 
@@ -38,6 +39,7 @@
         <div class="form-group">
           <label> Distrito</label>
           <ng-select  
+          style="text-transform:uppercase"
         #idDistrito="ngModel"  
         name="idDistrito" 
         bindValue="idDistrito" 
@@ -59,6 +61,7 @@
             #precioDelivery="ngModel"
             [(ngModel)]="formData.precioDelivery"
             class="form-control"  
+             
           />
         </div>
       </div>

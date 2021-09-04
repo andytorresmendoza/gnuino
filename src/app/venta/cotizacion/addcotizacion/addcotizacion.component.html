@@ -1,14 +1,14 @@
 
 <h1><small>Agregar Detalles de Ventas - Tipo Cliente -  
 
-  <b *ngIf="ventaService?.formData.idcategoriaCliente == '1' " style="color: #ec2411" >  {{ventaService?.formData.descripcion_catcli | uppercase}}</b>   
+  <!-- <b *ngIf="ventaService?.formData.idcategoriaCliente == '1' " style="color: #ec2411" >  {{ventaService?.formData.descripcion_catcli | uppercase}}</b>   
    
- <!-- {{ventaService?.formData.detalleCatCliente | uppercase}} -->
+ 
   <b *ngIf="ventaService?.formData.idcategoriaCliente == '2' " style="color: #31bf0a" >  {{ventaService?.formData.descripcion_catcli | uppercase}}</b>  
  
 
- <b *ngIf="ventaService?.formData.idcategoriaCliente == '3' "  style="color: #3145ff" >  {{ventaService?.formData.descripcion_catcli | uppercase}}</b>  
- 
+ <b *ngIf="ventaService?.formData.idcategoriaCliente == '3' "  style="color: #3145ff" >  {{ventaService?.formData.descripcion_catcli | uppercase}}</b>   -->
+ {{ventaService?.formData.descripcion_catcli | uppercase}}  
 
 
 </small></h1>
@@ -45,6 +45,24 @@ name="idCliente"
 #idCliente="ngModel"
 [(ngModel)]="ventaService.formData.idCliente"
 />
+
+ <!-- <div class="col-md-4">
+  <div class="form-group">
+    <label>Departamento 1</label>
+    <input
+      type="text"
+      name="nombre"
+      #nombre="ngModel"
+      [(ngModel)]="ventaService.formData.nombre"
+      class="form-control"
+      disabled="disabled"
+    />
+  </div>
+</div> -->
+ 
+
+
+
 
 <div class="row"> 
   <div class="col-xs-12 col-md-4">
@@ -142,8 +160,23 @@ name="idCliente"
         class="form-text text-danger">Ingrese Fecha</small>
       </div>
     </div>
-  
     <div class="col-md-4">
+      <div class="form-group">
+        <label> Linea </label>
+        <ng-select  
+        style="text-transform:uppercase"
+          #idLinea="ngModel"  
+          name="idLinea" 
+          bindValue="idLinea" 
+          placeholder="Buscar Linea" 
+          [(ngModel)]="ventaService.formData.idLinea"  
+        >   
+            <ng-option *ngFor="let emp of linea" 
+            [value]="emp.id">{{emp.detalle_linea}}</ng-option>
+         </ng-select> 
+      </div> 
+    </div>
+    <!-- <div class="col-md-4">
       <div class="form-group">
         <label> Distrito</label>
         <ng-select  
@@ -157,7 +190,7 @@ name="idCliente"
           <ng-option *ngFor="let emp of distritos" [value]="emp.id">{{emp.nombre_distrito}}</ng-option>
        </ng-select> 
    
-      </div> </div>
+      </div> </div> -->
   </div>
 
   <div class="row">
@@ -209,6 +242,82 @@ name="idCliente"
     </div> </div>
   </div>
 
+  <div class="row"> 
+<div class="col-md-4">
+  <div class="form-group">
+    <label>Departamento</label>
+    <input
+    style="text-transform:uppercase"
+      type="text"
+      name="nombre"
+      #nombre="ngModel"
+      [(ngModel)]="ventaService.formData.nombre"
+      class="form-control"
+      disabled="disabled"
+    />
+  </div>
+</div>
+<div class="col-md-4">
+  <div class="form-group">
+    <label>Provincia</label>
+    <input
+    style="text-transform:uppercase"
+      type="text"
+      name="nombre_provincia"
+      #nombre_provincia="ngModel"
+      [(ngModel)]="ventaService.formData.nombre_provincia"
+      class="form-control"
+      disabled="disabled"
+    />
+  </div>
+</div>
+<div class="col-md-4">
+  <div class="form-group">
+    <label>Distrito</label>
+    <input
+    style="text-transform:uppercase"
+      type="text"
+      name="nombre_distrito"
+      #nombre_distrito="ngModel"
+      [(ngModel)]="ventaService.formData.nombre_distrito"
+      class="form-control"
+      disabled="disabled"
+    />
+  </div>
+</div>
+    <!-- <div class="col-md-4">
+      <div class="form-group">
+        <label> Linea </label>
+        <ng-select  
+        style="text-transform:uppercase"
+          #idLinea="ngModel"  
+          name="idLinea" 
+          bindValue="idLinea" 
+          placeholder="Buscar Linea" 
+          [(ngModel)]="ventaService.formData.idLinea"  
+        >   
+            <ng-option *ngFor="let emp of linea" 
+            [value]="emp.id">{{emp.detalle_linea}}</ng-option>
+         </ng-select> 
+      </div> 
+    </div> -->
+    <!-- <div class="col-md-2">
+    <div class="form-group">
+      <label> Monto Total</label>
+      <input
+      type="number"
+        name="totalGeneral"
+        #totalGeneral="ngModel"
+        [(ngModel)]="ventaService.formData.totalGeneral"
+        class="form-control" 
+        readonly
+      /> 
+    </div>
+  
+    </div> -->
+    
+  </div>
+
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
@@ -226,41 +335,7 @@ name="idCliente"
        </ng-select> 
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <label> Linea </label>
-        <ng-select  
-        style="text-transform:uppercase"
-          #idLinea="ngModel"  
-          name="idLinea" 
-          bindValue="idLinea" 
-          placeholder="Buscar Linea" 
-          [(ngModel)]="ventaService.formData.idLinea"  
-        >   
-            <ng-option *ngFor="let emp of linea" 
-            [value]="emp.id">{{emp.detalle_linea}}</ng-option>
-         </ng-select> 
-      </div> 
-    </div>
-    <div class="col-md-4">
-    <div class="form-group">
-      <label> Monto Total</label>
-      <input
-      type="number"
-        name="totalGeneral"
-        #totalGeneral="ngModel"
-        [(ngModel)]="ventaService.formData.totalGeneral"
-        class="form-control" 
-        readonly
-      /> 
-    </div>
-  
-    </div>
-    
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
       <div class="form-group">
         <label> Detalle Cabecera</label>
         <input
@@ -277,6 +352,20 @@ name="idCliente"
       
       </div>
       </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label> Monto Total</label>
+          <input
+          type="number"
+            name="totalGeneral"
+            #totalGeneral="ngModel"
+            [(ngModel)]="ventaService.formData.totalGeneral"
+            class="form-control" 
+            readonly
+          /> 
+        </div>
+      
+        </div>
     </div>
 
     <div class="row">

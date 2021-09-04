@@ -19,6 +19,8 @@ import { ListarventadirectaComponent } from './ventadirecta/listarventadirecta/l
 import { ListarventadirectaanuladoComponent } from './ventadirecta/listarventadirectaanulado/listarventadirectaanulado.component';
 import { AddventadirectaComponent } from './ventadirecta/addventadirecta/addventadirecta.component';
 import { ListarcambiomedidaComponent } from './cotizacion/listarcambiomedida/listarcambiomedida.component';
+import { ListardeliverytodosComponent } from './delivery/listardeliverytodos/listardeliverytodos.component';
+import { AdddeliverytodosComponent } from './delivery/adddeliverytodos/adddeliverytodos.component';
  
 const routes: Routes = [
  
@@ -42,6 +44,8 @@ const routes: Routes = [
     {path:'listarventadirectaanulado', component: ListarventadirectaanuladoComponent, data:{titulo:'Venta Directa'}},
     {path:'ventadirecta/:id', component: AddventadirectaComponent, data:{titulo:'Venta Directa'}},
     {path:'listarcambiomedida', component: ListarcambiomedidaComponent, data:{titulo:'Cambio Medida'}},
+    {path:'listardeliverytodos', component: ListardeliverytodosComponent, data:{titulo:'Delivery Todos'}},
+    {path:'adddeliverytodos/:id', component: AdddeliverytodosComponent, data:{titulo:'Delivery Todos'}},
     // {path:'listarpredelivery/:id', component: ListarempleadodeliveryComponent, data:{titulo:'Asignar Delivery'}},
    
 
