@@ -20,7 +20,7 @@ export class ListarventadirectaComponent implements OnInit {
   cotizaciones:DataVentaDirecta[]=[];
   cargando = true; 
   // isButtonVisible:boolean=true;
-  displayedColumns: string[] = ['Vista','Nro Venta', 'Proveedor', 'Empleado', 'Total', 'Fecha Venta','Estado','details','Anular'];
+  displayedColumns: string[] = ['Vista','Nro Venta', 'Proveedor', 'Empleado', 'Total', 'Fecha Venta','details','Anular'];
   dataSource = new MatTableDataSource<DataVentaDirecta>();
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

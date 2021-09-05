@@ -136,7 +136,15 @@
     <div class="col-md-4">
         <div class="form-group">
           <label> Distrito</label>
-          <select
+          <input
+          style="text-transform:uppercase"
+            name="nombre_distrito"
+            #nombre_distrito="ngModel"
+            [(ngModel)]="cotizacion.detalleCliente[0].detalleDistrito[0].nombre_distrito"
+            class="form-control"  
+            readonly
+          />
+          <!-- <select
           style="text-transform:uppercase"
           name="idDistrito"
           #idDistrito="ngModel"
@@ -151,7 +159,7 @@
           >
             {{ dist.nombre_distrito }}
           </option>
-        </select>
+        </select> -->
         </div>
       </div>  
       <div class="col-xs-12 col-md-4">
@@ -281,9 +289,7 @@
             #detalle="ngModel"
             [(ngModel)]="ventaService.formOrdenVenta.detalle"
             class="form-control"
-            [class.is-invalid]="detalle.invalid && detalle.touched"
-            required
-            minlength="3"
+         
           />
         </div>
       </div>  

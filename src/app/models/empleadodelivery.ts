@@ -21,6 +21,7 @@ export interface DatEmpleadoDelivery {
   precioProvincia:number,
   idDepartamento:number,
   idProvincia:number
+ 
   
 
   

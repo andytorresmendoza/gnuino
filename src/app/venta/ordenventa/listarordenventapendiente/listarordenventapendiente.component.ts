@@ -39,7 +39,7 @@ export class ListarordenventapendienteComponent implements OnInit {
      this.dataSource.data = resp as DataOrdenVenta[]; 
        this.ordenes = resp;  
       this.ventaService.detalleDelivery = resp;
-      console.log(resp);
+    // console.log(resp);
 
        if (resp[0].idEstadoFlujo ==  4 ) {
         this.isButtonVisible=false;

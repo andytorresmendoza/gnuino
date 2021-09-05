@@ -35,8 +35,9 @@ export class AddempleadodeliveryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // console.log(this.ventaService.detalleDelivery);
     this.mantenimientosService.getEmpleado().subscribe(resp => { 
-      this.empleados = (resp as DataEmpleado[]).filter(valor=>valor.idPerfilUsuario === 6)
+      this.empleados = (resp as DataEmpleado[]).filter(valor=>valor.idPerfilUsuario === 4)
       .map(empleados=>{ 
         empleados.nombre_empleado =   (empleados.nombre_empleado.concat(', ', empleados.apellidos_pat_empleado,' ', empleados.apellidos_mat_empleado))
         return empleados;
@@ -73,9 +74,9 @@ export class AddempleadodeliveryComponent implements OnInit {
       detalleEmpDev:'' ,
       idDestino:0,
       idDepartamento:null,
-      idProvincia:null,
+      idProvincia:null, 
       precioLocal:0,
-      precioProvincia:0
+      precioProvincia:0 
       
 
     
@@ -119,15 +120,14 @@ export class AddempleadodeliveryComponent implements OnInit {
             title: 'Seleccionar Empleado' , 
             icon: 'error',
           });   
-          else if (form.value.idDistrito == null )
-          return   Swal.fire({
-             title: 'Seleccionar Distrito' , 
-             icon: 'error',
-           });   
+        
         }
   onSubmit(form: NgForm) {
     // console.log(form.value,'GUARDADELIVERY')
     // this.validateForm();
+
+
+   
    if(this.validateForm(form)){
 return;
    }
@@ -138,23 +138,25 @@ return;
       });
 
       return;
-    }
- /* else if (
-      
-        form.value.precioLocal === undefined ||  form.value.precioLocal === null
-      ) {
-        return Swal.fire({
-          // title: form.value.cantidadGlobalKardex + ' Productos en Stock',
-          text: 'No Existe Precio Delivery -  Ingresarlo en Mantenimientos',
-          icon: 'error',
-        });
-      }  
-    */
+    } 
       else{   
         let fechaEnvio: any;
         fechaEnvio = moment(form.value.fechaEnvio).format('YYYY-MM-DD');
         form.value.fechaEnvio = fechaEnvio; 
        this.ventaService.detalleDelivery = form.value  
+
+     /*  const bodyform:any = { 
+        idOrdenVenta: this.data.id,
+         idDestino: form.value.idDestino,
+         idEmpleado: form.value.idEmpleado,
+         precioLocal: form.value.precioLocal,
+         precioProvincia: form.value.precioProvincia,
+         detalleEmpDev:form.value.detalleEmpDev,
+         fechaEnvio:fechaEnvios
+       
+        }*/
+// console.log(bodyform,'BODY');
+
          this.ventaService.GuardaEmpleadoDelivery(this.formData).subscribe(resp =>{   
         this.toastr.success('Asignado Exitosamente');
         // this.ngOnInit();

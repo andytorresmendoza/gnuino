@@ -16,21 +16,25 @@
     #idOrdenVenta="ngModel"
     [(ngModel)]="formData.id"
   />
-
+  <input
+    type="hidden"
+    name="idDestino"
+    #idDestino="ngModel"
+    [(ngModel)]="formData.detalleCotizacion[0].detalleTipoCotizacin[0].id"
+  />
   <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4"></div>
     <div class="col-md-4">
-      <select
-        name="idDestino"
-        #idDestino="ngModel"
-        [(ngModel)]="formData.idDestino"
-        class="form-control"
-      >
-        <option value="0">-Seleccione Tipo Envio-</option>
-        <option value="1">PROVINCIA</option>
-        <option value="2">LOCAL</option>
-      </select>
+      <input
+      style="text-transform: uppercase"
+      type="text"
+      name="descrip_tip_cot_venta"
+      #descrip_tip_cot_venta="ngModel"
+      [(ngModel)]="formData.detalleCotizacion[0].detalleTipoCotizacin[0].descrip_tip_cot_venta"
+      class="form-control"
+      disabled="disabled"
+    />
     </div>
   </div>
   <hr />
@@ -49,6 +53,7 @@
         />
       </div>
     </div>
+ 
     <div class="col-md-4">
       <div class="form-group">
         <label>Tipo de Pago</label>
@@ -89,9 +94,11 @@
         name="idEmpleado"
         bindValue="idEmpleado"
         placeholder="Buscar Motorizado"
-        [(ngModel)]="formData.idEmpleado"
-        (change)="onChangeMatch(formData.idEmpleado, formData.idDistrito)"
+        [(ngModel)]="formData.idEmpleado" 
+        (change)="onChangeMatch(formData.idEmpleado, formData.detalleCotizacion[0].detalleCliente[0].detalleDistrito[0].id)"
+ 
       >
+      <!-- (change)="onChangeMatch(formData.idEmpleado, formData.idDistrito)" -->
         <ng-option *ngFor="let emp of empleados" [value]="emp.id">{{
           emp.nombre_empleado
         }}</ng-option>
@@ -125,7 +132,7 @@
       </div>
     </div>
 
-    <div class="form-group col-md-4" *ngIf="formData.idDestino == 2">
+    <div class="form-group col-md-4" *ngIf="formData.detalleCotizacion[0].detalleTipoCotizacin[0].id == 2">
       <label>Precio Delivery Local</label>
       <input
         name="precioLocal"
@@ -136,7 +143,7 @@
       />
     </div>
 
-    <div class="form-group col-md-4" *ngIf="formData.idDestino == 1">
+    <div class="form-group col-md-4" *ngIf="formData.detalleCotizacion[0].detalleTipoCotizacin[0].id == 1">
       <label>Precio Delivery Provincia </label>
       <input
         name="precioProvincia"
@@ -146,57 +153,50 @@
       />
     </div>
   </div>
-  <div class="form-row" *ngIf="formData.idDestino == 1">
+  <div class="form-row" *ngIf="formData.detalleCotizacion[0].detalleTipoCotizacin[0].id == 1">
     <div class="col-md-4">
       <div class="form-group">
         <label> Departamento</label>
-        <ng-select
-          style="text-transform: uppercase"
-          #idDepartamento="ngModel"
-          name="idDepartamento"
-          bindValue="idDepartamento"
-          placeholder="Buscar Departamento"
-          [(ngModel)]="formData.idDepartamento"
-          (change)="onSelectDepartamento($event)"
-        >
-          <ng-option *ngFor="let emp of departamentos" [value]="emp.id">{{
-            emp.nombre
-          }}</ng-option>
-        </ng-select>
+        <input
+        style="text-transform: uppercase"
+        type="text"
+        name="nombre"
+        #nombre="ngModel"
+        [(ngModel)]="formData.detalleCotizacion[0].detalleCliente[0].detalleDepartamento[0].nombre"
+        class="form-control"
+        disabled="disabled"
+      />
+  
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
         <label> Provincia</label>
-        <ng-select
-          style="text-transform: uppercase"
-          #idProvincia="ngModel"
-          name="idProvincia"
-          bindValue="idProvincia"
-          placeholder="Buscar Provincia"
-          [(ngModel)]="formData.idProvincia"
-          (change)="onSelectProvincia($event)"
-        >
-          <ng-option *ngFor="let emp of provincias" [value]="emp.id">{{
-            emp.nombre_provincia
-          }}</ng-option>
-        </ng-select>
+        <input
+        style="text-transform: uppercase"
+        type="text"
+        name="nombre_provincia"
+        #nombre_provincia="ngModel"
+        [(ngModel)]="formData.detalleCotizacion[0].detalleCliente[0].detalleProvincia[0].nombre_provincia"
+        class="form-control"
+        disabled="disabled"
+      />
+ 
       </div>
     </div>
     <div class="form-group col-md-4">
       <label> Distrito</label>
-      <ng-select
-        style="text-transform: uppercase"
-        #idDistrito="ngModel"
-        name="idDistrito"
-        bindValue="idDistrito"
-        placeholder="Buscar Distrito"
-        [(ngModel)]="formData.idDistrito"
-      >
-        <ng-option *ngFor="let emp of distritos" [value]="emp.id">{{
-          emp.nombre_distrito
-        }}</ng-option>
-      </ng-select>
+
+      <input
+      style="text-transform: uppercase"
+      type="text"
+      name="nombre_distrito"
+      #nombre_distrito="ngModel"
+      [(ngModel)]="formData.detalleCotizacion[0].detalleCliente[0].detalleDistrito[0].nombre_distrito"
+      class="form-control"
+      disabled="disabled"
+    />
+ 
     </div>
   </div>
 
@@ -213,21 +213,32 @@
       />
     </div>
 
-    <div class="form-group col-md-4" *ngIf="formData.idDestino == 2">
+    <div class="form-group col-md-4" *ngIf="formData.detalleCotizacion[0].detalleTipoCotizacin[0].id == 2">
       <label> Distrito Local</label>
-      <ng-select
+
+      <input
+      style="text-transform: uppercase"
+      type="text"
+      name="idDistrito"
+      #idDistrito="ngModel"
+      [(ngModel)]="formData.detalleCotizacion[0].detalleCliente[0].detalleDistrito[0].nombre_distrito"
+      class="form-control"
+      (change)="onChangeMatch(formData.idEmpleado, formData.detalleCotizacion[0].detalleCliente[0].detalleDistrito[0].id)"
+      disabled="disabled"
+    />
+      <!-- <ng-select
         style="text-transform: uppercase"
         #idDistrito="ngModel"
         name="idDistrito"
         bindValue="idDistrito"
         placeholder="Buscar Distrito"
         [(ngModel)]="formData.idDistrito"
-        (change)="onChangeMatch(formData.idEmpleado, formData.idDistrito)"
+        (change)="onChangeMatch(formData.idEmpleado, formData.detalleCotizacion[0].detalleCliente[0].detalleDistrito[0].id)"
       >
         <ng-option *ngFor="let emp of distritosMatch" [value]="emp.id">{{
           emp.nombre_distrito
         }}</ng-option>
-      </ng-select>
+      </ng-select> -->
     </div>
   </div>
   <br />

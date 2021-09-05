@@ -95,18 +95,22 @@ export class AddordenventaComponent implements OnInit {
       total_productos:0,
       totalGeneral:0,
       codigo_orden_num_venta:'',
-      porcentajeDscto:0
+      porcentajeDscto:0,
+      detalleDistrito:''
    
     };
   }
   onChange = ($event: any): void => {
  
+  //  console.log();
      this.ventaService.formOrdenVenta.idCotizacion = $event.id; 
     this.ventaService.formOrdenVenta.nombreCliente = $event.nombreCliente + ' ' + $event.apellidoPatCliente+ ' ' + $event.apellidoMatCliente;  
+    this.ventaService.formOrdenVenta.detalleDistrito = $event.detalleCliente[0].detalleDistrito[0].nombre_distrito;
+    this.ventaService.formOrdenVenta.direccion =  $event.detalleCliente[0].direccion_cliente;
     this.ventaService.formOrdenVenta.nombreEmpleado = $event.nombreEmpleado;
      this.ventaService.formOrdenVenta.idLinea = $event.idLinea;
     this.ventaService.formOrdenVenta.idTipoMoneda = $event.idTipoMoneda; 
-    this.ventaService.formOrdenVenta.idDistrito = $event.idDistrito;
+    // this.ventaService.formOrdenVenta.idDistrito = $event.idDistrito;
     this.ventaService.formOrdenVenta.costo_delivery = $event.costo_delivery;
    this.ventaService.formOrdenVenta.descuento_cot = $event.descuento_cot;
     this.ventaService.formOrdenVenta.total_productos = $event.total_productos; 
