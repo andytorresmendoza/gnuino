@@ -135,15 +135,9 @@ export class SiderbarService {
         titulo:'Kardex',
         icono:'mdi mdi-truck-delivery',
         submenu: [
-          // {titulo:'Main', url:'mantenimientos'},
-          {titulo:'Cotización', url:'../kardex/listarcotizacion'},
-          {titulo:'Orden Compra', url:'../kardex/listarordencompra'},
-          {titulo:'Entrada Almacén', url:'../kardex/listarentrada'},
-          {titulo:'Entrada Sin Orden', url:'../kardex/listarentradasinoc'},
-          {titulo:'Devolución de Productos', url:'../kardex/devoluciones'}, 
-         // {titulo:'Transferencias', url:'../kardex/transferencias'},
+     
           {titulo:'Kardex', url:'../kardex/Listarkardex'},
-        //  {titulo:'Prueba', url:'../kardex/ListarPrueba'},
+
   
       
    

@@ -228,17 +228,17 @@ export class AddcotizacionComponent implements OnInit {
             icon: 'error',
           });   
   }
-  validateDetalle(){
+  /*validateDetalle(){
     this.isValid = true;
    if(this.kardexService.detalleCotizacion.length==0)
     this.isValid=false;
   
     return this.isValid;
-  }
+  }*/
 
   onSubmit(form: NgForm) {
     // console.log(form);
-  this.validateDetalle();
+  // this.validateDetalle();
   this.validateForm(form);
     if (form.invalid) {
       Object.values(form.controls).forEach((control) => {
@@ -248,25 +248,41 @@ export class AddcotizacionComponent implements OnInit {
     
       return;
  
-    } else if (this.kardexService.formData.id)
-    
-    { this.isButtonVisible = false;
+    } else if (this.kardexService.formData.id){ 
+      if(this.kardexService.detalleCotizacion.length == 0 || this.kardexService.detalleCotizacion.length == null ){
+        this.isButtonVisible = true;
+        return   Swal.fire({
+          title: 'Ingresar Productos a Cotizar' , 
+          icon: 'error',
+        });
+      } 
+
+      
+      else {  this.isButtonVisible = false;
       this.kardexService
         .UpdateOrder(this.kardexService.formData)
         .subscribe((resp) => {
           this.toastr.success('Actualizado Exitosamente', 'Gnuino');
           this.router.navigate(['../kardex/listarcotizacion']);
         });
-
+      }
 
     } else {
+      if(this.kardexService.detalleCotizacion.length == 0 || this.kardexService.detalleCotizacion.length == null ){
+        this.isButtonVisible = true;
+        return   Swal.fire({
+          title: 'Ingresar Productos a Cotizar' , 
+          icon: 'error',
+        });
+      } 
     // this.validateForm(form);
-    this.isButtonVisible = false;
+   else{ this.isButtonVisible = false;
       this.kardexService.saveUpdateOrder().subscribe((res) => {
         this.resetForm();
         this.toastr.success(res.msg);
         this.router.navigate(['../kardex/listarcotizacion']);
       });
     }
+  }
   }
 }

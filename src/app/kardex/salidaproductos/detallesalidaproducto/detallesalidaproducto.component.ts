@@ -38,6 +38,7 @@ export class DetallesalidaproductoComponent implements OnInit {
     .subscribe(resp => {
      // this.dataSource.data = resp[0].detalleCotizacion as DataDetalleCotizacionVenta[]; 
      this.formData = resp[0];
+     this.formData.detalleSalida = ' '
     //  console.log(resp,'que traer del kardex');
      // console.log(this.ventaService.detalleCotizacionVentaCambio);
   

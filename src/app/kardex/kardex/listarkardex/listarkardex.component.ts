@@ -17,6 +17,7 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class ListarkardexComponent implements OnInit {
   ListIngresosCerrados:DataKardex []= [];
+  kardex:DataKardex[]=[];
   cargando = true; 
  
   displayedColumns: string[] = ['Codigo Producto','Categoria', 'Producto','Modelo','Cantidad en Almacen','Cantidad en Reserva', 'Almacen','Salida','Transferencia','Movimientos'];
@@ -39,7 +40,8 @@ export class ListarkardexComponent implements OnInit {
      this.kardexService.getListKardex()
     .subscribe(resp => {
       // console.log(resp);
-     this.dataSource.data = resp as DataKardex[];  
+      this.kardex = resp;
+     this.dataSource.data = resp as DataKardex[];     
        this.cargando = false; 
    });
    
@@ -58,6 +60,7 @@ export class ListarkardexComponent implements OnInit {
     this.dialog.open(DetallesalidaproductoComponent, dialogConfig).afterClosed().subscribe(resp=>{
  //  console.log(resp,'cierra popup');
   this.getListKardex();
+  
     });
   }  
  
@@ -70,7 +73,9 @@ export class ListarkardexComponent implements OnInit {
     dialogConfig.data = {id }; 
      this.dialog.open(DetalletransferenciaComponent, dialogConfig).afterClosed().subscribe(resp=>{
   //  console.log(resp,'cierra popup');
+  this.cargando = false; 
    this.getListKardex();
+
      });
    }  
    AddDetallePrecioVenta(orderItemIndex, id:number) {   

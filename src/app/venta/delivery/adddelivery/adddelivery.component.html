@@ -44,7 +44,61 @@ name="idOrdenVenta"
     />
     </div>
   </div>
-  <div class="col-md-8">
+
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Tipo Pago</label>
+      <input
+      name="descripcion_pago"
+      #descripcion_pago="ngModel"
+      [(ngModel)]="formDataDelivery.detalleOrdenVenta[0].detalleTipoPago[0].descripcion_pago"
+      class="form-control"
+      readonly
+    />
+        </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Dirección</label>
+      <input
+      name="direccion"
+      #direccion="ngModel"
+      [(ngModel)]="formDataDelivery.detalleOrdenVenta[0].direccion"
+      class="form-control"
+      readonly
+    />
+        </div>
+  </div>
+</div>
+
+<div class="row"> 
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Cliente  </label>
+      <input
+      style="text-transform:uppercase" 
+      
+      [(ngModel)]="formDataClienteDatos"
+      class="form-control"
+      readonly
+    />
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="form-group">
+      <label>Telefono  </label>
+      <input
+      style="text-transform:uppercase" 
+      name="telefono_cliente"
+      #telefono_cliente="ngModel"
+      [(ngModel)]="formDataCliente[0].telefono_cliente"
+      class="form-control"
+      readonly
+    />
+    </div>
+  </div>
+  <div class="col-md-4">
     <div class="form-group">
       <label> Observación  </label>
       <input
@@ -57,36 +111,21 @@ name="idOrdenVenta"
     />
     </div>
   </div>
+  <!-- <div class="col-md-4">
+    <div class="form-group">
+      <label> Fecha </label>
+      <input
+      name="fechaEnvio"
+      #fechaEnvio="ngModel"
+      [(ngModel)]="formDataDelivery.fechaEnvio"
+      class="form-control"
+      readonly
+    />
+    </div>
+  </div> -->
 </div>
-
 <div class="row"> 
-  <div class="col-md-4">
-    <div class="form-group">
-      <label>Cliente  </label>
-      <input
-      style="text-transform:uppercase"
-      name="nombreCliente"
-      #nombreCliente="ngModel"
-      [(ngModel)]="formDataDelivery.detalleOrdenVenta[0].detalleCotizacion[0].nombreCliente"
-      class="form-control"
-      readonly
-    />
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="form-group">
-      <label> Distrito Entrega  </label>
-      <input
-      style="text-transform:uppercase"
-      name="nombreDistrito"
-      #nombreDistrito="ngModel"
-      [(ngModel)]="formDataDelivery.nombreDistrito"
-      class="form-control"
-      readonly
-    />
-    </div>
-  </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="form-group">
       <label> Fecha </label>
       <input
@@ -98,10 +137,7 @@ name="idOrdenVenta"
     />
     </div>
   </div>
-</div>
-<div class="row"> 
-
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="form-group">
       <label> Monto General </label>
       <input
@@ -114,7 +150,7 @@ name="idOrdenVenta"
     </div>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="form-group">
       <label> Monto Parcial </label>
       <input
@@ -126,7 +162,7 @@ name="idOrdenVenta"
     />
     </div> 
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="form-group">
       <label> Monto a Cobrar </label>
       <input
@@ -143,29 +179,46 @@ name="idOrdenVenta"
 <div class="row"> 
   <div class="col-md-4">
     <div class="form-group">
-      <label> Dirección</label>
+      <label> Departamento  </label>
       <input
-      name="direccion"
-      #direccion="ngModel"
-      [(ngModel)]="formDataDelivery.detalleOrdenVenta[0].direccion"
+      style="text-transform:uppercase"
+      name="nombre"
+      #nombre="ngModel"
+      [(ngModel)]="formDataCliente[0].detalleDepartamento[0].nombre"
       class="form-control"
       readonly
     />
-        </div>
+    </div>
   </div>
-
   <div class="col-md-4">
     <div class="form-group">
-      <label> Tipo Pago</label>
+      <label> Provincia  </label>
       <input
-      name="descripcion_pago"
-      #descripcion_pago="ngModel"
-      [(ngModel)]="formDataDelivery.detalleOrdenVenta[0].detalleTipoPago[0].descripcion_pago"
+      style="text-transform:uppercase"
+      name="nombre_provincia"
+      #nombre_provincia="ngModel"
+      [(ngModel)]="formDataCliente[0].detalleProvincia[0].nombre_provincia"
       class="form-control"
       readonly
     />
-        </div>
+    </div>
   </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label> Distrito</label>
+      <input
+      style="text-transform:uppercase"
+      name="nombre_distrito"
+      #nombre_distrito="ngModel"
+      [(ngModel)]="formDataCliente[0].detalleDistrito[0].nombre_distrito"
+      class="form-control"
+      readonly
+    />
+    </div>
+  </div>
+
+
+
 </div>
 
 

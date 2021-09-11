@@ -34,7 +34,8 @@ export class DetalletransferenciaComponent implements OnInit {
     this.kardexService.getkardexById(this.data.id) 
     .subscribe(resp => {
       this.formData = resp[0]; 
-      console.log(this.formData,'PRINCIPAL');
+      this.formData.detalleTransferencia = ' '
+      // console.log(this.formData,'PRINCIPAL');
    });
     this.mantenimientosService.getProducto()
     .subscribe(resp => {
@@ -102,8 +103,10 @@ export class DetalletransferenciaComponent implements OnInit {
   this.kardexService.detalleTransferencia = form.value 
   this.kardexService.GuardaTransferenciaAlmacen().subscribe(resp =>{   
     this.toastr.success('Transferencia Exitosamente');
+    this.router.navigate(["../kardex/Listarkardex"]);
    });     
    this.dialogRef.close();
+  
   //  console.log('id',this.data.orderItemIndex);
   //  console.log('submit',this.kardexService.detalleTransferencia);
      }

@@ -96,9 +96,7 @@ detalleCotizacionVentaCambio:DataDetalleCotizacionVentaCambio[];
     fechaParseada2 = moment(body.fechaEntrega).format('YYYY-MM-DD');
     body.fechaEntrega=fechaParseada2;
     delete body.id;
-    // console.log('delete',  delete body.id);
-    console.log('cuerpoventa',body);
-    // console.log('detalleventa',body.detalleCotizacion);
+     
      return this.http.put(`${this.baseURL}cotizacion-venta/${formData.id}`, body);
 
   }
@@ -123,11 +121,14 @@ detalleCotizacionVentaCambio:DataDetalleCotizacionVentaCambio[];
      console.log(body);
     return this.http.post(`${this.baseURL}cotizacion-venta`, body).pipe(
       map(
-        (resp) => resp['data'])
+        (resp) =>  resp['data'])
+    );
+        // console.log(resp,'SERVICIO RESP')))
         // console.log(resp['data']))
         
       // catchError(this.manejarError)
-    );
+    
+  
   }
 
   deleteDetalleCotizacion(id: number) {
@@ -140,7 +141,7 @@ detalleCotizacionVentaCambio:DataDetalleCotizacionVentaCambio[];
       ...bodyform,
       detalleCotizacion: this.detalleCotizacionAnular
     };
-    console.log(body,'body');
+    // console.log(body,'body');
     return this.http.put(`${this.baseURL}cotizacion-venta-estado/` + id, body);
  }
 

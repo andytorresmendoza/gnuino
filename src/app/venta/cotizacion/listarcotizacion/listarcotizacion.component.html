@@ -60,7 +60,7 @@
   <ng-container matColumnDef="Empleado">
     <th mat-header-cell *matHeaderCellDef>Empleado</th>
     <td mat-cell *matCellDef="let element">
-      {{ element.nombreEmpleado | uppercase }}
+      {{element.detalleEmpleado[0].nombre_empleado | uppercase}} , {{element.detalleEmpleado[0].apellidos_pat_empleado | uppercase }} {{element.detalleEmpleado[0].apellidos_mat_empleado | uppercase }}
     </td>
   </ng-container>
 
@@ -70,7 +70,8 @@
   </ng-container>
 
   <ng-container matColumnDef="Fecha Entrega">
-    <th mat-header-cell *matHeaderCellDef>Fecha Entrega</th>
+    <p><th mat-header-cell *matHeaderCellDef>Fecha de Creación de Cotización</th></p>  
+    <!-- <p><th   *matHeaderCellDef>de Cotización</th></p> -->
     <td mat-cell *matCellDef="let element">{{ element.fechaEntrega }}</td>
   </ng-container>
   <ng-container matColumnDef="Estado">
@@ -103,7 +104,7 @@
   <ng-container matColumnDef="Anular">
     <th mat-header-cell *matHeaderCellDef>Anular</th>
     <td mat-cell *matCellDef="let element; let i = index">
-      <button mat-icon-button color="warn" (click)="EstadoCotizacionAnular(element, i)">
+      <button mat-icon-button  *ngIf="element.idEstadoFlujo !== 2" color="warn" (click)="EstadoCotizacionAnular(element, i)">
         <mat-icon>delete_sweep</mat-icon>
       </button>
     </td>
@@ -118,3 +119,6 @@
     </td>
   </tr>
 </table>
+
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 30, 40, 50]">
+</mat-paginator>

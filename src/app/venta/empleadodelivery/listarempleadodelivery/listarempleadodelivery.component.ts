@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild} from '@angular/core';
 import { MatDialog , MatDialogConfig} from '@angular/material/dialog'; 
 
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
  
 import { VentaService } from 'src/app/services/venta/venta.service';
 import { EditarempleadodeliveryComponent } from '../editarempleadodelivery/editarempleadodelivery.component';
-
+import { MatPaginator } from '@angular/material/paginator';
 @Component({
   selector: 'app-listarempleadodelivery',
   templateUrl: './listarempleadodelivery.component.html',
@@ -18,12 +18,14 @@ import { EditarempleadodeliveryComponent } from '../editarempleadodelivery/edita
 export class ListarempleadodeliveryComponent implements OnInit {
   ordenes:any[]=[];
   cargando = true; 
-  displayedColumns: string[] = ['Nro Despacho','Nro Orden Venta','Empleado','Distrito','Fecha Envio','Detalle Envio','Estado' ,'Anular'];
+  displayedColumns: string[] = ['Nro Despacho','Nro Orden Venta','Empleado','Fecha Envio','Detalle Envio','Estado' ,'Anular'];
   dataSource = new MatTableDataSource<DatEmpleadoDelivery>();
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  sort:any;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor
   (private ventaService: VentaService, private router:Router,  private toastr: ToastrService,  private dialog: MatDialog ) { }
 
@@ -31,14 +33,17 @@ export class ListarempleadodeliveryComponent implements OnInit {
   ngOnInit(): void {
     this.getOrden();
   }
-
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
   getOrden(){ 
     this.ventaService.getListarPreDelivery()
    .subscribe(resp => {
      this.dataSource.data = resp as DatEmpleadoDelivery[]; 
        this.ordenes = resp;  
       this.cargando = false;
-      // console.log(resp);
+        // console.log(resp);
   });
   } 
 

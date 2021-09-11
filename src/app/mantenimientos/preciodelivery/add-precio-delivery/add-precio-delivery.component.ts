@@ -109,10 +109,21 @@ constructor(private mantenimientosServices: MantenimientosService
  else{
 
     this.mantenimientosServices.savePrecioDelivery(this.formData).subscribe(res =>{
-   //console.log(res);
-     this.resetForm();
-     this.toastr.success('Guardado Exitosamente','Gnuino');
-    this.router.navigate(["../mantenimientos/listarpreciodelivery"]);
+  // console.log(res);
+     if(res.code === 401){
+      this.toastr.warning(res.msg )
+      return;
+     }else{
+      this.toastr.success('Guardado Exitosamente', 'Gnuino' )
+      this.resetForm();
+      this.router.navigate(["../mantenimientos/listarpreciodelivery"]);
+     }
+        // res.code === 401 ?  this.toastr.warning(res.msg ):  this.toastr.success('Guardado Exitosamente', 'Gnuino' )
+          // this.resetForm(); 
+          // this.router.navigate(["../mantenimientos/listarpreciodelivery"]);
+    
+
+   
    }) ;
 }
 }

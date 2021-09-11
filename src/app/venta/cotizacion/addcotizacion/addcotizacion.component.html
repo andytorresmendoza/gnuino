@@ -97,9 +97,11 @@ name="idCliente"
         bindValue="idCampain" 
         placeholder="Buscar Campaña Venta" 
         [(ngModel)]="ventaService.formData.idCampain"  
+       
       >   
           <ng-option *ngFor="let emp of campania" 
-          [value]="emp.id">{{emp.descripcion_campain}}</ng-option>
+          [value]="emp.id"  [disabled]="emp.estado == 0">{{emp.descripcion_campain}}</ng-option>
+          
        </ng-select> 
     </div> 
   </div>
@@ -116,7 +118,7 @@ name="idCliente"
         [(ngModel)]="ventaService.formData.idCanalVenta"  
       >   
           <ng-option *ngFor="let emp of canalVenta" 
-          [value]="emp.id">{{emp.descripcion_canal}}</ng-option>
+          [value]="emp.id"  [disabled]="emp.estado == 0">{{emp.descripcion_canal}}</ng-option>
        </ng-select> 
     </div> 
   </div>
@@ -135,7 +137,7 @@ name="idCliente"
           [(ngModel)]="ventaService.formData.idTipoCotizacion"  
         >   
             <ng-option *ngFor="let emp of tipocotizacion" 
-            [value]="emp.id">{{emp.descrip_tip_cot_venta}}</ng-option>
+            [value]="emp.id"  [disabled]="emp.estado == 0">{{emp.descrip_tip_cot_venta}}</ng-option>
          </ng-select> 
       </div> 
     </div>
@@ -172,7 +174,7 @@ name="idCliente"
           [(ngModel)]="ventaService.formData.idLinea"  
         >   
             <ng-option *ngFor="let emp of linea" 
-            [value]="emp.id">{{emp.detalle_linea}}</ng-option>
+            [value]="emp.id"  [disabled]="emp.estado == 0">{{emp.detalle_linea}}</ng-option>
          </ng-select> 
       </div> 
     </div>
@@ -211,20 +213,36 @@ name="idCliente"
     <div class="col-md-4">
       <div class="form-group">
         <label> Cliente</label> 
-        <ng-select 
+        
+  <ng-select 
         style="text-transform:uppercase"
-        [items]="clientes"
-       bindLabel="nombre_cliente"
-       bindValue="id" 
+       [items]="clientes"
+       bindLabel="nombre_cliente"  
        placeholder="Buscar Clientes"
-       [(ngModel)]="ventaService.formData.idCliente"
-       (change)="UpdateCliente($event)"
+       [(ngModel)]="ventaService.formData.idCliente" 
+       (change)="UpdateCliente($event)" 
         >
-        <!-- (change)="onChangeCliente($event)"  -->
-  
-  </ng-select>  
+   </ng-select>      
+
+ 
+  <!-- <ng-select  
+      style="text-transform:uppercase"
+      #idCliente="ngModel"  
+      name="idCliente"  
+      placeholder="Buscar Cliente" 
+      [(ngModel)]="ventaService.formData.idCliente"  
+      [loading]="loading"
+      (ngModelChange)="UpdateCliente2()"
+    >   
+     <ng-option *ngFor="let emp of clientes" [value]="emp.id" [disabled]="emp.estado == 0">{{emp.nombre_cliente}}</ng-option> 
+     </ng-select>  
+  -->
+
+
       </div>
     </div>
+
+
     <div class="col-md-4">
     <div class="form-group">
       <label> Tipo Moneda</label>
@@ -236,7 +254,7 @@ name="idCliente"
       placeholder="Buscar Tipo Moneda" 
       [(ngModel)]="ventaService.formData.idTipoMoneda"  
     >   
-        <ng-option *ngFor="let emp of tipoMoneda" [value]="emp.id">{{emp.nombre_moneda}}</ng-option>
+        <ng-option *ngFor="let emp of tipoMoneda" [value]="emp.id" [disabled]="emp.estado == 0">{{emp.nombre_moneda}}</ng-option>
      </ng-select> 
  
     </div> </div>
@@ -331,7 +349,7 @@ name="idCliente"
         placeholder="Buscar Empleado" 
         [(ngModel)]="ventaService.formData.idEmpleado"  
       >   
-          <ng-option *ngFor="let emp of empleados" [value]="emp.id">{{emp.nombre_empleado}}</ng-option>
+          <ng-option *ngFor="let emp of empleados" [value]="emp.id" [disabled]="emp.estado == 0">{{emp.nombre_empleado}}</ng-option>
        </ng-select> 
       </div>
     </div>

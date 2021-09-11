@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -8,6 +8,7 @@ import { VentaService } from 'src/app/services/venta/venta.service';
 import { MatDialog , MatDialogConfig} from '@angular/material/dialog'; 
 import { AddempleadodeliveryComponent } from '../../empleadodelivery/addempleadodelivery/addempleadodelivery.component';
 import Swal from 'sweetalert2';
+import { MatPaginator } from '@angular/material/paginator';
 @Component({
   selector: 'app-listarordenventa',
   templateUrl: './listarordenventa.component.html',
@@ -23,6 +24,8 @@ export class ListarordenventaComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  sort:any;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor
   (private ventaService: VentaService, private router:Router,  private toastr: ToastrService,  private dialog: MatDialog ) { }
 
@@ -30,7 +33,10 @@ export class ListarordenventaComponent implements OnInit {
   ngOnInit(): void {
     this.getOrden();
   }
-
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
   getOrden(){
 
     this.ventaService.getOrdenVenta()
@@ -38,7 +44,7 @@ export class ListarordenventaComponent implements OnInit {
      this.dataSource.data = resp as DataOrdenVenta[]; 
        this.ordenes = resp; 
        this.ventaService.detalleDelivery = resp;
-       console.log(resp);
+      //  console.log(resp);
       //  this.ventaService.detalleCotizacion =  resp.detalleCotizacion.detalleCotizacion;
       //  console.log(this.ventaService.detalleCotizacion,'DETALLE');
       this.cargando = false;

@@ -20,7 +20,8 @@ export class AdddeliverytodosComponent implements OnInit {
 // public formDetalleEstadoDelivery:any[]=[];
   public formDataDelivery:any[]=[];
   public formDetalleDelivery:any[]=[];
-  
+  public formDataCliente:any[]=[];
+  public formDataClienteDatos:any[]=[];
   estadoDelivery: DataEstadoDelivery[] ;
   isButtonVisible:boolean=true; 
   constructor(  private currentRoute: ActivatedRoute,private ventaService: VentaService,private toastr: ToastrService, private router: Router,private mantenimientosServices: MantenimientosService) {
@@ -31,11 +32,14 @@ export class AdddeliverytodosComponent implements OnInit {
     // let id2 =  this.iddelivery
       // console.log(id);
       this.ventaService.getListarDeliveryTodosById(+id).subscribe((res) => {
-        // console.log(res);
-        this.formDataDelivery = res[0]; 
-        // console.log(this.formDataDelivery);
+         console.log(res);
+        this.formDataDelivery = res[0];  
         this.formDetalleDelivery = res[0].detalleOrdenVenta[0].detalleCotizacion[0].detalleCotizacion; 
        this.ventaService.detalleDelivery =res[0].detalleOrdenVenta[0].detalleCotizacion[0].detalleCotizacion;
+       this.formDataCliente = res[0].detalleOrdenVenta[0].detalleCotizacion[0].detalleCliente;
+       this.formDataClienteDatos = (res[0].detalleOrdenVenta[0].detalleCotizacion[0].detalleCliente[0].nombre_cliente.concat(', ',res[0].detalleOrdenVenta[0].detalleCotizacion[0].detalleCliente[0].apellidos_pat_cliente,' ',res[0].detalleOrdenVenta[0].detalleCotizacion[0].detalleCliente[0].apellidos_mat_cliente));
+
+
        if (res[0].idEstadoDelivery ==  2 || res[0].idEstadoDelivery ==  3 ) {
         this.isButtonVisible=false;
        } else {

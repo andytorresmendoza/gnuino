@@ -50,7 +50,7 @@ export class AddcotizacionComponent implements OnInit {
     let id = this.currentRoute.snapshot.paramMap.get('id');
     if (id !== 'nuevo') {
       this.ventaService.getCotizacionById(+id).subscribe(res => {
-        //  console.log(res);
+         console.log(res);
         this.ventaService.formData = res[0];   
         this.ventaService.detalleCotizacion = res[0].detalleCotizacion;
         // this.ventaService.formData.descripcion_catcli = res[0].detalleCatCliente 
@@ -121,13 +121,21 @@ this.mantenimientosService.getCliente().subscribe(resp => {
  this.mantenimientosService.getDistritoAll()
    .subscribe(resp => {  
    this.distritos = (resp).
-   filter(valor => valor.idProvincia === 1401 );
-
+   filter(valor => valor.idProvincia === 1401 ); 
    } );
 
    this.mantenimientosService.getCampaniaVenta()
    .subscribe(resp => {
-     this.campania = resp as DataCampaniaVenta[]  
+     
+    this.campania = resp as DataCampaniaVenta[]
+    /* this.campania = (resp).
+     filter(valor => valor.estado == 1 );
+*/
+      console.log(this.campania,'VARIABLE');
+
+
+
+
   });
   this.mantenimientosService.getCanalVenta()
    .subscribe(resp => {
@@ -137,9 +145,11 @@ this.mantenimientosService.getCliente().subscribe(resp => {
 
  
   }
-
-  UpdateCliente= ($event: any): void => { 
-  //  console.log($event,'EVENTO CLIENTE');
+  // UpdateCliente2(){
+  //   console.log(this.UpdateCliente2());
+  // }
+  UpdateCliente ($event: any): void {
+    //  console.log($event,'EVENTO CLIENTE');
     this.ventaService.formData.descripcion_catcli = $event.detalleCategoriaCliente[0].descripcion_catcli
     this.ventaService.formData.idcategoriaCliente = $event.detalleCategoriaCliente[0].id
     this.ventaService.formData.nombre = $event.detalleDepartamento[0].nombre
@@ -287,7 +297,6 @@ this.ventaService.detalleCotizacion = [];
     this.isValid = true;
      if(this.ventaService.detalleCotizacion.length==0)
     this.isValid=false;
-  
     return this.isValid;
   }
 
@@ -328,17 +337,18 @@ this.ventaService.detalleCotizacion = [];
             title: 'Seleccionar Linea' , 
             icon: 'error',
           });   
-          
+       /*   else if  (this.ventaService.detalleCotizacion.length == 0 || this.ventaService.detalleCotizacion.length == null )
+           this.isButtonVisible = true;
+          return   Swal.fire({
+             title: 'Ingresar Productos a Cotizar' , 
+             icon: 'error',
+           });   */
   }
 
-onSubmit(form:NgForm) {
-   console.log(form.value);
- this.validateForm();
-
- if (this.validateSelect(form)){
+onSubmit(form:NgForm) { 
+  if (this.validateSelect(form)){
   return;
- }
-
+ } 
 else  if ( form.invalid ) {
 
     Object.values( form.controls ).forEach( control => {
@@ -349,29 +359,45 @@ else  if ( form.invalid ) {
     return;
   } 
   
- else if (this.ventaService.formData.id) {
-  this.isButtonVisible = false;
-    this.ventaService.UpdateOrder(this.ventaService.formData).subscribe(
-      resp=>{
- 
+ else if (this.ventaService.formData.id) { 
+  if(this.ventaService.detalleCotizacion.length == 0 || this.ventaService.detalleCotizacion.length == null ){
+    this.isButtonVisible = true;
+    return   Swal.fire({
+      title: 'Ingresar Productos a Cotizar' , 
+      icon: 'error',
+    });
+  } 
+  else {this.ventaService.UpdateOrder(this.ventaService.formData).subscribe(
+      resp=>{ 
+        this.isButtonVisible = false;
         this.toastr.success('Actualizado Exitosamente','Gnuino');
        this.router.navigate(["../venta/listarventa"]);
       }
     )
-}else{
-  
-  this.validateForm();
-  this.isButtonVisible = false;
+  }
+}
+else{ 
 
-
-  /**/
-
-   this.ventaService.saveUpdateOrder().subscribe(res =>{
-  
-    this.resetForm();
-    this.toastr.success(res.msg );
-        this.router.navigate(["../venta/listarventa"]);
+  if(this.ventaService.detalleCotizacion.length == 0 || this.ventaService.detalleCotizacion.length == null ){
+    this.isButtonVisible = true;
+    return   Swal.fire({
+      title: 'Ingresar Productos a Cotizar' , 
+      icon: 'error',
+    });
+  } 
+ else { this.ventaService.saveUpdateOrder().subscribe(res =>{
+     if(res.code === 401){
+      this.toastr.warning(res.msg )
+      this.isButtonVisible = true;
+       return;
+     }else{
+      this.isButtonVisible = false;
+      this.toastr.success(res.msg )
+      this.resetForm();
+      this.router.navigate(["../venta/listarventa"]);
+     }
   })
+}
 }  
 }
 }

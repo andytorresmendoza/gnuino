@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild} from '@angular/core';
 import { KardexService } from '../../../services/kardex/kardex.service';
  
 import { Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { DataVentaDirecta } from '../../../models/ventadirecta';
 // import { VistapreviadirectaComponent } from '../../../ventadirecta/vistapreviadirecta/vistapreviadirecta.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { VistapreviadirectaComponent } from '../vistapreviadirecta/vistapreviadirecta.component';
+import { MatPaginator } from '@angular/material/paginator';
 @Component({
   selector: 'app-listarventadirecta',
   templateUrl: './listarventadirecta.component.html',
@@ -26,6 +27,8 @@ export class ListarventadirectaComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  sort:any;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor
   (private ventaService: VentaService,   private dialog: MatDialog, private router:Router,  private toastr: ToastrService ) { }
 
@@ -33,7 +36,10 @@ export class ListarventadirectaComponent implements OnInit {
     this. getVentaDirecta();
 
  }
-
+ ngAfterViewInit(): void {
+  this.dataSource.sort = this.sort;
+  this.dataSource.paginator = this.paginator;
+}
  getVentaDirecta(){
 
   this.ventaService.getVentaDirecta()
@@ -42,7 +48,7 @@ export class ListarventadirectaComponent implements OnInit {
      this.cotizaciones = resp; 
      this.ventaService.detalleVentaDirecta = resp[0].detalleCotizacion
 
-     console.log(resp);
+    //  console.log(resp);
  
 });
 } 

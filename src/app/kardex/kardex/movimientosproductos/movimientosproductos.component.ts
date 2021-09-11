@@ -40,7 +40,7 @@ export class MovimientosproductosComponent implements OnInit {
     this.kardexService.getMovimientoProductos(+id).subscribe(res => {
     this.cabeceraProducto = res[0].detalleKardex; 
       this.movimientosProductos = res[0].detalleMovs;  
-    // console.log(this.movimientosProductos); 
+     console.log(this.movimientosProductos); 
     }); 
   }
  

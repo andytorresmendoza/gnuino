@@ -50,7 +50,7 @@
 
   <ng-container matColumnDef="Empleado">
     <th mat-header-cell *matHeaderCellDef> Empleado </th>
-    <td mat-cell *matCellDef="let element"> {{element.nombreEmpleado | uppercase}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.detalleEmpleado[0].nombre_empleado | uppercase}}, {{element.detalleEmpleado[0].apellidos_pat_empleado | uppercase}} {{element.detalleEmpleado[0].apellidos_mat_empleado | uppercase}}</td>
   </ng-container>
 
  

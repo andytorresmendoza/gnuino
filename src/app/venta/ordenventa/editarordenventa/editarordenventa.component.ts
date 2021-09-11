@@ -36,7 +36,7 @@ export class EditarordenventaComponent implements OnInit {
     let id = this.currentRoute.snapshot.paramMap.get('id'); 
 
     this.ventaService.getOrdenCompraVentaById(+id).subscribe((res) => {
- console.log('editar',res );
+//  console.log('editar',res );
         this.ventaService.formOrdenVenta = res[0];
         this.cotizacion = res[0].detalleCotizacion[0];
     this.detalleCotizacionesVenta  = res[0].detalleCotizacion[0].detalleCotizacion;

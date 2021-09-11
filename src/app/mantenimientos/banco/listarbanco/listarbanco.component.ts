@@ -24,10 +24,6 @@ export class ListarbancoComponent implements OnInit {
       this.cargando = false;
       console.log(resp)
    
-  
- 
-   },(err)=>{
-     console.log('Erro en la categoria');
    });
 
   }

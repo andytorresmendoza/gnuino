@@ -18,6 +18,7 @@ import { DataDetalleIngresoAlmacen } from '../../../models/detalle-ingresoalmace
 import { DataTipoIngreso } from 'src/app/models/tipoingreso';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
+import { DataTipoAlmacen } from '../../../models/tipoalmacen';
 
 @Component({
   selector: 'app-addentradaalmacen',
@@ -36,6 +37,7 @@ export class AddentradaalmacenComponent implements OnInit {
   bancos: DataBanco[];
   cuentas: DataNrocuenta[]; 
   tipoingresos: DataTipoIngreso[];
+  almacenes: DataTipoAlmacen[]; 
   isButtonVisible: boolean = true;
   constructor(public kardexService: KardexService
     , private router: Router, private toastr: ToastrService,   private dialog: MatDialog,  private mantenimientosService: MantenimientosService, private currentRoute: ActivatedRoute) { }
@@ -66,6 +68,11 @@ export class AddentradaalmacenComponent implements OnInit {
       // console.log( 'console',this.ordenes);
    
     });
+    this.mantenimientosService.getTipoAlmacen()
+    .subscribe(resp => {
+      this.almacenes = resp as DataTipoAlmacen[]   
+    console.log('principal', this.almacenes);
+ });
   }
   resetForm(form?: NgForm) {
     if ((form = null)) form.resetForm();
@@ -79,18 +86,20 @@ export class AddentradaalmacenComponent implements OnInit {
       idProovedor:0,
       idEmpleado:0,
       detalleIngreso:'',
-      descripcion_ingreso:''
+      descripcion_ingreso:'',
+      idAlmacen:0
        
    
     };
     this.kardexService.detalleIngresoAlmacen = [];
   }
   onChange = ($event: any): void => {
-    // console.log($event);
+      console.log($event);
      this.kardexService.formDataEntrada.idOrden = $event.id;
     this.kardexService.formDataEntrada.idCotizacion = $event.idCotizacion;
     this.kardexService.formDataEntrada.idProovedor = $event.idProovedor; 
     this.kardexService.formDataEntrada.idEmpleado = $event.idEmpleado;
+    this.kardexService.formDataEntrada.idAlmacen = $event.idAlmacen;
 
     // this.kardexService.formDataEntrada.idOrden =  $event.idOrden; 
  
@@ -153,8 +162,17 @@ return;
        this.kardexService.GuardaIngresoAlmacen().subscribe(resp =>{
       // console.log('respuesta',resp);
         // this.resetForm();
-        resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
-        this.router.navigate(["../kardex/listarentrada"]);
+        if(resp.code === 401){
+          this.toastr.warning(resp.msg )
+       this.isButtonVisible = true;
+           return;
+         }else{
+          this.toastr.success(resp.msg )
+          this.router.navigate(["../kardex/listarentrada"]);
+         }
+
+        // resp.code === 401 ?  this.toastr.warning(resp.msg ):  this.toastr.success(resp.msg )
+        // this.router.navigate(["../kardex/listarentrada"]);
  
       })  
     }

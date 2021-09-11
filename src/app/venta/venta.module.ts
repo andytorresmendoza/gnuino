@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import {MatPaginatorModule } from '@angular/material/paginator';
 import { VentaComponent } from './venta.component';
 import { VentaService } from '../services/venta/venta.service';
 import { ListarordenventaComponent } from './ordenventa/listarordenventa/listarordenventa.component';
@@ -62,13 +63,13 @@ import { AdddeliverytodosComponent } from './delivery/adddeliverytodos/adddelive
       MatInputModule,
       MatTableModule,
       MatIconModule
-      ,MatButtonModule
+      ,MatButtonModule, MatPaginatorModule
  
      
   ],
   entryComponents:[DetallecotizacionComponent],
   exports:[     
-    VentaComponent
+    VentaComponent, MatPaginatorModule
   ],
   providers:[VentaService, {provide: MAT_DATE_LOCALE, useValue: 'es-ES'}]
 })

@@ -340,25 +340,47 @@ export class AddventadirectaComponent implements OnInit {
     } 
     
    else if (this.ventaService.formVenta.id) {
-    this.isButtonVisible = false;
-      this.ventaService.UpdateVentaDirecta(this.ventaService.formVenta).subscribe(
+
+    if(this.ventaService.detalleVentaDirecta.length == 0 || this.ventaService.detalleVentaDirecta.length == null ){
+      this.isButtonVisible = true;
+      return   Swal.fire({
+        title: 'Ingresar Productos a Vender' , 
+        icon: 'error',
+      });
+    } 
+  
+     else{ this.ventaService.UpdateVentaDirecta(this.ventaService.formVenta).subscribe(
         resp=>{
-   
+          this.isButtonVisible = false;
           this.toastr.success('Actualizado Exitosamente','Gnuino');
          this.router.navigate(["../venta/listarventadirecta"]);
         }
       )
+     }
   }else{
     
-    this.validateForm();
-    this.isButtonVisible = false;
-     this.ventaService.saveVentaDirecta().subscribe(res =>{
-       console.log(res);
-    
-      this.resetForm();
-      this.toastr.success(res.msg );
+    // this.validateForm();
+  //  
+  if(this.ventaService.detalleVentaDirecta.length == 0 || this.ventaService.detalleVentaDirecta.length == null ){
+    this.isButtonVisible = true;
+    return   Swal.fire({
+      title: 'Ingresar Productos a Vender' , 
+      icon: 'error',
+    });
+  } 
+   else{  this.ventaService.saveVentaDirecta().subscribe(res =>{
+      if(res.code === 401){
+        this.toastr.warning(res.msg )
+        this.isButtonVisible = true;
+         return;
+       }else{
+        this.isButtonVisible = false;
+        this.toastr.success(res.msg )
+        this.resetForm();
           this.router.navigate(["../venta/listarventadirecta"]);
+       }
     })
   } 
+}
   } 
   }

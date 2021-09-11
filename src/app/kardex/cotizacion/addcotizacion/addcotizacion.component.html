@@ -85,7 +85,7 @@ name="costo_envio"
         [(ngModel)]="kardexService.formData.idTipoCotizacion"  
       >   
           <ng-option *ngFor="let emp of tipocotizacion" 
-          [value]="emp.id">{{emp.detalle_tcotizacion}}</ng-option>
+          [value]="emp.id"  [disabled]="emp.estado == 0">{{emp.detalle_tcotizacion}}</ng-option>
        </ng-select> 
     </div> 
   </div>

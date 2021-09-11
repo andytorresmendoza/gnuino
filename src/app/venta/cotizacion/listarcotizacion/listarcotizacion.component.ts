@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { KardexService } from '../../../services/kardex/kardex.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
@@ -10,6 +10,7 @@ import { VentaService } from 'src/app/services/venta/venta.service';
 import { DataCotizacionVenta } from 'src/app/models/cotizacionventa';
 import { CambiomedidaventaComponent } from '../cambiomedidaventa/cambiomedidaventa.component'; 
 import { VistapreviacotizacionComponent } from '../vistapreviacotizacion/vistapreviacotizacion.component';
+import { MatPaginator } from '@angular/material/paginator';
 @Component({
   selector: 'app-listarcotizacion',
   templateUrl: './listarcotizacion.component.html',
@@ -27,6 +28,8 @@ export class ListarcotizacionComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  sort:any;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor
   (private ventaService: VentaService, private router:Router,   private dialog: MatDialog,  private toastr: ToastrService ) { }
 
@@ -34,15 +37,18 @@ export class ListarcotizacionComponent implements OnInit {
     this. getCotizacion();
 
  }
-
+ ngAfterViewInit(): void {
+  this.dataSource.sort = this.sort;
+  this.dataSource.paginator = this.paginator;
+}
  getCotizacion(){
 
   this.ventaService.getCotizacionVenta()
  .subscribe(resp => {
-   this.dataSource.data = resp as DataCotizacionVenta[]; 
-     this.cotizaciones = resp; 
-     this.ventaService.detalleCotizacion = resp; 
-    //  console.log(resp);
+    this.dataSource.data = resp as DataCotizacionVenta[]; 
+    this.cotizaciones = resp; 
+    this.ventaService.detalleCotizacion = resp; 
+    // console.log(resp);
 });
 } 
  
@@ -52,7 +58,7 @@ openForEdit(CotizacionId: number) {
 }
 
 cambiomedida( id) {
-  console.log(id,'cambio');
+  // console.log(id,'cambio');
  const dialogConfig = new MatDialogConfig();
  dialogConfig.autoFocus = true;
  dialogConfig.disableClose = true;
@@ -65,7 +71,7 @@ cambiomedida( id) {
  }
 
  vistaPrevia( id) {
-  console.log(id,'vista');
+  // console.log(id,'vista');
  const dialogConfig = new MatDialogConfig();
  dialogConfig.autoFocus = true;
  dialogConfig.disableClose = true;

@@ -36,6 +36,11 @@ export class AddempleadodeliveryComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log(this.ventaService.detalleDelivery);
+// console.log(this.ventaService.detalleDelivery.detalleCotizacion,'NGONINIT');
+      // let variable = 
+  
+
+
     this.mantenimientosService.getEmpleado().subscribe(resp => { 
       this.empleados = (resp as DataEmpleado[]).filter(valor=>valor.idPerfilUsuario === 4)
       .map(empleados=>{ 
@@ -83,7 +88,7 @@ export class AddempleadodeliveryComponent implements OnInit {
     },
     this.ventaService.detalleDelivery[this.data.orderItemIndex]);
     
-    // console.log(this.ventaService.detalleDelivery);
+    // console.log(this.ventaService.detalleDelivery[0].apellidoMatCliente;
     if(this.ventaService.detalleDelivery[this.data.orderItemIndex].idEstadoFlujo  ==  4 ) {
       this.isButtonVisible=false;
      } else {

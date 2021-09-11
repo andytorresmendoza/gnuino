@@ -36,7 +36,7 @@ export class ListarordencompraComponent implements OnInit {
     this.dataSource.data = resp as DataOrdenCompra[]; 
       this.Ordenes = resp; 
       this.cargando = false;
-       //console.log(resp);
+       console.log(resp);
   });
 }
 openForEdit(OrdenId:number):void { 

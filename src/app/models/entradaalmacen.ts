@@ -15,6 +15,7 @@ export interface DataEntradaAlmacen {
     idEmpleado:number;
     detalleIngreso:string;
     descripcion_ingreso:string;
+    idAlmacen:number;
    
     // id
     // idProovedor:           number;

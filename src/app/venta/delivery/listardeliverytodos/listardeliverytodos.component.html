@@ -14,18 +14,25 @@
     <td mat-cell *matCellDef="let element" > {{element.codigo_empdel_num_venta}} </td> 
   </ng-container>
 
-  
+  <ng-container matColumnDef="Tipo">
+    <th mat-header-cell *matHeaderCellDef> Tipo Venta </th>
+    <td mat-cell *matCellDef="let element"> {{element.detalleOrdenVenta[0].detalleCotizacion[0].detalleTipoCotizacin[0].descrip_tip_cot_venta | uppercase }}</td>
+  </ng-container> 
+
   <ng-container matColumnDef="Cliente">
     <th mat-header-cell *matHeaderCellDef> Cliente </th>
-    <td mat-cell *matCellDef="let element"> {{element.detalleOrdenVenta[0].detalleCotizacion[0].nombreCliente }} </td>
+    <td mat-cell *matCellDef="let element"> {{element.detalleOrdenVenta[0].detalleCotizacion[0].nombreCliente  | uppercase }},  {{element.detalleOrdenVenta[0].detalleCotizacion[0].apellidoPatCliente  | uppercase }} {{element.detalleOrdenVenta[0].detalleCotizacion[0].apellidoMatCliente  | uppercase }} </td>
   </ng-container>
 
   <ng-container matColumnDef="Distrito">
     <th mat-header-cell *matHeaderCellDef> Distrito </th>
-    <td mat-cell *matCellDef="let element"> {{element.nombreDistrito | uppercase }} </td>
+    <td mat-cell *matCellDef="let element"> {{element.detalleOrdenVenta[0].detalleCotizacion[0].detalleCliente[0].detalleDepartamento[0].nombre | uppercase }} / {{element.detalleOrdenVenta[0].detalleCotizacion[0].detalleCliente[0].detalleProvincia[0].nombre_provincia | uppercase }}/ {{element.detalleOrdenVenta[0].detalleCotizacion[0].detalleCliente[0].detalleDistrito[0].nombre_distrito | uppercase }}</td>
   </ng-container> 
 
-  
+  <ng-container matColumnDef="Empleado">
+    <th mat-header-cell *matHeaderCellDef> Empleado </th>
+    <td mat-cell *matCellDef="let element"> {{element.detalleOrdenVenta[0].detalleCotizacion[0].detalleEmpleado[0].nombre_empleado | uppercase }},  {{element.detalleOrdenVenta[0].detalleCotizacion[0].detalleEmpleado[0].apellidos_pat_empleado | uppercase }} {{element.detalleOrdenVenta[0].detalleCotizacion[0].detalleEmpleado[0].apellidos_mat_empleado| uppercase }}</td>
+  </ng-container>  
   <!-- <ng-container matColumnDef="Precio General">
     <th mat-header-cell *matHeaderCellDef> Precio General </th>
     <td mat-cell *matCellDef="let element"> {{element.detalleOrdenVenta[0].detalleCotizacion[0].totalGeneral }} </td>
@@ -80,6 +87,8 @@
   </tr>
  
 </table>
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 30, 40, 50]">
+</mat-paginator>
 
 
 
