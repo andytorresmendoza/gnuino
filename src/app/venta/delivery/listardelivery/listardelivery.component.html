@@ -6,7 +6,7 @@
 </mat-form-field>
  
  
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table *ngIf="!cargando && listaDelivery.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <!-- Position Column -->
   <ng-container matColumnDef="Nro">
@@ -87,40 +87,16 @@
   </tr>
  
 </table>
+<div
+*ngIf="cargando"
+class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading">Cargando</h4>
+<p>
+  <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+</p>
+<p class="mb-0">Espere por favor</p>
+</div>
 <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 30, 40, 50]">
 </mat-paginator>
 
-
-
-<!-- <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Codigo</th>
-        <th scope="col">Distrito</th>
-        <th scope="col">Cliente</th>
-        <th scope="col">Producto</th>
-        <th scope="col">Cantidad</th>
-        <th scope="col">Precio General</th>
-        <th scope="col">Pago Parcial</th>
-        <th scope="col">Total a Cobrar</th>
-        <th scope="col">Detalle</th>
- 
-      </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let lista of listaDelivery; let i = index">
-        <th scope="row">{{ i + 1 }}</th>
-        <td>{{ lista.codigo_empdel_num_venta }}</td> 
-        <td>{{ lista.nombreDistrito | uppercase}}</td> 
-       <td>{{ lista.detalleOrdenVenta[0].detalleCotizacion[0].nombreCliente }}</td>  
-       <td>{{ lista.detalleOrdenVenta[0].detalleCotizacion[0].detalleCotizacion[0].nombre_producto }}</td> 
-       <td>{{ lista.detalleOrdenVenta[0].detalleCotizacion[0].detalleCotizacion[0].cantidad }}</td> 
-       <td>{{ lista.detalleOrdenVenta[0].detalleCotizacion[0].totalGeneral }}</td> 
-       <td>{{ lista.detalleOrdenVenta[0].pagoParcial}}</td> 
-       <td style="color: #3145ff">{{ lista.detalleOrdenVenta[0].detalleCotizacion[0].totalGeneral  - lista.detalleOrdenVenta[0].pagoParcial | currency}}</td> 
-       <td>{{ lista.detalleEmpDev}}</td>  
-      </tr>
-      
-    </tbody>
-  </table> -->

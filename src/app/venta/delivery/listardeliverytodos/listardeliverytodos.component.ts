@@ -13,7 +13,7 @@ export class ListardeliverytodosComponent implements OnInit {
   private decoded:any; 
   private iddelivery:any;
   public listaDelivery:any[]=[];
-
+  cargando = true; 
   displayedColumns: string[] = ['Nro','Tipo','Cliente','Distrito','Empleado','Total','Estado','Venta'];
   dataSource = new MatTableDataSource<any>();
   applyFilter(event: Event) {
@@ -30,6 +30,7 @@ export class ListardeliverytodosComponent implements OnInit {
       this.dataSource.data = resp; 
         this.listaDelivery = resp; 
         this.ventaService.detalleCotizacion = resp; 
+        this.cargando = false; 
         // console.log(resp);
    });
   }

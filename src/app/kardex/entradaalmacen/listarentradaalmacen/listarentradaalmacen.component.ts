@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild} from '@angular/core';
 import { KardexService } from '../../../services/kardex/kardex.service';
 import { Router } from '@angular/router';
 import { DataEntradaAlmacen } from '../../../models/entradaalmacen';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 @Component({
   selector: 'app-listarentradaalmacen',
   templateUrl: './listarentradaalmacen.component.html',
@@ -20,7 +21,8 @@ export class ListarentradaalmacenComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
+  sort:any;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor
   (private servicioKardex: KardexService , private router:Router,private toastr: ToastrService ) { }
 
@@ -36,10 +38,13 @@ export class ListarentradaalmacenComponent implements OnInit {
       this.ingresosAlmacen = resp; 
       this.cargando = false;
       // this.cargando = false;
-    console.log(resp);
+    // console.log(resp);
   });
  } 
-
+ ngAfterViewInit(): void {
+  this.dataSource.sort = this.sort;
+  this.dataSource.paginator = this.paginator;
+}
  openForEdit(IngresoID: number) {
 
   this.router.navigate(['kardex/editingresoalmacen/'+IngresoID]);

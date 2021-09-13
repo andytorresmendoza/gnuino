@@ -58,8 +58,9 @@ export class ListarkardexComponent implements OnInit {
    dialogConfig.width = "55%";
    dialogConfig.data = {id }; 
     this.dialog.open(DetallesalidaproductoComponent, dialogConfig).afterClosed().subscribe(resp=>{
- //  console.log(resp,'cierra popup');
+  console.log(resp,'cierra popup');
   this.getListKardex();
+  this.cargando = false; 
   
     });
   }  

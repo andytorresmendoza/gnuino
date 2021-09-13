@@ -204,7 +204,10 @@ detalleTransferenciasinoc: DataDetalleTransferenciasinOc[];
     body.fechaEnvio=fechaParseada2;
 
     // console.log(body);
-    return this.http.post(`${this.baseURL}orden-compra`, body);
+    return this.http.post(`${this.baseURL}orden-compra`, body).pipe(
+      map(
+        (resp) =>  resp['data'])
+    );
   }
   getOrdenCompra() {
     return this.http

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { KardexService } from '../../../services/kardex/kardex.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -6,6 +6,7 @@ import { DataEntradaSinOC } from '../../../models/entradasinOc';
 import Swal from 'sweetalert2';
 
 import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 @Component({
   selector: 'app-listarentradasinoc',
   templateUrl: './listarentradasinoc.component.html',
@@ -20,12 +21,15 @@ export class ListarentradasinocComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  sort:any;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor (private servicioKardex: KardexService , private router:Router,  private toastr: ToastrService ) { }
 
 
   ngOnInit(): void {
     this.getEntradasinOC();
   }
+
   getEntradasinOC(){
 
     this.servicioKardex.getIngresoSinOC()
@@ -33,10 +37,12 @@ export class ListarentradasinocComponent implements OnInit {
     this.dataSource.data = resp as DataEntradaSinOC[]; 
       this.entradaSinOc = resp; 
       this.cargando = false;
-     // console.log(resp);
   });
  } 
-
+ ngAfterViewInit(): void {
+  this.dataSource.sort = this.sort;
+  this.dataSource.paginator = this.paginator;
+}
  EstadoEntradasinOcAnular(entradas: DataEntradaSinOC, i: number) {
 
   const bodyform = {id:entradas.id, estadoIngreso: '3'}

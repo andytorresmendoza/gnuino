@@ -12,7 +12,7 @@
           </ul> 
   </div>
   <div class="col text-right">
-    <button routerLink="/kardex/ordencompra" class="btn btn-primary">
+    <button *ngIf="!cargando && Ordenes.length > 0" routerLink="/kardex/ordencompra" class="btn btn-primary">
       <i class="fa fa-plus"> Agregar </i>
     </button>
   </div>
@@ -27,7 +27,7 @@
 </mat-form-field>
  
  
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table *ngIf="!cargando && Ordenes.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <!-- Position Column -->
   <ng-container matColumnDef="Orden Nro">
@@ -109,81 +109,15 @@
   </tr>
  
 </table>
-
-<!-- <hr />
-<div class="row">
-  <div class="col text-right">
-    <button routerLink="/kardex/ordencompra" class="btn btn-primary">
-      <i class="fa fa-plus"> Agregar </i>
-    </button>
-  </div>
-</div>
-<table class="table table-hover">
-  <thead class="thead-dark">
-    <th scope="col">#</th>
-      <th scope="col">#Orden Nro</th>
-      <th scope="col">#Cotizacion</th>
-      <th scope="col">Empleado</th>
-      <th scope="col">Proveedor</th> 
-      <th scope="col">Estado</th>
-    
-  </thead>
-  <tbody>
-      <tr *ngFor="let item of Ordenes; let i = index" >
-        <th scope="row">{{ i + 1 }}</th>
-        <th (click)="openForEdit(item.id)">{{item.codigo_orden_num}}</th>
-
-
-        <td (click)="openForEdit(item.id)" > 
-          <p *ngFor="let deta of item.detalleCotizacion">{{deta.codigo_cotizacion_num}}</p>
-        </td>
-
-
-
-        <td (click)="openForEdit(item.id)">{{item.detalleProovedor[0].nombre_proovedor}}</td>
-        <td (click)="openForEdit(item.id)">{{item.detalleEmpleado[0].nombre_empleado}}</td>
- 
-        <td>
-          <label *ngIf="item.idEstadoFlujo == 2" class="badge bg-success"
-            >
-
-            Cerrado</label
-          >
-          <label *ngIf="item.idEstadoFlujo == 1" class="badge bg-warning text-dark"
-            >Pendiente</label
-          >
-        </td>
-        
-        <td>
-          <button class="btn btn-outline-dark" (click)="EstadoOrdenAnular(item, i)">
-               <i class="far fa-times-circle"></i>
-       </button>  
-       <button class="btn btn-outline-dark" (click)="borrarOrden(item, i)">
-        <i class="fa fa-trash"></i>  
-    </button> 
-      
-      </td>  
- 
-      </tr>
-    </tbody>
-</table>
 <div
-  *ngIf="!cargando && Ordenes.length === 0"
-  class="alert alert-warning text-center mt-3 animated fadeIn faster"
+*ngIf="cargando"
+class="alert alert-info text-center mt-3 animated fadeIn faster"
 >
-  <h4 class="alert-heading">No hay registros</h4>
-  <p>
-    <i class="fa fa-exclamation fa-2px"></i>
-  </p>
-  <p class="mb-0">Espere por favor</p>
+<h4 class="alert-heading">Cargando</h4>
+<p>
+  <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+</p>
+<p class="mb-0">Espere por favor</p>
 </div>
-<div
-  *ngIf="cargando"
-  class="alert alert-info text-center mt-3 animated fadeIn faster"
->
-  <h4 class="alert-heading">Cargando</h4>
-  <p>
-    <i class="fa fa-sync-alt fa-spin fa-2px"></i>
-  </p>
-  <p class="mb-0">Espere por favor</p>
-</div> -->
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 30, 40, 50]">
+</mat-paginator>

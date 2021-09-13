@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
  
 import { KardexService } from '../../../services/kardex/kardex.service'; 
 import { Router, ActivatedRoute } from '@angular/router'; 
@@ -6,6 +6,7 @@ import { DataOrdenCompra } from '../../../models/ordencompra';
 import Swal from 'sweetalert2';
 import {MatTableDataSource} from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
+import { MatPaginator } from '@angular/material/paginator';
 @Component({
   selector: 'app-listarordencompra',
   templateUrl: './listarordencompra.component.html',
@@ -22,13 +23,18 @@ export class ListarordencompraComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  sort:any;
+   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor
   (private servicioKardex: KardexService , private router:Router,  private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getOrdenCompra(); 
   }
-
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
   getOrdenCompra(){
 
     this.servicioKardex.getOrdenCompra()
@@ -36,7 +42,7 @@ export class ListarordencompraComponent implements OnInit {
     this.dataSource.data = resp as DataOrdenCompra[]; 
       this.Ordenes = resp; 
       this.cargando = false;
-       console.log(resp);
+      //  console.log(resp);
   });
 }
 openForEdit(OrdenId:number):void { 

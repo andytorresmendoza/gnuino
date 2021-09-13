@@ -13,7 +13,7 @@
           </ul> 
   </div>
   <div class="col text-right" >
-    <button routerLink="/kardex/ingresoalmacen" class="btn btn-primary">
+    <button  *ngIf="!cargando && ingresosAlmacen.length > 0"routerLink="/kardex/ingresoalmacen" class="btn btn-primary">
       <i class="fa fa-plus"> Agregar </i>
     </button>
   
@@ -28,7 +28,7 @@
 </mat-form-field>
  
  
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table *ngIf="!cargando && ingresosAlmacen.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <!-- Position Column -->
   <ng-container matColumnDef="Ingreso Almacen Nro">
@@ -104,74 +104,6 @@
   </tr>
  
 </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <hr />
-<div class="row">
-  <div class="col text-right">
-    <button routerLink="/kardex/ingresoalmacen" class="btn btn-primary">
-      <i class="fa fa-plus"> Agregar </i>
-    </button>
-  </div>
-</div>
-<table class="table table-hover">
-  <thead class="thead-dark">
-    <th scope="col">#</th>
-      <th scope="col">#Ingreso Almacén Nro</th>
-        <th scope="col">Nro de Orden Compra</th>
-        <th scope="col">Tipo Ingreso</th> 
-     <th scope="col">Empleado</th>  
-     <th scope="col">Estado</th>
- 
-  </thead>
-  <tbody>
-      <tr *ngFor="let item of ingresosAlmacen; let i = index" >
-        <th scope="row">{{ i + 1 }}</th>
-        <th (click)=" openForEdit(item.id) ">{{item.codigoIngreso}}</th>
-         <td (click)=" openForEdit(item.id)">{{item.detalleOrden[0].codigo_orden_num}}</td>
-         <td (click)=" openForEdit(item.id)">{{item.detalleTipoIngreso[0].descripcion_ingreso}}</td>
-         <td (click)=" openForEdit(item.id)">{{item.detalleOrden[0].detalleEmpleado[0].nombre_empleado}}</td>
-         <td>
-          <label *ngIf="item.idFlujo == 2" class="badge bg-success"
-            >
-
-            Cerrado</label
-          >
-          <label *ngIf="item.idFlujo == 1" class="badge bg-warning text-dark"
-            >Pendiente</label
-          >
-          <label *ngIf="item.idFlujo == 3" class="badge bg-danger text-dark"
-          >Anulado</label
-        >
-        </td>
-        <td>
-          <button class="btn btn-outline-dark" (click)="EstadoEntradaAnular(item, i)">
-               <i class="far fa-times-circle"></i>
-       </button>  
-    
- 
-      </td>  
-       
-      </tr>
-    </tbody>
-</table>
-
 <div
   *ngIf="!cargando && ingresosAlmacen.length === 0"
   class="alert alert-warning text-center mt-3 animated fadeIn faster"
@@ -183,12 +115,17 @@
   <p class="mb-0">Espere por favor</p>
 </div>
 <div
-  *ngIf="cargando"
-  class="alert alert-info text-center mt-3 animated fadeIn faster"
+*ngIf="cargando"
+class="alert alert-info text-center mt-3 animated fadeIn faster"
 >
-  <h4 class="alert-heading">Cargando</h4>
-  <p>
-    <i class="fa fa-sync-alt fa-spin fa-2px"></i>
-  </p>
-  <p class="mb-0">Espere por favor</p>
-</div> -->
+<h4 class="alert-heading">Cargando</h4>
+<p>
+  <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+</p>
+<p class="mb-0">Espere por favor</p>
+</div>
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 30, 40, 50]">
+</mat-paginator>
+
+
+

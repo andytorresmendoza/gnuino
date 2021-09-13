@@ -19,6 +19,7 @@ import { KardexModule } from './kardex/kardex.module';
   import { NgSelectModule } from '@ng-select/ng-select';
 import { VentaModule } from './venta/venta.module';
  
+ 
 @NgModule({
   declarations: [
     AppComponent,

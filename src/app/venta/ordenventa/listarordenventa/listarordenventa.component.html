@@ -12,7 +12,7 @@
             </ul> 
     </div>
     <div class="col text-right">
-      <button routerLink="/venta/ordenventa" class="btn btn-primary">
+      <button  *ngIf="!cargando && ordenes.length > 0" routerLink="/venta/ordenventa" class="btn btn-primary">
         <i class="fa fa-plus"> Agregar </i>
       </button>
     </div>
@@ -26,7 +26,7 @@
   </mat-form-field>
    
    
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table  *ngIf="!cargando && ordenes.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   
     <!-- Position Column -->
     <ng-container matColumnDef="Nro Orden">
@@ -132,5 +132,15 @@
     </tr>
    
   </table>
+  <div
+  *ngIf="cargando"
+  class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+  <h4 class="alert-heading">Cargando</h4>
+  <p>
+    <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+</div>
   <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 30, 40, 50]">
   </mat-paginator>

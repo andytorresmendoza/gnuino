@@ -218,12 +218,14 @@ name="idCliente"
         style="text-transform:uppercase"
        [items]="clientes"
        bindLabel="nombre_cliente"  
+       bindValue="id"
        placeholder="Buscar Clientes"
        [(ngModel)]="ventaService.formData.idCliente" 
        (change)="UpdateCliente($event)" 
         >
    </ng-select>      
 
+         
  
   <!-- <ng-select  
       style="text-transform:uppercase"

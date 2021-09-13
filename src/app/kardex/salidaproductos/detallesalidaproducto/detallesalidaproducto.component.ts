@@ -129,7 +129,10 @@ this.kardexService.detalleSalida[this.data.orderItemIndex]);
     this.kardexService.GuardaSalidaProducto().subscribe(resp =>{   
       this.toastr.success('Salida Exitosamente');
      });     
-     this.dialogRef.close();
+     this.dialogRef.close(
+      // this.router.navigate(["../kardex/Listarkardex"])
+
+     );
    
     } 
   }

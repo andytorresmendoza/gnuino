@@ -13,7 +13,7 @@ export class ListardeliveryComponent implements OnInit {
   private decoded:any; 
   private iddelivery:any;
   public listaDelivery:any[]=[];
-
+  cargando = true; 
   displayedColumns: string[] = ['Nro','Tipo','Cliente','Distrito','Empleado','Total','Estado','Venta'];
   dataSource = new MatTableDataSource<any>();
   applyFilter(event: Event) {
@@ -36,6 +36,8 @@ export class ListardeliveryComponent implements OnInit {
   ngOnInit(): void {
     this.ventaService.getListarDeliveryById(this.iddelivery).subscribe(res => {
       this.dataSource.data = res as any[];
+      this.listaDelivery = res;
+      this.cargando = false; 
   //  console.log(res,'idempleado?');
       });  
   }

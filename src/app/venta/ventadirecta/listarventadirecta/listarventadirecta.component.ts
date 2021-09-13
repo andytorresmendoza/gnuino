@@ -47,7 +47,7 @@ export class ListarventadirectaComponent implements OnInit {
    this.dataSource.data = resp as DataVentaDirecta[]; 
      this.cotizaciones = resp; 
      this.ventaService.detalleVentaDirecta = resp[0].detalleCotizacion
-
+     this.cargando = false; 
     //  console.log(resp);
  
 });

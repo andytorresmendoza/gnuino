@@ -1,0 +1,209 @@
+<!-- <form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label>Seleccionar Producto</label>
+
+            <ng-select  
+            style="text-transform:uppercase"
+              #idProducto="ngModel"  
+              name="idProducto" 
+              bindValue="idProducto" 
+              placeholder="Buscar Campaña Venta" 
+              [(ngModel)]="formData.idProducto"  
+             
+            >   
+                <ng-option *ngFor="let emp of productos" 
+                [value]="emp.id"  [disabled]="emp.estado == 0">{{emp. nombre_producto}}</ng-option>
+                
+             </ng-select> 
+        </div>
+
+        <div class="form-group col-md-4">
+            <label>Seleccionar Almacén</label>
+
+            <ng-select  
+            style="text-transform:uppercase"
+              #idAlmacen="ngModel"  
+              name="idAlmacen" 
+              bindValue="idAlmacen" 
+              placeholder="Buscar Almacen" 
+              [(ngModel)]="formData.idAlmacen"  
+             
+            >   
+                <ng-option *ngFor="let emp of almacen" 
+                [value]="emp.id"  [disabled]="emp.estado == 0">{{emp. nombre_alamcen}}</ng-option>
+                
+             </ng-select> 
+        </div>
+
+    
+    </div>
+
+    <div class="form-row">
+
+        <div class="form-group col-md-4">
+            <label>Seleccionar Categoria</label>
+
+            <ng-select  
+            #idCategoria="ngModel"  
+            name="idCategoria" 
+            bindValue="idCategoria" 
+            placeholder="Buscar Categoria" 
+            [(ngModel)]="formData.idCategoria"  
+          >   
+              <ng-option *ngFor="let emp of categorias" 
+              [value]="emp.id">{{emp.nombre_categoria}}</ng-option>
+           </ng-select> 
+        </div>
+
+
+        <div class="form-group col-md-4">
+            <label>Seleccionar Modelo</label>
+
+            <ng-select  
+            #idModelo="ngModel"  
+            name="idModelo" 
+            bindValue="idModelo" 
+            placeholder="Buscar Modelo" 
+            [(ngModel)]="formData.idModelo"  
+          >   
+              <ng-option *ngFor="let emp of modelos" [value]="emp.id">{{emp.nombre_modelo}}</ng-option>
+           </ng-select> 
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-dark" 
+      >
+        <i class="fa fa-database"></i> Exportar </button>
+       
+      </div>
+</form> -->
+<section id="cover" class="min-vh-100">
+  <div id="cover-caption">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto form p-4">
+          <h1 class="display-4 py-2 text-truncate text-center">
+            Reporte Stock
+          </h1>
+          <div class="px-2">
+            <form
+              #form="ngForm"
+              autocomplete="off"
+              class="justify-content-center"
+              (submit)="onSubmit(form)"
+            >
+              <div class="form-group">
+                <label>Seleccionar Producto</label>
+
+                <ng-select
+                  style="text-transform: uppercase"
+                  #idProducto="ngModel"
+                  name="idProducto"
+                  bindValue="idProducto"
+                  placeholder="Buscar Campaña Venta"
+                  [(ngModel)]="formData.idProducto"
+                >
+                  <ng-option
+                    *ngFor="let emp of productos"
+                    [value]="emp.id"
+                    [disabled]="emp.estado == 0"
+                    >{{ emp.nombre_producto }}</ng-option
+                  >
+                </ng-select>
+              </div>
+              <div class="form-group">
+                <label>Seleccionar Almacén</label>
+
+                <ng-select
+                  style="text-transform: uppercase"
+                  #idAlmacen="ngModel"
+                  name="idAlmacen"
+                  bindValue="idAlmacen"
+                  placeholder="Buscar Almacen"
+                  [(ngModel)]="formData.idAlmacen"
+                >
+                  <ng-option
+                    *ngFor="let emp of almacen"
+                    [value]="emp.id"
+                    [disabled]="emp.estado == 0"
+                    >{{ emp.nombre_alamcen }}</ng-option
+                  >
+                </ng-select>
+              </div>
+
+          
+
+              <div class="form-group">
+                <label>Seleccionar Categoria</label>
+
+                <ng-select
+                style="text-transform: uppercase"
+                  #idCategoria="ngModel"
+                  name="idCategoria"
+                  bindValue="idCategoria"
+                  placeholder="Buscar Categoria"
+                  [(ngModel)]="formData.idCategoria"
+                >
+                  <ng-option *ngFor="let emp of categorias" [value]="emp.id">{{
+                    emp.nombre_categoria
+                  }}</ng-option>
+                </ng-select>
+              </div>
+              <div class="form-group">
+                <label>Seleccionar Modelo</label>
+
+                <ng-select
+                style="text-transform: uppercase"
+                  #idModelo="ngModel"
+                  name="idModelo"
+                  bindValue="idModelo"
+                  placeholder="Buscar Modelo"
+                  [(ngModel)]="formData.idModelo"
+                >
+                  <ng-option *ngFor="let emp of modelos" [value]="emp.id">{{
+                    emp.nombre_modelo
+                  }}</ng-option>
+                </ng-select>
+              </div>
+
+              <div class="form-group">
+                <label>Stock Cero</label>
+                <ng-select
+                style="text-transform: uppercase"
+                  #idStock="ngModel"
+                  name="idStock"
+                  bindValue="idStock"
+                  placeholder="Buscar STOCK"
+                  [(ngModel)]="formData.idStock"
+                >
+               
+                  <ng-option   [value]="1">SI</ng-option>
+                  <ng-option   [value]="2">NO</ng-option>
+                </ng-select>
+                <!-- <select 
+                style="text-transform: uppercase"
+                name="idStock" 
+                #idStock="ngModel" 
+                [(ngModel)]="formData.idStock"
+                class="form-control"  
+                >
+                  <option value = "0">-Seleccione Stock-</option>
+                  <option value="1">SI</option>
+                  <option value="2">NO</option>
+                
+                </select>  -->
+              </div>
+              <div class="form-group text-center">
+                <button type="submit" class="btn btn-dark">
+                  <i class="fa fa-database"></i> Exportar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

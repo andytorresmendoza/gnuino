@@ -42,11 +42,12 @@ import { VistapreviacotizacionComponent } from './cotizacion/vistapreviacotizaci
 import { VistapreviadirectaComponent } from './ventadirecta/vistapreviadirecta/vistapreviadirecta.component';
 import { ListardeliverytodosComponent } from './delivery/listardeliverytodos/listardeliverytodos.component';
 import { AdddeliverytodosComponent } from './delivery/adddeliverytodos/adddeliverytodos.component';
+import { ReportestockComponent } from './reportestock/reportestock.component';
 
 
 
 @NgModule({
-  declarations: [VentaComponent, ListarcotizacionComponent, AddcotizacionComponent, DetallecotizacionComponent, ListarordenventaComponent, AddordenventaComponent, EditarordenventaComponent, AddempleadodeliveryComponent, ListarempleadodeliveryComponent, ListarordenventapendienteComponent, EditarempleadodeliveryComponent, ListarcotiventaanuladaComponent, ListardeliveryComponent, AdddeliveryComponent, ListarordenventaanuladaComponent, AddventadirectaComponent, ListarventadirectaComponent, ListarventadirectaanuladoComponent, DetalleventadirectaComponent, CambiomedidaventaComponent, DetallecotizacioncambioComponent, ListarcambiomedidaComponent, VistapreviacotizacionComponent, VistapreviadirectaComponent, ListardeliverytodosComponent, AdddeliverytodosComponent],
+  declarations: [VentaComponent, ListarcotizacionComponent, AddcotizacionComponent, DetallecotizacionComponent, ListarordenventaComponent, AddordenventaComponent, EditarordenventaComponent, AddempleadodeliveryComponent, ListarempleadodeliveryComponent, ListarordenventapendienteComponent, EditarempleadodeliveryComponent, ListarcotiventaanuladaComponent, ListardeliveryComponent, AdddeliveryComponent, ListarordenventaanuladaComponent, AddventadirectaComponent, ListarventadirectaComponent, ListarventadirectaanuladoComponent, DetalleventadirectaComponent, CambiomedidaventaComponent, DetallecotizacioncambioComponent, ListarcambiomedidaComponent, VistapreviacotizacionComponent, VistapreviadirectaComponent, ListardeliverytodosComponent, AdddeliverytodosComponent, ReportestockComponent],
   imports: [ 
     CommonModule,
     SharedModule,

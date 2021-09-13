@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { KardexService } from '../../../services/kardex/kardex.service';
 import { DataCotizacion } from '../../../models/cotizacion';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import {MatTableDataSource} from '@angular/material/table';
-
+import { MatPaginator } from '@angular/material/paginator';
 @Component({
   selector: 'app-listarcotizacion',
   templateUrl: './listarcotizacion.component.html',
@@ -22,6 +22,8 @@ export class ListarcotizacionComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  sort:any;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor
   (private servicioKardex: KardexService , private router:Router,  private toastr: ToastrService ) { }
 
@@ -29,7 +31,10 @@ export class ListarcotizacionComponent implements OnInit {
      this. getCotizacion();
  
   }
-
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
   getCotizacion(){
 
    this.servicioKardex.getCotizacion()

@@ -48,6 +48,7 @@ export class ListarcotizacionComponent implements OnInit {
     this.dataSource.data = resp as DataCotizacionVenta[]; 
     this.cotizaciones = resp; 
     this.ventaService.detalleCotizacion = resp; 
+    this.cargando = false; 
     // console.log(resp);
 });
 } 

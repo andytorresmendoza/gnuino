@@ -115,6 +115,16 @@ export class SiderbarService {
         // {titulo:'Entrega Producto'}, 
       ]
       
+    },
+    {
+      titulo:'Reportes',
+      icono:'mdi mdi-cart',
+      submenu: [
+   
+      {titulo:'Reporte Stock', url:'../venta/ReporteStock'}, 
+        // {titulo:'Entrega Producto'}, 
+      ]
+      
     }
   ]
     //ID2

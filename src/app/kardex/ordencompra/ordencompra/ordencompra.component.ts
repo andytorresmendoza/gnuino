@@ -244,10 +244,19 @@ export class OrdencompraComponent implements OnInit {
       this.isButtonVisible = false;
       this.kardexService.saveUpdateOrdercompra().subscribe((res) => {
       //  console.log('respuesta',res);
+      if(res.code === 401){
+        this.toastr.warning(res.msg )
+        this.isButtonVisible = true;
+         return;
+       }else{
+        this.isButtonVisible = false;
+        this.toastr.success(res.msg )
         this.resetForm();
-        this.toastr.success('Guardado Exitosamente', 'Gnuino');
+        // this.resetForm();
+        // this.toastr.success('Guardado Exitosamente', 'Gnuino');
         this.router.navigate(['../kardex/listarordencompra']);
-      });
+      }
+    })
     }
   }
 }
