@@ -425,6 +425,15 @@ return this.http.put(`${this.baseURL}cotizacion-detalle-venta/${id}`, bodyform) 
       
       resp['data']));
   }
+  //reporte STOCK
+
+  getReporteStock(formData: any) {
+    // console.log(formData,'SERVICIO');
+    console.log(('export-stock?'+'idProducto='+formData.idProducto+'&idCategoria='+formData.idCategoria+'&idModelo='+formData.idModelo+'&idAlmacen='+formData.idAlmacen+'&idStock='+formData.idStock)+'QUE TRAE')
+    return this.http.get(this.baseURL + 'export-stock?'+'idProducto='+formData.idProducto+'&idCategoria='+formData.idCategoria+'&idModelo='+formData.idModelo+'&idAlmacen='+formData.idAlmacen+'&idStock='+formData.idStock);
+
+    // localhost:8080/'export-stock?+'idProducto'=&idCategoria=&idModelo=&idAlmacen=1&idStock=
+  }
 }
 
 

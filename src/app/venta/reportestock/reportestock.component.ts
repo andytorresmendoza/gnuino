@@ -5,7 +5,14 @@ import { DataProducto } from '../../models/producto';
 import { DataTipoAlmacen } from '../../models/tipoalmacen';
 import { DataModelo } from 'src/app/models/modelo';
 import { DataCategoria } from '../../models/categoria';
-
+import { VentaService } from '../../services/venta/venta.service';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+}  from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-reportestock',
   templateUrl: './reportestock.component.html',
@@ -17,8 +24,8 @@ export class ReportestockComponent implements OnInit {
   modelos: DataModelo[];
   categorias: DataCategoria[];
   public formData: any;
-  constructor(  private mantenimientosService: MantenimientosService) { }
-
+  constructor( private http: HttpClient,  private router:Router,private mantenimientosService: MantenimientosService,private ventaService: VentaService) { }
+  baseURL = environment.apiURL;
   ngOnInit(): void {
 
     this.resetForm();
@@ -49,15 +56,20 @@ export class ReportestockComponent implements OnInit {
     if ((form = null)) form.resetForm();
     this.formData = {
     
-      idProducto: null,
-      idAlmacen: null,
-      idModelo: null,
-      idCategoria: null,
-      idStock:null
+      idProducto: '',
+      idAlmacen: '',
+      idModelo: '',
+      idCategoria: '',
+      idStock:''
     };
 }
 
-  onSubmit(form: NgForm) {
-    console.log(form.value);
+  onSubmit(form: NgForm) { 
+     this.ventaService.getReporteStock(form.value).subscribe(
+      resp => {
+ 
+  this.ngOnInit();
+
+    });
   }
 }
