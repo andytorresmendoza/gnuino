@@ -55,8 +55,7 @@ export class AddClienteComponent implements OnInit {
 
     this.mantenimientosServices.getCategoriaCliente().subscribe((resp) => {
       this.categoriaCliente = resp;
-      // console.log(resp);
-      // this.cargando = false;
+     
     });
 
     this.getDepartamento();

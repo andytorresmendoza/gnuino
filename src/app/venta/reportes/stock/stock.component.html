@@ -1,0 +1,223 @@
+  <form
+  #form="ngForm"
+  autocomplete="off"
+  class="justify-content-center"
+  (submit)="onSubmit(form)"
+>
+<div class="row"> 
+ 
+
+  <div class="col-md-4">
+    <div class="form-group">
+        <label>Seleccionar Producto</label>
+
+        <ng-select
+          style="text-transform: uppercase"
+          #idProducto="ngModel"
+          name="idProducto"
+          bindValue="idProducto"
+          placeholder="Buscar Producto"
+          [(ngModel)]="formData.idProducto"
+        >
+          <ng-option
+            *ngFor="let emp of productos"
+            [value]="emp.id"          
+            >{{ emp.nombre_producto }}</ng-option
+          >
+        </ng-select>
+      </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="form-group">
+        <label>Seleccionar Almacén</label>
+
+        <ng-select
+          style="text-transform: uppercase"
+          #idAlmacen="ngModel"
+          name="idAlmacen"
+          bindValue="idAlmacen"
+          placeholder="Buscar Almacen"
+          [(ngModel)]="formData.idAlmacen"
+        >
+          <ng-option
+            *ngFor="let emp of almacen"
+            [value]="emp.id"
+            [disabled]="emp.estado == 0"
+            >{{ emp.nombre_alamcen }}</ng-option
+          >
+        </ng-select>
+      </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="form-group">
+        <label>Seleccionar Categoria</label>
+
+        <ng-select
+        style="text-transform: uppercase"
+          #idCategoria="ngModel"
+          name="idCategoria"
+          bindValue="idCategoria"
+          placeholder="Buscar Categoria"
+          [(ngModel)]="formData.idCategoria"
+        >
+          <ng-option *ngFor="let emp of categorias" [value]="emp.id">{{
+            emp.nombre_categoria
+          }}</ng-option>
+        </ng-select>
+      </div>
+  </div>
+</div>
+ 
+<div class="row"> 
+ 
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Seleccionar Modelo</label>
+
+            <ng-select
+            style="text-transform: uppercase"
+              #idModelo="ngModel"
+              name="idModelo"
+              bindValue="idModelo"
+              placeholder="Buscar Modelo"
+              [(ngModel)]="formData.idModelo"
+            >
+              <ng-option *ngFor="let emp of modelos" [value]="emp.id">{{
+                emp.nombre_modelo
+              }}</ng-option>
+            </ng-select>
+          </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Stock Cero</label>
+            <ng-select
+            style="text-transform: uppercase"
+              #idStock="ngModel"
+              name="idStock"
+              bindValue="idStock"
+              placeholder="Buscar STOCK"
+              [(ngModel)]="formData.idStock"
+            >
+        
+              <ng-option   [value]="1">SI</ng-option>
+              <ng-option   [value]="2">NO</ng-option>
+            </ng-select> 
+          </div>
+    </div>
+    <div class="col-md-8">
+        <button type="submit" class="btn btn-dark">
+            <i class="fa fa-database"></i> Consultar
+          </button>
+    </div> 
+</div>
+ 
+
+  <!-- ORDER ITEMS TABLE -->
+ 
+  <table class="table table-borderless"  *ngIf="!cargando && detalleReporteStock.length > 0">
+   
+    &nbsp;
+  <thead class="thead-light">
+    <th>CODMAT</th>
+     <th>DESCRIPCION</th>
+    <th>MODELO</th> 
+    <th>UM</th>
+    <th>STOCK</th> 
+    <th>ALMACEN</th>  
+    <th>STOCK TRANSITO</th>  
+    <th>STOCK RESERVADO</th>  
+    <th>BLOQUEADO</th>  
+    <th>
+      <button   *ngIf="!cargando && detalleReporteStock.length > 0" mat-raised-button  color="primary"  (click)="exportAsXLSX()">Exportar
+          <mat-icon>trending_down</mat-icon>
+        
+        </button>
+    </th>
+  
+  </thead>
+  <div
+  *ngIf="cargando"
+  class="alert alert-info text-center mt-3 animated fadeIn faster"
+  >
+  <h4 class="alert-heading">Cargando</h4>
+  <p>
+    <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+  </p>
+  <p class="mb-0">Espere por favor</p>
+  </div>
+  <tbody>
+    <tr *ngFor="let item of detalleReporteStock; let i = index">
+      <td> {{ item.codigoProductoBarra | uppercase}}</td>
+          <td> {{ item.nombre_producto | uppercase}}</td>
+              <td> {{ item.nombre_modelo | uppercase}}</td>
+                  <td> {{ item.nombre_um | uppercase}}</td>
+                      <td> {{ item.stock }}</td>
+                          <td> {{ item.almacen | uppercase}}</td>
+                          <td> {{ item.stock_transito }}</td>
+                          <td> {{ item.stock_reservado  }} </td>
+                          <td> {{ item.bloqueado | uppercase}}</td>
+
+
+  </tbody>
+</table>
+<div
+*ngIf="!cargando && detalleReporteStock.length === 0"
+class="alert alert-warning text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading">No existen registros</h4>
+  
+</div>
+<!-- <div
+*ngIf="cargando"
+class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading">Cargando</h4>
+<p>
+  <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+</p>
+<p class="mb-0">Espere por favor</p>
+</div> -->
+</form>
+
+
+  <!-- <table class="table table-borderless"  *ngIf="!cargando && detalleReporteStock.length > 0">
+   
+      &nbsp;
+    <thead class="thead-light">
+      <th>CODMAT</th>
+       <th>DESCRIPCION</th>
+      <th>MODELO</th> 
+      <th>UM</th>
+      <th>STOCK</th> 
+      <th>ALMACEN</th>  
+      <th>STOCK TRANSITO</th>  
+      <th>STOCK RESERVADO</th>  
+      <th>BLOQUEADO</th>  
+      <th>
+        <button   *ngIf="!cargando && detalleReporteStock.length > 0" mat-raised-button  color="primary"  (click)="exportAsXLSX()">Exportar
+            <mat-icon>trending_down</mat-icon>
+          
+          </button>
+      </th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of detalleReporteStock; let i = index">
+        <td> {{ item.codigoProductoBarra | uppercase}}</td>
+            <td> {{ item.nombre_producto | uppercase}}</td>
+                <td> {{ item.nombre_modelo | uppercase}}</td>
+                    <td> {{ item.nombre_um | uppercase}}</td>
+                        <td> {{ item.stock }}</td>
+                            <td> {{ item.almacen | uppercase}}</td>
+                            <td> {{ item.stock_transito }}</td>
+                            <td> {{ item.stock_reservado  }}</td>
+                            <td> {{ item.bloqueado | uppercase}}</td>
+
+
+    </tbody>
+  </table> -->
+  <br />
+  

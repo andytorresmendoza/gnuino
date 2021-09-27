@@ -1,0 +1,184 @@
+
+<form
+#form="ngForm"
+autocomplete="off"
+class="justify-content-center"
+(submit)="onSubmit(form)"
+>
+<div class="row"> 
+
+
+<div class="col-md-4">
+    <div class="form-group">
+        <label> Seleccionar Cliente </label>
+        <ng-select  
+        style="text-transform:uppercase"
+          #idCliente="ngModel"  
+          name="idCliente" 
+          bindValue="idCliente" 
+          placeholder="Buscar Cliente" 
+          [(ngModel)]="formData.idCliente"  
+        >   
+            <ng-option *ngFor="let emp of clientes" 
+            [value]="emp.id">{{emp.nombre_cliente}}</ng-option>
+         </ng-select> 
+      </div>
+</div>
+
+<div class="col-md-4">
+    <div class="form-group">
+        <label> Seleccionar Categoría </label>
+        <ng-select  
+        style="text-transform:uppercase"
+          #idCategoria="ngModel"  
+          name="idCategoria" 
+          bindValue="idCategoria" 
+          placeholder="Buscar Categoría Cliente" 
+          [(ngModel)]="formData.idCategoria"  
+        >   
+            <ng-option *ngFor="let emp of categoriaCliente" 
+            [value]="emp.id">{{emp.descripcion_catcli}}</ng-option>
+         </ng-select> 
+      </div> 
+</div>
+
+<div class="col-md-4">
+    <div class="form-group">
+        <label> Seleccionar Campaña </label>
+        <ng-select  
+        style="text-transform:uppercase"
+          #idCampain="ngModel"  
+          name="idCampain" 
+          bindValue="idCampain" 
+          placeholder="Buscar Campaña Venta" 
+          [(ngModel)]="formData.idCampain"  
+         
+        >   
+            <ng-option *ngFor="let emp of campania" 
+            [value]="emp.id"  [disabled]="emp.estado == 0">{{emp.descripcion_campain}}</ng-option>
+            
+         </ng-select> 
+      </div> 
+</div>
+</div>
+
+<div class="row"> 
+
+
+  <div class="col-md-4">
+    <div class="form-group">
+        <label> Departamento</label>
+        <ng-select  
+        style="text-transform:uppercase"
+        #idDepartamento="ngModel"  
+        name="idDepartamento" 
+        bindValue="idDepartamento" 
+        placeholder="Buscar Departamento" 
+        [(ngModel)]="formData.idDepartamento"  
+        (change)="onSelectDepartamento($event)"
+      >   
+      <!-- <ng-option *ngFor="let emp of departamentos" [value]="0">Buscar Departamento</ng-option> -->
+          <ng-option *ngFor="let emp of departamentos" [value]="emp.id">{{emp.nombre}}</ng-option>
+       </ng-select> 
+      </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+        <label> Provincia</label>
+        <ng-select  
+        style="text-transform:uppercase"
+        #idProvincia="ngModel"  
+        name="idProvincia" 
+        bindValue="idProvincia" 
+        placeholder="Buscar Provincia" 
+        [(ngModel)]="formData.idProvincia" 
+        (change)="onSelectProvincia($event)"
+      >   
+      <!-- <ng-option *ngFor="let emp of provincias" [value]="0">Buscar Provincia</ng-option> -->
+          <ng-option *ngFor="let emp of provincias" [value]="emp.id">{{emp.nombre_provincia}}</ng-option>
+       </ng-select> 
+      </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+        <label> Distrito</label>
+        <ng-select  
+          style="text-transform:uppercase"
+        #idDistrito="ngModel"  
+        name="idDistrito" 
+        bindValue="idDistrito" 
+        placeholder="Buscar Distrito" 
+        [(ngModel)]="formData.idDistrito"  
+      >   
+      <!-- <ng-option *ngFor="let emp of distritos" [value]="0">Buscar Distrito</ng-option> -->
+          <ng-option *ngFor="let emp of distritos" [value]="emp.id">{{emp.nombre_distrito}}</ng-option>
+       </ng-select> 
+      </div>
+  </div>
+  <div class="col-md-8">
+      <button type="submit" class="btn btn-dark">
+          <i class="fa fa-database"></i> Consultar
+        </button>
+  </div> 
+</div>
+
+
+<!-- ORDER ITEMS TABLE -->
+
+<table class="table table-borderless" *ngIf="!cargando && detalleReporteCliente.length > 0" >
+ 
+  &nbsp;
+<thead class="thead-light">
+  <th>CODIGO</th>
+   <th>NOMBRES</th>
+  <th>CATEGORIA</th> 
+  <th>DEPARTAMENTO</th>
+  <th>PROVINCIA</th> 
+  <th>DISTRITO</th>  
+  <th>CORREO</th>  
+   
+  <th>
+    <button   *ngIf="!cargando && detalleReporteCliente.length > 0" mat-raised-button  color="primary"  (click)="exportAsXLSX()">Exportar
+        <mat-icon>trending_down</mat-icon>
+      
+      </button>
+  </th>
+
+</thead>
+<!-- <div
+*ngIf="cargando"
+class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading">Cargando</h4>
+<p>
+  <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+</p>
+<p class="mb-0">Espere por favor</p>
+</div> -->
+<tbody>
+  <tr *ngFor="let item of detalleReporteCliente; let i = index">
+    <td> {{ item.codigoCliente | uppercase}}</td>
+        <td> {{ item.nombre_cliente | uppercase}}</td>
+            <td>  {{ item.nombre_categoria | uppercase}}</td>  
+                <td> {{ item.nombre_departamento | uppercase}}</td>
+                    <td> {{ item.nombre_provincia  | uppercase}}</td> 
+                        <td> {{ item.nombre_distrito | uppercase}}</td>
+                        <td> {{ item.email_cliente | uppercase}}</td>
+                       
+
+</tbody>
+</table>
+ 
+  <div
+
+*ngIf="cargando && detalleReporteCliente?.length === 0"
+class="alert alert-warning text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading">No existen registros</h4>
+
+</div>  
+ 
+</form>
+
+ 
+<br />

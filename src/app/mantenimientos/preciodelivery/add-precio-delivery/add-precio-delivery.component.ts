@@ -67,10 +67,10 @@ constructor(private mantenimientosServices: MantenimientosService
    
     this.mantenimientosServices.getDistritoAll().subscribe(response => {  
       this.distritos = (response).
-      filter(valor => valor.idProvincia === 1401 );
+      filter(valor => valor.idProvincia == 1401  );
     //  this.distritos = (response  as DataDistrito[])
    
-   console.log( this.distritos);
+  //  console.log( this.distritos);
     }
   );
   }

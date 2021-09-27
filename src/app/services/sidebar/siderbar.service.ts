@@ -122,6 +122,9 @@ export class SiderbarService {
       submenu: [
    
       {titulo:'Reporte Stock', url:'../venta/ReporteStock'}, 
+      {titulo:'Reporte Movimientos', url:'../venta/Movimientos'}, 
+      {titulo:'Reporte Clientes', url:'../venta/Clientes'}, 
+      {titulo:'Reporte Proveedores', url:'../venta/Proveedores'}, 
         // {titulo:'Entrega Producto'}, 
       ]
       

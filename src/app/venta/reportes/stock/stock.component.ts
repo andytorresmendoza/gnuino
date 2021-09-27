@@ -1,32 +1,31 @@
+import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
 import { Component, OnInit } from '@angular/core';
+import { MantenimientosService } from "src/app/services/mantenimientos/mantenimientos.service";
+import { VentaService } from "src/app/services/venta/venta.service";
+import { DataProducto } from "src/app/models/producto";
+import { DataTipoAlmacen } from "src/app/models/tipoalmacen";
+import { DataModelo } from "src/app/models/modelo";
+import { DataCategoria } from "src/app/models/categoria";
 import { NgForm } from '@angular/forms';
-import { MantenimientosService } from '../../services/mantenimientos/mantenimientos.service';
-import { DataProducto } from '../../models/producto';
-import { DataTipoAlmacen } from '../../models/tipoalmacen';
-import { DataModelo } from 'src/app/models/modelo';
-import { DataCategoria } from '../../models/categoria';
-import { VentaService } from '../../services/venta/venta.service';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-}  from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { ExporterService } from "src/app/services/reportes/exporter.service";
+
 @Component({
-  selector: 'app-reportestock',
-  templateUrl: './reportestock.component.html',
-  styleUrls: ['./reportestock.component.css']
+  selector: 'app-stock',
+  templateUrl: './stock.component.html',
+  styleUrls: ['./stock.component.css']
 })
-export class ReportestockComponent implements OnInit {
+export class StockComponent implements OnInit {
   productos: DataProducto[];
   almacen: DataTipoAlmacen[];
   modelos: DataModelo[];
   categorias: DataCategoria[];
   public formData: any;
-  constructor( private http: HttpClient,  private router:Router,private mantenimientosService: MantenimientosService,private ventaService: VentaService) { }
-  baseURL = environment.apiURL;
+  detalleReporteStock:any ;
+  cargando = true; 
+  constructor( private http: HttpClient,  private router:Router,private mantenimientosService: MantenimientosService,private ventaService: VentaService,private excelExportService: ExporterService) { }
+ 
   ngOnInit(): void {
 
     this.resetForm();
@@ -38,7 +37,7 @@ export class ReportestockComponent implements OnInit {
     });
     this.mantenimientosService.getTipoAlmacen().subscribe((resp) => {
       this.almacen = resp as DataTipoAlmacen[];
-      console.log('principal', this.almacen);
+      // console.log('principal', this.almacen);
     });
 
    
@@ -65,21 +64,15 @@ export class ReportestockComponent implements OnInit {
     };
 }
 validateForm(form:NgForm) {
-  if(form.value.idStock == null )
+   if(form.value.idStock == null )
   return   Swal.fire({
      title: 'Seleccionar Stock' , 
      icon: 'error',
    });    
 
-}
-  /*onSubmit(form: NgForm) { 
-     this.ventaService.getReporteStock(form.value).subscribe(
-      resp => {
- 
-  this.ngOnInit();
 
-    });
-  } */
+}
+
   onSubmit(form: NgForm) { 
     if( this.validateForm(form)){
       return;
@@ -101,7 +94,12 @@ validateForm(form:NgForm) {
     this.ventaService.getReporteStock(url).subscribe(
       resp => {
         console.log(resp);
+        this.detalleReporteStock = resp;
+        this.cargando = false; 
       });      
   }
 }
+exportAsXLSX(){
+  this.excelExportService.exportToExcel(this.detalleReporteStock,'Reporte Stock');
+    }
 }

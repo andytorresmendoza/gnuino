@@ -1,0 +1,187 @@
+ 
+<form
+#form="ngForm"
+autocomplete="off"
+class="justify-content-center"
+(submit)="onSubmit(form)"
+>
+<div class="row"> 
+
+
+<div class="col-md-4">
+    <div class="form-group">
+        <label> Seleccionar Proveedores </label>
+        <ng-select  
+        style="text-transform:uppercase"
+          #idProveedor="ngModel"  
+          name="idProveedor" 
+          bindValue="idProveedor" 
+          placeholder="Buscar Proveedor" 
+          [(ngModel)]="formData.idProveedor"  
+        >   
+            <ng-option *ngFor="let emp of proveedores" 
+            [value]="emp.id">{{emp.nombre_proovedor}}</ng-option>
+         </ng-select> 
+      </div>
+</div>
+
+<div class="col-md-4">
+    <label> Seleccionar Pais </label>
+    <div class="form-group">
+    <ng-select  
+    style="text-transform:uppercase"
+    #idPais="ngModel"  
+    name="idPais" 
+    bindValue="idPais" 
+    placeholder="Buscar Pais" 
+    [(ngModel)]="formData.idPais"  
+  >     
+      <ng-option *ngFor="let emp of paises" [value]="emp.id">{{emp.nombre_pais}}</ng-option>
+   </ng-select> 
+</div>
+</div>
+<div class="col-md-4">
+    <label> RUC </label>
+    <div class="form-group">
+        <input
+        class="form-control"
+        type="number"
+          name="ruc"
+          #ruc="ngModel"
+          [(ngModel)]="formData.ruc"          
+          placeholder="Ingresar Ruc"
+           
+        />
+        <!-- [class.is-invalid]="ruc.invalid && ruc.touched"           
+        required        
+        <small *ngIf="ruc.invalid && ruc.touched"
+        class="form-text text-danger">Ingresar Ruc</small> -->
+         
+</div>
+</div>
+</div>
+
+  <div class="row" *ngIf ="formData.idPais == 177"> 
+
+
+  <div class="col-md-4">
+    <div class="form-group">
+        <label> Departamento</label>
+        <ng-select  
+        style="text-transform:uppercase"
+        #idDepartamento="ngModel"  
+        name="idDepartamento" 
+        bindValue="idDepartamento" 
+        placeholder="Buscar Departamento" 
+        [(ngModel)]="formData.idDepartamento"  
+        (change)="onSelectDepartamento($event)"
+      >   
+           <ng-option *ngFor="let emp of departamentos" [value]="emp.id">{{emp.nombre}}</ng-option>
+       </ng-select> 
+      </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+        <label> Provincia</label>
+        <ng-select  
+        style="text-transform:uppercase"
+        #idProvincia="ngModel"  
+        name="idProvincia" 
+        bindValue="idProvincia" 
+        placeholder="Buscar Provincia" 
+        [(ngModel)]="formData.idProvincia" 
+        (change)="onSelectProvincia($event)"
+      >   
+           <ng-option *ngFor="let emp of provincias" [value]="emp.id">{{emp.nombre_provincia}}</ng-option>
+       </ng-select> 
+      </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+        <label> Distrito</label>
+        <ng-select  
+          style="text-transform:uppercase"
+        #idDistrito="ngModel"  
+        name="idDistrito" 
+        bindValue="idDistrito" 
+        placeholder="Buscar Distrito" 
+        [(ngModel)]="formData.idDistrito"  
+      >   
+            <ng-option *ngFor="let emp of distritos" [value]="emp.id">{{emp.nombre_distrito}}</ng-option>
+       </ng-select> 
+      </div>
+  </div>
+ 
+</div>  
+<div class="row">
+<div class="col-md-8">
+  <button type="submit" class="btn btn-dark">
+      <i class="fa fa-database"></i> Consultar
+    </button>
+</div> 
+</div>
+<!-- ORDER ITEMS TABLE -->
+
+  <table class="table table-borderless"  *ngIf="!cargando && detalleReporteProveedor.length > 0">
+ 
+  &nbsp;
+<thead class="thead-light">
+  <th>CODIGO</th>
+   <th>NOMBRES PROVEEDOR</th>
+  <th>ESTADO</th> 
+  <th>EMAIL</th>
+  <th>RUC</th> 
+  <th>TELEFONO</th>  
+  <th>PAIS</th>  
+  <th>DEPARTAMENTO</th>  
+  <th>PROVINCIA</th>  
+  <th>DISTRITOS</th>  
+
+   
+  <th>
+    <button   *ngIf="!cargando && detalleReporteProveedor.length > 0" mat-raised-button  color="primary"  (click)="exportAsXLSX()">Exportar
+        <mat-icon>trending_down</mat-icon>
+      
+      </button>
+  </th>
+
+</thead>
+<div
+*ngIf="cargando"
+class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading">Cargando</h4>
+<p>
+  <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+</p>
+<p class="mb-0">Espere por favor</p>
+</div>
+<tbody>
+  <tr *ngFor="let item of detalleReporteProveedor; let i = index">
+    <td> {{ item.codigoProovedor | uppercase}}</td>
+        <td> {{ item.nombre_proovedor | uppercase}}</td>
+            <td>{{item.estado}}</td>  
+                <td> {{ item.email_proovedor | uppercase}}</td>
+                    <td> {{ item.ruc_proovedor   }}</td> 
+                        <td> {{ item.telefono_proovedor  }}</td>
+                        <td> {{ item.nombre_pais | uppercase}}</td>
+                        <td> {{ item.nombre_departamento | uppercase}}</td>
+                        <td> {{ item.nombre_provincia | uppercase}}</td>
+                        <td> {{ item.nombre_distrito | uppercase}}</td>
+
+                       
+
+</tbody>
+</table>
+<div
+*ngIf="!cargando && detalleReporteProveedor.length === 0"
+class="alert alert-warning text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading">No existen registros</h4>
+
+</div> 
+ 
+</form>
+
+ 
+<br />

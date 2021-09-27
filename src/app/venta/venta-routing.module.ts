@@ -21,7 +21,11 @@ import { AddventadirectaComponent } from './ventadirecta/addventadirecta/addvent
 import { ListarcambiomedidaComponent } from './cotizacion/listarcambiomedida/listarcambiomedida.component';
 import { ListardeliverytodosComponent } from './delivery/listardeliverytodos/listardeliverytodos.component';
 import { AdddeliverytodosComponent } from './delivery/adddeliverytodos/adddeliverytodos.component';
-import { ReportestockComponent } from './reportestock/reportestock.component';
+// import { ReportestockComponent } from './reportestock/reportestock.component';
+import { StockComponent } from './reportes/stock/stock.component';
+import { MovimientosComponent } from './reportes/movimientos/movimientos.component';
+import { ClientesComponent } from './reportes/clientes/clientes.component';
+import { ProveedoresreportComponent } from './reportes/proveedoresreport/proveedoresreport.component';
  
 const routes: Routes = [
  
@@ -47,7 +51,10 @@ const routes: Routes = [
     {path:'listarcambiomedida', component: ListarcambiomedidaComponent, data:{titulo:'Cambio Medida'}},
     {path:'listardeliverytodos', component: ListardeliverytodosComponent, data:{titulo:'Delivery Todos'}},
     {path:'adddeliverytodos/:id', component: AdddeliverytodosComponent, data:{titulo:'Delivery Todos'}},
-    {path:'ReporteStock', component: ReportestockComponent, data:{titulo:'Reporte Stock'}},
+    {path:'ReporteStock', component: StockComponent, data:{titulo:'Reporte Stock'}},
+    {path:'Movimientos', component: MovimientosComponent, data:{titulo:'Movimientos'}},
+    {path:'Clientes', component: ClientesComponent, data:{titulo:'Clientes'}},
+    {path:'Proveedores', component: ProveedoresreportComponent, data:{titulo:'Proveedores'}},
     // {path:'listarpredelivery/:id', component: ListarempleadodeliveryComponent, data:{titulo:'Asignar Delivery'}},
    
 
