@@ -1,0 +1,418 @@
+ 
+<form
+#form="ngForm"
+autocomplete="off"
+class="justify-content-center"
+(submit)="onSubmit(form)"
+>
+
+<div class="row"> 
+    <div class="col-md-3">
+    <div class="form-group">
+        <label>Seleccionar Orden Venta</label>
+        <ng-select  
+        style="text-transform:uppercase"
+          #idTipoCotizacion="ngModel"  
+          name="idTipoCotizacion" 
+          bindValue="idTipoCotizacion" 
+          placeholder="Buscar Tipo Orden" 
+          [(ngModel)]="formData.idTipoCotizacion"  
+        >   
+            <ng-option *ngFor="let emp of tipocotizacion" 
+            [value]="emp.id"  [disabled]="emp.estado == 0">{{emp.descrip_tip_cot_venta}}</ng-option>
+         </ng-select> 
+    </div>
+</div>
+
+<div class="col-md-3">
+    <div class="form-group">
+        <label>Seleccionar Tienda</label>
+        <ng-select
+        style="text-transform: uppercase"
+        #idAlmacen="ngModel"
+        name="idAlmacen"
+        bindValue="idAlmacen"
+        placeholder="Buscar Tienda"
+        [(ngModel)]="formData.idAlmacen"
+      >
+        <ng-option
+          *ngFor="let emp of almacen"
+          [value]="emp.id"
+          [disabled]="emp.estado == 0"
+          >{{ emp.nombre_alamcen }}</ng-option
+        >
+      </ng-select>
+    </div>
+</div>
+
+<div class="col-md-3">
+    <div class="form-group">
+        <label>Seleccionar Material</label>
+  
+        <ng-select
+          style="text-transform: uppercase"
+          #idProducto="ngModel"
+          name="idProducto"
+          bindValue="idProducto"
+          placeholder="Buscar Producto"
+          [(ngModel)]="formData.idProducto"
+        >
+          <ng-option
+            *ngFor="let emp of productos"
+            [value]="emp.id"      
+            >{{ emp.nombre_producto }}</ng-option
+          >
+        </ng-select>
+      </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+        <label> Seleccionar Canal </label>
+        <ng-select  
+        style="text-transform:uppercase"
+          #idCanalVenta="ngModel"  
+          name="idCanalVenta" 
+          bindValue="idCanalVenta" 
+          placeholder="Buscar Canal Venta" 
+          [(ngModel)]="formData.idCanalVenta"  
+        >   
+            <ng-option *ngFor="let emp of canalVenta" 
+            [value]="emp.id"  [disabled]="emp.estado == 0">{{emp.descripcion_canal}}</ng-option>
+         </ng-select> 
+    </div>
+  </div>
+</div>
+  <div class="row">  
+  <div class="col-md-3">
+    <div class="form-group">
+        <label> Seleccionar Campaña </label>
+        <ng-select  
+        style="text-transform:uppercase"
+          #idCampain="ngModel"  
+          name="idCampain" 
+          bindValue="idCampain" 
+          placeholder="Buscar Campaña Venta" 
+          [(ngModel)]="formData.idCampain"  
+         
+        >   
+            <ng-option *ngFor="let emp of campania" 
+            [value]="emp.id"  [disabled]="emp.estado == 0">{{emp.descripcion_campain}}</ng-option>
+            
+         </ng-select> 
+      </div> 
+</div>
+<div class="col-md-3">
+    <div class="form-group">
+        <label> Seleccionar Cliente </label>
+        <ng-select  
+        style="text-transform:uppercase"
+          #idCliente="ngModel"  
+          name="idCliente" 
+          bindValue="idCliente" 
+          placeholder="Buscar Cliente" 
+          [(ngModel)]="formData.idCliente"  
+        >   
+            <ng-option *ngFor="let emp of clientes" 
+            [value]="emp.id">{{emp.nombre_cliente}}</ng-option>
+         </ng-select> 
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="form-group">
+        <label>Seleccionar Empleado</label>
+        <ng-select
+        style="text-transform: uppercase"
+          #idEmpleado="ngModel"
+          name="idEmpleado"
+          bindValue="idEmpleado"
+          placeholder="Buscar Empleado"
+          [(ngModel)]="formData.idEmpleado"
+        >
+          <ng-option *ngFor="let emp of empleados" [value]="emp.id">{{
+            emp.nombre_empleado
+          }}</ng-option>
+        </ng-select>
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="form-group">
+        <label> Departamento</label>
+        <ng-select  
+        style="text-transform:uppercase"
+        #idDepartamento="ngModel"  
+        name="idDepartamento" 
+        bindValue="idDepartamento" 
+        placeholder="Buscar Departamento" 
+        [(ngModel)]="formData.idDepartamento"  
+        (change)="onSelectDepartamento($event)"
+      >   
+      <!-- <ng-option *ngFor="let emp of departamentos" [value]="0">Buscar Departamento</ng-option> -->
+          <ng-option *ngFor="let emp of departamentos" [value]="emp.id">{{emp.nombre}}</ng-option>
+       </ng-select> 
+
+    </div>
+</div>
+</div>
+
+
+
+<div class="row"> 
+
+    <div class="col-md-3">
+        <div class="form-group">
+            <label> Provincia</label>
+            <ng-select  
+            style="text-transform:uppercase"
+            #idProvincia="ngModel"  
+            name="idProvincia" 
+            bindValue="idProvincia" 
+            placeholder="Buscar Provincia" 
+            [(ngModel)]="formData.idProvincia" 
+            (change)="onSelectProvincia($event)"
+          >   
+          <!-- <ng-option *ngFor="let emp of provincias" [value]="0">Buscar Provincia</ng-option> -->
+              <ng-option *ngFor="let emp of provincias" [value]="emp.id">{{emp.nombre_provincia}}</ng-option>
+           </ng-select> 
+
+
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label> Distrito</label>
+            <ng-select  
+              style="text-transform:uppercase"
+            #idDistrito="ngModel"  
+            name="idDistrito" 
+            bindValue="idDistrito" 
+            placeholder="Buscar Distrito" 
+            [(ngModel)]="formData.idDistrito"  
+          >   
+          <!-- <ng-option *ngFor="let emp of distritos" [value]="0">Buscar Distrito</ng-option> -->
+              <ng-option *ngFor="let emp of distritos" [value]="emp.id">{{emp.nombre_distrito}}</ng-option>
+           </ng-select> 
+
+        </div>
+    </div>
+    
+    <div class="col-xs-12 col-md-3">
+        <div class="form-group">
+          <label for="">Fecha OV De:</label>
+          <div class="input-group">
+            <input 
+            [matDatepicker]="picker"
+            placeholder="DD/MM/YYYY" 
+            name="fechaovIni"
+            #fechaovIni="ngModel" 
+            [(ngModel)]="formData.fechaovIni"
+            class="form-control"  
+            [class.is-invalid]="fechaovIni.invalid && fechaovIni.touched"
+              required 
+          />  
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          </div>
+          <small *ngIf="fechaovIni.invalid && fechaovIni.touched"
+          class="form-text text-danger">Ingrese Fecha</small>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-3">
+        <div class="form-group">
+          <label for="">Fecha OV Hasta:</label>
+          <div class="input-group">
+            <input 
+            [matDatepicker]="picker2"
+            placeholder="DD/MM/YYYY" 
+            name="fechaovFin"
+            #fechaovFin="ngModel" 
+            [(ngModel)]="formData.fechaovFin"
+            class="form-control"  
+            [class.is-invalid]="fechaovFin.invalid && fechaovFin.touched"
+              required 
+          />  
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+          </div>
+          <small *ngIf="fechaovFin.invalid && fechaovFin.touched"
+          class="form-text text-danger">Ingrese Fecha</small>
+        </div>
+      </div>
+</div>
+
+<div class="row"> 
+    <div class="col-xs-12 col-md-3">
+        <div class="form-group">
+          <label for="">Fecha Entrega De:</label>
+          <div class="input-group">
+            <input 
+            [matDatepicker]="picker3"
+            placeholder="DD/MM/YYYY" 
+            name="fechaentIni"
+            #fechaentIni="ngModel" 
+            [(ngModel)]="formData.fechaentIni"
+            class="form-control"  
+            [class.is-invalid]="fechaentIni.invalid && fechaentIni.touched"
+              required 
+          />  
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+          </div>
+          <small *ngIf="fechaentIni.invalid && fechaentIni.touched"
+          class="form-text text-danger">Ingrese Fecha</small>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-3">
+        <div class="form-group">
+          <label for="">Fecha Entrega Hasta:</label>
+          <div class="input-group">
+            <input 
+            [matDatepicker]="picker4"
+            placeholder="DD/MM/YYYY" 
+            name="fechaentFin"
+            #fechaentFin="ngModel" 
+            [(ngModel)]="formData.fechaentFin"
+            class="form-control"  
+            [class.is-invalid]="fechaentFin.invalid && fechaentFin.touched"
+              required 
+          />  
+          <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+          <mat-datepicker #picker4></mat-datepicker>
+          </div>
+          <small *ngIf="fechaentFin.invalid && fechaentFin.touched"
+          class="form-text text-danger">Ingrese Fecha</small>
+        </div>
+      </div>
+</div>
+
+ 
+<div class="row"> 
+ 
+
+  
+  <div class="col-md-8">
+      <button type="submit" class="btn btn-dark">
+          <i class="fa fa-database"></i> Consultar
+        </button>
+  </div> 
+</div>
+<br>
+
+<!-- ORDER ITEMS TABLE -->
+<th>
+  <button   *ngIf="!cargando && detalleOrdenVenta.length > 0" mat-raised-button  color="primary"  (click)="exportAsXLSX()">Exportar
+      <mat-icon>trending_down</mat-icon>
+    
+    </button>
+</th>
+<table class="table table-borderless"  *ngIf="!cargando && detalleOrdenVenta.length > 0">
+
+  &nbsp;
+<thead class="thead-light">
+<th>NUMERO DE OV</th> 
+<th>TIPO DE OV</th>
+<th>CLIENTE</th> 
+<th>CODIGO PRODUCTO</th>
+<th>NOMBRE PRODUCTO</th> 
+<th>CANAL</th>  
+ <th>CAMPAÑA</th>  
+ <th>CANTIDAD</th>  
+ <th>UM</th>  
+ <th>IMPORTE</th>  
+ <th>ALMACEN</th>  
+ <th>BANCO</th>  
+ <th>COTIZACION</th>  
+ <th>PREDELIVERY</th> 
+ <th>ENTREGA</th> 
+ <th>FECHA DE ORDEN</th> 
+ <th>FECHA DE ENTREGA</th> 
+  
+
+</thead>
+<div
+*ngIf="cargando"
+class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading">Cargando</h4>
+<p>
+  <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+</p>
+<p class="mb-0">Espere por favor</p>
+</div>
+<tbody>
+  <tr *ngFor="let item of detalleOrdenVenta; let i = index">
+    <td> {{ item.numOrdenVenta }}</td>  
+        <td> {{ item.tipoOv}}</td>
+            <td> {{ item.nombreCliente | uppercase}}</td>
+                <td> {{ item.codProducto}}</td>
+                    <td> {{ item.nombreProducto | uppercase}}</td>
+                        <td> {{ item.nombreCanal | uppercase}}</td>
+                        <td> {{ item.nombreCampain | uppercase}}</td>
+                        <td> {{ item.cantidad  }} </td>
+                        <td> {{ item.detalleNameUnidadMedida | uppercase}}</td>
+                        <td> {{ item.precioVenta }}</td>
+                        <td> {{ item.detalleNombreSede | uppercase}}</td>
+                        <td> {{ item.nombreBancoVenta | uppercase}}</td>
+                        <td> {{ item.codigo_cotizacion_num_venta }}</td>
+                        <td> {{ item.preDeliv }}</td>
+                        <td> {{ item.codigo_empdel_num_venta }}</td>
+                        <td> {{ item.fechaOrden }}</td>
+                        <td> {{ item.fechaEntregaOrden }}</td>
+
+</tbody>
+</table>
+<div
+*ngIf="cargando && detalleOrdenVenta?.length === 0"
+class="alert alert-warning text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading">No existen registros</h4>
+
+</div>
+<!-- <div
+*ngIf="cargando"
+class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading">Cargando</h4>
+<p>
+<i class="fa fa-sync-alt fa-spin fa-2px"></i>
+</p>
+<p class="mb-0">Espere por favor</p>
+</div> -->
+</form>
+
+
+<!-- <table class="table table-borderless"  *ngIf="!cargando && detalleReporteStock.length > 0">
+ 
+    &nbsp;
+  <thead class="thead-light">
+    <th>CODMAT</th>
+     <th>DESCRIPCION</th>
+    <th>MODELO</th> 
+    <th>UM</th>
+    <th>STOCK</th> 
+    <th>ALMACEN</th>  
+    <th>STOCK TRANSITO</th>  
+    <th>STOCK RESERVADO</th>  
+    <th>BLOQUEADO</th>  
+    <th>
+      <button   *ngIf="!cargando && detalleReporteStock.length > 0" mat-raised-button  color="primary"  (click)="exportAsXLSX()">Exportar
+          <mat-icon>trending_down</mat-icon>
+        
+        </button>
+    </th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of detalleReporteStock; let i = index">
+      <td> {{ item.codigoProductoBarra | uppercase}}</td>
+          <td> {{ item.nombre_producto | uppercase}}</td>
+              <td> {{ item.nombre_modelo | uppercase}}</td>
+                  <td> {{ item.nombre_um | uppercase}}</td>
+                      <td> {{ item.stock }}</td>
+                          <td> {{ item.almacen | uppercase}}</td>
+                          <td> {{ item.stock_transito }}</td>
+                          <td> {{ item.stock_reservado  }}</td>
+                          <td> {{ item.bloqueado | uppercase}}</td>
+
+
+  </tbody>
+</table> -->
+<br />

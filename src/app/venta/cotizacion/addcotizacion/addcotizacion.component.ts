@@ -131,7 +131,7 @@ this.mantenimientosService.getCliente().subscribe(resp => {
     /* this.campania = (resp).
      filter(valor => valor.estado == 1 );
 */
-      console.log(this.campania,'VARIABLE');
+      // console.log(this.campania,'VARIABLE');
 
 
 

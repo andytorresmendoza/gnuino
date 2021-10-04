@@ -37,12 +37,14 @@ export class MovimientosComponent implements OnInit {
       // this.formData = resp[0];
       // console.log(this.productos,'producto');
     });
-    this.mantenimientosService.getEmpleado()
-    .subscribe(resp => {
-     
-      this.empleados = resp as DataEmpleado[]  
-  //  console.log(resp);
-   });
+    this.mantenimientosService.getEmpleado().subscribe(resp => {
+      // console.log(resp);
+      this.empleados = (resp as DataEmpleado[])
+      .map(empleados=>{ 
+        empleados.nombre_empleado =   (empleados.nombre_empleado.concat(', ', empleados.apellidos_pat_empleado,' ', empleados.apellidos_mat_empleado,'- ',empleados.dni_empleado))
+        return empleados;
+      });
+    });
     this.mantenimientosService.getTipoAlmacen().subscribe((resp) => {
       this.almacen = resp as DataTipoAlmacen[];
       // console.log('principal', this.almacen);

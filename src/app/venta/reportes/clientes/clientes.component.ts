@@ -124,6 +124,7 @@ export class ClientesComponent implements OnInit {
 
     this.ventaService.getCliente(url).subscribe(
       resp => {
+        console.log(resp);
         // console.log(resp[0] == null? 'NO HAY REGISTROS': 'SI HAY REGISTRO' );
        
         // resp[0] == null?   this.cargando = true: this.detalleReporteCliente

@@ -44,18 +44,17 @@ import { ListardeliverytodosComponent } from './delivery/listardeliverytodos/lis
 import { AdddeliverytodosComponent } from './delivery/adddeliverytodos/adddeliverytodos.component';
 import { ReportestockComponent } from './reportestock/reportestock.component';
 import { StockComponent } from './reportes/stock/stock.component';
-import { StockdetalleComponent } from './reportes/stockdetalle/stockdetalle.component';
 import { MovimientosComponent } from './reportes/movimientos/movimientos.component';
-import { MovimientosdetalleComponent } from './reportes/movimientosdetalle/movimientosdetalle.component';
 import { ClientesComponent } from './reportes/clientes/clientes.component';
-import { ClientesdetalleComponent } from './reportes/clientesdetalle/clientesdetalle.component';
 import { ProveedoresreportComponent } from './reportes/proveedoresreport/proveedoresreport.component';
-// import { StockComponent } from './reportes/reportes/stock/stock.component';
+import { OrdenventareportComponent } from './reportes/ordenventareport/ordenventareport.component';
+import { VentadirectareportComponent } from './reportes/ventadirectareport/ventadirectareport.component';
+
 
 
 
 @NgModule({
-  declarations: [VentaComponent, ListarcotizacionComponent, AddcotizacionComponent, DetallecotizacionComponent, ListarordenventaComponent, AddordenventaComponent, EditarordenventaComponent, AddempleadodeliveryComponent, ListarempleadodeliveryComponent, ListarordenventapendienteComponent, EditarempleadodeliveryComponent, ListarcotiventaanuladaComponent, ListardeliveryComponent, AdddeliveryComponent, ListarordenventaanuladaComponent, AddventadirectaComponent, ListarventadirectaComponent, ListarventadirectaanuladoComponent, DetalleventadirectaComponent, CambiomedidaventaComponent, DetallecotizacioncambioComponent, ListarcambiomedidaComponent, VistapreviacotizacionComponent, VistapreviadirectaComponent, ListardeliverytodosComponent, AdddeliverytodosComponent, ReportestockComponent, StockComponent, StockdetalleComponent, MovimientosComponent, MovimientosdetalleComponent, ClientesComponent, ClientesdetalleComponent, ProveedoresreportComponent],
+  declarations: [VentaComponent, ListarcotizacionComponent, AddcotizacionComponent, DetallecotizacionComponent, ListarordenventaComponent, AddordenventaComponent, EditarordenventaComponent, AddempleadodeliveryComponent, ListarempleadodeliveryComponent, ListarordenventapendienteComponent, EditarempleadodeliveryComponent, ListarcotiventaanuladaComponent, ListardeliveryComponent, AdddeliveryComponent, ListarordenventaanuladaComponent, AddventadirectaComponent, ListarventadirectaComponent, ListarventadirectaanuladoComponent, DetalleventadirectaComponent, CambiomedidaventaComponent, DetallecotizacioncambioComponent, ListarcambiomedidaComponent, VistapreviacotizacionComponent, VistapreviadirectaComponent, ListardeliverytodosComponent, AdddeliverytodosComponent, ReportestockComponent, StockComponent, MovimientosComponent, ClientesComponent, ProveedoresreportComponent, OrdenventareportComponent, VentadirectareportComponent],
   imports: [ 
     CommonModule,
     SharedModule,

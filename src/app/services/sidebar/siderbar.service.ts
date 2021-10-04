@@ -124,7 +124,9 @@ export class SiderbarService {
       {titulo:'Reporte Stock', url:'../venta/ReporteStock'}, 
       {titulo:'Reporte Movimientos', url:'../venta/Movimientos'}, 
       {titulo:'Reporte Clientes', url:'../venta/Clientes'}, 
-      {titulo:'Reporte Proveedores', url:'../venta/Proveedores'}, 
+      {titulo:'Reporte Proveedores', url:'../venta/Proveedores'},  
+      {titulo:'Reporte Ordenes Venta', url:'../venta/ordenVenta'}, 
+      // {titulo:'Reporte Venta Directa', url:'../venta/VentaTienda'}, 
         // {titulo:'Entrega Producto'}, 
       ]
       

@@ -26,6 +26,8 @@ import { StockComponent } from './reportes/stock/stock.component';
 import { MovimientosComponent } from './reportes/movimientos/movimientos.component';
 import { ClientesComponent } from './reportes/clientes/clientes.component';
 import { ProveedoresreportComponent } from './reportes/proveedoresreport/proveedoresreport.component';
+import { OrdenventareportComponent } from './reportes/ordenventareport/ordenventareport.component';
+import { VentadirectareportComponent } from './reportes/ventadirectareport/ventadirectareport.component';
  
 const routes: Routes = [
  
@@ -52,9 +54,11 @@ const routes: Routes = [
     {path:'listardeliverytodos', component: ListardeliverytodosComponent, data:{titulo:'Delivery Todos'}},
     {path:'adddeliverytodos/:id', component: AdddeliverytodosComponent, data:{titulo:'Delivery Todos'}},
     {path:'ReporteStock', component: StockComponent, data:{titulo:'Reporte Stock'}},
-    {path:'Movimientos', component: MovimientosComponent, data:{titulo:'Movimientos'}},
-    {path:'Clientes', component: ClientesComponent, data:{titulo:'Clientes'}},
-    {path:'Proveedores', component: ProveedoresreportComponent, data:{titulo:'Proveedores'}},
+    {path:'Movimientos', component: MovimientosComponent, data:{titulo:' Reporte Movimientos'}},
+    {path:'Clientes', component: ClientesComponent, data:{titulo:'Reporte Clientes'}},
+    {path:'Proveedores', component: ProveedoresreportComponent, data:{titulo:'Reporte Proveedores'}},
+    {path:'ordenVenta', component: OrdenventareportComponent, data:{titulo:'Reporte Orden Venta'}},
+    {path:'VentaTienda', component: VentadirectareportComponent, data:{titulo:'Reporte Venta Tienda'}},
     // {path:'listarpredelivery/:id', component: ListarempleadodeliveryComponent, data:{titulo:'Asignar Delivery'}},
    
 
