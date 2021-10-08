@@ -177,22 +177,7 @@ name="idCliente"
             [value]="emp.id"  [disabled]="emp.estado == 0">{{emp.detalle_linea}}</ng-option>
          </ng-select> 
       </div> 
-    </div>
-    <!-- <div class="col-md-4">
-      <div class="form-group">
-        <label> Distrito</label>
-        <ng-select  
-        style="text-transform:uppercase"
-        #idDistrito="ngModel"  
-        name="idDistrito" 
-        bindValue="idDistrito" 
-        placeholder="Buscar Distrito" 
-        [(ngModel)]="ventaService.formData.idDistrito"  
-      >   
-          <ng-option *ngFor="let emp of distritos" [value]="emp.id">{{emp.nombre_distrito}}</ng-option>
-       </ng-select> 
-   
-      </div> </div> -->
+    </div> 
   </div>
 
   <div class="row">
@@ -218,7 +203,7 @@ name="idCliente"
         style="text-transform:uppercase"
        [items]="clientes"
        bindLabel="nombre_cliente"  
-       bindValue="id"
+       bindValue="id" 
        placeholder="Buscar Clientes"
        [(ngModel)]="ventaService.formData.idCliente" 
        (change)="UpdateCliente($event)" 

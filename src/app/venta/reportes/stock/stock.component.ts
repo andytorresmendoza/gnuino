@@ -10,13 +10,18 @@ import { DataCategoria } from "src/app/models/categoria";
 import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ExporterService } from "src/app/services/reportes/exporter.service";
-
+import {MatTableDataSource} from '@angular/material/table';
 @Component({
   selector: 'app-stock',
   templateUrl: './stock.component.html',
   styleUrls: ['./stock.component.css']
 })
 export class StockComponent implements OnInit {
+
+  displayedColumns: string[] = ['nro','codigoProductoBarra','nombre_producto','nombre_modelo','nombre_um','stock','almacen','stock_transito','stock_reservado','bloqueado'];
+  //columnsToDisplay: string[] = this.displayedColumns.slice();  
+  dataSource = new MatTableDataSource<any>();
+
   productos: DataProducto[];
   almacen: DataTipoAlmacen[];
   modelos: DataModelo[];
@@ -24,6 +29,7 @@ export class StockComponent implements OnInit {
   public formData: any;
   detalleReporteStock:any ;
   cargando = true; 
+  loading = false; 
   constructor( private http: HttpClient,  private router:Router,private mantenimientosService: MantenimientosService,private ventaService: VentaService,private excelExportService: ExporterService) { }
  
   ngOnInit(): void {
@@ -74,6 +80,7 @@ validateForm(form:NgForm) {
 }
 
   onSubmit(form: NgForm) { 
+    this.loading = true; 
     if( this.validateForm(form)){
       return;
     }
@@ -92,10 +99,17 @@ validateForm(form:NgForm) {
   //  return window.location.href=this.baseURL+url;
 
     this.ventaService.getReporteStock(url).subscribe(
-      resp => {
-        console.log(resp);
-        this.detalleReporteStock = resp;
-        this.cargando = false; 
+      resp => { 
+        if( resp[0] == null   ){
+          this.detalleReporteStock = [];
+          this.cargando = true
+          this.loading = false; 
+           }else{  
+          this.detalleReporteStock = resp; 
+          this.loading = false; 
+          this.cargando = false; 
+         
+        }  
       });      
   }
 }

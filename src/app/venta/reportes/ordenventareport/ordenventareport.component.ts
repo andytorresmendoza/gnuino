@@ -15,15 +15,18 @@ import { DataTipoCoti } from "src/app/models/tipo-cotizacion";
 import { DataCampaniaVenta } from "src/app/models/campaniaVenta";
 import { DataDepartamento, DataDistrito, DataProvincia } from "src/app/models/countries";
 import { DataCliente } from "src/app/models/cliente";
-
+import {MatTableDataSource} from '@angular/material/table';
 @Component({
   selector: 'app-ordenventareport',
   templateUrl: './ordenventareport.component.html',
   styleUrls: ['./ordenventareport.component.css']
 })
 export class OrdenventareportComponent implements OnInit {
+  displayedColumns: string[] = ['nro','numOrdenVenta','tipoOv','nombreCliente','codProducto','nombreProducto','nombreCanal','nombreCampain','cantidad','detalleNameUnidadMedida','precioVenta' ,'detalleNombreSede' ,'nombreBancoVenta' ,'codigo_cotizacion_num_venta','preDeliv','codigo_empdel_num_venta','fechaOrden','fechaEntregaOrden','estado'];
+  // columnsToDisplay: string[] = this.displayedColumns.slice(); 
+  
+  dataSource = new MatTableDataSource<any>();
 
- 
   productos: DataProducto[];
   almacen: DataTipoAlmacen[];  
   empleados: DataEmpleado[];
@@ -38,6 +41,15 @@ export class OrdenventareportComponent implements OnInit {
   public formData: any;
   detalleOrdenVenta:any ;
   cargando = true; 
+ loading = false; 
+
+  getTotalCost() {
+    let suma: any;
+    const priceNotEmpty = this.detalleOrdenVenta.filter((res)=> res.precioVenta!='');
+    suma =  priceNotEmpty?.map(r => parseFloat(r.precioVenta)).reduce(( acc, value ) =>  (acc + value ), 0); 
+ 
+    return suma;
+  }
   constructor( private http: HttpClient,  private router:Router,private mantenimientosService: MantenimientosService,private ventaService: VentaService,private excelExportService: ExporterService) { }
  
   ngOnInit(): void {
@@ -151,21 +163,21 @@ validateForm(form:NgForm) {
 }
 
   onSubmit(form: NgForm) { 
-
+    this.loading = true; 
       let fechaParseada1: any;
-      fechaParseada1 = moment(form.value.fechaovIni).format('DD/MM/YYYY');
+      fechaParseada1 = moment(form.value.fechaovIni).format('YYYY-MM-DD');
       form.value.fechaovIni = fechaParseada1;
 
       let fechaParseada2: any;
-      fechaParseada2 = moment(form.value.fechaovFin).format('DD/MM/YYYY');
+      fechaParseada2 = moment(form.value.fechaovFin).format('YYYY-MM-DD');
       form.value.fechaovFin = fechaParseada2;
 
       let fechaParseada3: any;
-      fechaParseada3 = moment(form.value.fechaentIni).format('DD/MM/YYYY');
+      fechaParseada3 = moment(form.value.fechaentIni).format('YYYY-MM-DD');
       form.value.fechaentIni = fechaParseada3;
 
       let fechaParseada4: any;
-      fechaParseada4 = moment(form.value.fechaentFin).format('DD/MM/YYYY');
+      fechaParseada4 = moment(form.value.fechaentFin).format('YYYY-MM-DD');
       form.value.fechaentFin = fechaParseada4;
 
     form.value.idTipoCotizacion ==null ? form.value.idTipoCotizacion='' : form.value.idTipoCotizacion;
@@ -199,19 +211,22 @@ validateForm(form:NgForm) {
                 '&fechaentIni='+form.value.fechaentIni+
                 '&fechaentFin='+form.value.fechaentFin;
   //  return window.location.href=this.baseURL+url;
-//  console.log( form.value.fecha,'FECHA');
+  console.log( url,'URL');
     this.ventaService.getMovimiento(url).subscribe(
       resp => { 
         console.log(resp);
         if( resp[0] == null   ){
           // this.detalleReporteCliente = '';
               this.detalleOrdenVenta = [];
-              this.cargando = true
+              this.cargando = true;
+              this.loading = false; 
               // console.log(this.detalleReporteCliente, 'VACIO');
             }else{
               this.detalleOrdenVenta = resp;
+              this.loading = false; 
               // console.log(this.detalleReporteCliente, 'CORRECTO');
               this.cargando = false; 
+              this.getTotalCost() 
             }  
  
       });      

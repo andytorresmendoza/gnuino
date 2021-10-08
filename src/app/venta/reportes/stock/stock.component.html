@@ -114,56 +114,82 @@
           </button>
     </div> 
 </div>
+&nbsp;
+<div class="row">
+  <div class="col-md-8">
+<th>
+  <button   *ngIf="!cargando && detalleReporteStock.length > 0" mat-raised-button  color="primary"  (click)="exportAsXLSX()">Exportar
+      <mat-icon>trending_down</mat-icon>
+    
+    </button>
  
-
-  <!-- ORDER ITEMS TABLE -->
- 
-  <table class="table table-borderless"  *ngIf="!cargando && detalleReporteStock.length > 0">
-   
-    &nbsp;
-  <thead class="thead-light">
-    <th>CODMAT</th>
-     <th>DESCRIPCION</th>
-    <th>MODELO</th> 
-    <th>UM</th>
-    <th>STOCK</th> 
-    <th>ALMACEN</th>  
-    <th>STOCK TRANSITO</th>  
-    <th>STOCK RESERVADO</th>  
-    <th>BLOQUEADO</th>  
-    <th>
-      <button   *ngIf="!cargando && detalleReporteStock.length > 0" mat-raised-button  color="primary"  (click)="exportAsXLSX()">Exportar
-          <mat-icon>trending_down</mat-icon>
-        
-        </button>
-    </th>
-  
-  </thead>
-  <div
-  *ngIf="cargando"
-  class="alert alert-info text-center mt-3 animated fadeIn faster"
-  >
-  <h4 class="alert-heading">Cargando</h4>
-  <p>
-    <i class="fa fa-sync-alt fa-spin fa-2px"></i>
-  </p>
-  <p class="mb-0">Espere por favor</p>
+</th>
   </div>
-  <tbody>
-    <tr *ngFor="let item of detalleReporteStock; let i = index">
-      <td> {{ item.codigoProductoBarra | uppercase}}</td>
-      <td> {{ item.nombre_producto | uppercase}}</td>
-      <td> {{ item.nombre_modelo | uppercase}}</td>
-      <td> {{ item.nombre_um | uppercase}}</td>
-      <td> {{ item.stock }}</td>
-      <td> {{ item.almacen | uppercase}}</td>
-      <td> {{ item.stock_transito }}</td>
-      <td> {{ item.stock_reservado  }} </td>
-      <td> {{ item.bloqueado | uppercase}}</td>
-
-
-  </tbody>
-</table>
+</div>
+&nbsp;
+<div class="example-container mat-elevation-z8" *ngIf="!cargando && detalleReporteStock.length > 0">
+  <table mat-table [dataSource]="detalleReporteStock" class="mat-elevation-z8" *ngIf="!cargando && detalleReporteStock.length > 0">
+    <!-- <ng-container matColumnDef="numOrdenVenta" sticky> -->
+      <ng-container matColumnDef="nro" sticky>
+        <th mat-header-cell *matHeaderCellDef><b>NRO</b>  </th>
+        <td mat-cell *matCellDef="let detalleReporteStock; let i = index"> {{ i + 1 }} </td>
+        <td mat-footer-cell *matFooterCellDef>  </td>
+      </ng-container>
+      <ng-container matColumnDef="codigoProductoBarra"  >
+      <th mat-header-cell *matHeaderCellDef><b>CODMAT</b>  </th>
+      <td mat-cell *matCellDef="let detalleReporteStock"> {{detalleReporteStock.codigoProductoBarra}} </td>
+      <td mat-footer-cell *matFooterCellDef> </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="nombre_producto" >
+      <th mat-header-cell *matHeaderCellDef> <b>DESCRIPCION</b>  </th>
+      <td mat-cell *matCellDef="let detalleReporteStock"> {{detalleReporteStock.nombre_producto | uppercase }} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+  
+      <ng-container matColumnDef="nombre_modelo">
+      <th mat-header-cell *matHeaderCellDef> <b>MODELO</b> </th>
+      <td mat-cell *matCellDef="let detalleReporteStock"> {{detalleReporteStock?.nombre_modelo | uppercase}} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+    <ng-container matColumnDef="nombre_um">
+      <th mat-header-cell *matHeaderCellDef> <b>UM</b> </th>
+      <td mat-cell *matCellDef="let detalleReporteStock"> {{detalleReporteStock?.nombre_um | uppercase }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+   
+    <ng-container matColumnDef="stock">
+      <th mat-header-cell *matHeaderCellDef> <b>STOCK</b> </th>
+      <td mat-cell *matCellDef="let detalleReporteStock"> {{detalleReporteStock?.stock  }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+    <ng-container matColumnDef="almacen">
+      <th mat-header-cell *matHeaderCellDef> <b>ALMACEN</b> </th>
+      <td mat-cell *matCellDef="let detalleReporteStock"> {{detalleReporteStock?.almacen | uppercase}} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+  
+    <ng-container matColumnDef="stock_transito">
+      <th mat-header-cell *matHeaderCellDef> <b>STOCK TRANSITO</b> </th>
+      <td mat-cell *matCellDef="let detalleReporteStock"> {{detalleReporteStock?.stock_transito  }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container>   
+    <ng-container matColumnDef="stock_reservado">
+      <th mat-header-cell *matHeaderCellDef> <b>STOCK RESERVADO</b> </th>
+      <td mat-cell *matCellDef="let detalleReporteStock"> {{detalleReporteStock?.stock_reservado }} </td>
+      <td mat-footer-cell *matFooterCellDef><B> TOTAL STOCK: </B>   </td>
+    </ng-container>   
+    <ng-container matColumnDef="bloqueado">
+      <th mat-header-cell *matHeaderCellDef> <b>BLOQUEADO</b> </th>
+      <td mat-cell *matCellDef="let detalleReporteStock"> {{detalleReporteStock?.bloqueado | uppercase }} </td>
+      <td mat-footer-cell *matFooterCellDef> <b> {{detalleReporteStock?.length }}</b> </td>
+    </ng-container>   
+     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+     <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  </table>
+  </div>  
+ 
 <div
 *ngIf="!cargando && detalleReporteStock.length === 0"
 class="alert alert-warning text-center mt-3 animated fadeIn faster"
@@ -171,8 +197,10 @@ class="alert alert-warning text-center mt-3 animated fadeIn faster"
 <h4 class="alert-heading">No existen registros</h4>
   
 </div>
-<!-- <div
-*ngIf="cargando"
+ 
+</form> 
+<div
+*ngIf="loading"
 class="alert alert-info text-center mt-3 animated fadeIn faster"
 >
 <h4 class="alert-heading">Cargando</h4>
@@ -180,44 +208,6 @@ class="alert alert-info text-center mt-3 animated fadeIn faster"
   <i class="fa fa-sync-alt fa-spin fa-2px"></i>
 </p>
 <p class="mb-0">Espere por favor</p>
-</div> -->
-</form>
-
-
-  <!-- <table class="table table-borderless"  *ngIf="!cargando && detalleReporteStock.length > 0">
-   
-      &nbsp;
-    <thead class="thead-light">
-      <th>CODMAT</th>
-       <th>DESCRIPCION</th>
-      <th>MODELO</th> 
-      <th>UM</th>
-      <th>STOCK</th> 
-      <th>ALMACEN</th>  
-      <th>STOCK TRANSITO</th>  
-      <th>STOCK RESERVADO</th>  
-      <th>BLOQUEADO</th>  
-      <th>
-        <button   *ngIf="!cargando && detalleReporteStock.length > 0" mat-raised-button  color="primary"  (click)="exportAsXLSX()">Exportar
-            <mat-icon>trending_down</mat-icon>
-          
-          </button>
-      </th>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of detalleReporteStock; let i = index">
-        <td> {{ item.codigoProductoBarra | uppercase}}</td>
-            <td> {{ item.nombre_producto | uppercase}}</td>
-                <td> {{ item.nombre_modelo | uppercase}}</td>
-                    <td> {{ item.nombre_um | uppercase}}</td>
-                        <td> {{ item.stock }}</td>
-                            <td> {{ item.almacen | uppercase}}</td>
-                            <td> {{ item.stock_transito }}</td>
-                            <td> {{ item.stock_reservado  }}</td>
-                            <td> {{ item.bloqueado | uppercase}}</td>
-
-
-    </tbody>
-  </table> -->
+</div>
   <br />
   

@@ -4,16 +4,13 @@ import { Component, OnInit } from '@angular/core';
 import { MantenimientosService } from "src/app/services/mantenimientos/mantenimientos.service";
 import { VentaService } from "src/app/services/venta/venta.service";
 import { DataProducto } from "src/app/models/producto";
-import { DataTipoAlmacen } from "src/app/models/tipoalmacen";
-import { DataModelo } from "src/app/models/modelo";
-import { DataCategoria } from "src/app/models/categoria";
-import { NgForm } from '@angular/forms';
-import Swal from 'sweetalert2';
+import { DataTipoAlmacen } from "src/app/models/tipoalmacen"; 
+import { NgForm } from '@angular/forms'; 
 import { ExporterService } from "src/app/services/reportes/exporter.service";
 import { DataCliente } from '../../../models/cliente';
 import { DataCampaniaVenta } from '../../../models/campaniaVenta';
 import { DataDepartamento, DataProvincia, DataDistrito } from '../../../models/countries';
-
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-clientes',
@@ -21,6 +18,11 @@ import { DataDepartamento, DataProvincia, DataDistrito } from '../../../models/c
   styleUrls: ['./clientes.component.css']
 })
 export class ClientesComponent implements OnInit {
+
+  displayedColumns: string[] = ['nro','codigoCliente','nombre_cliente','nombre_categoria','nombre_departamento','nombre_provincia','nombre_distrito','email_cliente'];
+  //columnsToDisplay: string[] = this.displayedColumns.slice();  
+  dataSource = new MatTableDataSource<any>(); 
+  
   productos: DataProducto[];
   clientes: DataCliente[] = [];
   campania: DataCampaniaVenta[] = [];
@@ -28,12 +30,11 @@ export class ClientesComponent implements OnInit {
   almacen: DataTipoAlmacen[];
   public departamentos: DataDepartamento[] = [];  
   public provincias: DataProvincia[] = [];
-  public distritos: DataDistrito[] = [];
-
+  public distritos: DataDistrito[] = []; 
   public formData: any;
   detalleReporteCliente:any ;
-  cargando = true; 
- 
+  cargando = true;  
+  loading = false;  
   constructor( private http: HttpClient,  private router:Router,private mantenimientosService: MantenimientosService,private ventaService: VentaService,private excelExportService: ExporterService) { }
  
   ngOnInit(): void {
@@ -105,7 +106,8 @@ export class ClientesComponent implements OnInit {
  
 
   onSubmit(form: NgForm) { 
- 
+    this.loading = true; 
+    
     form.value.idCliente ==null ? form.value.idCliente='' : form.value.idCliente;
     form.value.idCategoria ==null ? form.value.idCategoria='' : form.value.idCategoria;
     form.value.idCampain ==null ? form.value.idCampain='' : form.value.idCampain;
@@ -125,24 +127,17 @@ export class ClientesComponent implements OnInit {
     this.ventaService.getCliente(url).subscribe(
       resp => {
         console.log(resp);
-        // console.log(resp[0] == null? 'NO HAY REGISTROS': 'SI HAY REGISTRO' );
-       
-        // resp[0] == null?   this.cargando = true: this.detalleReporteCliente
-      
     if( resp[0] == null   ){
-      // this.detalleReporteCliente = '';
           this.detalleReporteCliente = [];
           this.cargando = true
-          // console.log(this.detalleReporteCliente, 'VACIO');
-        }else{
-          this.detalleReporteCliente = resp;
-          // console.log(this.detalleReporteCliente, 'CORRECTO');
+          this.loading = false; 
+           }else{  
+          this.detalleReporteCliente = resp; 
+          this.loading = false; 
           this.cargando = false; 
+         
         }  
-      // this.detalleReporteCliente = resp;
-     
-    //  this.cargando = false; 
-     
+   
       });      
   }
  

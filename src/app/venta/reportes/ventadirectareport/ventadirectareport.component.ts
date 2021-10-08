@@ -15,7 +15,7 @@ import { DataTipoCoti } from "src/app/models/tipo-cotizacion";
 import { DataCampaniaVenta } from "src/app/models/campaniaVenta";
 import { DataDepartamento, DataDistrito, DataProvincia } from "src/app/models/countries";
 import { DataCliente } from "src/app/models/cliente";
-
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-ventadirectareport',
@@ -23,6 +23,10 @@ import { DataCliente } from "src/app/models/cliente";
   styleUrls: ['./ventadirectareport.component.css']
 })
 export class VentadirectareportComponent implements OnInit {
+  displayedColumns: string[] = ['nro','tipoOv','nombreCliente','codProducto','nombreProducto','nombreCanal','nombreCampain','cantidad','detalleNameUnidadMedida','precioVenta' ,'detalleNombreSede' ,'nombreBancoDirecta' ,'codigo_cotizacion_num_venta','fechaVentaDirecta' ];
+  // columnsToDisplay: string[] = this.displayedColumns.slice(); 
+  
+  dataSource = new MatTableDataSource<any>();
 
   productos: DataProducto[];
   almacen: DataTipoAlmacen[];  
@@ -36,8 +40,17 @@ export class VentadirectareportComponent implements OnInit {
   campania: DataCampaniaVenta[] = [];
 
   public formData: any;
-  detalleOrdenVenta:any ;
+  detalleVentaDirecta:any ;
   cargando = true; 
+  loading = false; 
+  getTotalCost() {
+    let suma: any;
+    const priceNotEmpty = this.detalleVentaDirecta.filter((res)=> res.precioVenta!='');
+    suma =  priceNotEmpty?.map(r => parseFloat(r.precioVenta)).reduce(( acc, value ) =>  (acc + value ), 0); 
+ 
+    return suma;
+  }
+
   constructor( private http: HttpClient,  private router:Router,private mantenimientosService: MantenimientosService,private ventaService: VentaService,private excelExportService: ExporterService) { }
  
   ngOnInit(): void {
@@ -121,20 +134,17 @@ export class VentadirectareportComponent implements OnInit {
     this.formData = {
 
  idTipoCotizacion: null,
-  idAlmacen: null,
-  idProducto: null,
+ idAlmacen: null,
+ idProducto: null,
  idCanalVenta: null,
  idCampain: null,
-  idCliente: null,
- idEmpleado: null,
+ idCliente: null,
+//  idEmpleado: null,
  idDepartamento: null,
  idProvincia: null,
- idDistrito: null, 
- 
-//  fechaovIni: null,
-//   fechaovFin: null,
+ idDistrito: null,  
  fechaentIni: null,
-  fechaentFin: null
+ fechaentFin: null
   
     };
 }
@@ -150,21 +160,21 @@ validateForm(form:NgForm) {
 }
 
   onSubmit(form: NgForm) { 
-
+    this.loading = true; 
       let fechaParseada1: any;
-      fechaParseada1 = moment(form.value.fechaovIni).format('DD/MM/YYYY');
+      fechaParseada1 = moment(form.value.fechaovIni).format('YYYY-MM-DD');
       form.value.fechaovIni = fechaParseada1;
 
       let fechaParseada2: any;
-      fechaParseada2 = moment(form.value.fechaovFin).format('DD/MM/YYYY');
+      fechaParseada2 = moment(form.value.fechaovFin).format('YYYY-MM-DD');
       form.value.fechaovFin = fechaParseada2;
 
       let fechaParseada3: any;
-      fechaParseada3 = moment(form.value.fechaentIni).format('DD/MM/YYYY');
+      fechaParseada3 = moment(form.value.fechaentIni).format('YYYY-MM-DD');
       form.value.fechaentIni = fechaParseada3;
 
       let fechaParseada4: any;
-      fechaParseada4 = moment(form.value.fechaentFin).format('DD/MM/YYYY');
+      fechaParseada4 = moment(form.value.fechaentFin).format('YYYY-MM-DD');
       form.value.fechaentFin = fechaParseada4;
 
     form.value.idTipoCotizacion ==null ? form.value.idTipoCotizacion='' : form.value.idTipoCotizacion;
@@ -173,28 +183,23 @@ validateForm(form:NgForm) {
     form.value.idCanalVenta ==null ? form.value.idCanalVenta='' : form.value.idCanalVenta;
     form.value.idCampain ==null ? form.value.idCampain='' : form.value.idCampain;
     form.value.idCliente ==null ? form.value.idCliente='' : form.value.idCliente;
-    form.value.idEmpleado ==null ? form.value.idEmpleado='' : form.value.idEmpleado;
+    // form.value.idEmpleado ==null ? form.value.idEmpleado='' : form.value.idEmpleado;
     form.value.idDepartamento ==null ? form.value.idDepartamento='' : form.value.idDepartamento;
     form.value.idProvincia ==null ? form.value.idProvincia='' : form.value.idProvincia;
     form.value.idDistrito ==null ? form.value.idDistrito='' : form.value.idDistrito;
-    // form.value.fechaovIni === 'Invalid date' ? form.value.fechaovIni='' : form.value.fechaovIni;
-    // form.value.fechaovFin === 'Invalid date' ? form.value.fechaovFin='' : form.value.fechaovFin;
-    form.value.fechaentIni === 'Invalid date' ? form.value.fechaentIni='' : form.value.fechaentIni;
+      form.value.fechaentIni === 'Invalid date' ? form.value.fechaentIni='' : form.value.fechaentIni;
     form.value.fechaentFin === 'Invalid date' ? form.value.fechaentFin='' : form.value.fechaentFin;
-  // console.log(form.value.fecha === 'Invalid' ? form.value.fecha='' : form.value.fecha),'FECHA';
-
-    const url= 'export-movimientosxx?'+'idTipoCotizacion='+form.value.idTipoCotizacion+
+   
+    const url= 'export-venta-directa?'+'idTipoCotizacion='+form.value.idTipoCotizacion+
                 '&idAlmacen='+form.value.idAlmacen+
                 '&idProducto='+form.value.idProducto+
                 '&idCanalVenta='+form.value.idCanalVenta+
                 '&idCampain='+form.value.idCampain+
                 '&idCliente='+form.value.idCliente+
-                '&idEmpleado='+form.value.idEmpleado+
+                // '&idEmpleado='+form.value.idEmpleado+
                 '&idDepartamento='+form.value.idDepartamento+
                 '&idProvincia='+form.value.idProvincia+
-                '&idDistrito='+form.value.idDistrito+
-                '&fechaovIni='+form.value.fechaovIni+
-                '&fechaovFin='+form.value.fechaovFin+
+                '&idDistrito='+form.value.idDistrito+ 
                 '&fechaentIni='+form.value.fechaentIni+
                 '&fechaentFin='+form.value.fechaentFin;
   //  return window.location.href=this.baseURL+url;
@@ -204,20 +209,23 @@ validateForm(form:NgForm) {
         console.log(resp);
         if( resp[0] == null   ){
           // this.detalleReporteCliente = '';
-              this.detalleOrdenVenta = [];
+              this.detalleVentaDirecta = [];
               this.cargando = true
+              this.loading = false; 
               // console.log(this.detalleReporteCliente, 'VACIO');
             }else{
-              this.detalleOrdenVenta = resp;
+              this.detalleVentaDirecta = resp;
+              this.loading = false; 
               // console.log(this.detalleReporteCliente, 'CORRECTO');
               this.cargando = false; 
+              this.getTotalCost() 
             }  
  
       });      
  
 }
 exportAsXLSX(){
-  this.excelExportService.exportToExcel(this.detalleOrdenVenta,'Orden Venta');
+  this.excelExportService.exportToExcel(this.detalleVentaDirecta,'Venta Directa');
     }
 }
 

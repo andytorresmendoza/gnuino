@@ -117,7 +117,7 @@ class="justify-content-center"
          </ng-select> 
     </div>
 </div>
-<div class="col-md-3">
+<!-- <div class="col-md-3">
     <div class="form-group">
         <label>Seleccionar Empleado</label>
         <ng-select
@@ -133,7 +133,7 @@ class="justify-content-center"
           }}</ng-option>
         </ng-select>
     </div>
-</div>
+</div> -->
 <div class="col-md-3">
     <div class="form-group">
         <label> Departamento</label>
@@ -152,31 +152,30 @@ class="justify-content-center"
 
     </div>
 </div>
+<div class="col-md-3">
+  <div class="form-group">
+      <label> Provincia</label>
+      <ng-select  
+      style="text-transform:uppercase"
+      #idProvincia="ngModel"  
+      name="idProvincia" 
+      bindValue="idProvincia" 
+      placeholder="Buscar Provincia" 
+      [(ngModel)]="formData.idProvincia" 
+      (change)="onSelectProvincia($event)"
+    >   
+    <!-- <ng-option *ngFor="let emp of provincias" [value]="0">Buscar Provincia</ng-option> -->
+        <ng-option *ngFor="let emp of provincias" [value]="emp.id">{{emp.nombre_provincia}}</ng-option>
+     </ng-select> 
+
+
+  </div>
+</div>
 </div>
 
 
 
-<div class="row"> 
-
-    <div class="col-md-3">
-        <div class="form-group">
-            <label> Provincia</label>
-            <ng-select  
-            style="text-transform:uppercase"
-            #idProvincia="ngModel"  
-            name="idProvincia" 
-            bindValue="idProvincia" 
-            placeholder="Buscar Provincia" 
-            [(ngModel)]="formData.idProvincia" 
-            (change)="onSelectProvincia($event)"
-          >   
-          <!-- <ng-option *ngFor="let emp of provincias" [value]="0">Buscar Provincia</ng-option> -->
-              <ng-option *ngFor="let emp of provincias" [value]="emp.id">{{emp.nombre_provincia}}</ng-option>
-           </ng-select> 
-
-
-        </div>
-    </div>
+<div class="row">  
     <div class="col-md-3">
         <div class="form-group">
             <label> Distrito</label>
@@ -292,11 +291,129 @@ class="justify-content-center"
         </button>
   </div> 
 </div>
-
+<br>
 
 <!-- ORDER ITEMS TABLE -->
+<th>
+  <button   *ngIf="!cargando && detalleVentaDirecta.length > 0" mat-raised-button  color="primary"  (click)="exportAsXLSX()">Exportar
+      <mat-icon>trending_down</mat-icon>
+    
+    </button>
+</th>
+&nbsp;
+<div class="example-container mat-elevation-z8" *ngIf="!cargando && detalleVentaDirecta.length > 0">
+  <table mat-table [dataSource]="detalleVentaDirecta" class="mat-elevation-z8" *ngIf="!cargando && detalleVentaDirecta.length > 0">
+    <ng-container matColumnDef="nro" sticky>
+      <th mat-header-cell *matHeaderCellDef><b>NRO</b>  </th>
+      <td mat-cell *matCellDef="let detalleVentaDirecta; let i = index"> {{ i + 1 }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container>
+ 
+  
+    <ng-container matColumnDef="tipoOv" >
+      <th mat-header-cell *matHeaderCellDef> <b>TIPO DE OV</b>  </th>
+      <td mat-cell *matCellDef="let detalleVentaDirecta"> {{detalleVentaDirecta.tipoOv | uppercase }} </td>
+      <td mat-footer-cell *matFooterCellDef><b> {{detalleVentaDirecta?.length }}</b> </td>
+    </ng-container>
+  
+      <ng-container matColumnDef="nombreCliente">
+      <th mat-header-cell *matHeaderCellDef> <b>CLIENTE</b> </th>
+      <td mat-cell *matCellDef="let detalleVentaDirecta"> {{detalleVentaDirecta?.nombreCliente | uppercase}} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+    <ng-container matColumnDef="codProducto">
+      <th mat-header-cell *matHeaderCellDef> <b>CODIGO PRODUCTO</b> </th>
+      <td mat-cell *matCellDef="let detalleVentaDirecta"> {{detalleVentaDirecta?.codProducto }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+   
+    <ng-container matColumnDef="nombreProducto">
+      <th mat-header-cell *matHeaderCellDef> <b>NOMBRE PRODUCTO</b> </th>
+      <td mat-cell *matCellDef="let detalleVentaDirecta"> {{detalleVentaDirecta?.nombreProducto| uppercase }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+    <ng-container matColumnDef="nombreCanal">
+      <th mat-header-cell *matHeaderCellDef> <b>CANAL</b> </th>
+      <td mat-cell *matCellDef="let detalleVentaDirecta"> {{detalleVentaDirecta?.nombreCanal | uppercase}} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+  
+    <ng-container matColumnDef="nombreCampain">
+      <th mat-header-cell *matHeaderCellDef> <b>CAMPAÑA</b> </th>
+      <td mat-cell *matCellDef="let detalleVentaDirecta"> {{detalleVentaDirecta?.nombreCampain | uppercase }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+  
+    <ng-container matColumnDef="cantidad">
+      <th mat-header-cell *matHeaderCellDef> <b>CANTIDAD</b> </th>
+      <td mat-cell *matCellDef="let detalleVentaDirecta"> {{detalleVentaDirecta?.cantidad  }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+  
+    <ng-container matColumnDef="detalleNameUnidadMedida">
+      <th mat-header-cell *matHeaderCellDef> <b>UM</b> </th>
+      <td mat-cell *matCellDef="let detalleVentaDirecta"> {{detalleVentaDirecta?.detalleNameUnidadMedida | uppercase}} </td>
+      <td mat-footer-cell *matFooterCellDef> <b>TOTAL: </b> </td>
+    </ng-container> 
+   
+    <ng-container matColumnDef="precioVenta">
+      <th mat-header-cell *matHeaderCellDef> <b>IMPORTE</b> </th>
+      <td mat-cell *matCellDef="let detalleVentaDirecta">S/. {{detalleVentaDirecta?.precioVenta  }} </td>
+      <td mat-footer-cell *matFooterCellDef><b> S/. {{getTotalCost()}}</b> </td>  
+    </ng-container> 
 
-<table class="table table-borderless"  *ngIf="!cargando && detalleOrdenVenta.length > 0">
+    <ng-container matColumnDef="detalleNombreSede">
+      <th mat-header-cell *matHeaderCellDef> <b>ALMACEN</b> </th>
+      <td mat-cell *matCellDef="let detalleVentaDirecta"> {{detalleVentaDirecta?.detalleNombreSede | uppercase}} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+    <ng-container matColumnDef="nombreBancoDirecta">
+      <th mat-header-cell *matHeaderCellDef> <b>BANCO</b> </th>
+      <td mat-cell *matCellDef="let detalleVentaDirecta"> {{detalleVentaDirecta?.nombreBancoDirecta | uppercase}} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+  
+    <ng-container matColumnDef="codigo_cotizacion_num_venta">
+      <th mat-header-cell *matHeaderCellDef> <b>COTIZACION</b> </th>
+      <td mat-cell *matCellDef="let detalleVentaDirecta"> {{detalleVentaDirecta?.codigo_cotizacion_dir_num_venta }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+
+    
+    <ng-container matColumnDef="fechaVentaDirecta">
+      <th mat-header-cell *matHeaderCellDef> <b>FECHA DE ENTREGA</b> </th>
+      <td mat-cell *matCellDef="let detalleVentaDirecta"> {{detalleVentaDirecta?.fechaVentaDirecta  }} </td>
+      <td mat-footer-cell *matFooterCellDef>   </td>
+    </ng-container>    
+  
+     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+     <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  </table>
+  </div> 
+   
+  <div
+*ngIf="cargando && detalleVentaDirecta?.length === 0"
+class="alert alert-warning text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading">No existen registros</h4>
+
+</div>  
+</form> 
+<div
+*ngIf="loading"
+class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading">Cargando</h4>
+<p>
+  <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+</p>
+<p class="mb-0">Espere por favor</p>
+</div>
+<br />
+<!-- ORDER ITEMS TABLE -->
+
+<!-- <table class="table table-borderless"  *ngIf="!cargando && detalleVentaDirecta.length > 0">
  
   &nbsp;
 <thead class="thead-light">
@@ -317,9 +434,9 @@ class="justify-content-center"
   <th>ENTREGA</th> 
   <th>FECHA DE ORDEN</th> 
   <th>FECHA DE ENTREGA</th> 
-  <!-- <th>{{ item.codProducto | uppercase}}</th>   -->
+ 
   <th>
-    <button   *ngIf="!cargando && detalleMovimiento.length > 0" mat-raised-button  color="primary"  (click)="exportAsXLSX()">Exportar
+    <button   *ngIf="!cargando && detalleVentaDirecta.length > 0" mat-raised-button  color="primary"  (click)="exportAsXLSX()">Exportar
         <mat-icon>trending_down</mat-icon>
       
       </button>
@@ -337,7 +454,7 @@ class="alert alert-info text-center mt-3 animated fadeIn faster"
 <p class="mb-0">Espere por favor</p>
 </div>
 <tbody>
-  <tr *ngFor="let item of detalleMovimiento; let i = index">
+  <tr *ngFor="let item of detalleVentaDirecta; let i = index">
      <td> {{ item.numOrdenVenta }}</td>  
         <td> {{ item.tipoOv}}</td>
             <td> {{ item.nombreCliente}}</td>
@@ -373,17 +490,5 @@ class="alert alert-info text-center mt-3 animated fadeIn faster"
 
 
 </tbody>
-</table>
-<div
-*ngIf="cargando && detalleOrdenVenta?.length === 0"
-class="alert alert-warning text-center mt-3 animated fadeIn faster"
->
-<h4 class="alert-heading">No existen registros</h4>
-
-</div>
+</table> -->
  
-</form>
-
-
- 
-<br />

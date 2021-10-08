@@ -122,53 +122,73 @@ class="justify-content-center"
   </div> 
 </div>
 
-
+&nbsp;
+<div class="row">
+  <div class="col-md-8">
+<th>
+  <button   *ngIf="!cargando && detalleReporteCliente.length > 0" mat-raised-button  color="primary"  (click)="exportAsXLSX()">Exportar
+      <mat-icon>trending_down</mat-icon>
+    
+    </button>
+ 
+</th>
+  </div>
+</div>
+&nbsp;
 <!-- ORDER ITEMS TABLE -->
-
-<table class="table table-borderless" *ngIf="!cargando && detalleReporteCliente.length > 0" >
- 
-  &nbsp;
-<thead class="thead-light">
-  <th>CODIGO</th>
-   <th>NOMBRES</th>
-  <th>CATEGORIA</th> 
-  <th>DEPARTAMENTO</th>
-  <th>PROVINCIA</th> 
-  <th>DISTRITO</th>  
-  <th>CORREO</th>  
+<div class="example-container mat-elevation-z8" *ngIf="!cargando && detalleReporteCliente.length > 0">
+  <table mat-table [dataSource]="detalleReporteCliente" class="mat-elevation-z8" *ngIf="!cargando && detalleReporteCliente.length > 0">
+    <!-- <ng-container matColumnDef="numOrdenVenta" sticky> -->
+      <ng-container matColumnDef="nro" sticky>
+        <th mat-header-cell *matHeaderCellDef><b>NRO</b>  </th>
+        <td mat-cell *matCellDef="let detalleReporteCliente; let i = index"> {{ i + 1 }} </td>
+        <td mat-footer-cell *matFooterCellDef>  </td>
+      </ng-container>
+      <ng-container matColumnDef="codigoCliente"  >
+      <th mat-header-cell *matHeaderCellDef><b>CODIGO</b>  </th>
+      <td mat-cell *matCellDef="let detalleReporteCliente"> {{detalleReporteCliente.codigoCliente}} </td>
+      <td mat-footer-cell *matFooterCellDef> </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="nombre_cliente" >
+      <th mat-header-cell *matHeaderCellDef> <b>NOMBRES</b>  </th>
+      <td mat-cell *matCellDef="let detalleReporteCliente"> {{detalleReporteCliente.nombre_cliente | uppercase }} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+  
+      <ng-container matColumnDef="nombre_categoria">
+      <th mat-header-cell *matHeaderCellDef> <b>CATEGORIA</b> </th>
+      <td mat-cell *matCellDef="let detalleReporteCliente"> {{detalleReporteCliente?.nombre_categoria | uppercase}} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+    <ng-container matColumnDef="nombre_departamento">
+      <th mat-header-cell *matHeaderCellDef> <b>DEPARTAMENTO</b> </th>
+      <td mat-cell *matCellDef="let detalleReporteCliente"> {{detalleReporteCliente?.nombre_departamento | uppercase }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
    
-  <th>
-    <button   *ngIf="!cargando && detalleReporteCliente.length > 0" mat-raised-button  color="primary"  (click)="exportAsXLSX()">Exportar
-        <mat-icon>trending_down</mat-icon>
-      
-      </button>
-  </th>
+    <ng-container matColumnDef="nombre_provincia">
+      <th mat-header-cell *matHeaderCellDef> <b>PROVINCIA</b> </th>
+      <td mat-cell *matCellDef="let detalleReporteCliente"> {{detalleReporteCliente?.nombre_provincia| uppercase }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+    <ng-container matColumnDef="nombre_distrito">
+      <th mat-header-cell *matHeaderCellDef> <b>DISTRITO</b> </th>
+      <td mat-cell *matCellDef="let detalleReporteCliente"> {{detalleReporteCliente?.nombre_distrito | uppercase}} </td>
+      <td mat-footer-cell *matFooterCellDef><B> TOTAL CLIENTE: </B>   </td>
+    </ng-container> 
+  
+    <ng-container matColumnDef="email_cliente">
+      <th mat-header-cell *matHeaderCellDef> <b>CORREO</b> </th>
+      <td mat-cell *matCellDef="let detalleReporteCliente"> {{detalleReporteCliente?.email_cliente | uppercase }} </td>
+      <td mat-footer-cell *matFooterCellDef> <b> {{detalleReporteCliente?.length }}</b> </td>
+    </ng-container>   
 
-</thead>
-<!-- <div
-*ngIf="cargando"
-class="alert alert-info text-center mt-3 animated fadeIn faster"
->
-<h4 class="alert-heading">Cargando</h4>
-<p>
-  <i class="fa fa-sync-alt fa-spin fa-2px"></i>
-</p>
-<p class="mb-0">Espere por favor</p>
-</div> -->
-<tbody>
-  <tr *ngFor="let item of detalleReporteCliente; let i = index">
-    <td> {{ item.codigoCliente | uppercase}}</td>
-        <td> {{ item.nombre_cliente | uppercase}}</td>
-            <td>  {{ item.nombre_categoria | uppercase}}</td>  
-                <td> {{ item.nombre_departamento | uppercase}}</td>
-                    <td> {{ item.nombre_provincia  | uppercase}}</td> 
-                        <td> {{ item.nombre_distrito | uppercase}}</td>
-                        <td> {{ item.email_cliente | uppercase}}</td>
-                       
-
-</tbody>
-</table>
- 
+     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+     <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  </table>
+  </div>  
   <div
 
 *ngIf="cargando && detalleReporteCliente?.length === 0"
@@ -177,8 +197,18 @@ class="alert alert-warning text-center mt-3 animated fadeIn faster"
 <h4 class="alert-heading">No existen registros</h4>
 
 </div>  
- 
-</form>
 
+
+</form>
+<div
+*ngIf="loading"
+class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading">Cargando</h4>
+<p>
+  <i class="fa fa-sync-alt fa-spin fa-2px"></i>
+</p>
+<p class="mb-0">Espere por favor</p>
+</div>
  
 <br />

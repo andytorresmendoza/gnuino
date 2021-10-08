@@ -15,7 +15,7 @@ import { DataCampaniaVenta } from '../../../models/campaniaVenta';
 import { DataDepartamento, DataProvincia, DataDistrito } from '../../../models/countries';
 import { DataProveedor } from '../../../models/proveedor';
 import { PaisI } from '../../../models/pais';
-
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-proveedoresreport',
@@ -23,6 +23,11 @@ import { PaisI } from '../../../models/pais';
   styleUrls: ['./proveedoresreport.component.css']
 })
 export class ProveedoresreportComponent implements OnInit {
+  displayedColumns: string[] = ['nro','codigo','proveedor','estado','email','ruc','telefono','pais','departamento','provincia','distritos'  ];
+  // columnsToDisplay: string[] = this.displayedColumns.slice();
+ 
+  
+  dataSource = new MatTableDataSource<any>();
   cargando = true; 
   public formData: any;
   proveedores: DataProveedor[];
@@ -31,7 +36,21 @@ export class ProveedoresreportComponent implements OnInit {
   public distritos: DataDistrito[] = [];
   public paises: PaisI[];
   detalleReporteProveedor:any ;
-  constructor( private http: HttpClient,  private router:Router,private mantenimientosService: MantenimientosService,private ventaService: VentaService,private excelExportService: ExporterService) { }
+  loading = false; 
+  /*addColumn() {
+ 
+    const randomColumn = Math.floor(Math.random() * this.displayedColumns.length);
+    this.columnsToDisplay.push(this.displayedColumns[randomColumn]);
+    console.log(randomColumn);
+    console.log(this.columnsToDisplay.push(this.displayedColumns[randomColumn]),'PUSH');
+  }*/
+
+
+  constructor( private http: HttpClient,  private router:Router,private mantenimientosService: MantenimientosService,private ventaService: VentaService,private excelExportService: ExporterService) { 
+
+
+    
+  }
  
 
   ngOnInit(): void {
@@ -88,7 +107,10 @@ export class ProveedoresreportComponent implements OnInit {
       idDepartamento:null
     };
 }
+
+
 onSubmit(form: NgForm) { 
+  this.loading = true; 
   form.value.idProveedor ==null ? form.value.idProveedor='' : form.value.idProveedor;
     form.value.idPais ==null ? form.value.idPais='' : form.value.idPais;
     form.value.ruc ==null ? form.value.ruc='' : form.value.ruc;
@@ -106,11 +128,18 @@ onSubmit(form: NgForm) {
   //  return window.location.href=this.baseURL+url;
 
     this.ventaService.getProveedor(url).subscribe(
-      resp => {
-        console.log(resp);
-        this.detalleReporteProveedor = resp;
-        // // console.log(this.detalleReporteCliente, 'CORRECTO');
-        this.cargando = false; 
+      resp => { 
+       
+        if( resp[0] == null   ){
+          this.detalleReporteProveedor = [];
+          this.cargando = true
+          this.loading = false; 
+           }else{  
+          this.detalleReporteProveedor = resp; 
+          this.loading = false; 
+          this.cargando = false; 
+         
+        }  
       });    
 }
 

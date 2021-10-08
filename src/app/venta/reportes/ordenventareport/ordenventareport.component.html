@@ -304,32 +304,134 @@ class="justify-content-center"
     
     </button>
 </th>
-<table class="table table-borderless"  *ngIf="!cargando && detalleOrdenVenta.length > 0">
-
-  &nbsp;
-<thead class="thead-light">
-<th>NUMERO DE OV</th> 
-<th>TIPO DE OV</th>
-<th>CLIENTE</th> 
-<th>CODIGO PRODUCTO</th>
-<th>NOMBRE PRODUCTO</th> 
-<th>CANAL</th>  
- <th>CAMPAÑA</th>  
- <th>CANTIDAD</th>  
- <th>UM</th>  
- <th>IMPORTE</th>  
- <th>ALMACEN</th>  
- <th>BANCO</th>  
- <th>COTIZACION</th>  
- <th>PREDELIVERY</th> 
- <th>ENTREGA</th> 
- <th>FECHA DE ORDEN</th> 
- <th>FECHA DE ENTREGA</th> 
+&nbsp;
+<div class="example-container mat-elevation-z8" *ngIf="!cargando && detalleOrdenVenta.length > 0">
+  <table mat-table [dataSource]="detalleOrdenVenta" class="mat-elevation-z8" *ngIf="!cargando && detalleOrdenVenta.length > 0">
+    <ng-container matColumnDef="nro" sticky>
+      <th mat-header-cell *matHeaderCellDef><b>NRO</b>  </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta; let i = index"> {{ i + 1 }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container>
+    <!-- <ng-container matColumnDef="numOrdenVenta" sticky> -->
+      <ng-container matColumnDef="numOrdenVenta"  >
+      <th mat-header-cell *matHeaderCellDef><b>NUMERO DE OV</b>  </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta"> {{detalleOrdenVenta.numOrdenVenta}} </td>
+      <td mat-footer-cell *matFooterCellDef> <B> TOTAL OV: </B> </td>
+    </ng-container>
   
+    <ng-container matColumnDef="tipoOv" >
+      <th mat-header-cell *matHeaderCellDef> <b>TIPO DE OV</b>  </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta"> {{detalleOrdenVenta.tipoOv | uppercase }} </td>
+      <td mat-footer-cell *matFooterCellDef><b> {{detalleOrdenVenta?.length }}</b> </td>
+    </ng-container>
+  
+      <ng-container matColumnDef="nombreCliente">
+      <th mat-header-cell *matHeaderCellDef> <b>CLIENTE</b> </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta"> {{detalleOrdenVenta?.nombreCliente | uppercase}} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+    <ng-container matColumnDef="codProducto">
+      <th mat-header-cell *matHeaderCellDef> <b>CODIGO PRODUCTO</b> </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta"> {{detalleOrdenVenta?.codProducto }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+   
+    <ng-container matColumnDef="nombreProducto">
+      <th mat-header-cell *matHeaderCellDef> <b>NOMBRE PRODUCTO</b> </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta"> {{detalleOrdenVenta?.nombreProducto| uppercase }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+    <ng-container matColumnDef="nombreCanal">
+      <th mat-header-cell *matHeaderCellDef> <b>CANAL</b> </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta"> {{detalleOrdenVenta?.nombreCanal | uppercase}} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+  
+    <ng-container matColumnDef="nombreCampain">
+      <th mat-header-cell *matHeaderCellDef> <b>CAMPAÑA</b> </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta"> {{detalleOrdenVenta?.nombreCampain | uppercase }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+  
+    <ng-container matColumnDef="cantidad">
+      <th mat-header-cell *matHeaderCellDef> <b>CANTIDAD</b> </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta"> {{detalleOrdenVenta?.cantidad  }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+  
+    <ng-container matColumnDef="detalleNameUnidadMedida">
+      <th mat-header-cell *matHeaderCellDef> <b>UM</b> </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta"> {{detalleOrdenVenta?.detalleNameUnidadMedida | uppercase}} </td>
+      <td mat-footer-cell *matFooterCellDef> <b>TOTAL: </b> </td>
+    </ng-container> 
+   
+    <ng-container matColumnDef="precioVenta">
+      <th mat-header-cell *matHeaderCellDef> <b>IMPORTE</b> </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta">S/. {{detalleOrdenVenta?.precioVenta  }} </td>
+      <td mat-footer-cell *matFooterCellDef><b> S/. {{getTotalCost()}}</b> </td>  
+    </ng-container> 
 
-</thead>
+    <ng-container matColumnDef="detalleNombreSede">
+      <th mat-header-cell *matHeaderCellDef> <b>ALMACEN</b> </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta"> {{detalleOrdenVenta?.detalleNombreSede | uppercase}} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+    <ng-container matColumnDef="nombreBancoVenta">
+      <th mat-header-cell *matHeaderCellDef> <b>BANCO</b> </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta"> {{detalleOrdenVenta?.nombreBancoVenta | uppercase}} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+  
+    <ng-container matColumnDef="codigo_cotizacion_num_venta">
+      <th mat-header-cell *matHeaderCellDef> <b>COTIZACION</b> </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta"> {{detalleOrdenVenta?.codigo_cotizacion_num_venta }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+
+    <ng-container matColumnDef="preDeliv">
+      <th mat-header-cell *matHeaderCellDef> <b>PREDELIVERY</b> </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta"> {{detalleOrdenVenta?.preDeliv }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container>
+   
+   
+     <ng-container matColumnDef="codigo_empdel_num_venta">
+      <th mat-header-cell *matHeaderCellDef> <b>ENTREGA</b> </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta"> {{detalleOrdenVenta?.codigo_empdel_num_venta }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+     </ng-container>  
+       <ng-container matColumnDef="fechaOrden">
+      <th mat-header-cell *matHeaderCellDef> <b>FECHA DE ORDEN</b> </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta"> {{detalleOrdenVenta?.fechaOrden  }} </td>
+      <td mat-footer-cell *matFooterCellDef>   </td>
+    </ng-container> 
+    <ng-container matColumnDef="fechaEntregaOrden">
+      <th mat-header-cell *matHeaderCellDef> <b>FECHA DE ENTREGA</b> </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta"> {{detalleOrdenVenta?.fechaEntregaOrden  }} </td>
+      <td mat-footer-cell *matFooterCellDef>   </td>
+    </ng-container>    
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef> <b>ESTADO</b> </th>
+      <td mat-cell *matCellDef="let detalleOrdenVenta"> {{detalleOrdenVenta?.estadoFlujo  }} </td>
+      <td mat-footer-cell *matFooterCellDef>   </td>
+    </ng-container>   
+  
+     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+     <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  </table>
+  </div> 
+   
+  <div
+*ngIf="cargando && detalleOrdenVenta?.length === 0"
+class="alert alert-warning text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading">No existen registros</h4>
+
+</div>  
+</form> 
 <div
-*ngIf="cargando"
+*ngIf="loading"
 class="alert alert-info text-center mt-3 animated fadeIn faster"
 >
 <h4 class="alert-heading">Cargando</h4>
@@ -338,81 +440,4 @@ class="alert alert-info text-center mt-3 animated fadeIn faster"
 </p>
 <p class="mb-0">Espere por favor</p>
 </div>
-<tbody>
-  <tr *ngFor="let item of detalleOrdenVenta; let i = index">
-    <td> {{ item.numOrdenVenta }}</td>  
-        <td> {{ item.tipoOv}}</td>
-            <td> {{ item.nombreCliente | uppercase}}</td>
-                <td> {{ item.codProducto}}</td>
-                    <td> {{ item.nombreProducto | uppercase}}</td>
-                        <td> {{ item.nombreCanal | uppercase}}</td>
-                        <td> {{ item.nombreCampain | uppercase}}</td>
-                        <td> {{ item.cantidad  }} </td>
-                        <td> {{ item.detalleNameUnidadMedida | uppercase}}</td>
-                        <td> {{ item.precioVenta }}</td>
-                        <td> {{ item.detalleNombreSede | uppercase}}</td>
-                        <td> {{ item.nombreBancoVenta | uppercase}}</td>
-                        <td> {{ item.codigo_cotizacion_num_venta }}</td>
-                        <td> {{ item.preDeliv }}</td>
-                        <td> {{ item.codigo_empdel_num_venta }}</td>
-                        <td> {{ item.fechaOrden }}</td>
-                        <td> {{ item.fechaEntregaOrden }}</td>
-
-</tbody>
-</table>
-<div
-*ngIf="cargando && detalleOrdenVenta?.length === 0"
-class="alert alert-warning text-center mt-3 animated fadeIn faster"
->
-<h4 class="alert-heading">No existen registros</h4>
-
-</div>
-<!-- <div
-*ngIf="cargando"
-class="alert alert-info text-center mt-3 animated fadeIn faster"
->
-<h4 class="alert-heading">Cargando</h4>
-<p>
-<i class="fa fa-sync-alt fa-spin fa-2px"></i>
-</p>
-<p class="mb-0">Espere por favor</p>
-</div> -->
-</form>
-
-
-<!-- <table class="table table-borderless"  *ngIf="!cargando && detalleReporteStock.length > 0">
- 
-    &nbsp;
-  <thead class="thead-light">
-    <th>CODMAT</th>
-     <th>DESCRIPCION</th>
-    <th>MODELO</th> 
-    <th>UM</th>
-    <th>STOCK</th> 
-    <th>ALMACEN</th>  
-    <th>STOCK TRANSITO</th>  
-    <th>STOCK RESERVADO</th>  
-    <th>BLOQUEADO</th>  
-    <th>
-      <button   *ngIf="!cargando && detalleReporteStock.length > 0" mat-raised-button  color="primary"  (click)="exportAsXLSX()">Exportar
-          <mat-icon>trending_down</mat-icon>
-        
-        </button>
-    </th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of detalleReporteStock; let i = index">
-      <td> {{ item.codigoProductoBarra | uppercase}}</td>
-          <td> {{ item.nombre_producto | uppercase}}</td>
-              <td> {{ item.nombre_modelo | uppercase}}</td>
-                  <td> {{ item.nombre_um | uppercase}}</td>
-                      <td> {{ item.stock }}</td>
-                          <td> {{ item.almacen | uppercase}}</td>
-                          <td> {{ item.stock_transito }}</td>
-                          <td> {{ item.stock_reservado  }}</td>
-                          <td> {{ item.bloqueado | uppercase}}</td>
-
-
-  </tbody>
-</table> -->
 <br />

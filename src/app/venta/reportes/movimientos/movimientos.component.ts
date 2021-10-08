@@ -11,14 +11,18 @@ import Swal from 'sweetalert2';
 import { ExporterService } from "src/app/services/reportes/exporter.service";
 import { DataProveedor } from '../../../models/proveedor';
 import { DataEmpleado } from '../../../models/empleado';
-
+import {MatTableDataSource} from '@angular/material/table';
 @Component({
   selector: 'app-movimientos',
   templateUrl: './movimientos.component.html',
   styleUrls: ['./movimientos.component.css']
 })
 export class MovimientosComponent implements OnInit {
-
+  displayedColumns: string[] = ['nro','codProducto','producto','almacen','claseMov','fecha_calendar','time_calendar','cantidad','um','precio','nombreEmpleado','nroOrden'];
+  // columnsToDisplay: string[] = this.displayedColumns.slice();
+ 
+  
+  dataSource = new MatTableDataSource<any>();
   productos: DataProducto[];
   almacen: DataTipoAlmacen[]; 
   proveedores: DataProveedor[];
@@ -26,6 +30,14 @@ export class MovimientosComponent implements OnInit {
   public formData: any;
   detalleMovimiento:any ;
   cargando = true; 
+  loading = false;  
+  getTotalCost() {
+    let suma: any;
+    const priceNotEmpty = this.detalleMovimiento.filter((res)=> res.precio!='');
+    suma =  priceNotEmpty?.map(r => parseFloat(r.precio)).reduce(( acc, value ) =>  (acc + value ), 0); 
+ 
+    return suma;
+  }
   constructor( private http: HttpClient,  private router:Router,private mantenimientosService: MantenimientosService,private ventaService: VentaService,private excelExportService: ExporterService) { }
  
   ngOnInit(): void {
@@ -79,6 +91,7 @@ validateForm(form:NgForm) {
 }
 
   onSubmit(form: NgForm) { 
+    this.loading = true; 
     if( this.validateForm(form)){
       return;
     }
@@ -107,11 +120,13 @@ validateForm(form:NgForm) {
           // this.detalleReporteCliente = '';
               this.detalleMovimiento = [];
               this.cargando = true
+              this.loading = false; 
               // console.log(this.detalleReporteCliente, 'VACIO');
             }else{
               this.detalleMovimiento = resp;
-              // console.log(this.detalleReporteCliente, 'CORRECTO');
+              this.loading = false;  
               this.cargando = false; 
+              this.getTotalCost() 
             }  
   //     console.log(resp);
   // this.detalleMovimiento = resp;
