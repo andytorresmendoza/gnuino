@@ -72,6 +72,7 @@ export class ClientesComponent implements OnInit {
 
 
   }
+  
   onSelectDepartamento($event:any):void{
  
     this.mantenimientosService.getProvincia($event)

@@ -79,10 +79,10 @@ export class AddcotizacionComponent implements OnInit {
 
 
 this.mantenimientosService.getCliente().subscribe(resp => { 
-  console.log(resp);
+ /* console.log(resp);
   const estado = resp.filter((p) => p.estado == 0);
   estado.disabled = true;
-  console.log(estado);
+  console.log(estado);*/
   this.clientes = (resp as DataCliente[]).map(clientes=>{ 
    clientes.nombre_cliente =   (clientes.nombre_cliente.concat(', ', clientes.apellidos_pat_cliente,' ',clientes.apellidos_mat_cliente,'- ',clientes.dni_cliente))
     return clientes;

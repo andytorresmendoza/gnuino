@@ -1,34 +1,52 @@
- /* table {
-    width: 100%; 
-  } 
-  th.mat-header-cell { 
-    max-width: 300px;
-} */
-.example-container {
-  height: 100%;
-  width: 100%;
-  max-width: 100%;
-  overflow: auto;
-}
 
-table {
-  width: 100%;
-}
+  .example-container {
+    height: 700px;
+    width: 100%;
+    max-width: 100%;
+    overflow: auto;
+    text-align:center;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
 
-td.mat-column-star {
-  width: 20px;
-  padding-right: 8px;
-}
-
-th.mat-column-position, td.mat-column-position {
-  padding-left: 8px;
-}
-
-.mat-table-sticky-border-elem-right {
-  border-left: 1px solid #e0e0e0;
-}
-
-.mat-table-sticky-border-elem-left {
-  border-right: 1px solid #e0e0e0;
-}
+  td.mat-column-star {
+    width: 2px;
+    padding-right: 3px;
+  }
+  
+  th.mat-column-numOrdenVenta, td.mat-column-numOrdenVenta,
+  th.mat-column-tipoOv, td.mat-column-tipoOv,
+  th.mat-column-nombreCliente, td.mat-column-nombreCliente,
+  th.mat-column-codProducto, td.mat-column-codProducto,
+  th.mat-column-nombreProducto, td.mat-column-nombreProducto,
+  th.mat-column-nombreCanal, td.mat-column-nombreCanal,
+  th.mat-column-nombreCampain, td.mat-column-nombreCampain,
+  th.mat-column-cantidad, td.mat-column-cantidad,
+  th.mat-column-detalleNameUnidadMedida, td.mat-column-detalleNameUnidadMedida,
+  th.mat-column-precioVenta, td.mat-column-precioVenta,
+  th.mat-column-detalleNombreSede, td.mat-column-detalleNombreSede,
+  th.mat-column-nombreBancoVenta, td.mat-column-nombreBancoVenta,
+  th.mat-column-codigo_cotizacion_num_venta, td.mat-column-codigo_cotizacion_num_venta,
+  th.mat-column-preDeliv, td.mat-column-preDeliv,
+  th.mat-column-codigo_empdel_num_venta, td.mat-column-codigo_empdel_num_venta,
+  th.mat-column-fechaOrden, td.mat-column-fechaOrden,
+  th.mat-column-fechaEntregaOrden, td.mat-column-fechaEntregaOrden,
+  th.mat-column-estado, td.mat-column-estado,
+  th.mat-column-nombrevendedor, td.mat-column-nombrevendedor,
+  th.mat-column-motorizado, td.mat-column-motorizado
+  {
+    padding-left: 10px;
+    text-align:center;
+    padding-right: 25px;
+  }
  
+  .mat-table-sticky-border-elem-right {
+    border-left: 1px solid #e0e0e0;
+  }
+  
+  .mat-table-sticky-border-elem-left {
+    border-right: 1px solid #e0e0e0;
+  }

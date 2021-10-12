@@ -102,18 +102,34 @@ class="justify-content-center"
       </div> 
 </div>
 <div class="col-md-3">
+  <div class="form-group">
+      <label> Seleccionar Cliente </label>
+      <ng-select  
+      style="text-transform:uppercase"
+        #idCliente="ngModel"  
+        name="idCliente" 
+        bindValue="idCliente" 
+        placeholder="Buscar Cliente" 
+        [(ngModel)]="formData.idCliente"  
+      >   
+          <ng-option *ngFor="let emp of clientes" 
+          [value]="emp.id">{{emp.nombre_cliente}}</ng-option>
+       </ng-select> 
+  </div>
+</div>
+<div class="col-md-3">
     <div class="form-group">
-        <label> Seleccionar Cliente </label>
+        <label> Seleccionar Vendedor </label>
         <ng-select  
         style="text-transform:uppercase"
-          #idCliente="ngModel"  
-          name="idCliente" 
-          bindValue="idCliente" 
-          placeholder="Buscar Cliente" 
-          [(ngModel)]="formData.idCliente"  
+          #idEmpleado="ngModel"  
+          name="idEmpleado" 
+          bindValue="idEmpleado" 
+          placeholder="Buscar Vendedor" 
+          [(ngModel)]="formData.idEmpleado"  
         >   
-            <ng-option *ngFor="let emp of clientes" 
-            [value]="emp.id">{{emp.nombre_cliente}}</ng-option>
+            <ng-option *ngFor="let emp of empleados" 
+            [value]="emp.id">{{emp.nombre_empleado}}</ng-option>
          </ng-select> 
     </div>
 </div>
@@ -152,30 +168,31 @@ class="justify-content-center"
 
     </div>
 </div>
-<div class="col-md-3">
-  <div class="form-group">
-      <label> Provincia</label>
-      <ng-select  
-      style="text-transform:uppercase"
-      #idProvincia="ngModel"  
-      name="idProvincia" 
-      bindValue="idProvincia" 
-      placeholder="Buscar Provincia" 
-      [(ngModel)]="formData.idProvincia" 
-      (change)="onSelectProvincia($event)"
-    >   
-    <!-- <ng-option *ngFor="let emp of provincias" [value]="0">Buscar Provincia</ng-option> -->
-        <ng-option *ngFor="let emp of provincias" [value]="emp.id">{{emp.nombre_provincia}}</ng-option>
-     </ng-select> 
 
-
-  </div>
-</div>
 </div>
 
 
 
 <div class="row">  
+  <div class="col-md-3">
+    <div class="form-group">
+        <label> Provincia</label>
+        <ng-select  
+        style="text-transform:uppercase"
+        #idProvincia="ngModel"  
+        name="idProvincia" 
+        bindValue="idProvincia" 
+        placeholder="Buscar Provincia" 
+        [(ngModel)]="formData.idProvincia" 
+        (change)="onSelectProvincia($event)"
+      >   
+      <!-- <ng-option *ngFor="let emp of provincias" [value]="0">Buscar Provincia</ng-option> -->
+          <ng-option *ngFor="let emp of provincias" [value]="emp.id">{{emp.nombre_provincia}}</ng-option>
+       </ng-select> 
+  
+  
+    </div>
+  </div>
     <div class="col-md-3">
         <div class="form-group">
             <label> Distrito</label>
@@ -235,50 +252,28 @@ class="justify-content-center"
           class="form-text text-danger">Ingrese Fecha</small>
         </div>
       </div>
-    <!-- <div class="col-xs-12 col-md-3">
-        <div class="form-group">
-          <label for="">Fecha OV De:</label>
-          <div class="input-group">
-            <input 
-            [matDatepicker]="picker"
-            placeholder="DD/MM/YYYY" 
-            name="fechaovIni"
-            #fechaovIni="ngModel" 
-            [(ngModel)]="formData.fechaovIni"
-            class="form-control"  
-            [class.is-invalid]="fechaovIni.invalid && fechaovIni.touched"
-              required 
-          />  
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          </div>
-          <small *ngIf="fechaovIni.invalid && fechaovIni.touched"
-          class="form-text text-danger">Ingrese Fecha</small>
-        </div>
-      </div>
-      <div class="col-xs-12 col-md-3">
-        <div class="form-group">
-          <label for="">Fecha OV Hasta:</label>
-          <div class="input-group">
-            <input 
-            [matDatepicker]="picker2"
-            placeholder="DD/MM/YYYY" 
-            name="fechaovFin"
-            #fechaovFin="ngModel" 
-            [(ngModel)]="formData.fechaovFin"
-            class="form-control"  
-            [class.is-invalid]="fechaovFin.invalid && fechaovFin.touched"
-              required 
-          />  
-          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-          <mat-datepicker #picker2></mat-datepicker>
-          </div>
-          <small *ngIf="fechaovFin.invalid && fechaovFin.touched"
-          class="form-text text-danger">Ingrese Fecha</small>
-        </div>
-      </div> -->
+   
 </div>
- 
+<div class="row">  
+  <div class="col-md-3">
+    <div class="form-group">
+      <label> Seleccionar Estado</label>
+      <ng-select  
+      style="text-transform:uppercase"
+        #estado="ngModel"  
+        name="estado" 
+        bindValue="estado" 
+        placeholder="Buscar Estado" 
+        [(ngModel)]="formData.estado"  
+       
+      >   
+          <ng-option *ngFor="let emp of estadoflujos" 
+          [value]="emp.id"  [disabled]="emp.estado == 0">{{emp.detalle_estado}}</ng-option>
+          
+       </ng-select> 
+    </div> 
+</div>
+</div>
 
  
 <div class="row"> 
@@ -301,16 +296,28 @@ class="justify-content-center"
     </button>
 </th>
 &nbsp;
+<div
+*ngIf="loading"
+class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading text-center">Cargando</h4>
+<p class="text-center">
+  <i class="fa fa-sync-alt fa-spin fa-2px "></i>
+</p>
+<p class="mb-0 text-center">Espere por favor</p>
+</div>
+ 
+&nbsp;
 <div class="example-container mat-elevation-z8" *ngIf="!cargando && detalleVentaDirecta.length > 0">
   <table mat-table [dataSource]="detalleVentaDirecta" class="mat-elevation-z8" *ngIf="!cargando && detalleVentaDirecta.length > 0">
-    <ng-container matColumnDef="nro" sticky>
+    <ng-container matColumnDef="nro" >
       <th mat-header-cell *matHeaderCellDef><b>NRO</b>  </th>
       <td mat-cell *matCellDef="let detalleVentaDirecta; let i = index"> {{ i + 1 }} </td>
       <td mat-footer-cell *matFooterCellDef>  </td>
     </ng-container>
  
   
-    <ng-container matColumnDef="tipoOv" >
+    <ng-container matColumnDef="tipoOv" sticky>
       <th mat-header-cell *matHeaderCellDef> <b>TIPO DE OV</b>  </th>
       <td mat-cell *matCellDef="let detalleVentaDirecta"> {{detalleVentaDirecta.tipoOv | uppercase }} </td>
       <td mat-footer-cell *matFooterCellDef><b> {{detalleVentaDirecta?.length }}</b> </td>
@@ -358,8 +365,8 @@ class="justify-content-center"
    
     <ng-container matColumnDef="precioVenta">
       <th mat-header-cell *matHeaderCellDef> <b>IMPORTE</b> </th>
-      <td mat-cell *matCellDef="let detalleVentaDirecta">S/. {{detalleVentaDirecta?.precioVenta  }} </td>
-      <td mat-footer-cell *matFooterCellDef><b> S/. {{getTotalCost()}}</b> </td>  
+      <td mat-cell *matCellDef="let detalleVentaDirecta">S/. {{detalleVentaDirecta?.precioVenta   | number: '1.2-2'}} </td>
+      <td mat-footer-cell *matFooterCellDef><b> S/. {{getTotalCost()  | number: '1.2-2'}}</b> </td>  
     </ng-container> 
 
     <ng-container matColumnDef="detalleNombreSede">
@@ -385,6 +392,13 @@ class="justify-content-center"
       <td mat-cell *matCellDef="let detalleVentaDirecta"> {{detalleVentaDirecta?.fechaVentaDirecta  }} </td>
       <td mat-footer-cell *matFooterCellDef>   </td>
     </ng-container>    
+
+    <ng-container matColumnDef="vendedor">
+      <th mat-header-cell *matHeaderCellDef> <b>VENDEDOR</b> </th>
+      <td mat-cell *matCellDef="let detalleVentaDirecta"> {{detalleVentaDirecta?.nombreEmpleado | uppercase}} </td>
+      <td mat-footer-cell *matFooterCellDef>   </td>
+    </ng-container>    
+  
   
      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -400,16 +414,7 @@ class="alert alert-warning text-center mt-3 animated fadeIn faster"
 
 </div>  
 </form> 
-<div
-*ngIf="loading"
-class="alert alert-info text-center mt-3 animated fadeIn faster"
->
-<h4 class="alert-heading">Cargando</h4>
-<p>
-  <i class="fa fa-sync-alt fa-spin fa-2px"></i>
-</p>
-<p class="mb-0">Espere por favor</p>
-</div>
+ 
 <br />
 <!-- ORDER ITEMS TABLE -->
 

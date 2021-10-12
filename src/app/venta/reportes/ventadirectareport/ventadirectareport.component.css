@@ -1,0 +1,48 @@
+
+  .example-container {
+    height: 700px;
+    width: 100%;
+    max-width: 100%;
+    overflow: auto;
+    text-align:center;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+
+  td.mat-column-star {
+    width: 2px;
+    padding-right: 3px;
+  }
+  
+  th.mat-column-nro, td.mat-column-nro,
+  th.mat-column-tipoOv, td.mat-column-tipoOv,
+  th.mat-column-nombreCliente, td.mat-column-nombreCliente,
+  th.mat-column-codProducto, td.mat-column-codProducto,
+  th.mat-column-nombreProducto, td.mat-column-nombreProducto,
+  th.mat-column-nombreCanal, td.mat-column-nombreCanal,
+  th.mat-column-nombreCampain, td.mat-column-nombreCampain,
+  th.mat-column-cantidad, td.mat-column-cantidad, 
+  th.mat-column-detalleNameUnidadMedida, td.mat-column-detalleNameUnidadMedida,
+  th.mat-column-precioVenta, td.mat-column-precioVenta,
+  th.mat-column-detalleNombreSede, td.mat-column-detalleNombreSede,
+  th.mat-column-nombreBancoDirecta, td.mat-column-nombreBancoDirecta,
+  th.mat-column-codigo_cotizacion_num_venta, td.mat-column-codigo_cotizacion_num_venta,
+  th.mat-column-fechaVentaDirecta, td.mat-column-fechaVentaDirecta,
+  th.mat-column-vendedor, td.mat-column-vendedor 
+
+  {
+    padding-left: 10px;
+    text-align:center;
+    padding-right: 25px;
+  }
+ 
+  .mat-table-sticky-border-elem-right {
+    border-left: 1px solid #e0e0e0;
+  }
+  
+  .mat-table-sticky-border-elem-left {
+    border-right: 1px solid #e0e0e0;
+  }

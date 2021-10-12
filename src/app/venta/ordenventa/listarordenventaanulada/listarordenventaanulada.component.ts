@@ -36,10 +36,11 @@ export class ListarordenventaanuladaComponent implements OnInit {
 
     this.ventaService.getOrdenVentaAnulada()
    .subscribe(resp => {
-     this.dataSource.data = resp as DataOrdenVenta[]; 
-       this.ordenes = resp; 
-       this.ventaService.detalleDelivery = resp;
-       console.log(resp);
+     this.dataSource.data = (resp as any[]).filter(valor=>valor.idEstadoFlujo === 3)
+      //  this.ordenes = resp; 
+      // this.ordenes = (resp as any[]).filter(valor=>valor.idEstadoFlujo === 1)
+      //  this.ventaService.detalleDelivery = resp;
+      // console.log(resp);
       this.cargando = false;
       //  console.log(resp[0].idEstadoFlujo );
     /*  if (resp[0].idEstadoFlujo ==  2 || resp[0].idEstadoFlujo ==  3 ) {

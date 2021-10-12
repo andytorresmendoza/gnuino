@@ -1,29 +1,35 @@
- /* table {
-    width: 100%; 
-  } 
-  th.mat-header-cell { 
-    max-width: 300px;
-} */
-.example-container {
-    height: 100%;
+
+  .example-container {
+    height: 700px;
     width: 100%;
     max-width: 100%;
     overflow: auto;
+    text-align:center;
   }
   
   table {
     width: 100%;
-  }
+  } 
   
-  td.mat-column-star {
-    width: 20px;
-    padding-right: 8px;
+  th.mat-column-nro, td.mat-column-nro,
+  th.mat-column-codProducto, td.mat-column-codProducto,
+  th.mat-column-producto, td.mat-column-producto,
+  th.mat-column-almacen, td.mat-column-almacen,
+  th.mat-column-claseMov, td.mat-column-claseMov,
+  th.mat-column-fecha_calendar, td.mat-column-fecha_calendar,
+  th.mat-column-time_calendar, td.mat-column-time_calendar,
+  th.mat-column-cantidad, td.mat-column-cantidad,
+  th.mat-column-um, td.mat-column-um,
+  th.mat-column-precio, td.mat-column-precio,
+  th.mat-column-nombreEmpleado, td.mat-column-nombreEmpleado,
+  th.mat-column-nroOrden, td.mat-column-nroOrden,
+  th.mat-column-codigo, td.mat-column-codigo 
+  {
+    padding-left: 10px;
+    text-align:center;
+    padding-right: 25px;
   }
-  
-  th.mat-column-position, td.mat-column-position {
-    padding-left: 8px;
-  }
-  
+ 
   .mat-table-sticky-border-elem-right {
     border-left: 1px solid #e0e0e0;
   }
@@ -31,4 +37,3 @@
   .mat-table-sticky-border-elem-left {
     border-right: 1px solid #e0e0e0;
   }
-   

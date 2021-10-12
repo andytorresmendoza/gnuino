@@ -1,29 +1,38 @@
- /* table {
-    width: 100%; 
-  } 
-  th.mat-header-cell { 
-    max-width: 300px;
-} */
-.example-container {
-    height: 100%;
+
+  .example-container {
+    height: 700px;
     width: 100%;
     max-width: 100%;
     overflow: auto;
+    text-align:center;
   }
   
   table {
     width: 100%;
   }
   
+
   td.mat-column-star {
-    width: 20px;
-    padding-right: 8px;
+    width: 2px;
+    padding-right: 3px;
   }
   
-  th.mat-column-position, td.mat-column-position {
-    padding-left: 8px;
+  th.mat-column-nro, td.mat-column-nro,
+  th.mat-column-codigoProductoBarra, td.mat-column-codigoProductoBarra,
+  th.mat-column-nombre_producto, td.mat-column-nombre_producto,
+  th.mat-column-nombre_modelo, td.mat-column-nombre_modelo,
+  th.mat-column-nombre_um, td.mat-column-nombre_um,
+  th.mat-column-stock, td.mat-column-stock,
+  th.mat-column-almacen, td.mat-column-almacen,
+  th.mat-column-stock_transito, td.mat-column-stock_transito,
+  th.mat-column-stock_reservado, td.mat-column-stock_reservado,
+  th.mat-column-bloqueado, td.mat-column-bloqueado 
+  {
+    padding-left: 10px;
+    text-align:center;
+    padding-right: 25px;
   }
-  
+ 
   .mat-table-sticky-border-elem-right {
     border-left: 1px solid #e0e0e0;
   }
@@ -31,4 +40,3 @@
   .mat-table-sticky-border-elem-left {
     border-right: 1px solid #e0e0e0;
   }
-   

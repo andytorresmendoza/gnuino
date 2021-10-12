@@ -18,7 +18,7 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./movimientos.component.css']
 })
 export class MovimientosComponent implements OnInit {
-  displayedColumns: string[] = ['nro','codProducto','producto','almacen','claseMov','fecha_calendar','time_calendar','cantidad','um','precio','nombreEmpleado','nroOrden'];
+  displayedColumns: string[] = ['nro','codProducto','producto','almacen','claseMov','fecha_calendar','time_calendar','cantidad','um','precio','nombreEmpleado','nroOrden','codigo'];
   // columnsToDisplay: string[] = this.displayedColumns.slice();
  
   
@@ -73,7 +73,7 @@ export class MovimientosComponent implements OnInit {
     
       idProducto: null,
       idAlmacen: null,
-      idProveedor: null,
+      idProovedor: null,
       idEmpleado: null,
       fecha:null,
   
@@ -102,13 +102,13 @@ validateForm(form:NgForm) {
 
     form.value.idAlmacen ==null ? form.value.idAlmacen='' : form.value.idAlmacen;
     form.value.idProducto ==null ? form.value.idProducto='' : form.value.idProducto;
-    form.value.idProveedor ==null ? form.value.idProveedor='' : form.value.idProveedor;
+    form.value.idProovedor ==null ? form.value.idProovedor='' : form.value.idProovedor;
     form.value.idEmpleado ==null ? form.value.idEmpleado='' : form.value.idEmpleado;
     form.value.fecha === 'Invalid date' ? form.value.fecha='' : form.value.fecha;
   // console.log(form.value.fecha === 'Invalid' ? form.value.fecha='' : form.value.fecha),'FECHA';
     const url= 'export-movimientos?'+'idProducto='+form.value.idProducto+
                 '&idEmpleado='+form.value.idEmpleado+
-                '&idProveedor='+form.value.idProveedor+
+                '&idProovedor='+form.value.idProovedor+
                 '&idAlmacen='+form.value.idAlmacen+
                 '&fecha='+form.value.fecha;
   //  return window.location.href=this.baseURL+url;

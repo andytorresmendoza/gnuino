@@ -127,6 +127,18 @@
   </div>
 </div>
 &nbsp;
+<div
+*ngIf="loading"
+class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading text-center">Cargando</h4>
+<p class="text-center">
+  <i class="fa fa-sync-alt fa-spin fa-2px "></i>
+</p>
+<p class="mb-0 text-center">Espere por favor</p>
+</div>
+ 
+&nbsp;
 <div class="example-container mat-elevation-z8" *ngIf="!cargando && detalleReporteStock.length > 0">
   <table mat-table [dataSource]="detalleReporteStock" class="mat-elevation-z8" *ngIf="!cargando && detalleReporteStock.length > 0">
     <!-- <ng-container matColumnDef="numOrdenVenta" sticky> -->
@@ -199,15 +211,6 @@ class="alert alert-warning text-center mt-3 animated fadeIn faster"
 </div>
  
 </form> 
-<div
-*ngIf="loading"
-class="alert alert-info text-center mt-3 animated fadeIn faster"
->
-<h4 class="alert-heading">Cargando</h4>
-<p>
-  <i class="fa fa-sync-alt fa-spin fa-2px"></i>
-</p>
-<p class="mb-0">Espere por favor</p>
-</div>
+ 
   <br />
   

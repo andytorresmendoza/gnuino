@@ -16,13 +16,14 @@ import { DataCampaniaVenta } from "src/app/models/campaniaVenta";
 import { DataDepartamento, DataDistrito, DataProvincia } from "src/app/models/countries";
 import { DataCliente } from "src/app/models/cliente";
 import {MatTableDataSource} from '@angular/material/table';
+import { DataEstadoFlujo } from '../../../models/estadoflujo';
 @Component({
   selector: 'app-ordenventareport',
   templateUrl: './ordenventareport.component.html',
   styleUrls: ['./ordenventareport.component.css']
 })
 export class OrdenventareportComponent implements OnInit {
-  displayedColumns: string[] = ['nro','numOrdenVenta','tipoOv','nombreCliente','codProducto','nombreProducto','nombreCanal','nombreCampain','cantidad','detalleNameUnidadMedida','precioVenta' ,'detalleNombreSede' ,'nombreBancoVenta' ,'codigo_cotizacion_num_venta','preDeliv','codigo_empdel_num_venta','fechaOrden','fechaEntregaOrden','estado'];
+  displayedColumns: string[] = ['nro','numOrdenVenta','tipoOv','nombreCliente','codProducto','nombreProducto','nombreCanal','nombreCampain','cantidad','detalleNameUnidadMedida','precioVenta' ,'detalleNombreSede' ,'nombreBancoVenta' ,'codigo_cotizacion_num_venta','preDeliv','codigo_empdel_num_venta','fechaOrden','fechaEntregaOrden','estado','nombrevendedor','motorizado'];
   // columnsToDisplay: string[] = this.displayedColumns.slice(); 
   
   dataSource = new MatTableDataSource<any>();
@@ -30,6 +31,7 @@ export class OrdenventareportComponent implements OnInit {
   productos: DataProducto[];
   almacen: DataTipoAlmacen[];  
   empleados: DataEmpleado[];
+  empleados2: DataEmpleado[];
   tipocotizacion: DataTipoCoti[];
   canalVenta:any[];
   public departamentos: DataDepartamento[] = [];  
@@ -37,6 +39,7 @@ export class OrdenventareportComponent implements OnInit {
   public distritos: DataDistrito[] = [];
   clientes: DataCliente[] = [];
   campania: DataCampaniaVenta[] = [];
+  estadoflujos: DataEstadoFlujo[] = [];
 
   public formData: any;
   detalleOrdenVenta:any ;
@@ -69,7 +72,10 @@ export class OrdenventareportComponent implements OnInit {
     this.campania = resp;
    
   });
-
+  this.mantenimientosService.getEstadoFlujo().subscribe((resp) => {
+    this.estadoflujos = resp;
+   
+  });
   this.mantenimientosService.getDepartamento().subscribe((resp) => {
     this.departamentos = resp;
    
@@ -97,10 +103,18 @@ export class OrdenventareportComponent implements OnInit {
     });
     this.mantenimientosService.getEmpleado().subscribe(resp => {
       // console.log(resp);
-      this.empleados = (resp as DataEmpleado[])
+      this.empleados = (resp as DataEmpleado[]).filter(valor=>valor.idPerfilUsuario === 4)
       .map(empleados=>{ 
-        empleados.nombre_empleado =   (empleados.nombre_empleado.concat(', ', empleados.apellidos_pat_empleado,' ', empleados.apellidos_mat_empleado,'- ',empleados.dni_empleado))
+        empleados.nombre_empleado =   (empleados.nombre_empleado.concat(', ', empleados.apellidos_pat_empleado,' ', empleados.apellidos_mat_empleado))
         return empleados;
+      });
+    });
+    this.mantenimientosService.getEmpleado().subscribe(resp => {
+      // console.log(resp);
+      this.empleados2 = (resp as DataEmpleado[]).filter(valor=>valor.idPerfilUsuario !== 4)
+      .map(empleados2=>{ 
+        empleados2.nombre_empleado =   (empleados2.nombre_empleado.concat(', ', empleados2.apellidos_pat_empleado,' ', empleados2.apellidos_mat_empleado))
+        return empleados2;
       });
     });
     this.mantenimientosService.getTipoAlmacen().subscribe((resp) => {
@@ -139,6 +153,7 @@ export class OrdenventareportComponent implements OnInit {
  idCampain: null,
   idCliente: null,
  idEmpleado: null,
+ idEmpleado2: null,
  idDepartamento: null,
  idProvincia: null,
  idDistrito: null,
@@ -147,7 +162,8 @@ export class OrdenventareportComponent implements OnInit {
  fechaovIni: null,
   fechaovFin: null,
  fechaentIni: null,
-  fechaentFin: null
+  fechaentFin: null,
+  estado: null
   
     };
 }
@@ -187,6 +203,7 @@ validateForm(form:NgForm) {
     form.value.idCampain ==null ? form.value.idCampain='' : form.value.idCampain;
     form.value.idCliente ==null ? form.value.idCliente='' : form.value.idCliente;
     form.value.idEmpleado ==null ? form.value.idEmpleado='' : form.value.idEmpleado;
+    form.value.idEmpleado2 ==null ? form.value.idEmpleado2='' : form.value.idEmpleado2;
     form.value.idDepartamento ==null ? form.value.idDepartamento='' : form.value.idDepartamento;
     form.value.idProvincia ==null ? form.value.idProvincia='' : form.value.idProvincia;
     form.value.idDistrito ==null ? form.value.idDistrito='' : form.value.idDistrito;
@@ -194,6 +211,7 @@ validateForm(form:NgForm) {
     form.value.fechaovFin === 'Invalid date' ? form.value.fechaovFin='' : form.value.fechaovFin;
     form.value.fechaentIni === 'Invalid date' ? form.value.fechaentIni='' : form.value.fechaentIni;
     form.value.fechaentFin === 'Invalid date' ? form.value.fechaentFin='' : form.value.fechaentFin;
+    form.value.estado ==null ? form.value.estado='' : form.value.estado;
   // console.log(form.value.fecha === 'Invalid' ? form.value.fecha='' : form.value.fecha),'FECHA';
 
     const url= 'export-orden-venta?'+'idTipoCotizacion='+form.value.idTipoCotizacion+
@@ -203,13 +221,15 @@ validateForm(form:NgForm) {
                 '&idCampain='+form.value.idCampain+
                 '&idCliente='+form.value.idCliente+
                 '&idEmpleado='+form.value.idEmpleado+
+                '&idEmpleado2='+form.value.idEmpleado2+
                 '&idDepartamento='+form.value.idDepartamento+
                 '&idProvincia='+form.value.idProvincia+
                 '&idDistrito='+form.value.idDistrito+
                 '&fechaovIni='+form.value.fechaovIni+
                 '&fechaovFin='+form.value.fechaovFin+
                 '&fechaentIni='+form.value.fechaentIni+
-                '&fechaentFin='+form.value.fechaentFin;
+                '&fechaentFin='+form.value.fechaentFin+
+                '&estado='+form.value.estado;
   //  return window.location.href=this.baseURL+url;
   console.log( url,'URL');
     this.ventaService.getMovimiento(url).subscribe(

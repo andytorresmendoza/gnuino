@@ -16,6 +16,7 @@ import { DataCampaniaVenta } from "src/app/models/campaniaVenta";
 import { DataDepartamento, DataDistrito, DataProvincia } from "src/app/models/countries";
 import { DataCliente } from "src/app/models/cliente";
 import {MatTableDataSource} from '@angular/material/table';
+import { DataEstadoFlujo } from '../../../models/estadoflujo';
 
 @Component({
   selector: 'app-ventadirectareport',
@@ -23,7 +24,7 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./ventadirectareport.component.css']
 })
 export class VentadirectareportComponent implements OnInit {
-  displayedColumns: string[] = ['nro','tipoOv','nombreCliente','codProducto','nombreProducto','nombreCanal','nombreCampain','cantidad','detalleNameUnidadMedida','precioVenta' ,'detalleNombreSede' ,'nombreBancoDirecta' ,'codigo_cotizacion_num_venta','fechaVentaDirecta' ];
+  displayedColumns: string[] = ['nro','tipoOv','nombreCliente','codProducto','nombreProducto','nombreCanal','nombreCampain','cantidad','detalleNameUnidadMedida','precioVenta' ,'detalleNombreSede' ,'nombreBancoDirecta' ,'codigo_cotizacion_num_venta','fechaVentaDirecta' ,'vendedor'];
   // columnsToDisplay: string[] = this.displayedColumns.slice(); 
   
   dataSource = new MatTableDataSource<any>();
@@ -38,7 +39,7 @@ export class VentadirectareportComponent implements OnInit {
   public distritos: DataDistrito[] = [];
   clientes: DataCliente[] = [];
   campania: DataCampaniaVenta[] = [];
-
+  estadoflujos: DataEstadoFlujo[] = [];
   public formData: any;
   detalleVentaDirecta:any ;
   cargando = true; 
@@ -79,6 +80,10 @@ export class VentadirectareportComponent implements OnInit {
     this.provincias = resp;
    
   });
+  this.mantenimientosService.getEstadoFlujo().subscribe((resp) => {
+    this.estadoflujos = resp;
+   
+  });
   this.mantenimientosService.getDistritoAll().subscribe((resp) => {
     this.distritos = resp;
    
@@ -98,9 +103,9 @@ export class VentadirectareportComponent implements OnInit {
     });
     this.mantenimientosService.getEmpleado().subscribe(resp => {
       // console.log(resp);
-      this.empleados = (resp as DataEmpleado[])
+      this.empleados = (resp as DataEmpleado[]).filter(valor=>valor.idPerfilUsuario !== 4)
       .map(empleados=>{ 
-        empleados.nombre_empleado =   (empleados.nombre_empleado.concat(', ', empleados.apellidos_pat_empleado,' ', empleados.apellidos_mat_empleado,'- ',empleados.dni_empleado))
+        empleados.nombre_empleado =   (empleados.nombre_empleado.concat(', ', empleados.apellidos_pat_empleado,' ', empleados.apellidos_mat_empleado))
         return empleados;
       });
     });
@@ -139,12 +144,13 @@ export class VentadirectareportComponent implements OnInit {
  idCanalVenta: null,
  idCampain: null,
  idCliente: null,
-//  idEmpleado: null,
+  idEmpleado: null,
  idDepartamento: null,
  idProvincia: null,
  idDistrito: null,  
  fechaentIni: null,
- fechaentFin: null
+ fechaentFin: null,  
+ estado: null
   
     };
 }
@@ -183,12 +189,13 @@ validateForm(form:NgForm) {
     form.value.idCanalVenta ==null ? form.value.idCanalVenta='' : form.value.idCanalVenta;
     form.value.idCampain ==null ? form.value.idCampain='' : form.value.idCampain;
     form.value.idCliente ==null ? form.value.idCliente='' : form.value.idCliente;
-    // form.value.idEmpleado ==null ? form.value.idEmpleado='' : form.value.idEmpleado;
+      form.value.idEmpleado ==null ? form.value.idEmpleado='' : form.value.idEmpleado;
     form.value.idDepartamento ==null ? form.value.idDepartamento='' : form.value.idDepartamento;
     form.value.idProvincia ==null ? form.value.idProvincia='' : form.value.idProvincia;
     form.value.idDistrito ==null ? form.value.idDistrito='' : form.value.idDistrito;
       form.value.fechaentIni === 'Invalid date' ? form.value.fechaentIni='' : form.value.fechaentIni;
     form.value.fechaentFin === 'Invalid date' ? form.value.fechaentFin='' : form.value.fechaentFin;
+    form.value.estado ==null ? form.value.estado='' : form.value.estado;
    
     const url= 'export-venta-directa?'+'idTipoCotizacion='+form.value.idTipoCotizacion+
                 '&idAlmacen='+form.value.idAlmacen+
@@ -196,12 +203,13 @@ validateForm(form:NgForm) {
                 '&idCanalVenta='+form.value.idCanalVenta+
                 '&idCampain='+form.value.idCampain+
                 '&idCliente='+form.value.idCliente+
-                // '&idEmpleado='+form.value.idEmpleado+
+                '&idEmpleado='+form.value.idEmpleado+
                 '&idDepartamento='+form.value.idDepartamento+
                 '&idProvincia='+form.value.idProvincia+
                 '&idDistrito='+form.value.idDistrito+ 
                 '&fechaentIni='+form.value.fechaentIni+
-                '&fechaentFin='+form.value.fechaentFin;
+                '&fechaentFin='+form.value.fechaentFin+
+                '&estado='+form.value.estado;
   //  return window.location.href=this.baseURL+url;
 //  console.log( form.value.fecha,'FECHA');
     this.ventaService.getMovimiento(url).subscribe(
