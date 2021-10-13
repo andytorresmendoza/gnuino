@@ -18,7 +18,7 @@ export class ListarordenventaComponent implements OnInit {
   ordenes:any[]=[];
   cargando = true; 
   isButtonVisible:boolean=true;
-  displayedColumns: string[] = ['Nro Orden','Nro Cotizacion','Cliente','Empleado','Fecha Entrega','Pago Parcial','Total Orden','Estado','details','Anular'];
+  displayedColumns: string[] = ['Nro Orden','Nro Cotizacion','Cliente','Empleado','Fecha Entrega','Pago Parcial','Total Orden','Estado','details','devolucion','Anular'];
   dataSource = new MatTableDataSource<DataOrdenVenta>();
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -77,14 +77,9 @@ export class ListarordenventaComponent implements OnInit {
       }  
 
      
-EstadoOrdenAnular(ordenes: DataOrdenVenta, i: number) {
-// console.log(ordenes);
+EstadoOrdenAnular(ordenes: DataOrdenVenta, i: number) { 
   const bodyform = {id:ordenes.id, estadoOrden: '3'}
- /* this.ventaService.getOrdenCompraVentaById(ordenes.id).subscribe((res) => {
-    this.ventaService.detalleCotizacionAnular = res[0].detalleCotizacion[0].detalleCotizacion;
-    // console.log(this.ventaService.detalleCotizacionAnular,'que trae')
   
-  });*/
   Swal.fire({
     title: 'Esta seguro?',
     text: `Que desea Anular ${ordenes.codigo_orden_num_venta}`,
@@ -99,6 +94,31 @@ EstadoOrdenAnular(ordenes: DataOrdenVenta, i: number) {
         resp => { 
           // console.log(resp);
           this.toastr.error('Orden Venta Anulada');
+          this.ngOnInit();
+    
+      }
+
+      );
+    }
+  });
+} 
+EstadoDevolucion(ordenes: DataOrdenVenta, i: number) { 
+  const bodyform = {id:ordenes.id, estadoOrden: '5'}
+  
+  Swal.fire({
+    title: 'Esta seguro?',
+    text: `Que desea Realizar la Devolución ${ordenes.codigo_orden_num_venta}`,
+    icon: 'question',
+    showConfirmButton: true,
+    showCancelButton: true,
+  }).then((resp) => {
+    if (resp.value) {
+      
+      this.ordenes.splice(i, 1);
+      this.ventaService.EstadoDevolucionVenta(ordenes.id,bodyform).subscribe(
+        resp => { 
+          // console.log(resp);
+          this.toastr.success('Se realizo la Devolución');
           this.ngOnInit();
     
       }

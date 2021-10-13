@@ -122,11 +122,11 @@ class="justify-content-center"
         <label>Seleccionar Motorizado</label>
         <ng-select
         style="text-transform: uppercase"
-          #idEmpleado="ngModel"
-          name="idEmpleado"
-          bindValue="idEmpleado"
+          #idEmpleado2="ngModel"
+          name="idEmpleado2"
+          bindValue="idEmpleado2"
           placeholder="Buscar Motorizado"
-          [(ngModel)]="formData.idEmpleado"
+          [(ngModel)]="formData.idEmpleado2"
         >
           <ng-option *ngFor="let emp of empleados" [value]="emp.id">{{
             emp.nombre_empleado
@@ -139,11 +139,11 @@ class="justify-content-center"
         <label>Seleccionar Vendedor</label>
         <ng-select
         style="text-transform: uppercase"
-          #idEmpleado2="ngModel"
-          name="idEmpleado2"
+          #idEmpleado="ngModel"
+          name="idEmpleado"
           bindValue="idEmpleado"
           placeholder="Buscar Vendedor"
-          [(ngModel)]="formData.idEmpleado2"
+          [(ngModel)]="formData.idEmpleado"
         >
           <ng-option *ngFor="let emp of empleados2" [value]="emp.id">{{
             emp.nombre_empleado
@@ -303,11 +303,11 @@ class="justify-content-center"
             <label> Seleccionar Estado</label>
             <ng-select  
             style="text-transform:uppercase"
-              #estado="ngModel"  
-              name="estado" 
-              bindValue="estado" 
+              #idEstadoFlujo="ngModel"  
+              name="idEstadoFlujo" 
+              bindValue="idEstadoFlujo" 
               placeholder="Buscar Estado" 
-              [(ngModel)]="formData.estado"  
+              [(ngModel)]="formData.idEstadoFlujo"  
              
             >   
                 <ng-option *ngFor="let emp of estadoflujos" 

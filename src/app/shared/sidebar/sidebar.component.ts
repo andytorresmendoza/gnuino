@@ -23,6 +23,7 @@ export class SidebarComponent implements OnInit {
       const token =   localStorage.getItem('access_token'); 
       this.decoded = jwt_decode(token); 
       this.perfilUsuario = this.decoded.user[0].detalleEmpleado
+      console.log(this.perfilUsuario);
       const perfil = this.decoded.user[0].detalleEmpleado[0].idPerfilUsuario
       if (perfil == 1){
         this.menuItems = sidebarService.Administrador;

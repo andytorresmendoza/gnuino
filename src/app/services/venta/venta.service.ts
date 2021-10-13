@@ -320,13 +320,13 @@ EstadoDelivery(id: number, bodyform:any) {
 }
 
 EstadoOrdenVentaAnular(id: number, bodyform:any) {
-  /*var body = {
-    ...bodyform,
-    detalleCotizacion: this.detalleCotizacionAnular
-  };*/
-  // console.log(id,'id');
-  // console.log(body,'body');
+ 
    return this.http.put(`${this.baseURL}orden-estado-venta/` + id, bodyform);
+}
+
+EstadoDevolucionVenta(id: number, bodyform:any) {
+ 
+  return this.http.put(`${this.baseURL}orden-estado-venta/` + id, bodyform);
 }
 /*EstadoOrdenVentaAnular(id: number, bodyform:any) {
   
@@ -435,11 +435,19 @@ return this.http.put(`${this.baseURL}cotizacion-detalle-venta/${id}`, bodyform) 
       // console.log(formData,'SERVICIO');
        return this.http.get(this.baseURL + formData2);
     }
+    getOrdenVentaReporte(formData2: any) {
+      // console.log(formData,'SERVICIO');
+       return this.http.get(this.baseURL + formData2);
+    }
     getCliente(formData3: any) {
       // console.log(formData,'SERVICIO');
        return this.http.get(this.baseURL + formData3);
     }
-    getProveedor(formData3: any) {
+    getProveedor(formData4: any) {
+      // console.log(formData,'SERVICIO');
+       return this.http.get(this.baseURL + formData4);
+    }
+    getOrdenCompraReporte(formData3: any) {
       // console.log(formData,'SERVICIO');
        return this.http.get(this.baseURL + formData3);
     }

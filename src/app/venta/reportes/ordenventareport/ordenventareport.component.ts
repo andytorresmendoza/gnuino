@@ -156,14 +156,12 @@ export class OrdenventareportComponent implements OnInit {
  idEmpleado2: null,
  idDepartamento: null,
  idProvincia: null,
- idDistrito: null,
- 
- 
+ idDistrito: null,  
  fechaovIni: null,
   fechaovFin: null,
  fechaentIni: null,
   fechaentFin: null,
-  estado: null
+  idEstadoFlujo: null
   
     };
 }
@@ -211,7 +209,7 @@ validateForm(form:NgForm) {
     form.value.fechaovFin === 'Invalid date' ? form.value.fechaovFin='' : form.value.fechaovFin;
     form.value.fechaentIni === 'Invalid date' ? form.value.fechaentIni='' : form.value.fechaentIni;
     form.value.fechaentFin === 'Invalid date' ? form.value.fechaentFin='' : form.value.fechaentFin;
-    form.value.estado ==null ? form.value.estado='' : form.value.estado;
+    form.value.idEstadoFlujo ==null ? form.value.idEstadoFlujo='' : form.value.idEstadoFlujo;
   // console.log(form.value.fecha === 'Invalid' ? form.value.fecha='' : form.value.fecha),'FECHA';
 
     const url= 'export-orden-venta?'+'idTipoCotizacion='+form.value.idTipoCotizacion+
@@ -229,10 +227,10 @@ validateForm(form:NgForm) {
                 '&fechaovFin='+form.value.fechaovFin+
                 '&fechaentIni='+form.value.fechaentIni+
                 '&fechaentFin='+form.value.fechaentFin+
-                '&estado='+form.value.estado;
+                '&idEstadoFlujo='+form.value.idEstadoFlujo;
   //  return window.location.href=this.baseURL+url;
   console.log( url,'URL');
-    this.ventaService.getMovimiento(url).subscribe(
+    this.ventaService.getOrdenVentaReporte(url).subscribe(
       resp => { 
         console.log(resp);
         if( resp[0] == null   ){

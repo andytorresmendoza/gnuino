@@ -28,6 +28,7 @@ import { ClientesComponent } from './reportes/clientes/clientes.component';
 import { ProveedoresreportComponent } from './reportes/proveedoresreport/proveedoresreport.component';
 import { OrdenventareportComponent } from './reportes/ordenventareport/ordenventareport.component';
 import { VentadirectareportComponent } from './reportes/ventadirectareport/ventadirectareport.component';
+import { OrdencomprareportComponent } from './reportes/ordencomprareport/ordencomprareport.component';
  
 const routes: Routes = [
  
@@ -57,8 +58,9 @@ const routes: Routes = [
     {path:'Movimientos', component: MovimientosComponent, data:{titulo:' Reporte Movimientos'}},
     {path:'Clientes', component: ClientesComponent, data:{titulo:'Reporte Clientes'}},
     {path:'Proveedores', component: ProveedoresreportComponent, data:{titulo:'Reporte Proveedores'}},
-    {path:'ordenVenta', component: OrdenventareportComponent, data:{titulo:'Reporte Orden Venta'}},
-    {path:'VentaTienda', component: VentadirectareportComponent, data:{titulo:'Reporte Venta Tienda'}},
+    {path:'ordenVenta', component: OrdenventareportComponent, data:{titulo:'Reporte Orden Venta'}}, 
+   {path:'VentaTienda', component: VentadirectareportComponent, data:{titulo:'Reporte Venta Tienda'}},
+   {path:'ordenCompra', component: OrdencomprareportComponent, data:{titulo:'Reporte Orden Compra'}},
     // {path:'listarpredelivery/:id', component: ListarempleadodeliveryComponent, data:{titulo:'Asignar Delivery'}},
    
 

@@ -24,7 +24,7 @@ import { DataEstadoFlujo } from '../../../models/estadoflujo';
   styleUrls: ['./ventadirectareport.component.css']
 })
 export class VentadirectareportComponent implements OnInit {
-  displayedColumns: string[] = ['nro','tipoOv','nombreCliente','codProducto','nombreProducto','nombreCanal','nombreCampain','cantidad','detalleNameUnidadMedida','precioVenta' ,'detalleNombreSede' ,'nombreBancoDirecta' ,'codigo_cotizacion_num_venta','fechaVentaDirecta' ,'vendedor'];
+  displayedColumns: string[] = ['nro','tipoOv','nombreCliente','codProducto','nombreProducto','nombreCanal','nombreCampain','cantidad','detalleNameUnidadMedida','precioVenta' ,'detalleNombreSede' ,'nombreBancoDirecta' ,'codigo_cotizacion_num_venta','fechaVentaDirecta' ,'vendedor','estado'];
   // columnsToDisplay: string[] = this.displayedColumns.slice(); 
   
   dataSource = new MatTableDataSource<any>();
@@ -81,7 +81,8 @@ export class VentadirectareportComponent implements OnInit {
    
   });
   this.mantenimientosService.getEstadoFlujo().subscribe((resp) => {
-    this.estadoflujos = resp;
+   // this.estadoflujos = resp;
+    this.estadoflujos = (resp as DataEstadoFlujo[]).filter(valor=>valor.id == 3)
    
   });
   this.mantenimientosService.getDistritoAll().subscribe((resp) => {
@@ -150,7 +151,7 @@ export class VentadirectareportComponent implements OnInit {
  idDistrito: null,  
  fechaentIni: null,
  fechaentFin: null,  
- estado: null
+ idEstadoFlujo: null
   
     };
 }
@@ -195,7 +196,7 @@ validateForm(form:NgForm) {
     form.value.idDistrito ==null ? form.value.idDistrito='' : form.value.idDistrito;
       form.value.fechaentIni === 'Invalid date' ? form.value.fechaentIni='' : form.value.fechaentIni;
     form.value.fechaentFin === 'Invalid date' ? form.value.fechaentFin='' : form.value.fechaentFin;
-    form.value.estado ==null ? form.value.estado='' : form.value.estado;
+    form.value.idEstadoFlujo ==null ? form.value.idEstadoFlujo='' : form.value.idEstadoFlujo;
    
     const url= 'export-venta-directa?'+'idTipoCotizacion='+form.value.idTipoCotizacion+
                 '&idAlmacen='+form.value.idAlmacen+
@@ -209,7 +210,7 @@ validateForm(form:NgForm) {
                 '&idDistrito='+form.value.idDistrito+ 
                 '&fechaentIni='+form.value.fechaentIni+
                 '&fechaentFin='+form.value.fechaentFin+
-                '&estado='+form.value.estado;
+                '&idEstadoFlujo='+form.value.idEstadoFlujo;
   //  return window.location.href=this.baseURL+url;
 //  console.log( form.value.fecha,'FECHA');
     this.ventaService.getMovimiento(url).subscribe(

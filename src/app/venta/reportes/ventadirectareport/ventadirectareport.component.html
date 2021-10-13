@@ -260,11 +260,11 @@ class="justify-content-center"
       <label> Seleccionar Estado</label>
       <ng-select  
       style="text-transform:uppercase"
-        #estado="ngModel"  
-        name="estado" 
-        bindValue="estado" 
+        #idEstadoFlujo="ngModel"  
+        name="idEstadoFlujo" 
+        bindValue="idEstadoFlujo" 
         placeholder="Buscar Estado" 
-        [(ngModel)]="formData.estado"  
+        [(ngModel)]="formData.idEstadoFlujo"  
        
       >   
           <ng-option *ngFor="let emp of estadoflujos" 
@@ -396,6 +396,12 @@ class="alert alert-info text-center mt-3 animated fadeIn faster"
     <ng-container matColumnDef="vendedor">
       <th mat-header-cell *matHeaderCellDef> <b>VENDEDOR</b> </th>
       <td mat-cell *matCellDef="let detalleVentaDirecta"> {{detalleVentaDirecta?.nombreEmpleado | uppercase}} </td>
+      <td mat-footer-cell *matFooterCellDef>   </td>
+    </ng-container>    
+
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef> <b>ESTADO</b> </th>
+      <td mat-cell *matCellDef="let detalleVentaDirecta"> {{detalleVentaDirecta?.estadoFlujo | uppercase}} </td>
       <td mat-footer-cell *matFooterCellDef>   </td>
     </ng-container>    
   

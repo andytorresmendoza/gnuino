@@ -22,7 +22,7 @@ export class ListarcotizacionComponent implements OnInit {
   isButtonVisible:boolean=true; 
   // isButtonVisible:boolean=true;
   // displayedColumns: string[] = ['Nro Cotizacion', 'Proveedor', 'Empleado', 'Total', 'Fecha Entrega','Estado','details' ,'Anular'];
- displayedColumns: string[] = ['Vista','Nro Cotizacion', 'Proveedor', 'Empleado', 'Total', 'Fecha Entrega','Estado','details','cambio','Anular'];
+ displayedColumns: string[] = ['Vista','Nro Cotizacion', 'Proveedor', 'Empleado', 'Total', 'Fecha Entrega','Estado','details','cambio','devolucion','Anular'];
   dataSource = new MatTableDataSource<DataCotizacionVenta>();
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -49,7 +49,7 @@ export class ListarcotizacionComponent implements OnInit {
     this.cotizaciones = resp; 
     this.ventaService.detalleCotizacion = resp; 
     this.cargando = false; 
-    // console.log(resp);
+      // console.log(resp);
 });
 } 
  

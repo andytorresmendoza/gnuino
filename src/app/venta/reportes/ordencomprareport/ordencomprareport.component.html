@@ -1,0 +1,197 @@
+<form
+  #form="ngForm"
+  autocomplete="off"
+  class="justify-content-center"
+  (submit)="onSubmit(form)"
+>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label> Seleccionar Proveedores </label>
+        <ng-select
+          style="text-transform: uppercase"
+          #idProveedor="ngModel"
+          name="idProveedor"
+          bindValue="idProveedor"
+          placeholder="Buscar Proveedor"
+          [(ngModel)]="formData.idProveedor"
+        >
+          <ng-option *ngFor="let emp of proveedores" [value]="emp.id">{{
+            emp.nombre_proovedor
+          }}</ng-option>
+        </ng-select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label> Tipo Orden </label>
+        <ng-select
+          #idTipoOc="ngModel"
+          name="idTipoOc"
+          bindValue="idTipoOc"
+          placeholder="Buscar Tipo Orden"
+          [(ngModel)]="formData.idTipoOc"
+        >
+          <ng-option *ngFor="let emp of tiporden" [value]="emp.id">{{
+            emp.detalle_tpordencompra
+          }}</ng-option>
+        </ng-select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label>Seleccionar Almacén</label>
+
+        <ng-select
+          style="text-transform: uppercase"
+          #idAlmacen="ngModel"
+          name="idAlmacen"
+          bindValue="idAlmacen"
+          placeholder="Buscar Almacen"
+          [(ngModel)]="formData.idAlmacen"
+        >
+          <ng-option
+            *ngFor="let emp of almacen"
+            [value]="emp.id"
+            [disabled]="emp.estado == 0"
+            >{{ emp.nombre_alamcen }}</ng-option
+          >
+        </ng-select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label>Seleccionar Producto</label>
+
+        <ng-select
+          style="text-transform: uppercase"
+          #idProducto="ngModel"
+          name="idProducto"
+          bindValue="idProducto"
+          placeholder="Buscar Producto"
+          [(ngModel)]="formData.idProducto"
+        >
+          <ng-option *ngFor="let emp of productos" [value]="emp.id">{{
+            emp.nombre_producto
+          }}</ng-option>
+        </ng-select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-3">
+      <div class="form-group">
+        <label for="">Fecha OC De:</label>
+        <div class="input-group">
+          <input
+            [matDatepicker]="picker"
+            placeholder="DD/MM/YYYY"
+            name="fechaOcDesde"
+            #fechaOcDesde="ngModel"
+            [(ngModel)]="formData.fechaOcDesde"
+            class="form-control"
+          />
+          <!-- [class.is-invalid]="fechaovIni.invalid && fechaovIni.touched"
+          required  -->
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-3">
+      <div class="form-group">
+        <label for="">Fecha OC Hasta:</label>
+        <div class="input-group">
+          <input
+            [matDatepicker]="picker2"
+            placeholder="DD/MM/YYYY"
+            name="fechaOcHasta"
+            #fechaOcHasta="ngModel"
+            [(ngModel)]="formData.fechaOcHasta"
+            class="form-control"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-3">
+      <div class="form-group">
+        <label for="">Fecha Entrega De:</label>
+        <div class="input-group">
+          <input
+            [matDatepicker]="picker3"
+            placeholder="DD/MM/YYYY"
+            name="fechaEntregaDesde"
+            #fechaEntregaDesde="ngModel"
+            [(ngModel)]="formData.fechaEntregaDesde"
+            class="form-control"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker3"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-3">
+      <div class="form-group">
+        <label for="">Fecha Entrega Hasta:</label>
+        <div class="input-group">
+          <input
+            [matDatepicker]="picker4"
+            placeholder="DD/MM/YYYY"
+            name="fechaEntregaHasta"
+            #fechaEntregaHasta="ngModel"
+            [(ngModel)]="formData.fechaEntregaHasta"
+            class="form-control"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker4"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker4></mat-datepicker>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label> Seleccionar Estado</label>
+            <ng-select  
+            style="text-transform:uppercase"
+              #estadoFlujo="ngModel"  
+              name="estadoFlujo" 
+              bindValue="estadoFlujo" 
+              placeholder="Buscar Estado" 
+              [(ngModel)]="formData.estadoFlujo"  
+             
+            >   
+                <ng-option *ngFor="let emp of estadoflujos" 
+                [value]="emp.id"  [disabled]="emp.estado == 0">{{emp.detalle_estado}}</ng-option>
+                
+             </ng-select> 
+          </div> 
+    </div>
+  </div>
+   
+<div class="row"> 
+ 
+
+  
+    <div class="col-md-8">
+        <button type="submit" class="btn btn-dark">
+            <i class="fa fa-database"></i> Consultar
+          </button>
+    </div> 
+  </div>
+  <br>
+</form>

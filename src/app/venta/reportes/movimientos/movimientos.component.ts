@@ -18,7 +18,7 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./movimientos.component.css']
 })
 export class MovimientosComponent implements OnInit {
-  displayedColumns: string[] = ['nro','codProducto','producto','almacen','claseMov','fecha_calendar','time_calendar','cantidad','um','precio','nombreEmpleado','nroOrden','codigo'];
+  displayedColumns: string[] = ['nro','codProducto','producto','almacen','claseMov','fecha_calendar','time_calendar','cantidad','um','precio','nombreEmpleado','nombreproveedor','nroOrden','codigo'];
   // columnsToDisplay: string[] = this.displayedColumns.slice();
  
   
