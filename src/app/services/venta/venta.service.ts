@@ -435,6 +435,7 @@ return this.http.put(`${this.baseURL}cotizacion-detalle-venta/${id}`, bodyform) 
       // console.log(formData,'SERVICIO');
        return this.http.get(this.baseURL + formData2);
     }
+   
     getOrdenVentaReporte(formData2: any) {
       // console.log(formData,'SERVICIO');
        return this.http.get(this.baseURL + formData2);
@@ -450,6 +451,10 @@ return this.http.put(`${this.baseURL}cotizacion-detalle-venta/${id}`, bodyform) 
     getOrdenCompraReporte(formData3: any) {
       // console.log(formData,'SERVICIO');
        return this.http.get(this.baseURL + formData3);
+    }
+    getPreDelivery(formData: any) {
+      // console.log(formData,'SERVICIO');
+       return this.http.get(this.baseURL + formData) .pipe(map((resp) => resp['data']));
     }
 }
 

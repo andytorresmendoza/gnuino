@@ -1,7 +1,7 @@
 <div class="row">
   <h4 class="dispaly-4">
-    Derivar Delivery - <b>{{ formData.codigo_orden_num_venta }}</b>
-  </h4>
+    Derivar Delivery - <b>{{ formData?.codigo_orden_num_venta }}</b>
+  </h4>  
 </div>
 <hr />
 <form
@@ -21,11 +21,11 @@
     name="idDestino"
     #idDestino="ngModel"
     [(ngModel)]="formData.detalleCotizacion[0].detalleTipoCotizacin[0].id"
-  />
+  />  
   <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4"></div>
-    <div class="col-md-4">
+   <div class="col-md-4">
       <input
       style="text-transform: uppercase"
       type="text"
@@ -35,10 +35,10 @@
       class="form-control"
       disabled="disabled"
     />
-    </div>
+    </div>  
   </div>
   <hr />
-  <div class="form-row">
+   <div class="form-row">
     <div class="col-md-4">
       <div class="form-group">
         <label>Nombre Cliente</label>
@@ -47,12 +47,13 @@
           type="text"
           name="nombreCliente"
           #nombreCliente="ngModel"
-          [(ngModel)]="formData.detalleCotizacion[0].nombreCliente"
+          [(ngModel)]="formData.nombreCliente"
           class="form-control"
           disabled="disabled"
         />
       </div>
     </div>
+ 
  
     <div class="col-md-4">
       <div class="form-group">
@@ -62,7 +63,7 @@
           type="text"
           name="tipoPago"
           #tipoPago="ngModel"
-          [(ngModel)]="formData.detalleTipoPago[0].descripcion_pago"
+          [(ngModel)]="formData?.detalleTipoPago[0].descripcion_pago"
           class="form-control"
           disabled="disabled"
         />
@@ -84,7 +85,7 @@
       </div>
     </div>
   </div>
-  <div class="form-row">
+   <div class="form-row">
     <div class="form-group col-md-4">
       <label>Motorizado</label>
 
@@ -98,7 +99,7 @@
         (change)="onChangeMatch(formData.idEmpleado, formData.detalleCotizacion[0].detalleCliente[0].detalleDistrito[0].id)"
  
       >
-      <!-- (change)="onChangeMatch(formData.idEmpleado, formData.idDistrito)" -->
+ 
         <ng-option *ngFor="let emp of empleados" [value]="emp.id">{{
           emp.nombre_empleado
         }}</ng-option>
@@ -200,7 +201,7 @@
     </div>
   </div>
 
-  <div class="form-row">
+<div class="form-row">
     <div class="col-md-8">
       <label>Detalle Envio</label>
       <input
@@ -226,21 +227,9 @@
       (change)="onChangeMatch(formData.idEmpleado, formData.detalleCotizacion[0].detalleCliente[0].detalleDistrito[0].id)"
       disabled="disabled"
     />
-      <!-- <ng-select
-        style="text-transform: uppercase"
-        #idDistrito="ngModel"
-        name="idDistrito"
-        bindValue="idDistrito"
-        placeholder="Buscar Distrito"
-        [(ngModel)]="formData.idDistrito"
-        (change)="onChangeMatch(formData.idEmpleado, formData.detalleCotizacion[0].detalleCliente[0].detalleDistrito[0].id)"
-      >
-        <ng-option *ngFor="let emp of distritosMatch" [value]="emp.id">{{
-          emp.nombre_distrito
-        }}</ng-option>
-      </ng-select> -->
+ 
     </div>
-  </div>
+  </div> 
   <br />
   <div class="form-group">
     <button type="submit" class="btn btn-dark" *ngIf="this.isButtonVisible">

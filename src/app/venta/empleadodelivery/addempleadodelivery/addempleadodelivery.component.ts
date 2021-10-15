@@ -17,12 +17,13 @@ import { DataDepartamento, DataProvincia } from '../../../models/countries';
   styleUrls: ['./addempleadodelivery.component.css']
 })
 export class AddempleadodeliveryComponent implements OnInit {
-  formData: DatEmpleadoDelivery;
+  // formData: DatEmpleadoDelivery;
   empleados: DataEmpleado[];
   distritos: DataDistrito[] ;
   distritosMatch: DataDistrito[] ;
   public departamentos: DataDepartamento[] = [];
   public provincias: DataProvincia[] = [];
+  public formData:any
   validar:any[];
   isButtonVisible: boolean = true;
   constructor(
@@ -35,10 +36,19 @@ export class AddempleadodeliveryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // this.resetForm();
     // console.log(this.ventaService.detalleDelivery);
 // console.log(this.ventaService.detalleDelivery.detalleCotizacion,'NGONINIT');
       // let variable = 
   
+      this.ventaService.getOrdenCompraVentaById(this.data.id).subscribe((res) => {
+      //  console.log('verdataid',res );
+        this.formData = res[0]; 
+        this.formData.idEmpleado = null
+        this.formData.detalleEmpDev = ' '
+                // console.log(this.kardexService.formOrdencompra );
+                 
+              });
 
 
     this.mantenimientosService.getEmpleado().subscribe(resp => { 
@@ -68,7 +78,8 @@ export class AddempleadodeliveryComponent implements OnInit {
    this.distritosMatch = (resp).filter(valor => valor.idProvincia === 1401 );
    
    } );
-    this.formData = Object.assign({ 
+   
+    /*this.formData = Object.assign({ 
       id: null,
       idOrdenVenta: this.data.id, 
       idEmpleado: null, 
@@ -86,18 +97,24 @@ export class AddempleadodeliveryComponent implements OnInit {
 
     
     },
-    this.ventaService.detalleDelivery[this.data.orderItemIndex]);
-    
+    this.ventaService.detalleDelivery[this.data.id]);
+  
     // console.log(this.ventaService.detalleDelivery[0].apellidoMatCliente;
     if(this.ventaService.detalleDelivery[this.data.orderItemIndex].idEstadoFlujo  ==  4 ) {
       this.isButtonVisible=false;
      } else {
       this.isButtonVisible=true;
      } 
-
+*/
     
   }
 
+ /* resetForm(form?: NgForm) {
+    if ((form = null)) form.resetForm();
+    this.formData = { 
+      idEmpleado:1
+    };
+  }*/
   onChangeMatch (idEmpleado:number, idDistrito:number)  {
     //  console.log(idEmpleado,'EMPLEADO',idDistrito,'DISTRITO');
     this.ventaService.MatcPrecioVelivery(idEmpleado,idDistrito).subscribe((resp:any) => { 

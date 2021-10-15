@@ -44,7 +44,7 @@ export class ListarordenventaComponent implements OnInit {
      this.dataSource.data = resp as DataOrdenVenta[]; 
        this.ordenes = resp; 
        this.ventaService.detalleDelivery = resp;
-     console.log(resp);
+    //  console.log(this.ventaService.detalleDelivery , 'detalle');
       //  this.ventaService.detalleCotizacion =  resp.detalleCotizacion.detalleCotizacion;
       //  console.log(this.ventaService.detalleCotizacion,'DETALLE');
       this.cargando = false;
