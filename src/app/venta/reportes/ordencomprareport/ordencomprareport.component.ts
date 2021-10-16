@@ -11,22 +11,35 @@ import { DataTipoAlmacen } from 'src/app/models/tipoalmacen';
 import { DataProducto } from 'src/app/models/producto';
 import { DataEstadoFlujo } from 'src/app/models/estadoflujo';
 import * as moment from 'moment';
+ 
+import {MatTableDataSource} from '@angular/material/table';
 @Component({
   selector: 'app-ordencomprareport',
   templateUrl: './ordencomprareport.component.html',
   styleUrls: ['./ordencomprareport.component.css']
 })
 export class OrdencomprareportComponent implements OnInit {
+  displayedColumns: string[] = ['nro','numOrdenCompra','tipoOv','nombreProovedor','codProducto','nombreProducto','cantidad','detalleNameUnidadMedida','importe','detalleNombreSede' ,'nombreBancoCompra' ,'codigo_cotizacion_num' ,'fechaEntrega','entrada_mercaderia','estadoFlujo'];
+  // columnsToDisplay: string[] = this.displayedColumns.slice(); 
+  
+  dataSource = new MatTableDataSource<any>();
   proveedores: DataProveedor[];
   tiporden: DataTipoOrden[]=[];
   almacen: DataTipoAlmacen[]; 
   productos: DataProducto[];
-  detalleReporteOrdenVenta:any ;
+  detalleReporteOrdenCompra:any ;
   loading = false; 
   public formData: any;
   cargando = true; 
   estadoflujos: DataEstadoFlujo[] = [];
 
+  getTotalCost() {
+    let suma: any;
+    const priceNotEmpty = this.detalleReporteOrdenCompra.filter((res)=> res.importe!='');
+    suma =  priceNotEmpty?.map(r => parseFloat(r.importe)).reduce(( acc, value ) =>  (acc + value ), 0); 
+ console.log(suma);
+  return suma;
+  }
   constructor( private http: HttpClient,  private router:Router,private mantenimientosService: MantenimientosService,private ventaService: VentaService,private excelExportService: ExporterService) { 
 
 
@@ -68,10 +81,10 @@ export class OrdencomprareportComponent implements OnInit {
       idTipoOc: null ,
       idAlmacen:null,
       idProducto:null,
-      fechaOcDesde: null,
-      fechaOcHasta: null,
-      fechaEntregaDesde: null,
-      fechaEntregaHasta: null,
+      fechaocIni: null, 
+      fechaocFin: null,
+      fechaentIni: null,
+      fechaentFin: null,
       estadoFlujo: null
     };
 }
@@ -80,29 +93,29 @@ export class OrdencomprareportComponent implements OnInit {
 onSubmit(form: NgForm) { 
   this.loading = true; 
   let fechaParseada1: any;
-  fechaParseada1 = moment(form.value.fechaOcDesde).format('YYYY-MM-DD');
-  form.value.fechaOcDesde = fechaParseada1;
+  fechaParseada1 = moment(form.value.fechaocIni).format('YYYY-MM-DD');
+  form.value.fechaocIni = fechaParseada1;
 
   let fechaParseada2: any;
-  fechaParseada2 = moment(form.value.fechaOcHasta).format('YYYY-MM-DD');
-  form.value.fechaOcHasta = fechaParseada2;
+  fechaParseada2 = moment(form.value.fechaocFin).format('YYYY-MM-DD');
+  form.value.fechaocFin = fechaParseada2;
 
   let fechaParseada3: any;
-  fechaParseada3 = moment(form.value.fechaEntregaDesde).format('YYYY-MM-DD');
-  form.value.fechaEntregaDesde = fechaParseada3;
+  fechaParseada3 = moment(form.value.fechaentIni).format('YYYY-MM-DD');
+  form.value.fechaentIni = fechaParseada3;
 
   let fechaParseada4: any;
-  fechaParseada4 = moment(form.value.fechaEntregaHasta).format('YYYY-MM-DD');
-  form.value.fechaEntregaHasta = fechaParseada4;
+  fechaParseada4 = moment(form.value.fechaentFin).format('YYYY-MM-DD');
+  form.value.fechaentFin = fechaParseada4;
 
   form.value.idProveedor ==null ? form.value.idProveedor='' : form.value.idProveedor;
   form.value.idTipoOc ==null ? form.value.idTipoOc='' : form.value.idTipoOc;
   form.value.idAlmacen ==null ? form.value.idAlmacen='' : form.value.idAlmacen;
   form.value.idProducto ==null ? form.value.idProducto='' : form.value.idProducto;
-  form.value.fechaOcDesde === 'Invalid date' ? form.value.fechaOcDesde='' : form.value.fechaOcDesde;
-  form.value.fechaOcHasta === 'Invalid date' ? form.value.fechaOcHasta='' : form.value.fechaOcHasta;
-  form.value.fechaEntregaDesde === 'Invalid date' ? form.value.fechaEntregaDesde='' : form.value.fechaEntregaDesde;
-  form.value.fechaEntregaHasta === 'Invalid date' ? form.value.fechaEntregaHasta='' : form.value.fechaEntregaHasta;
+  form.value.fechaocIni === 'Invalid date' ? form.value.fechaocIni='' : form.value.fechaocIni;
+  form.value.fechaocFin === 'Invalid date' ? form.value.fechaocFin='' : form.value.fechaocFin;
+  form.value.fechaentIni === 'Invalid date' ? form.value.fechaentIni='' : form.value.fechaentIni;
+  form.value.fechaentFin === 'Invalid date' ? form.value.fechaentFin='' : form.value.fechaentFin;
   form.value.estadoFlujo ==null ? form.value.estadoFlujo='' : form.value.estadoFlujo;
 
   
@@ -110,26 +123,27 @@ onSubmit(form: NgForm) {
                                       '&idTipoOc='+form.value.idTipoOc+
                                       '&idAlmacen='+form.value.idAlmacen+
                                       '&idProducto='+form.value.idProducto+
-                                      '&fechaOcDesde='+form.value.fechaOcDesde+
-                                      '&fechaOcHasta='+form.value.fechaOcHasta+
-                                      '&fechaEntregaDesde='+form.value.fechaEntregaDesde+
-                                      '&fechaEntregaHasta='+form.value.fechaEntregaHasta+
+                                      '&fechaocIni='+form.value.fechaocIni+
+                                      '&fechaocFin='+form.value.fechaocFin+
+                                      '&fechaentIni='+form.value.fechaentIni+
+                                      '&fechaentFin='+form.value.fechaentFin+
                                       '&estadoFlujo='+form.value.estadoFlujo;
-  //  return window.location.href=this.baseURL+url;
-console.log(url);
+ 
     this.ventaService.getOrdenCompraReporte(url).subscribe(
-      resp => { 
-       console.log(resp);
+      resp => {  
         if( resp[0] == null   ){
-          this.detalleReporteOrdenVenta = [];
+          this.detalleReporteOrdenCompra = [];
           this.cargando = true
           this.loading = false; 
            }else{  
-          this.detalleReporteOrdenVenta = resp; 
+          this.detalleReporteOrdenCompra = resp; 
           this.loading = false; 
           this.cargando = false; 
          
         }  
       });    
 }
+exportAsXLSX(){
+  this.excelExportService.exportToExcel(this.detalleReporteOrdenCompra,'Orden Compra');
+    }
 }

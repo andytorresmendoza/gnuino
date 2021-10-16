@@ -1,0 +1,47 @@
+
+  .example-container {
+    height: 700px;
+    width: 100%;
+    max-width: 100%;
+    overflow: auto;
+    text-align:center;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+
+  td.mat-column-star {
+    width: 2px;
+    padding-right: 3px;
+  }
+  
+  th.mat-column-numOrdenCompra, td.mat-column-numOrdenCompra,
+  th.mat-column-tipoOv, td.mat-column-tipoOv,
+  th.mat-column-nombreProovedor, td.mat-column-nombreProovedor,
+  th.mat-column-codProducto, td.mat-column-codProducto,
+  th.mat-column-nombreProducto, td.mat-column-nombreProducto,
+  th.mat-column-cantidad, td.mat-column-cantidad,
+  th.mat-column-detalleNameUnidadMedida, td.mat-column-detalleNameUnidadMedida,
+  th.mat-column-importe, td.mat-column-importe,
+  th.mat-column-detalleNombreSede, td.mat-column-detalleNombreSede,
+  th.mat-column-nombreBancoCompra, td.mat-column-nombreBancoCompra,
+  th.mat-column-codigo_cotizacion_num, td.mat-column-codigo_cotizacion_num,
+  th.mat-column-fechaEntrega, td.mat-column-fechaEntrega,
+  th.mat-column-entrada_mercaderia, td.mat-column-entrada_mercaderia,
+  th.mat-column-estadoFlujo, td.mat-column-estadoFlujo
+ 
+  {
+    padding-left: 10px;
+    text-align:center;
+    padding-right: 25px;
+  }
+ 
+  .mat-table-sticky-border-elem-right {
+    border-left: 1px solid #e0e0e0;
+  }
+  
+  .mat-table-sticky-border-elem-left {
+    border-right: 1px solid #e0e0e0;
+  }

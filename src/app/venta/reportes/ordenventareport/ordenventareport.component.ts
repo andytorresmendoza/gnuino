@@ -228,11 +228,9 @@ validateForm(form:NgForm) {
                 '&fechaentIni='+form.value.fechaentIni+
                 '&fechaentFin='+form.value.fechaentFin+
                 '&idEstadoFlujo='+form.value.idEstadoFlujo;
-  //  return window.location.href=this.baseURL+url;
-  console.log( url,'URL');
+ 
     this.ventaService.getOrdenVentaReporte(url).subscribe(
-      resp => { 
-        console.log(resp);
+      resp => {  
         if( resp[0] == null   ){
           // this.detalleReporteCliente = '';
               this.detalleOrdenVenta = [];

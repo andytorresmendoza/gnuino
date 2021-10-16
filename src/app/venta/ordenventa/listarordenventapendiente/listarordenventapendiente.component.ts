@@ -43,39 +43,23 @@ export class ListarordenventapendienteComponent implements OnInit {
     this.resetForm();
     // this.getOrden();
     this.mantenimientosService.getEmpleado().subscribe(resp => {
-      // console.log(resp);
-      this.empleados = (resp as DataEmpleado[])
+   
+      this.empleados = (resp as DataEmpleado[]).filter(valor=>valor.idPerfilUsuario === 2)
       .map(empleados=>{ 
         empleados.nombre_empleado =   (empleados.nombre_empleado.concat(', ', empleados.apellidos_pat_empleado,' ', empleados.apellidos_mat_empleado,'- ',empleados.dni_empleado))
         return empleados;
       });
     });
     this.mantenimientosService.getEstadoFlujo().subscribe((resp) => {
-      this.estadoflujos = resp;
-     
+       
+       this.estadoflujos =  (resp as DataEstadoFlujo[]).filter(valor=>valor.id == 1 || valor.id == 4)
     });
   }
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
- /* getOrden(){
-
-    this.ventaService.getOrdenVentaPendiente() 
-   .subscribe(resp => {
-     this.dataSource.data = resp as DataOrdenVenta[]; 
-       this.ordenes = resp;  
-      // this.ventaService.detalleDelivery = resp;
-      this.cargando = false; 
-// console.log(resp);
-       if (resp[0].idEstadoFlujo ==  4 ) {
-        this.isButtonVisible=false;
-       } else {
-        this.isButtonVisible=true;
-       } 
  
-  });
-  } */
 
   resetForm(form?: NgForm) {
     if ((form = null)) form.resetForm();
@@ -104,20 +88,32 @@ export class ListarordenventapendienteComponent implements OnInit {
        this.dialog.open(AddempleadodeliveryComponent, dialogConfig).afterClosed().subscribe(resp=>{
     //  console.log(resp,'cierra popup');
       // this.getOrden();
+      const url= 'orden-venta-pendientes?'+'idEmpleado='+''+
+      '&finicio='+''+
+      '&ffin='+''+
+      '&estadoFlujo='+''; 
+      this.ventaService.getPreDelivery(url).subscribe(
+        resp => { 
+         
+          if( resp[0] == null   ){
+         
+                 this.ordenes = [];
+                 this.cargando = true;
+            this.loading = false;  
+              }else{
+                this.dataSource.data = resp as DataOrdenVenta[]; 
+                this.ordenes = resp;  
+                this.loading = false;  
+                this.cargando = false;  
+              }  
+   
+        }); 
        });
      
       }  
       onSubmit(form: NgForm) { 
-        console.log(form.value,'valores');
-      this.loading = true; 
-        /*  if( this.validateForm(form)){
-          return;
-        }
-        else {
-          let fechaParseada: any;
-          fechaParseada = moment(form.value.fecha).format('DD/MM/YYYY');
-          form.value.fecha = fechaParseada;
-    */
+       
+      this.loading = true;  
           let fechaParseada: any;
           fechaParseada = moment(form.value.finicio).format('YYYY-MM-DD');
           form.value.finicio = fechaParseada;
@@ -129,33 +125,23 @@ export class ListarordenventapendienteComponent implements OnInit {
         form.value.finicio === 'Invalid date' ? form.value.finicio='' : form.value.finicio;
         form.value.ffin === 'Invalid date' ? form.value.ffin='' : form.value.ffin;
         form.value.estadoFlujo ==null ? form.value.estadoFlujo='' : form.value.estadoFlujo;
-      // console.log(form.value.fecha === 'Invalid' ? form.value.fecha='' : form.value.fecha),'FECHA';
-        const url= 'orden-venta-pendientes?'+'idEmpleado='+form.value.idEmpleado+
+          const url= 'orden-venta-pendientes?'+'idEmpleado='+form.value.idEmpleado+
                     '&finicio='+form.value.finicio+
                     '&ffin='+form.value.ffin+
-                    '&estadoFlujo='+form.value.estadoFlujo;
-      //  return window.location.href=this.baseURL+url;
-    //  console.log( form.value.fecha,'FECHA');
-    console.log(url);
+                    '&estadoFlujo='+form.value.estadoFlujo; 
+ 
         this.ventaService.getPreDelivery(url).subscribe(
           resp => { 
-            console.log(resp);
             if( resp[0] == null   ){
            
                    this.ordenes = [];
                    this.cargando = true;
-              this.loading = false; 
-                  // console.log(this.detalleReporteCliente, 'VACIO');
+              this.loading = false;  
                 }else{
                   this.dataSource.data = resp as DataOrdenVenta[]; 
                   this.ordenes = resp;  
-                  this.loading = false; 
-                  // console.log(this.detalleReporteCliente, 'CORRECTO');
-                  this.cargando = false; 
-                /*  this.detalleMovimiento = resp;
                   this.loading = false;  
-                  this.cargando = false; 
-                  this.getTotalCost() */
+                  this.cargando = false;  
                 }  
      
           });      

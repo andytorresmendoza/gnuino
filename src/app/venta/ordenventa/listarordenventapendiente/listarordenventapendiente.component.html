@@ -120,7 +120,8 @@ class="alert alert-info text-center mt-3 animated fadeIn faster"
 
  
 &nbsp;
-  <h1>Asignar Empleado Delivery </h1>
+ 
+  <h1 *ngIf="!cargando && ordenes.length > 0">Asignar Empleado Delivery </h1>
   <mat-form-field *ngIf="!cargando && ordenes.length > 0">
     <mat-label>Buscar</mat-label> 
     <input matInput (keyup)="applyFilter($event)"   placeholder="Ingrese dato" #input>
@@ -206,16 +207,6 @@ class="alert alert-info text-center mt-3 animated fadeIn faster"
     </ng-container> 
 
 
-    <!-- <ng-container matColumnDef="delivery">
-      <th mat-header-cell *matHeaderCellDef>delivery</th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button *ngIf="element.idEstadoFlujo !== 4"  (click)="cambiomedida(element.id)">
-          <mat-icon>restore</mat-icon>
-        </button>
-  
-      </td>
-    </ng-container>  -->
-<!-- <mat-icon  *ngIf="this.isButtonVisible" > local_shipping</mat-icon> -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   
@@ -223,6 +214,7 @@ class="alert alert-info text-center mt-3 animated fadeIn faster"
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell" colspan="4">No existe coincidencia con "{{input.value}}"</td>
     </tr>
+
     <div
     *ngIf="cargando && ordenes?.length === 0"
     class="alert alert-warning text-center mt-3 animated fadeIn faster"
@@ -231,7 +223,7 @@ class="alert alert-info text-center mt-3 animated fadeIn faster"
     
     </div>  
   </table>
-
+ 
   <!-- <div
   *ngIf="cargando"
   class="alert alert-info text-center mt-3 animated fadeIn faster"
