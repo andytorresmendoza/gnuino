@@ -24,7 +24,7 @@ import { DataEstadoFlujo } from '../../../models/estadoflujo';
   styleUrls: ['./ventadirectareport.component.css']
 })
 export class VentadirectareportComponent implements OnInit {
-  displayedColumns: string[] = ['nro','tipoOv','nombreCliente','codProducto','nombreProducto','nombreCanal','nombreCampain','cantidad','detalleNameUnidadMedida','precioVenta' ,'detalleNombreSede' ,'nombreBancoDirecta' ,'codigo_cotizacion_num_venta','fechaVentaDirecta' ,'vendedor','estado'];
+  displayedColumns: string[] = ['nro','tipoOv','nombreCliente','codProducto','nombreProducto','nombreCanal','nombreCampain','cantidad','detalleNameUnidadMedida','precioVenta' ,'detalleNombreSede' ,'nombreBancoDirecta' ,'codigo_cotizacion_num_venta','fechaVentaDirecta' ,'vendedor','estado','departamento','provincia','distrito'];
   // columnsToDisplay: string[] = this.displayedColumns.slice(); 
   
   dataSource = new MatTableDataSource<any>();
@@ -215,7 +215,7 @@ validateForm(form:NgForm) {
 //  console.log( form.value.fecha,'FECHA');
     this.ventaService.getMovimiento(url).subscribe(
       resp => { 
-        console.log(resp);
+        // console.log(resp);
         if( resp[0] == null   ){
           // this.detalleReporteCliente = '';
               this.detalleVentaDirecta = [];

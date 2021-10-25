@@ -12,6 +12,7 @@ import { MantenimientosService } from '../../../services/mantenimientos/mantenim
 import { DataEmpleado } from '../../../models/empleado';
 import { DataEstadoFlujo } from '../../../models/estadoflujo';
 import * as moment from 'moment';
+import { VistapreviaordenpendienteComponent } from '../vistapreviaordenpendiente/vistapreviaordenpendiente.component';
 @Component({
   selector: 'app-listarordenventapendiente',
   templateUrl: './listarordenventapendiente.component.html',
@@ -26,7 +27,7 @@ export class ListarordenventapendienteComponent implements OnInit {
   isButtonVisible:boolean=true;
   empleados: DataEmpleado[];
   estadoflujos: DataEstadoFlujo[] = [];
-  displayedColumns: string[] = ['Nro Orden','Cliente','Empleado','Fecha Entrega','Pago Parcial','Total Orden','Estado','delivery'];
+  displayedColumns: string[] = ['Vista','Nro Orden','Cliente','Empleado','Fecha Entrega','Pago Parcial','Total Orden','Estado','delivery'];
   dataSource = new MatTableDataSource<DataOrdenVenta>();
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -77,7 +78,18 @@ export class ListarordenventapendienteComponent implements OnInit {
        this.router.navigate(['venta/editarordenventa/'+OrdenId]);
     }
 
+    vistaPrevia( id) {
+      // console.log(id,'vista');
+     const dialogConfig = new MatDialogConfig();
+     dialogConfig.autoFocus = true;
+     dialogConfig.disableClose = true;
+     dialogConfig.width = "65%";
+     dialogConfig.data = { id };
+        this.dialog.open(VistapreviaordenpendienteComponent, dialogConfig).afterClosed().subscribe(resp=>{
     
+      });
+    
+     } 
     openDelivery(id:number) {   
       // console.log(id,'detalle');
       const dialogConfig = new MatDialogConfig();
@@ -132,6 +144,7 @@ export class ListarordenventapendienteComponent implements OnInit {
  
         this.ventaService.getPreDelivery(url).subscribe(
           resp => { 
+            // console.log(resp);
             if( resp[0] == null   ){
            
                    this.ordenes = [];

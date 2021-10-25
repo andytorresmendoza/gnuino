@@ -31,7 +31,11 @@
   th.mat-column-nombreBancoDirecta, td.mat-column-nombreBancoDirecta,
   th.mat-column-codigo_cotizacion_num_venta, td.mat-column-codigo_cotizacion_num_venta,
   th.mat-column-fechaVentaDirecta, td.mat-column-fechaVentaDirecta,
-  th.mat-column-vendedor, td.mat-column-vendedor 
+  th.mat-column-vendedor, td.mat-column-vendedor,
+  th.mat-column-estado, td.mat-column-estado,
+  th.mat-column-departamento, td.mat-column-departamento,
+  th.mat-column-provincia, td.mat-column-provincia,
+  th.mat-column-distrito, td.mat-column-distrito
 
   {
     padding-left: 10px;

@@ -23,7 +23,7 @@ import { DataEstadoFlujo } from '../../../models/estadoflujo';
   styleUrls: ['./ordenventareport.component.css']
 })
 export class OrdenventareportComponent implements OnInit {
-  displayedColumns: string[] = ['nro','numOrdenVenta','tipoOv','nombreCliente','codProducto','nombreProducto','nombreCanal','nombreCampain','cantidad','detalleNameUnidadMedida','precioVenta' ,'detalleNombreSede' ,'nombreBancoVenta' ,'codigo_cotizacion_num_venta','preDeliv','codigo_empdel_num_venta','fechaOrden','fechaEntregaOrden','estado','nombrevendedor','motorizado'];
+  displayedColumns: string[] = ['nro','numOrdenVenta','tipoOv','nombreCliente','codProducto','nombreProducto','nombreCanal','nombreCampain','cantidad','detalleNameUnidadMedida','precioVenta' ,'detalleNombreSede' ,'nombreBancoVenta' ,'codigo_cotizacion_num_venta','preDeliv','codigo_empdel_num_venta','fechaOrden','fechaEntregaOrden','estado','nombrevendedor','motorizado','departamento','provincia','distrito'];
   // columnsToDisplay: string[] = this.displayedColumns.slice(); 
   
   dataSource = new MatTableDataSource<any>();
@@ -231,6 +231,7 @@ validateForm(form:NgForm) {
  
     this.ventaService.getOrdenVentaReporte(url).subscribe(
       resp => {  
+        // console.log(resp);
         if( resp[0] == null   ){
           // this.detalleReporteCliente = '';
               this.detalleOrdenVenta = [];

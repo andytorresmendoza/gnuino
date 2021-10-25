@@ -36,7 +36,10 @@
   th.mat-column-fechaEntregaOrden, td.mat-column-fechaEntregaOrden,
   th.mat-column-estado, td.mat-column-estado,
   th.mat-column-nombrevendedor, td.mat-column-nombrevendedor,
-  th.mat-column-motorizado, td.mat-column-motorizado
+  th.mat-column-motorizado, td.mat-column-motorizado,
+  th.mat-column-departamento, td.mat-column-departamento,
+  th.mat-column-provincia, td.mat-column-provincia,
+  th.mat-column-distrito, td.mat-column-distrito
   {
     padding-left: 10px;
     text-align:center;

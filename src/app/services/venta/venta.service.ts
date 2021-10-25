@@ -456,6 +456,10 @@ return this.http.put(`${this.baseURL}cotizacion-detalle-venta/${id}`, bodyform) 
       // console.log(formData,'SERVICIO');
        return this.http.get(this.baseURL + formData) .pipe(map((resp) => resp['data']));
     }
+    getDeliTodos(formData: any) {
+      // console.log(formData,'SERVICIO');
+       return this.http.get(this.baseURL + formData) .pipe(map((resp) => resp['data']));
+    }
 }
 
 

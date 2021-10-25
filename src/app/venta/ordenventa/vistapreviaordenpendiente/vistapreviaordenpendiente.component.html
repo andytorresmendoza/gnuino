@@ -1,0 +1,90 @@
+<div class="row">
+    <h4 class="dispaly-4">
+     Vista Previa - <b>{{ formData?.codigo_orden_num_venta }}</b>
+    </h4>  
+  </div>
+  <hr />
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="formData"
+  (submit)="onSubmit(form)"
+>
+
+<div class="row"> 
+    <div class="col-md-4">
+        <div class="form-group">
+            <label> Cliente</label>
+            <input
+            style="text-transform:uppercase"
+            type="text"
+              name="nombreCliente"
+              #nombreCliente="ngModel"
+              [(ngModel)]="formData.nombreCliente"
+              class="form-control" 
+              readonly
+            /> 
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label> Empleado</label>
+            <input
+            style="text-transform:uppercase"
+            type="text"
+              name="nombreEmpleado"
+              #nombreEmpleado="ngModel"
+              [(ngModel)]="formData.nombreEmpleado"
+              class="form-control" 
+              readonly
+            /> 
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label> Direccion</label>
+            <input
+            style="text-transform:uppercase"
+            type="text"
+              name="direccion"
+              #direccion="ngModel"
+              [(ngModel)]="formData.direccion"
+              class="form-control" 
+              readonly
+            /> 
+        </div>
+    </div>
+</div>
+<hr />
+<table class="table table-borderless">
+    <thead class="thead-light">
+      <th scope="col">#</th>
+      <th>Nombre Producto</th>
+      <th>Unidad Medida</th>
+      <th>Almacén</th>
+      <th>Cantidad Venta</th> 
+      <th>Precio Venta</th> 
+      <th>Observaciones</th>
+ 
+    </thead>
+    <tbody>
+  
+      <tr *ngFor="let item of vistaprevia; let i = index">
+ 
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ item.nombre_producto | uppercase }}</td> 
+        <td>{{item.detalleNameUnidadMedida | uppercase}}</td>
+        <td>{{item.nombre_alamcen | uppercase}}</td>
+        <td>{{ item.cantidad }}</td>
+        <td>{{ item.precioVenta }}</td> 
+        <td>{{ item.observacion | uppercase }}</td>
+ 
+ 
+      </tr>
+    </tbody>
+  </table>
+    <button type="button"   class="btn btn-outline-dark ml-1" [mat-dialog-close]>
+        <i class="fa fa-close"></i> Salir
+      </button>
+
+</form>
