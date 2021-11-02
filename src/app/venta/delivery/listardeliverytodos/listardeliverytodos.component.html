@@ -1,8 +1,3 @@
-
-no filtra el empleado, no filtra fecha,
-Ordenar fecha de mayor a menor, 
-solo al inicio esta que me filtra  los pendientes
-
 <form
 #form="ngForm"
 autocomplete="off"
@@ -12,7 +7,7 @@ class="justify-content-center"
 <div class="row"> 
   <div class="col-md-3">
     <div class="form-group">
-        <label>Seleccionar Empleado</label>
+        <label>Seleccionar Empleado Delivery</label>
         <ng-select
         style="text-transform: uppercase"
           #idEmpleado="ngModel"
@@ -69,22 +64,21 @@ class="justify-content-center"
   </div>
   <div class="col-md-3">
     <div class="form-group">
-        <label> Seleccionar Estado</label>
-        <ng-select  
-        style="text-transform:uppercase"
-          #estadoFlujo="ngModel"  
-          name="estadoFlujo" 
-          bindValue="estadoFlujo" 
-          placeholder="Buscar Estado" 
-          [(ngModel)]="formData.estadoFlujo"  
-         
-        >   
-            <ng-option *ngFor="let emp of estadoflujos" 
-            [value]="emp.id"  [disabled]="emp.estado == 0">{{emp.detalle_estado}}</ng-option>
-            
-         </ng-select> 
-      </div> 
-</div>
+        <label>Seleccionar Empleado Venta</label>
+        <ng-select
+        style="text-transform: uppercase"
+          #idEmpleado2="ngModel"
+          name="idEmpleado2"
+          bindValue="idEmpleado2"
+          placeholder="Buscar Empleado"
+          [(ngModel)]="formData.idEmpleado2"
+        >
+          <ng-option *ngFor="let emp of empleados2" [value]="emp.id">{{
+            emp.nombre_empleado
+          }}</ng-option>
+        </ng-select>
+      </div>
+  </div>
 </div>
  
 <div class="row">
@@ -155,7 +149,26 @@ class="justify-content-center"
     </div>
   </div>
 </div>
-
+<div class="row">
+  <div class="col-md-3 ">
+ 
+        <label> Seleccionar Estado</label>
+        <ng-select  
+        style="text-transform:uppercase"
+          #estadoFlujo="ngModel"  
+          name="estadoFlujo" 
+          bindValue="estadoFlujo" 
+          placeholder="Buscar Estado" 
+          [(ngModel)]="formData.estadoFlujo"  
+         
+        >   
+            <ng-option *ngFor="let emp of estadoflujos" 
+            [value]="emp.id"  [disabled]="emp.estado == 0">{{emp.detalle_estado}}</ng-option>
+            
+         </ng-select> 
+  
+</div>
+</div>
 <div class="row"> 
  
   <div class="col text-right">

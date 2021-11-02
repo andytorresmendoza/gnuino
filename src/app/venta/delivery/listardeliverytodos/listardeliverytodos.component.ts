@@ -24,6 +24,7 @@ export class ListardeliverytodosComponent implements OnInit {
   public listaDelivery:any[]=[];
   public formData: any;
   empleados: DataEmpleado[];
+  empleados2: DataEmpleado[];
   clientes: DataCliente[] = [];
   cargando = true; 
   loading = false; 
@@ -56,10 +57,21 @@ export class ListardeliverytodosComponent implements OnInit {
    this.getDistritoAll();
    this.mantenimientosService.getEmpleado().subscribe(resp => {
    
-    this.empleados = (resp as DataEmpleado[]).filter(valor=>valor.idPerfilUsuario === 2)
+    // this.empleados = (resp as DataEmpleado[]).filter(valor=>valor.idPerfilUsuario === 2)
+    this.empleados = (resp as DataEmpleado[]).filter(valor=>valor.idPerfilUsuario === 4)
     .map(empleados=>{ 
       empleados.nombre_empleado =   (empleados.nombre_empleado.concat(', ', empleados.apellidos_pat_empleado,' ', empleados.apellidos_mat_empleado,'- ',empleados.dni_empleado))
       return empleados;
+    });
+  });
+
+  this.mantenimientosService.getEmpleado().subscribe(resp => {
+   
+    // this.empleados = (resp as DataEmpleado[]).filter(valor=>valor.idPerfilUsuario === 2)
+    this.empleados2 = (resp as DataEmpleado[]).filter(valor=>valor.idPerfilUsuario === 2)
+    .map(empleados2=>{ 
+      empleados2.nombre_empleado =   (empleados2.nombre_empleado.concat(', ', empleados2.apellidos_pat_empleado,' ', empleados2.apellidos_mat_empleado,'- ',empleados2.dni_empleado))
+      return empleados2;
     });
   });
   this.mantenimientosService.getEstadoFlujo().subscribe((resp) => {
@@ -134,7 +146,8 @@ export class ListardeliverytodosComponent implements OnInit {
       idCliente:null,
       idDepartamento:null,
       idProvincia:null,
-      idDistrito:null
+      idDistrito:null,
+      idEmpleado2:null
 
     };
 }
@@ -159,6 +172,7 @@ export class ListardeliverytodosComponent implements OnInit {
         form.value.idDepartamento ==null ? form.value.idDepartamento='' : form.value.idDepartamento;
         form.value.idProvincia ==null ? form.value.idProvincia='' : form.value.idProvincia;
         form.value.idDistrito ==null ? form.value.idDistrito='' : form.value.idDistrito;
+        form.value.idEmpleado2 ==null ? form.value.idEmpleado2='' : form.value.idEmpleado2;
 
           const url= 'pre-delivery/empleados?'+'idEmpleado='+form.value.idEmpleado+
                     '&finicio='+form.value.finicio+
@@ -167,13 +181,14 @@ export class ListardeliverytodosComponent implements OnInit {
                     '&idCliente='+form.value.idCliente+
                     '&idDepartamento='+form.value.idDepartamento+
                     '&idProvincia='+form.value.idProvincia+
-                    '&idDistrito='+form.value.idDistrito;
+                    '&idDistrito='+form.value.idDistrito+
+                    '&idEmpleado2='+form.value.idEmpleado2;
 
                     this.ventaService.getDeliTodos(url).subscribe(
                       resp => { 
                         // console.log(resp);
                         if( resp[0] == null   ){
-                       
+                      //  console.log(resp);
                                this.listaDelivery = [];
                                this.cargando = true;
                           this.loading = false;  
@@ -182,8 +197,7 @@ export class ListardeliverytodosComponent implements OnInit {
                               this.listaDelivery = resp;  
                               this.loading = false;  
                               this.cargando = false;  
-                            }  
-                 
+                            }   
                       });      
   }
 }
