@@ -473,11 +473,11 @@ return this.http.put(`${this.baseURL}cotizacion-detalle-venta/${id}`, bodyform) 
 
     DevolucionVenta(id: number, bodyform:any) {
        console.log(id,bodyform ,'SERVICIO');
-     /* var body = {
+     var body = {
         ...bodyform 
-      };*/
+      }; 
         // console.log(body,'body');
-     return this.http.put(`${this.baseURL}devolucion-estado/${id}`, bodyform) ;
+     return this.http.put(`${this.baseURL}devolucion-estado/${id}`, body) ;
       // return this.http.put(`${this.baseURL}devolucion-estado/` + id, bodyform);
    }
 

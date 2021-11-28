@@ -62,10 +62,10 @@ AddDevolucion(orderItemIndex, id) {
       const devo = this.devolucionCotizacionVenta 
       
    const respuesta =  devo.filter(res=>  id === res.id );
-
+console.log(respuesta);
    const bodyform = {
-    idCotizacionVenta:respuesta[0].id,
-    idVentaDirecta: '',
+    idCotizacionVenta:respuesta[0].idCotizacionVenta,
+    idVentaDirecta: 0,
     idProducto: respuesta[0].idProducto,
     idAlmacen: respuesta[0].idAlmacen,
     precioVenta: respuesta[0].precioVenta,
