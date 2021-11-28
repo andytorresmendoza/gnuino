@@ -21,7 +21,8 @@
         >
           <ng-option
             *ngFor="let emp of productos"
-            [value]="emp.id"          
+            [value]="emp.id"     
+            [disabled]="emp.estado == 0"     
             >{{ emp.nombre_producto }}</ng-option
           >
         </ng-select>
@@ -62,7 +63,7 @@
           placeholder="Buscar Categoria"
           [(ngModel)]="formData.idCategoria"
         >
-          <ng-option *ngFor="let emp of categorias" [value]="emp.id">{{
+          <ng-option *ngFor="let emp of categorias" [value]="emp.id" [disabled]="emp.estado == 0">{{
             emp.nombre_categoria
           }}</ng-option>
         </ng-select>
@@ -85,7 +86,7 @@
               placeholder="Buscar Modelo"
               [(ngModel)]="formData.idModelo"
             >
-              <ng-option *ngFor="let emp of modelos" [value]="emp.id">{{
+              <ng-option *ngFor="let emp of modelos" [value]="emp.id" [disabled]="emp.estado == 0">{{
                 emp.nombre_modelo
               }}</ng-option>
             </ng-select>

@@ -59,7 +59,8 @@ class="justify-content-center"
         >
           <ng-option
             *ngFor="let emp of productos"
-            [value]="emp.id"      
+            [value]="emp.id"  
+            [disabled]="emp.estado == 0"    
             >{{ emp.nombre_producto }}</ng-option
           >
         </ng-select>
@@ -113,7 +114,7 @@ class="justify-content-center"
         [(ngModel)]="formData.idCliente"  
       >   
           <ng-option *ngFor="let emp of clientes" 
-          [value]="emp.id">{{emp.nombre_cliente}}</ng-option>
+          [value]="emp.id" [disabled]="emp.estado == 0">{{emp.nombre_cliente}}</ng-option>
        </ng-select> 
   </div>
 </div>
@@ -129,7 +130,7 @@ class="justify-content-center"
           [(ngModel)]="formData.idEmpleado"  
         >   
             <ng-option *ngFor="let emp of empleados" 
-            [value]="emp.id">{{emp.nombre_empleado}}</ng-option>
+            [value]="emp.id" [disabled]="emp.estado == 0">{{emp.nombre_empleado}}</ng-option>
          </ng-select> 
     </div>
 </div>

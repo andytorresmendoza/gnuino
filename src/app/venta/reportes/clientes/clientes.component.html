@@ -20,7 +20,7 @@ class="justify-content-center"
           [(ngModel)]="formData.idCliente"  
         >   
             <ng-option *ngFor="let emp of clientes" 
-            [value]="emp.id">{{emp.nombre_cliente}}</ng-option>
+            [value]="emp.id" [disabled]="emp.estado == 0">{{emp.nombre_cliente}}</ng-option>
          </ng-select> 
       </div>
 </div>
@@ -37,7 +37,7 @@ class="justify-content-center"
           [(ngModel)]="formData.idCategoria"  
         >   
             <ng-option *ngFor="let emp of categoriaCliente" 
-            [value]="emp.id">{{emp.descripcion_catcli}}</ng-option>
+            [value]="emp.id" [disabled]="emp.estado == 0">{{emp.descripcion_catcli}}</ng-option>
          </ng-select> 
       </div> 
 </div>
@@ -78,7 +78,7 @@ class="justify-content-center"
         (change)="onSelectDepartamento($event)"
       >   
       <!-- <ng-option *ngFor="let emp of departamentos" [value]="0">Buscar Departamento</ng-option> -->
-          <ng-option *ngFor="let emp of departamentos" [value]="emp.id">{{emp.nombre}}</ng-option>
+          <ng-option *ngFor="let emp of departamentos" [value]="emp.id" >{{emp.nombre}}</ng-option>
        </ng-select> 
       </div>
   </div>

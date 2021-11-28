@@ -241,7 +241,7 @@ placeholder="Buscar"
 [(ngModel)]="formDataDelivery.valorEstado"  
 >   
   <ng-option *ngFor="let emp of estadoDelivery" 
-  [value]="emp.id">{{emp.detalle_estado}}</ng-option>
+  [value]="emp.id" [disabled]="emp.estado == 0">{{emp.detalle_estado}}</ng-option>
 </ng-select> 
   </div></div>
 </div>

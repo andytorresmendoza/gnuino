@@ -16,7 +16,7 @@
           placeholder="Buscar Proveedor"
           [(ngModel)]="formData.idProveedor"
         >
-          <ng-option *ngFor="let emp of proveedores" [value]="emp.id">{{
+          <ng-option *ngFor="let emp of proveedores" [value]="emp.id" [disabled]="emp.estado == 0">{{
             emp.nombre_proovedor
           }}</ng-option>
         </ng-select>
@@ -32,7 +32,7 @@
           placeholder="Buscar Tipo Orden"
           [(ngModel)]="formData.idTipoOc"
         >
-          <ng-option *ngFor="let emp of tiporden" [value]="emp.id">{{
+          <ng-option *ngFor="let emp of tiporden" [value]="emp.id" [disabled]="emp.estado == 0">{{
             emp.detalle_tpordencompra
           }}</ng-option>
         </ng-select>
@@ -71,7 +71,7 @@
           placeholder="Buscar Producto"
           [(ngModel)]="formData.idProducto"
         >
-          <ng-option *ngFor="let emp of productos" [value]="emp.id">{{
+          <ng-option *ngFor="let emp of productos" [value]="emp.id" [disabled]="emp.estado == 0">{{
             emp.nombre_producto
           }}</ng-option>
         </ng-select>

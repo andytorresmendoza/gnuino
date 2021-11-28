@@ -108,7 +108,7 @@
   <ng-container matColumnDef="devolucion">
     <th mat-header-cell *matHeaderCellDef>Devolución P.</th>
     <td mat-cell *matCellDef="let element">
-      <button mat-icon-button *ngIf="element.idEstadoFlujo == 5"  (click)="cambiomedida(element.id)">
+      <button mat-icon-button *ngIf="element.idEstadoFlujo == 5"  (click)="DevolucionProducto(element.id)">
         <!-- <mat-icon>assignment_return</mat-icon> -->
         <mat-icon>report</mat-icon>
       </button>

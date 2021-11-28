@@ -20,7 +20,7 @@ class="justify-content-center"
           [(ngModel)]="formData.idProveedor"  
         >   
             <ng-option *ngFor="let emp of proveedores" 
-            [value]="emp.id">{{emp.nombre_proovedor}}</ng-option>
+            [value]="emp.id" [disabled]="emp.estado == 0">{{emp.nombre_proovedor}}</ng-option>
          </ng-select> 
       </div>
 </div>

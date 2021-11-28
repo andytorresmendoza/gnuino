@@ -35,8 +35,21 @@
   <div class="form-row">
     <div class="form-group col-md-4">
       <label>Buscar Producto</label>
-
       <ng-select
+      style="text-transform: uppercase"
+        #idProducto="ngModel"
+        name="idProducto"
+        bindValue="idProducto"
+        placeholder="Buscar Producto"
+        [(ngModel)]="formData.idProducto"
+        (change)="onChange($event)"
+        (change)="onChangeMatch(formData.idProducto, formData.idAlmacen)"
+      >
+        <ng-option *ngFor="let emp of productos" [value]="emp.id" [disabled]="emp.estado == 0">{{
+          emp.nombre_producto
+        }}</ng-option>
+      </ng-select>
+      <!-- <ng-select
       style="text-transform:uppercase"
         [items]="productos"
         bindLabel="nombre_producto"
@@ -48,7 +61,7 @@
         (change)="onChange($event)"
         (change)="onChangeMatch(formData.idProducto, formData.idAlmacen)"
       >
-      </ng-select>
+      </ng-select> -->
     </div>
     <div class="form-group col-md-4">
       <label>Unidad Medida </label>

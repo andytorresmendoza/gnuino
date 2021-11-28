@@ -253,7 +253,7 @@
         [(ngModel)]="ventaService.formOrdenVenta.idTipoPago"
       >
    
-        <ng-option *ngFor="let emp of tipopagos" [value]="emp.id">{{
+        <ng-option *ngFor="let emp of tipopagos" [value]="emp.id" [disabled]="emp.estado == 0">{{
           emp.descripcion_pago
         }}</ng-option>
       
@@ -274,7 +274,7 @@
         placeholder="Buscar Banco"
         [(ngModel)]="ventaService.formOrdenVenta.idBanco"
       >
-        <ng-option *ngFor="let banco of bancos" [value]="banco.id">{{
+        <ng-option *ngFor="let banco of bancos" [value]="banco.id" [disabled]="banco.estado == 0">{{
           banco.descripcion_banco
         }}</ng-option>
       </ng-select> 
@@ -375,7 +375,7 @@
           type="text"
           name="descuento_cot"
           #descuento_cot="ngModel"
-          [(ngModel)]="ventaService.formOrdenVenta.descuento_cot"
+          [(ngModel)]="ventaService.formOrdenVenta.descuento_cot" 
           class="form-control"
           disabled="disabled"
         />
@@ -396,7 +396,7 @@
     </div>  
  <div class="col-md-2">
       <div class="form-group">
-        <label class="form-label">Costo Delivery</label>
+        <label class="form-label">Costo Adicional</label>
         <input
           type="text"
           name="costo_delivery"

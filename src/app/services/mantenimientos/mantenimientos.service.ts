@@ -509,12 +509,19 @@ getProducto() {
       (resp) => resp['data']) 
   );
 }  
-  getProductoId(id:number){
+ /* getProductoId(id:number){
     return this.http.get<ProductoI>(`${this.baseURL}producto/`+id)
     .pipe(
       map(resp=>resp['data']),
       catchError(this.manejarError)
     );
+  }*/
+  getProductoId(id: number) {
+    return this.http.get(this.baseURL+'producto/'+ id)  // json se utiliza solo para firebase// colocamos /heroes porque apuntamos el objeto de la BD https://crud-heroes-db717.firebaseio.com/heroes
+    .pipe(
+      map(resp=>resp['data'])  
+    );
+  
   }
   updateProducto(data: DataProducto){
   // console.log('desdeservic',productos);

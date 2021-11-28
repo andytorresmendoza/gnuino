@@ -1,0 +1,185 @@
+ 
+<form
+#form="ngForm"
+autocomplete="off"
+class="justify-content-center"
+(submit)="onSubmit(form)"
+>
+
+<div class="row"> 
+    <div class="col-md-3">
+    <div class="form-group">
+        <label>Seleccionar Producto</label>
+        <ng-select
+        style="text-transform: uppercase"
+        #idProducto="ngModel"
+        name="idProducto"
+        bindValue="idProducto"
+        placeholder="Buscar Producto"
+        [(ngModel)]="formData.idProducto"
+      >
+        <ng-option
+          *ngFor="let emp of productos"
+          [value]="emp.id"    
+          [disabled]="emp.estado == 0"  
+          >{{ emp.nombre_producto }}</ng-option
+        >
+      </ng-select>
+    </div>
+</div>
+
+<div class="col-md-3">
+    <div class="form-group">
+        <label>Seleccionar Tienda</label>
+        <ng-select
+        style="text-transform: uppercase"
+        #idAlmacen="ngModel"
+        name="idAlmacen"
+        bindValue="idAlmacen"
+        placeholder="Buscar Tienda"
+        [(ngModel)]="formData.idAlmacen"
+      >
+        <ng-option
+          *ngFor="let emp of almacen"
+          [value]="emp.id"
+          [disabled]="emp.estado == 0"
+          >{{ emp.nombre_alamcen }}</ng-option
+        >
+      </ng-select>
+    </div>
+</div>
+
+<div class="col-md-3">
+    <div class="form-group">
+        <label>Seleccionar Categoria</label>
+  
+        <ng-select
+        style="text-transform: uppercase"
+          #idCategoria="ngModel"
+          name="idCategoria"
+          bindValue="idCategoria"
+          placeholder="Buscar Categoria"
+          [(ngModel)]="formData.idCategoria"
+        >
+          <ng-option *ngFor="let emp of categorias" [value]="emp.id" [disabled]="emp.estado == 0">{{
+            emp.nombre_categoria
+          }}</ng-option>
+        </ng-select>
+      </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+        <label> Seleccionar Modelo </label>
+        <ng-select
+        style="text-transform: uppercase"
+          #idModelo="ngModel"
+          name="idModelo"
+          bindValue="idModelo"
+          placeholder="Buscar Modelo"
+          [(ngModel)]="formData.idModelo"
+        >
+          <ng-option *ngFor="let emp of modelos" [value]="emp.id" [disabled]="emp.estado == 0">{{
+            emp.nombre_modelo
+          }}</ng-option>
+        </ng-select>
+    </div>
+  </div>
+</div>
+ 
+<div class="row"> 
+ 
+
+  
+  <div class="col-md-8">
+      <button type="submit" class="btn btn-dark">
+          <i class="fa fa-database"></i> Consultar
+        </button>
+  </div> 
+</div>
+<br>
+
+<!-- ORDER ITEMS TABLE -->
+<th>
+  <button   *ngIf="!cargando && detallePrecios.length > 0" mat-raised-button  color="primary"  (click)="exportAsXLSX()">Exportar
+      <mat-icon>trending_down</mat-icon>
+    
+    </button>
+</th>
+&nbsp;
+<div
+*ngIf="loading"
+class="alert alert-info text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading text-center">Cargando</h4>
+<p class="text-center">
+  <i class="fa fa-sync-alt fa-spin fa-2px "></i>
+</p>
+<p class="mb-0 text-center">Espere por favor</p>
+</div>
+ 
+&nbsp;
+ 
+<div class="example-container mat-elevation-z8"   *ngIf="!cargando && detallePrecios.length > 0">
+  <table mat-table [dataSource]="detallePrecios" class="mat-elevation-z8" *ngIf="!cargando && detallePrecios.length > 0">
+    <ng-container matColumnDef="nro" sticky>
+      <th mat-header-cell *matHeaderCellDef><b>NRO</b>  </th>
+      <td mat-cell *matCellDef="let detallePrecios; let i = index"> {{ i + 1 }} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+    <!-- <ng-container matColumnDef="numOrdenVenta" sticky> -->
+      <ng-container matColumnDef="codigoProductoBarra"  sticky >
+      <th mat-header-cell *matHeaderCellDef><b>CODIGO</b>  </th>
+      <td mat-cell *matCellDef="let detallePrecios"> {{detallePrecios.codigoProductoBarra | uppercase }} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container>
+    <ng-container matColumnDef="nombre_producto"  sticky >
+      <th mat-header-cell *matHeaderCellDef><b>NOMBRE PRODUCTO</b>  </th>
+      <td mat-cell *matCellDef="let detallePrecios"> {{detallePrecios.nombre_producto | uppercase }} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+    <ng-container matColumnDef="nombre_alamcen" >
+      <th mat-header-cell *matHeaderCellDef> <b>NOMBRE ALMACEN</b>  </th>
+      <td mat-cell *matCellDef="let detallePrecios"> {{detallePrecios.nombre_alamcen | uppercase }} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+  
+      <ng-container matColumnDef="nombre_um">
+      <th mat-header-cell *matHeaderCellDef> <b>UM</b> </th>
+      <td mat-cell *matCellDef="let detallePrecios"> {{detallePrecios?.nombre_um | uppercase}} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+    <ng-container matColumnDef="precioCompra">
+      <th mat-header-cell *matHeaderCellDef> <b>PRECIO COMPRA</b> </th>
+      <td mat-cell *matCellDef="let detallePrecios"> {{detallePrecios?.precioCompra | number: '1.2-2'}} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+   
+    <ng-container matColumnDef="precioVenta">
+      <th mat-header-cell *matHeaderCellDef> <b>PRECIO VENTA</b> </th>
+      <td mat-cell *matCellDef="let detallePrecios"> {{detallePrecios?.precioVenta | number: '1.2-2'}} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+    
+    <ng-container matColumnDef="utilidad">
+      <th mat-header-cell *matHeaderCellDef> <b>UTILIDAD</b> </th>
+      <td mat-cell *matCellDef="let detallePrecios"> {{detallePrecios?.utilidad | number: '1.2-2'}} </td>
+      <td mat-footer-cell *matFooterCellDef>  </td>
+    </ng-container> 
+  
+     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+     <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  </table>
+  </div> 
+ 
+   
+  <div
+*ngIf="cargando && detallePrecios?.length === 0"
+class="alert alert-warning text-center mt-3 animated fadeIn faster"
+>
+<h4 class="alert-heading">No existen registros</h4>
+
+</div>  
+</form> 
+ 
+<br />

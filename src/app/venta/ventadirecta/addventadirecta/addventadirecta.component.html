@@ -76,7 +76,7 @@
         [(ngModel)]="ventaService.formVenta.idCampain"  
       >   
           <ng-option *ngFor="let emp of campania" 
-          [value]="emp.id">{{emp.descripcion_campain}}</ng-option>
+          [value]="emp.id" [disabled]="emp.estado == 0">{{emp.descripcion_campain}}</ng-option>
        </ng-select> 
     </div> 
   </div>
@@ -93,7 +93,7 @@
         [(ngModel)]="ventaService.formVenta.idCanalVenta"  
       >   
           <ng-option *ngFor="let emp of canalVenta" 
-          [value]="emp.id">{{emp.descripcion_canal}}</ng-option>
+          [value]="emp.id" [disabled]="emp.estado == 0">{{emp.descripcion_canal}}</ng-option>
        </ng-select> 
     </div> 
   </div>
@@ -113,7 +113,7 @@
           [(ngModel)]="ventaService.formVenta.idTipoCotizacion"  
         >   
             <ng-option *ngFor="let emp of tipocotizacion" 
-            [value]="emp.id">{{emp.descrip_tip_cot_venta}}</ng-option>
+            [value]="emp.id" [disabled]="emp.estado == 0">{{emp.descrip_tip_cot_venta}}</ng-option>
          </ng-select> 
       </div> 
     </div>
@@ -130,7 +130,7 @@
           [(ngModel)]="ventaService.formVenta.idLinea"  
         >   
             <ng-option *ngFor="let emp of linea" 
-            [value]="emp.id">{{emp.detalle_linea}}</ng-option>
+            [value]="emp.id" [disabled]="emp.estado == 0">{{emp.detalle_linea}}</ng-option>
          </ng-select> 
       </div> 
     </div>
@@ -147,7 +147,7 @@
           placeholder="Buscar Empleado" 
           [(ngModel)]="ventaService.formVenta.idEmpleado"  
         >   
-            <ng-option *ngFor="let emp of empleados" [value]="emp.id">{{emp.nombre_empleado}}</ng-option>
+            <ng-option *ngFor="let emp of empleados" [value]="emp.id" [disabled]="emp.estado == 0">{{emp.nombre_empleado}}</ng-option>
          </ng-select> 
         </div>
       </div>
@@ -273,7 +273,7 @@
         placeholder="Buscar Forma de Pago"
         [(ngModel)]="ventaService.formVenta.idTipoPago"
       >
-        <ng-option *ngFor="let emp of tipopagos" [value]="emp.id">{{
+        <ng-option *ngFor="let emp of tipopagos" [value]="emp.id" [disabled]="emp.estado == 0" >{{
           emp.descripcion_pago
         }}</ng-option>
      
@@ -292,7 +292,7 @@
             placeholder="Buscar Banco"
             [(ngModel)]="ventaService.formVenta.idBanco"
           >
-            <ng-option *ngFor="let banco of bancos" [value]="banco.id">{{
+            <ng-option *ngFor="let banco of bancos" [value]="banco.id" [disabled]="banco.estado == 0">{{
               banco.descripcion_banco
             }}</ng-option>
           </ng-select> 

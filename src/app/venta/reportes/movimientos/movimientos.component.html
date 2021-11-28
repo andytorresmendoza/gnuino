@@ -22,7 +22,7 @@ class="justify-content-center"
       >
         <ng-option
           *ngFor="let emp of productos"
-          [value]="emp.id"      
+          [value]="emp.id" [disabled]="emp.estado == 0"    
           >{{ emp.nombre_producto }}</ng-option
         >
       </ng-select>
@@ -61,7 +61,7 @@ class="justify-content-center"
           placeholder="Buscar Empleado"
           [(ngModel)]="formData.idEmpleado"
         >
-          <ng-option *ngFor="let emp of empleados" [value]="emp.id">{{
+          <ng-option *ngFor="let emp of empleados" [value]="emp.id" [disabled]="emp.estado == 0">{{
             emp.nombre_empleado
           }}</ng-option>
         </ng-select>
@@ -83,7 +83,7 @@ class="justify-content-center"
               placeholder="Buscar Proveedor"
               [(ngModel)]="formData.idProovedor"
             >
-              <ng-option *ngFor="let emp of proveedores" [value]="emp.id">{{
+              <ng-option *ngFor="let emp of proveedores" [value]="emp.id" [disabled]="emp.estado == 0">{{
                 emp.nombre_proovedor
               }}</ng-option>
             </ng-select>

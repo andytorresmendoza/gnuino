@@ -29,6 +29,8 @@ import { ProveedoresreportComponent } from './reportes/proveedoresreport/proveed
 import { OrdenventareportComponent } from './reportes/ordenventareport/ordenventareport.component';
 import { VentadirectareportComponent } from './reportes/ventadirectareport/ventadirectareport.component';
 import { OrdencomprareportComponent } from './reportes/ordencomprareport/ordencomprareport.component';
+import { PreciosreportComponent } from './reportes/preciosreport/preciosreport.component';
+import { OrdensinocreportComponent } from './reportes/ordensinocreport/ordensinocreport.component';
  
 const routes: Routes = [
  
@@ -61,6 +63,8 @@ const routes: Routes = [
     {path:'ordenVenta', component: OrdenventareportComponent, data:{titulo:'Reporte Orden Venta'}}, 
    {path:'VentaTienda', component: VentadirectareportComponent, data:{titulo:'Reporte Venta Tienda'}},
    {path:'ordenCompra', component: OrdencomprareportComponent, data:{titulo:'Reporte Orden Compra'}},
+   {path:'ReportePrecio', component: PreciosreportComponent, data:{titulo:'Reporte Precios'}},
+   {path:'ReporteSinOc', component: OrdensinocreportComponent, data:{titulo:'Reporte Sin Oc'}},
     // {path:'listarpredelivery/:id', component: ListarempleadodeliveryComponent, data:{titulo:'Asignar Delivery'}},
    
 

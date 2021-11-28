@@ -186,7 +186,7 @@ export class ListardeliverytodosComponent implements OnInit {
 
                     this.ventaService.getDeliTodos(url).subscribe(
                       resp => { 
-                        // console.log(resp);
+                       console.log(resp);
                         if( resp[0] == null   ){
                       //  console.log(resp);
                                this.listaDelivery = [];

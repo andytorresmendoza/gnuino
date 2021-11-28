@@ -80,8 +80,19 @@ name="idProveedor"
   
           <div class="form-group">
             <label>Empleado</label>
-    
-            <ng-select 
+            <ng-select
+            style="text-transform: uppercase"
+              #idEmpleado="ngModel"
+              name="idEmpleado"
+              bindValue="idEmpleado"
+              placeholder="Buscar Vendedor"
+              [(ngModel)]="kardexService.formDataIngresosinOc.idEmpleado"
+            >
+              <ng-option *ngFor="let emp of empleados" [value]="emp.id" [disabled]="emp.estado == 0">{{
+                emp.nombre_empleado
+              }}</ng-option>
+            </ng-select>
+            <!-- <ng-select 
             style="text-transform:uppercase"
             [items]="empleados"
            bindLabel="nombre_empleado"
@@ -92,7 +103,7 @@ name="idProveedor"
            
             >
       
-      </ng-select>
+      </ng-select> -->
      
           </div>
           <div class="form-group">
@@ -119,8 +130,19 @@ name="idProveedor"
 
         <div class="form-group">
             <label> Proveedor</label>
-    
-            <ng-select 
+            <ng-select
+            style="text-transform: uppercase"
+            #idProveedor="ngModel"
+            name="idProveedor"
+            bindValue="idProveedor"
+            placeholder="Buscar Proveedor"
+            [(ngModel)]="kardexService.formDataIngresosinOc.idProveedor"
+          >
+            <ng-option *ngFor="let emp of proveedores" [value]="emp.id" [disabled]="emp.estado == 0">{{
+              emp.nombre_proovedor
+            }}</ng-option>
+          </ng-select>
+            <!-- <ng-select 
             style="text-transform:uppercase"
             [items]="proveedores"
            bindLabel="nombre_proovedor"
@@ -130,7 +152,7 @@ name="idProveedor"
            (change)="onChangeProveedor($event)" 
             >
       
-      </ng-select>
+      </ng-select> -->
         </div>
 
         <div class="form-group">
@@ -162,7 +184,7 @@ name="idProveedor"
           placeholder="Buscar Tipo Moneda" 
           [(ngModel)]="kardexService.formDataIngresosinOc.idTipoMoneda"
         >   
-            <ng-option *ngFor="let emp of tipoMoneda" [value]="emp.id">{{emp.nombre_moneda}}</ng-option>
+            <ng-option *ngFor="let emp of tipoMoneda" [value]="emp.id" [disabled]="emp.estado == 0">{{emp.nombre_moneda}}</ng-option>
          </ng-select>  
 
         </div> 

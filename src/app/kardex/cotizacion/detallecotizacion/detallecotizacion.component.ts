@@ -30,7 +30,7 @@ export class DetallecotizacionComponent implements OnInit {
       this.mantenimientosService.getProducto()
       .subscribe(resp => {
         
-
+      // console.log(resp,'QUE TRAER')
         this.productos = resp;
            });
 
@@ -90,10 +90,20 @@ if (this.data.orderItemIndex == null)
      this.formData.precio_total = (parseFloat(cantidad) * parseFloat(this.formData.precio_unidad)).toFixed(2);
     
   }
-  onChange = ($event: any): void => {
-    console.log($event);
-    this.formData.nombre_producto= $event.nombre_producto; 
-    this.formData.detalleNameUnidadMedida = $event.detalleUnidadMedida[0].detalle 
+  onChange = (id: any): void => {
+   // console.log($event);
+   
+    this.mantenimientosService.getProductoId(id).subscribe(res => {
+     this.formData.nombre_producto = res[0].nombre_producto; 
+     this.formData.detalleNameUnidadMedida = res[0].detalleUnidadMedida[0].detalle; 
+        // console.log(res,'RESPUESTA PRODUCTO');
+       //  console.log( this.formData);
+
+
+   });
+
+    //this.formData.nombre_producto= $event.nombre_producto; 
+    // // this.formData.detalleNameUnidadMedida = $event.detalleUnidadMedida[0].detalle 
  
      
    }

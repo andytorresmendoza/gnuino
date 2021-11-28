@@ -386,6 +386,8 @@ getVentaDirectaById(id: number) {
     
   );
 }
+
+ 
 deleteDetalleVentaDirecta(id: number) {
   return this.http.delete(`${this.baseURL}ventacot-detalle-directa/${id}`);
 }
@@ -460,6 +462,25 @@ return this.http.put(`${this.baseURL}cotizacion-detalle-venta/${id}`, bodyform) 
       // console.log(formData,'SERVICIO');
        return this.http.get(this.baseURL + formData) .pipe(map((resp) => resp['data']));
     }
+    getPreciosReporte(formData: any) {
+      // console.log(formData,'SERVICIO');
+       return this.http.get(this.baseURL + formData);
+    }
+    getOrdensinCompraReporte(formData: any) {
+      // console.log(formData,'SERVICIO');
+       return this.http.get(this.baseURL + formData);
+    }
+
+    DevolucionVenta(id: number, bodyform:any) {
+       console.log(id,bodyform ,'SERVICIO');
+     /* var body = {
+        ...bodyform 
+      };*/
+        // console.log(body,'body');
+     return this.http.put(`${this.baseURL}devolucion-estado/${id}`, bodyform) ;
+      // return this.http.put(`${this.baseURL}devolucion-estado/` + id, bodyform);
+   }
+
 }
 
 

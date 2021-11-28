@@ -11,6 +11,7 @@ import { DataCotizacionVenta } from 'src/app/models/cotizacionventa';
 import { CambiomedidaventaComponent } from '../cambiomedidaventa/cambiomedidaventa.component'; 
 import { VistapreviacotizacionComponent } from '../vistapreviacotizacion/vistapreviacotizacion.component';
 import { MatPaginator } from '@angular/material/paginator';
+import { DevolucionventaComponent } from '../devolucionventa/devolucionventa.component';
 @Component({
   selector: 'app-listarcotizacion',
   templateUrl: './listarcotizacion.component.html',
@@ -70,7 +71,18 @@ cambiomedida( id) {
   });
 
  }
+ DevolucionProducto( id) {
+  // console.log(id,'cambio');
+ const dialogConfig = new MatDialogConfig();
+ dialogConfig.autoFocus = true;
+ dialogConfig.disableClose = true;
+ dialogConfig.width = "50%";
+ dialogConfig.data = { id };
+    this.dialog.open(DevolucionventaComponent, dialogConfig).afterClosed().subscribe(resp=>{
 
+  });
+
+ }
  vistaPrevia( id) {
   // console.log(id,'vista');
  const dialogConfig = new MatDialogConfig();

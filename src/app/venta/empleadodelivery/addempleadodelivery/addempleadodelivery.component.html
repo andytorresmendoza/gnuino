@@ -100,7 +100,7 @@
  
       >
  
-        <ng-option *ngFor="let emp of empleados" [value]="emp.id">{{
+        <ng-option *ngFor="let emp of empleados" [value]="emp.id" [disabled]="emp.estado == 0">{{
           emp.nombre_empleado
         }}</ng-option>
       </ng-select>

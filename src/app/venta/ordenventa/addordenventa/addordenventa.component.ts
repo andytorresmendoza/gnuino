@@ -119,8 +119,12 @@ export class AddordenventaComponent implements OnInit {
     let total_productos =  $event.total_productos.toString();
     let descuento_cot =  $event.descuento_cot.toString();
     let costo_delivery =  $event.costo_delivery.toString();
-  
-   this.ventaService.formOrdenVenta.totalGeneral = (parseFloat(total_productos)-parseFloat(descuento_cot))+parseFloat(costo_delivery);
+    let porcentajeDscto =  $event.porcentajeDscto.toString();
+   this.ventaService.formOrdenVenta.totalGeneral = (parseFloat(total_productos)+parseFloat(costo_delivery))-parseFloat(porcentajeDscto);
+
+   console.log(parseFloat(total_productos),'TOTALPRODUCTOS');
+   console.log(parseFloat(costo_delivery),'TOTALPRODUCTOS');
+   console.log(parseFloat(porcentajeDscto),'TOTALPRODUCTOS');
  
    
     }

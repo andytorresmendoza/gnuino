@@ -53,7 +53,7 @@
           placeholder="Buscar Tipo Orden"
           [(ngModel)]="kardexService.formOrdencompra.idTipoOc"
         >
-          <ng-option *ngFor="let emp of tiporden" [value]="emp.id">{{
+          <ng-option *ngFor="let emp of tiporden" [value]="emp.id" [disabled]="emp.estado == 0">{{
             emp.detalle_tpordencompra
           }}</ng-option>
         </ng-select>
@@ -266,7 +266,7 @@
         placeholder="Buscar Forma de Pago"
         [(ngModel)]="kardexService.formOrdencompra.idTipoPago"
       >
-        <ng-option *ngFor="let emp of tipopagos" [value]="emp.id">{{
+        <ng-option *ngFor="let emp of tipopagos" [value]="emp.id" [disabled]="emp.estado == 0">{{
           emp.descripcion_pago
         }}</ng-option>
       </ng-select>

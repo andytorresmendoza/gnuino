@@ -1,0 +1,39 @@
+
+  .example-container {
+    height: 700px;
+    width: 100%;
+    max-width: 100%;
+    overflow: auto;
+    text-align:center;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+
+  td.mat-column-star {
+    width: 2px;
+    padding-right: 3px;
+  }
+  
+  th.mat-column-codigoProductoBarra, td.mat-column-codigoProductoBarra,
+  th.mat-column-nombre_producto, td.mat-column-nombre_producto,
+  th.mat-column-nombre_alamcen, td.mat-column-nombre_alamcen,
+  th.mat-column-nombre_um, td.mat-column-nombre_um,
+  th.mat-column-precioCompra, td.mat-column-precioCompra,
+  th.mat-column-precioVenta, td.mat-column-precioVenta,
+  th.mat-column-utilidad, td.mat-column-utilidad
+  {
+    padding-left: 10px;
+    text-align:center;
+    padding-right: 25px;
+  }
+ 
+  .mat-table-sticky-border-elem-right {
+    border-left: 1px solid #e0e0e0;
+  }
+  
+  .mat-table-sticky-border-elem-left {
+    border-right: 1px solid #e0e0e0;
+  }

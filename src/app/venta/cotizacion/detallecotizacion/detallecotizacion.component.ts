@@ -77,14 +77,14 @@ export class DetallecotizacionComponent implements OnInit {
         //  console.log(resp);
       });
   }
-  onChange = ($event: any): void => {
-    this.formData.nombre_producto = $event.nombre_producto;
-    this.formData.detalleNameUnidadMedida =
-      $event.detalleUnidadMedida[0].detalle;
-    // console.log('nuevo',$event.nombre_producto);
-    // console.log($event.detalleUnidadMedida[0].detalle);
-    // console.log($event);
-  };
+  onChange = (id: any): void => {
+    
+    this.mantenimientosService.getProductoId(id).subscribe(res => {
+      this.formData.nombre_producto = res[0].nombre_producto; 
+      this.formData.detalleNameUnidadMedida = res[0].detalleUnidadMedida[0].detalle; 
+  
+    });
+  }
 
   onChangeAlmacen = ($event: any): void => {
     //  console.log($event);
